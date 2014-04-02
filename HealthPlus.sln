@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInstitution", "WebInstit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthPlusAPI", "HealthPlusAPI\HealthPlusAPI.csproj", "{DF2793E8-CE74-4B37-B872-EDBC726C1FC6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{C3DC1BF1-1C19-495C-9B09-A51E9A75FAC2}"
+	ProjectSection(SolutionItems) = preProject
+		dbScript.sql = dbScript.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
