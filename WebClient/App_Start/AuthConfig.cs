@@ -22,8 +22,8 @@ namespace WebClient
             //    consumerSecret: "");
 
             //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            //    appId: "234060146782596",
+            //    appSecret: "55b2d9e0d7b6077a3f05f29a42acefc4");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }
