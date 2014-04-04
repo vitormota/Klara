@@ -4,15 +4,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using HealthPlusAPI.Models.ReferenceBank;
 
 namespace HealthPlusAPI.Controllers
 {
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
+        // ficheiro em fase de teste, ver se consegue colocar uma referencia
+        public List<Int32> Get()
         {
-            return new string[] { "value1", "value2" };
+            return HealthPlusAPI.Models.ReferenceBank.Reference.NewReference();
         }
 
         // GET api/values/5
