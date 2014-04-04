@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="robinfoo_lgpModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Acccount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="enum" />
+          <Property Name="fb_id" Type="bigint" Nullable="false" />
+          <Property Name="receive_notification" Type="bool" />
+          <Property Name="show_ads" Type="bool" />
+          <Property Name="currency" Type="enum" />
+        </EntityType>
+        <EntityType Name="Ad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="institution_id" Type="int" Nullable="false" />
+          <Property Name="service" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="specialty" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="discount" Type="float" />
+          <Property Name="start_time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="end_time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="remaining_cupons" Type="int" Nullable="false" />
+          <Property Name="buyed_cupons" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nif" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cupon">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="ad_id" Type="int" Nullable="false" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="start_time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="end_time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="purchase_time" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inst_Group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="website" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Institution">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="group_id" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="latitude" Type="decimal" Precision="10" Scale="8" Nullable="false" />
+          <Property Name="longitude" Type="decimal" Precision="11" Scale="8" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="website" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fax" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Manager_Institution_maps">
+          <Key>
+            <PropertyRef Name="manager_id" />
+            <PropertyRef Name="institution_id" />
+          </Key>
+          <Property Name="manager_id" Type="int" Nullable="false" />
+          <Property Name="institution_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscribable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="subscribable_id" />
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="subscribable_id" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="robinfoo_lgpModelStoreContainer">
+          <EntitySet Name="Acccount" EntityType="Self.Acccount" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Ad" EntityType="Self.Ad" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Cupon" EntityType="Self.Cupon" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Inst_Group" EntityType="Self.Inst_Group" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Institution" EntityType="Self.Institution" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Manager" EntityType="Self.Manager" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Manager_Institution_maps" EntityType="Self.Manager_Institution_maps" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Subscribable" EntityType="Self.Subscribable" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="robinfoo_lgp" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="robinfoo_lgpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Acccount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="fb_id" Type="Int64" Nullable="false" />
+          <Property Name="receive_notification" Type="Boolean" />
+          <Property Name="show_ads" Type="Boolean" />
+          <Property Name="currency" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Ad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="institution_id" Type="Int32" Nullable="false" />
+          <Property Name="service" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="specialty" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" />
+          <Property Name="discount" Type="Single" />
+          <Property Name="start_time" Type="DateTime" Nullable="false" />
+          <Property Name="end_time" Type="DateTime" Nullable="false" />
+          <Property Name="remaining_cupons" Type="Int32" Nullable="false" />
+          <Property Name="buyed_cupons" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nif" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cupon">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="ad_id" Type="Int32" Nullable="false" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="start_time" Type="DateTime" Nullable="false" />
+          <Property Name="end_time" Type="DateTime" Nullable="false" />
+          <Property Name="purchase_time" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inst_Group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="website" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Institution">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="group_id" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitude" Type="Decimal" Nullable="false" />
+          <Property Name="longitude" Type="Decimal" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="website" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Manager_Institution_maps">
+          <Key>
+            <PropertyRef Name="manager_id" />
+            <PropertyRef Name="institution_id" />
+          </Key>
+          <Property Name="manager_id" Type="Int32" Nullable="false" />
+          <Property Name="institution_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscribable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="subscribable_id" />
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="subscribable_id" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="robinfoo_lgpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Acccounts" EntityType="Self.Acccount" />
+          <EntitySet Name="Ads" EntityType="Self.Ad" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Cupons" EntityType="Self.Cupon" />
+          <EntitySet Name="Inst_Group" EntityType="Self.Inst_Group" />
+          <EntitySet Name="Institutions" EntityType="Self.Institution" />
+          <EntitySet Name="Managers" EntityType="Self.Manager" />
+          <EntitySet Name="Manager_Institution_maps" EntityType="Self.Manager_Institution_maps" />
+          <EntitySet Name="Subscribables" EntityType="Self.Subscribable" />
+          <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="robinfoo_lgpModelStoreContainer" CdmEntityContainer="robinfoo_lgpEntities">
+          <EntitySetMapping Name="Acccounts">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Acccount">
+              <MappingFragment StoreEntitySet="Acccount">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="fb_id" ColumnName="fb_id" />
+                <ScalarProperty Name="receive_notification" ColumnName="receive_notification" />
+                <ScalarProperty Name="show_ads" ColumnName="show_ads" />
+                <ScalarProperty Name="currency" ColumnName="currency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ads">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Ad">
+              <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="institution_id" ColumnName="institution_id" />
+                <ScalarProperty Name="service" ColumnName="service" />
+                <ScalarProperty Name="specialty" ColumnName="specialty" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="remaining_cupons" ColumnName="remaining_cupons" />
+                <ScalarProperty Name="buyed_cupons" ColumnName="buyed_cupons" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="nif" ColumnName="nif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cupons">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Cupon">
+              <MappingFragment StoreEntitySet="Cupon">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="purchase_time" ColumnName="purchase_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inst_Group">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Inst_Group">
+              <MappingFragment StoreEntitySet="Inst_Group">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="website" ColumnName="website" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Institutions">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Institution">
+              <MappingFragment StoreEntitySet="Institution">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Manager">
+              <MappingFragment StoreEntitySet="Manager">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manager_Institution_maps">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Manager_Institution_maps">
+              <MappingFragment StoreEntitySet="Manager_Institution_maps">
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="institution_id" ColumnName="institution_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscribables">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Subscribable">
+              <MappingFragment StoreEntitySet="Subscribable">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscriptions">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.Subscription">
+              <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="subscribable_id" ColumnName="subscribable_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c9ffbcd6d41b4ff0ae27f406f2a0790e" Name="Diagram1">
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Acccount" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Ad" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Client" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Cupon" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Inst_Group" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Institution" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Manager" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Manager_Institution_maps" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Subscribable" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Subscription" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
