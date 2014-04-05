@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fe8125a3-322b-4a85-ae27-49f1703f9852" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="4e4225e5-3edb-4928-b96a-0f88a399a461" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="acd00430-d040-4890-b44b-8f6007c22084" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="e3145730-6067-4e17-b7bf-6cccbd7dc26f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
+    <MetadataFile FileName="HpREST_Bridge.xsd" MetadataType="Schema" ID="d7fd25de-61ec-49f8-bffb-c6471d033fdf" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

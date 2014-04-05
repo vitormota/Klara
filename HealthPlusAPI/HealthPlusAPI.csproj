@@ -46,17 +46,29 @@
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.OData">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.5.0.0\lib\net45\System.Web.Http.OData.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -141,55 +153,55 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Acccount.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ad.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cupon.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HealthPlusModel.Context.cs">
+    <Compile Include="Models\HealthPlus.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HealthPlusModel.Context.tt</DependentUpon>
+      <DependentUpon>HealthPlus.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HealthPlusModel.cs">
+    <Compile Include="Models\HealthPlus.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HealthPlusModel.Designer.cs">
+    <Compile Include="Models\HealthPlus.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HealthPlusModel.edmx</DependentUpon>
+      <DependentUpon>HealthPlus.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Institution.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inst_Group.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Manager.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Manager_Institution_maps.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Subscribable.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Subscription.cs">
-      <DependentUpon>HealthPlusModel.tt</DependentUpon>
+      <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -213,22 +225,22 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\HealthPlusModel.edmx">
+    <EntityDeploy Include="Models\HealthPlus.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HealthPlusModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>HealthPlus.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\HealthPlusModel.Context.tt">
+    <Content Include="Models\HealthPlus.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HealthPlusModel.edmx</DependentUpon>
-      <LastGenOutput>HealthPlusModel.Context.cs</LastGenOutput>
+      <DependentUpon>HealthPlus.edmx</DependentUpon>
+      <LastGenOutput>HealthPlus.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\HealthPlusModel.edmx.diagram">
-      <DependentUpon>HealthPlusModel.edmx</DependentUpon>
+    <Content Include="Models\HealthPlus.edmx.diagram">
+      <DependentUpon>HealthPlus.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\HealthPlusModel.tt">
+    <Content Include="Models\HealthPlus.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HealthPlusModel.edmx</DependentUpon>
-      <LastGenOutput>HealthPlusModel.cs</LastGenOutput>
+      <DependentUpon>HealthPlus.edmx</DependentUpon>
+      <LastGenOutput>HealthPlus.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

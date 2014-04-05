@@ -10,13 +10,15 @@ namespace WebClient.Controllers
     {
         public ActionResult Index()
         {
+            
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            HealthPService.IHPService client = new HealthPService.HPServiceClient();
+            ViewBag.Message = client.GetData(1);
             return View();
         }
 
