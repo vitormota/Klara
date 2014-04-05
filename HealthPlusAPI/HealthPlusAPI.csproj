@@ -197,6 +197,7 @@
     <Compile Include="Models\Manager_Institution_maps.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReferenceBank\Reference.cs" />
     <Compile Include="Models\Subscribable.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
