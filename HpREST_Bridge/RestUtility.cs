@@ -63,7 +63,7 @@ namespace HpREST_Bridge
                 post.Write(formData, 0, formData.Length);
             }
 
-            // Pick up the response:
+            // Pick up the resp:
             string result = null;
             using (HttpWebResponse resp = req.GetResponse() as HttpWebResponse)
             {
@@ -89,10 +89,27 @@ namespace HpREST_Bridge
                 streamWriter.Close();
             }
 
-            // Get the response.
-            WebResponse response = request.GetResponse();
-            var streamReader = new StreamReader(response.GetResponseStream());
-            var result = streamReader.ReadToEnd();
+            // Get the resp.
+            WebResponse response = null;
+            string result = null;
+            try
+            {
+                response = request.GetResponse();
+                var streamReader = new StreamReader(response.GetResponseStream());
+                result = streamReader.ReadToEnd();
+            }
+            catch (System.Net.WebException ex)
+            {
+                if (ex.Status == WebExceptionStatus.ProtocolError)
+                {
+                    var resp = ex.Response as HttpWebResponse;
+                    if (resp != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("HTTP Status Code: " + (int)resp.StatusCode);
+                        result = resp.StatusCode.ToString();
+                    }
+                } 
+            }
             return result;
         }
     }
