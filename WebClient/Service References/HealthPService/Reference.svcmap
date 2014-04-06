@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fe8125a3-322b-4a85-ae27-49f1703f9852" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4b315c2b-d56f-49aa-8459-f5d993a09e8c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,10 +22,10 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="4e4225e5-3edb-4928-b96a-0f88a399a461" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="acd00430-d040-4890-b44b-8f6007c22084" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="e3145730-6067-4e17-b7bf-6cccbd7dc26f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
-    <MetadataFile FileName="HpREST_Bridge.xsd" MetadataType="Schema" ID="d7fd25de-61ec-49f8-bffb-c6471d033fdf" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="02f04f94-b34f-4b44-a062-dede061ab78f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="c852589d-2e1c-4e11-830f-4f787734c1c3" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="d8e93b0e-26d1-4811-aab1-534717b6cf40" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
+    <MetadataFile FileName="HpREST_Bridge.xsd" MetadataType="Schema" ID="925ba147-c056-4cdb-90fd-32a5c5806d5f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace HpREST_Bridge
 {
@@ -68,6 +71,28 @@ namespace HpREST_Bridge
                 result = reader.ReadToEnd();
             }
 
+            return result;
+        }
+
+        public static string HttpPostJSON(string url, Object data)
+        {
+            //create an HTTP request to the URL that we need to invoke
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "application/json; charset=utf-8"; //set the content type to JSON
+            request.Method = "POST"; //make an HTTP POST
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                //initiate the request
+                streamWriter.Write(data);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            // Get the response.
+            WebResponse response = request.GetResponse();
+            var streamReader = new StreamReader(response.GetResponseStream());
+            var result = streamReader.ReadToEnd();
             return result;
         }
     }
