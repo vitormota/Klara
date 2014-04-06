@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebClient.HealthPService {
+namespace WebClient_.HealthPService {
     using System.Runtime.Serialization;
     using System;
     
@@ -85,25 +85,32 @@ namespace WebClient.HealthPService {
         System.Threading.Tasks.Task<string> GetDataAsync(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IHPService/GetDataUsingDataContractResponse")]
-        WebClient.HealthPService.CompositeType GetDataUsingDataContract(WebClient.HealthPService.CompositeType composite);
+        WebClient_.HealthPService.CompositeType GetDataUsingDataContract(WebClient_.HealthPService.CompositeType composite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IHPService/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<WebClient.HealthPService.CompositeType> GetDataUsingDataContractAsync(WebClient.HealthPService.CompositeType composite);
+        System.Threading.Tasks.Task<WebClient_.HealthPService.CompositeType> GetDataUsingDataContractAsync(WebClient_.HealthPService.CompositeType composite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAccounts", ReplyAction="http://tempuri.org/IHPService/GetAccountsResponse")]
         string GetAccounts();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAccounts", ReplyAction="http://tempuri.org/IHPService/GetAccountsResponse")]
         System.Threading.Tasks.Task<string> GetAccountsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/RegisterUser", ReplyAction="http://tempuri.org/IHPService/RegisterUserResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(WebClient_.HealthPService.CompositeType))]
+        string RegisterUser(object json_client, object json_account);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/RegisterUser", ReplyAction="http://tempuri.org/IHPService/RegisterUserResponse")]
+        System.Threading.Tasks.Task<string> RegisterUserAsync(object json_client, object json_account);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IHPServiceChannel : WebClient.HealthPService.IHPService, System.ServiceModel.IClientChannel {
+    public interface IHPServiceChannel : WebClient_.HealthPService.IHPService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class HPServiceClient : System.ServiceModel.ClientBase<WebClient.HealthPService.IHPService>, WebClient.HealthPService.IHPService {
+    public partial class HPServiceClient : System.ServiceModel.ClientBase<WebClient_.HealthPService.IHPService>, WebClient_.HealthPService.IHPService {
         
         public HPServiceClient() {
         }
@@ -132,11 +139,11 @@ namespace WebClient.HealthPService {
             return base.Channel.GetDataAsync(value);
         }
         
-        public WebClient.HealthPService.CompositeType GetDataUsingDataContract(WebClient.HealthPService.CompositeType composite) {
+        public WebClient_.HealthPService.CompositeType GetDataUsingDataContract(WebClient_.HealthPService.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
         
-        public System.Threading.Tasks.Task<WebClient.HealthPService.CompositeType> GetDataUsingDataContractAsync(WebClient.HealthPService.CompositeType composite) {
+        public System.Threading.Tasks.Task<WebClient_.HealthPService.CompositeType> GetDataUsingDataContractAsync(WebClient_.HealthPService.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
         }
         
@@ -146,6 +153,14 @@ namespace WebClient.HealthPService {
         
         public System.Threading.Tasks.Task<string> GetAccountsAsync() {
             return base.Channel.GetAccountsAsync();
+        }
+        
+        public string RegisterUser(object json_client, object json_account) {
+            return base.Channel.RegisterUser(json_client, json_account);
+        }
+        
+        public System.Threading.Tasks.Task<string> RegisterUserAsync(object json_client, object json_account) {
+            return base.Channel.RegisterUserAsync(json_client, json_account);
         }
     }
 }

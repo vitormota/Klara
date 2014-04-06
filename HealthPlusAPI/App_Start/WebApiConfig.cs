@@ -16,6 +16,7 @@ namespace HealthPlusAPI
             // Web API routes
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Acccount>("Accounts");
+            builder.EntitySet<Client>("Client");
             config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
         }
     }

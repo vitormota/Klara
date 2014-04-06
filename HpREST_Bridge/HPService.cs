@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 
 namespace HpREST_Bridge
 {
@@ -26,6 +21,7 @@ namespace HpREST_Bridge
         ///     odata/Accounts(1)
         /// </summary>
         private const string accounts_controller = "odata/Accounts";
+        private const string clients_controller = "odata/Client";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -61,5 +57,10 @@ namespace HpREST_Bridge
         //---------------------------------------------------------------------
         // Members - POST
         //---------------------------------------------------------------------
+
+        public string RegisterUser(Object json_client, Object json_account)
+        {
+            return RestUtility.HttpPostJSON(base_url + clients_controller,json_client);
+        }
     }
 }

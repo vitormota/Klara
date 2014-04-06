@@ -21,6 +21,9 @@ namespace HpREST_Bridge
 
         [OperationContract]
         string GetAccounts();
+
+        [OperationContract]
+        string RegisterUser(Object json_client, Object json_account);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

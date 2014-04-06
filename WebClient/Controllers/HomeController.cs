@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace WebClient.Controllers
+namespace WebClient_.Controllers
 {
     public class HomeController : Controller
     {
@@ -18,7 +14,7 @@ namespace WebClient.Controllers
         {
             ViewBag.Message = "Your application description page.";
             HealthPService.IHPService client = new HealthPService.HPServiceClient();
-            ViewBag.Message = client.GetData(1);
+            ViewBag.Message = client.GetAccounts();
             return View();
         }
 
