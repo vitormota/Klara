@@ -194,6 +194,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HealthPlus.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\HealthPlus1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HealthPlus.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Institution.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
@@ -237,7 +242,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <EntityDeploy Include="Models\HealthPlus.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HealthPlus.Designer.cs</LastGenOutput>
+      <LastGenOutput>HealthPlus1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\HealthPlus.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
