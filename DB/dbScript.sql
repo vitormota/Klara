@@ -9,28 +9,50 @@ drop table if exists Client;
 drop table if exists Subscribable;
 drop table if exists Acccount;
 
-create table Acccount (
-	id int not null auto_increment primary key,
-	type enum('client', 'institution'),
-	fb_id bigint not null,
-	receive_notification boolean default 1,
-	show_ads boolean default 1,
-	currency enum('USD', 'EUR', 'YEN')
-);
+--create table Acccount (
+--	id int not null auto_increment primary key,
+--	type enum('client', 'institution'),
+--	fb_id bigint not null,
+--	receive_notification boolean default 1,
+--	show_ads boolean default 1,
+--	currency enum('USD', 'EUR', 'YEN')
+--);
+
+CREATE TABLE Acccount (
+  id int NOT NULL AUTO_INCREMENT,
+  type enum('client','institution') DEFAULT 'client',
+  fb_id bigint(20) NOT NULL,
+  receive_notification boolean DEFAULT 1,
+  show_ads boolean DEFAULT 1,
+  currency enum('USD','EUR','YEN') DEFAULT 'EUR',
+  PRIMARY KEY (id),
+  UNIQUE KEY `fb_id_UNIQUE` (fb_id)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
 
 create table Subscribable (
 	id int not null auto_increment primary key
 );
 
-create table Client (
-	id int not null primary key,
-	name varchar(255) not null,
-	address varchar(255) not null,
-	city varchar(50) not null,
-	phone_number varchar(50) not null,
-	nif varchar(50) not null,
-	foreign key (id) references Acccount(id) on delete cascade
-);
+--create table Client (
+--	id int not null primary key,
+--	name varchar(255) not null,
+--	address varchar(255) not null,
+--	city varchar(50) not null,
+--	phone_number varchar(50) not null,
+--	nif varchar(50) not null,
+--	foreign key (id) references Acccount(id) on delete cascade
+--);
+
+CREATE TABLE Client (
+  id int(11) NOT NULL,
+  name varchar(255) NOT NULL,
+  address varchar(255) NOT NULL,
+  city varchar(50) NOT NULL,
+  phone_number varchar(50) DEFAULT NULL,
+  nif varchar(50) DEFAULT NULL,
+  email varchar(50) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 create table Manager (
 	id int not null primary key,
