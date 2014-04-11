@@ -1,4 +1,6 @@
 ﻿using System;
+using HpREST_Bridge.Auth;
+using Newtonsoft.Json.Linq;
 
 namespace HpREST_Bridge
 {
@@ -21,7 +23,7 @@ namespace HpREST_Bridge
         ///     odata/Accounts(1)
         /// </summary>
         private const string accounts_controller = "odata/Accounts";
-        private const string clients_controller = "odata/Client";
+        private const string clients_controller = "odata/Clients";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -58,9 +60,41 @@ namespace HpREST_Bridge
         // Members - POST
         //---------------------------------------------------------------------
 
-        public string RegisterUser(Object json_client, Object json_account)
+        public string RegisterUser(string access_token, int provider)
         {
-            return RestUtility.HttpPostJSON(base_url + clients_controller,json_client);
+
+            Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token,(Utility.LoginProvider) provider);
+
+            ilp.addFieldRequest(REQUEST.EMAIL, REQUEST.HOMETWON, REQUEST.PROF_PIC, REQUEST.USERNAME);
+            JObject json = JObject.Parse(ilp.makeRequest().ToString());
+
+            string s = (string)json["id"];
+
+            JObject account = new JObject(
+                new JProperty("fb_id", json["id"])
+                );
+
+            JObject response = JObject.Parse(RestUtility.HttpPostJSON(base_url + accounts_controller, account));
+
+            ///Please follow HealthPlusAPI Client model to define this JSON
+            JObject client = new JObject(
+                new JProperty("id", response["id"]),
+                new JProperty("name", json["name"]),
+                new JProperty("city", json["hometown"]["name"]),
+                new JProperty("email", json["email"])
+                );
+
+            response = JObject.Parse(RestUtility.HttpPostJSON(base_url + clients_controller,client));
+
+            return response.ToString();
+        }
+
+
+        public string UserLogin(string access_token, int provider)
+        {
+            Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token, (Utility.LoginProvider)provider);
+            JObject json = JObject.Parse(ilp.makeRequest().ToString());
+            return "";
         }
     }
 }

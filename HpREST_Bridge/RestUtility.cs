@@ -29,7 +29,7 @@ namespace HpREST_Bridge
         }
 
         /// <summary>
-        /// Use this for POST Requests
+        /// Use this for POST Requests with url encoded data
         /// </summary>
         /// <param name="url"></param>
         /// <param name="paramName"></param>
@@ -74,6 +74,14 @@ namespace HpREST_Bridge
             return result;
         }
 
+        /// <summary>
+        /// Make a JSON request with POST headers
+        /// </summary>
+        /// <param name="url">url to send to</param>
+        /// <param name="data">json data object, it can be a string</param>
+        /// <returns>The receiver's response</returns>
+        /// TODO: Should we check json consistency to prevent invalid request to API?
+        /// ERROR handling
         public static string HttpPostJSON(string url, Object data)
         {
             //create an HTTP request to the URL that we need to invoke
@@ -92,7 +100,7 @@ namespace HpREST_Bridge
             // Get the response.
             WebResponse response = request.GetResponse();
             var streamReader = new StreamReader(response.GetResponseStream());
-            var result = streamReader.ReadToEnd();
+            dynamic result = streamReader.ReadToEnd();
             return result;
         }
     }

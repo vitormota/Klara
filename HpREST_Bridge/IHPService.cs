@@ -11,6 +11,7 @@ namespace HpREST_Bridge
     [ServiceContract]
     public interface IHPService
     {
+
         [OperationContract]
         string GetData(int value);
 
@@ -23,7 +24,10 @@ namespace HpREST_Bridge
         string GetAccounts();
 
         [OperationContract]
-        string RegisterUser(Object json_client, Object json_account);
+        string RegisterUser(string access_token, int provider);
+
+        [OperationContract]
+        string UserLogin(string access_token, int provider);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

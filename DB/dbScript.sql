@@ -46,7 +46,7 @@ create table Subscribable (
 CREATE TABLE Client (
   id int(11) NOT NULL,
   name varchar(255) NOT NULL,
-  address varchar(255) NOT NULL,
+  address varchar(255) DEFAULT NULL,
   city varchar(50) NOT NULL,
   phone_number varchar(50) DEFAULT NULL,
   nif varchar(50) DEFAULT NULL,

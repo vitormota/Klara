@@ -97,11 +97,10 @@ namespace WebClient_.HealthPService {
         System.Threading.Tasks.Task<string> GetAccountsAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/RegisterUser", ReplyAction="http://tempuri.org/IHPService/RegisterUserResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(WebClient_.HealthPService.CompositeType))]
-        string RegisterUser(object json_client, object json_account);
+        string RegisterUser(string access_token, int provider);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/RegisterUser", ReplyAction="http://tempuri.org/IHPService/RegisterUserResponse")]
-        System.Threading.Tasks.Task<string> RegisterUserAsync(object json_client, object json_account);
+        System.Threading.Tasks.Task<string> RegisterUserAsync(string access_token, int provider);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -155,12 +154,12 @@ namespace WebClient_.HealthPService {
             return base.Channel.GetAccountsAsync();
         }
         
-        public string RegisterUser(object json_client, object json_account) {
-            return base.Channel.RegisterUser(json_client, json_account);
+        public string RegisterUser(string access_token, int provider) {
+            return base.Channel.RegisterUser(access_token, provider);
         }
         
-        public System.Threading.Tasks.Task<string> RegisterUserAsync(object json_client, object json_account) {
-            return base.Channel.RegisterUserAsync(json_client, json_account);
+        public System.Threading.Tasks.Task<string> RegisterUserAsync(string access_token, int provider) {
+            return base.Channel.RegisterUserAsync(access_token, provider);
         }
     }
 }

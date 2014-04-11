@@ -13,6 +13,9 @@ namespace WebClient_.Controllers
 {
     public class AuthController : Controller
     {
+
+        private HealthPService.IHPService mService = new HPServiceClient();
+
         //
         // GET: /Auth/
         public ActionResult Index()
@@ -21,23 +24,27 @@ namespace WebClient_.Controllers
             return View(registration_info);
         }
 
+        /// <summary>
+        /// Register user
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult registerUser(Register model)
+        public ActionResult registerUser(string access_token,int provider)
         {
-            model.client_model.city = "test";
-            model.client_model.phone_number = "910000000";
-            model.client_model.nif = "250250250";
 
-            model.account_model.type = "client";
-            model.account_model.currency = "USD";
+            string response = mService.RegisterUser(access_token,provider);
 
-            JObject json_client = (JObject)JToken.FromObject(model.client_model);
-            JObject json_account = (JObject)JToken.FromObject(model.account_model);
-            HealthPService.IHPService ser = new HPServiceClient();
-            string res_reg = ser.RegisterUser(json_client.ToString(),json_account.ToString());
-
-            return RedirectToAction("index", "home", new { id = model.account_model.fb_id });
+            return RedirectToAction("index", "home", new { id = 1 });
         }
 
+        [HttpGet]
+        public ActionResult userLogin(string access_token,int provider)
+        {
+            //string response = mService.UserLogin(access_token,provider);
+
+            return RedirectToAction("index", "home", new { id = 1 });
+        }
     }
 }

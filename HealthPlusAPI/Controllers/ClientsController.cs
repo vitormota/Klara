@@ -12,7 +12,6 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
-using Newtonsoft.Json;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -22,28 +21,28 @@ namespace HealthPlusAPI.Controllers
     using System.Web.Http.OData.Builder;
     using HealthPlusAPI.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Client>("Client");
+    builder.EntitySet<Client>("Clients");
     config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
     */
-    public class ClientController : ODataController
+    public class ClientsController : ODataController
     {
         private healthplusEntities db = new healthplusEntities();
 
-        // GET odata/Client
+        // GET odata/Clients
         [Queryable]
-        public IQueryable<Client> GetClient()
+        public IQueryable<Client> GetClients()
         {
-            return db.Clients;
+            return db.Client;
         }
 
-        // GET odata/Client(5)
+        // GET odata/Clients(5)
         [Queryable]
         public SingleResult<Client> GetClient([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Clients.Where(client => client.id == key));
+            return SingleResult.Create(db.Client.Where(client => client.id == key));
         }
 
-        // PUT odata/Client(5)
+        // PUT odata/Clients(5)
         public async Task<IHttpActionResult> Put([FromODataUri] int key, Client client)
         {
             if (!ModelState.IsValid)
@@ -77,8 +76,7 @@ namespace HealthPlusAPI.Controllers
             return Updated(client);
         }
 
-        [HttpPost]
-        // POST odata/Client
+        // POST odata/Clients
         public async Task<IHttpActionResult> Post(Client client)
         {
             if (!ModelState.IsValid)
@@ -86,7 +84,7 @@ namespace HealthPlusAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Clients.Add(client);
+            db.Client.Add(client);
 
             try
             {
@@ -107,7 +105,7 @@ namespace HealthPlusAPI.Controllers
             return Created(client);
         }
 
-        // PATCH odata/Client(5)
+        // PATCH odata/Clients(5)
         [AcceptVerbs("PATCH", "MERGE")]
         public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Client> patch)
         {
@@ -116,7 +114,7 @@ namespace HealthPlusAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            Client client = await db.Clients.FindAsync(key);
+            Client client = await db.Client.FindAsync(key);
             if (client == null)
             {
                 return NotFound();
@@ -143,16 +141,16 @@ namespace HealthPlusAPI.Controllers
             return Updated(client);
         }
 
-        // DELETE odata/Client(5)
+        // DELETE odata/Clients(5)
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            Client client = await db.Clients.FindAsync(key);
+            Client client = await db.Client.FindAsync(key);
             if (client == null)
             {
                 return NotFound();
             }
 
-            db.Clients.Remove(client);
+            db.Client.Remove(client);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -169,7 +167,7 @@ namespace HealthPlusAPI.Controllers
 
         private bool ClientExists(int key)
         {
-            return db.Clients.Count(e => e.id == key) > 0;
+            return db.Client.Count(e => e.id == key) > 0;
         }
     }
 }
