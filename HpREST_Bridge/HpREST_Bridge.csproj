@@ -52,6 +52,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\FacebookLoginAdapter.cs" />
+    <Compile Include="Auth\ILoginProvider.cs" />
+    <Compile Include="Auth\LoginProviderFactory.cs" />
     <Compile Include="Auth\Utility.cs" />
     <Compile Include="IHPService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
