@@ -32,14 +32,14 @@ namespace HealthPlusAPI.Controllers
         [Queryable]
         public IQueryable<Acccount> GetAccounts()
         {
-            return db.Acccounts;
+            return db.Acccount;
         }
 
         // GET odata/Accounts(5)
         [Queryable]
         public SingleResult<Acccount> GetAcccount([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Acccounts.Where(acccount => acccount.id == key));
+            return SingleResult.Create(db.Acccount.Where(acccount => acccount.id == key));
         }
 
         // PUT odata/Accounts(5)
@@ -84,7 +84,7 @@ namespace HealthPlusAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Acccounts.Add(acccount);
+            db.Acccount.Add(acccount);
             await db.SaveChangesAsync();
 
             return Created(acccount);
@@ -99,7 +99,7 @@ namespace HealthPlusAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            Acccount acccount = await db.Acccounts.FindAsync(key);
+            Acccount acccount = await db.Acccount.FindAsync(key);
             if (acccount == null)
             {
                 return NotFound();
@@ -129,13 +129,13 @@ namespace HealthPlusAPI.Controllers
         // DELETE odata/Accounts(5)
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            Acccount acccount = await db.Acccounts.FindAsync(key);
+            Acccount acccount = await db.Acccount.FindAsync(key);
             if (acccount == null)
             {
                 return NotFound();
             }
 
-            db.Acccounts.Remove(acccount);
+            db.Acccount.Remove(acccount);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -152,7 +152,7 @@ namespace HealthPlusAPI.Controllers
 
         private bool AcccountExists(int key)
         {
-            return db.Acccounts.Count(e => e.id == key) > 0;
+            return db.Acccount.Count(e => e.id == key) > 0;
         }
     }
 }
