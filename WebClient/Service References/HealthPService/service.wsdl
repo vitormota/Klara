@@ -31,6 +31,18 @@
   <wsdl:message name="IHPService_RegisterUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:RegisterUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_UserLogin_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserLogin" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_UserLogin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_SearchInstitution_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchInstitution" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_SearchInstitution_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchInstitutionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IHPService">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetData" message="tns:IHPService_GetData_InputMessage" />
@@ -47,6 +59,14 @@
     <wsdl:operation name="RegisterUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/RegisterUser" message="tns:IHPService_RegisterUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/RegisterUserResponse" message="tns:IHPService_RegisterUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserLogin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/UserLogin" message="tns:IHPService_UserLogin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/UserLoginResponse" message="tns:IHPService_UserLogin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchInstitution">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SearchInstitution" message="tns:IHPService_SearchInstitution_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SearchInstitutionResponse" message="tns:IHPService_SearchInstitution_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IHPService" type="tns:IHPService">
@@ -80,6 +100,24 @@
     </wsdl:operation>
     <wsdl:operation name="RegisterUser">
       <soap:operation soapAction="http://tempuri.org/IHPService/RegisterUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserLogin">
+      <soap:operation soapAction="http://tempuri.org/IHPService/UserLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchInstitution">
+      <soap:operation soapAction="http://tempuri.org/IHPService/SearchInstitution" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -24,6 +24,7 @@ namespace HpREST_Bridge
         /// </summary>
         private const string accounts_controller = "odata/Accounts";
         private const string clients_controller = "odata/Clients";
+        private const string institutions_controller = "odata/Institutions";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -95,6 +96,11 @@ namespace HpREST_Bridge
             Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token, (Utility.LoginProvider)provider);
             JObject json = JObject.Parse(ilp.makeRequest().ToString());
             return "";
+        }
+
+        public string SearchInstitution(string textSearch)
+        {
+            return "null";
         }
     }
 }
