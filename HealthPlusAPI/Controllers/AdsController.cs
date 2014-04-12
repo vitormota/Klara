@@ -38,7 +38,10 @@ namespace HealthPlusAPI.Controllers
         [Queryable]
         public IQueryable<Ad> GetAd([FromODataUri] string key)
         {
-            return db.Ad.Where(Ad => Ad.name.Contains(key));
+            return db.Ad.Where(Ad => Ad.name.Contains(key)).Concat( 
+                   db.Ad.Where(Ad => Ad.service.Contains(key))).Concat(
+                   db.Ad.Where(Ad => Ad.specialty.Contains(key))).Concat(
+                   db.Ad.Where(Ad => Ad.description.Contains(key)));
         }
 
         // PUT odata/Ads(5)
