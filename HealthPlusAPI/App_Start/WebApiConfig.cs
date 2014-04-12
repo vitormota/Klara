@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Http.OData.Builder;
 using HealthPlusAPI.Models;
 
+
 namespace HealthPlusAPI
 {
     public static class WebApiConfig
@@ -17,6 +18,7 @@ namespace HealthPlusAPI
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Acccount>("Accounts");
             builder.EntitySet<Client>("Clients");
+            builder.EntitySet<Ad>("Ads");
             config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
         }
     }
