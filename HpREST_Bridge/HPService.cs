@@ -1,6 +1,8 @@
 ﻿using System;
 using HpREST_Bridge.Auth;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace HpREST_Bridge
 {
@@ -100,7 +102,13 @@ namespace HpREST_Bridge
 
         public string SearchInstitution(string textSearch)
         {
-            return "null";
+            Dictionary<string, string> json_str = new Dictionary<string, string>();
+            json_str.Add("textSearch", textSearch);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/SearchInstitution", JsonConvert.SerializeObject(json_str));
+            Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
+
+            return resultDict["value"];
         }
     }
 }

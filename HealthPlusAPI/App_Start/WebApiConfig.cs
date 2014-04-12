@@ -22,9 +22,9 @@ namespace HealthPlusAPI
             builder.EntitySet<Institution>("Institutions");
 
             // Adicionar a action para procurar instituicoes
-            ActionConfiguration searchInstitutions = builder.Entity<Institution>().Action("SearchInstitution");
-            searchInstitutions.Parameter<string>("textSearch");
-            searchInstitutions.Returns<string>();
+            ActionConfiguration searchInstitution = builder.Entity<Institution>().Action("SearchInstitution");
+            searchInstitution.Parameter<string>("textSearch");
+            searchInstitution.Returns<string>();
 
             config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
         }

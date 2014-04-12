@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,7 +21,8 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string SearchInstitution(string textSearch)
         {
-            return textSearch;
+            string result = mService.SearchInstitution(textSearch);
+            return result;
         }
 	}
 }

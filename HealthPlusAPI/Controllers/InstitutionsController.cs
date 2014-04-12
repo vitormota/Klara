@@ -10,7 +10,9 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
+using System.Web.Http.OData.Builder;
 using HealthPlusAPI.Models;
+using Newtonsoft.Json;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -41,9 +43,90 @@ namespace HealthPlusAPI.Controllers
             return SingleResult.Create(db.Institution.Where(institution => institution.id == key));
         }
 
-        public string SearchInstitution(ODataActionParameters parameters)
+        [HttpPost]
+        public string SearchInstitution([FromODataUri] int key, ODataActionParameters parameters)
         {
-            return (string)parameters["textSearch"];
+            string result = null;
+
+            if (!ModelState.IsValid)
+            {
+                BadRequestReturn();
+            }
+            else
+            {
+                // Substituir muitos espacos introduzidos por apenas um espaco
+                string textSearch = (string)parameters["textSearch"];
+                textSearch.Replace("\\s+", " ");
+
+                // Partir a string em palavras para a futura pesquisa
+                string[] arrayStr = textSearch.Split(' ');
+                List<string> listStr = new List<string>();
+
+                // Selecionar as palavras com mais de duas letras
+                for(int i = 0; i < arrayStr.Count(); i++)
+                {
+                    if(arrayStr[i].Length > 2)
+                    {
+                        listStr.Add(arrayStr[i]);
+                    }
+                }
+
+                List<List<Institution>> listInstitution = new List<List<Institution>>();
+                for (int i = 0; i < listStr.Count; i++)
+                {
+                    listInstitution.Add(db.Institution.Where(Institution => Institution.city.Contains(listStr[i])).Union(db.Institution.Where(Institution => Institution.name.Contains(listStr[i]))).ToList());
+                }
+
+                // Pedaco de codigo que vai dar a ordem da pesquisa
+                Dictionary<Institution, int> searchResult = new Dictionary<Institution, int>(); // Local onde ficam guardados os registos da pesquisa
+                List<int> auxNum = new List<int>(); // Vai guardar os valores de forma provisoria
+
+                for (int i = 0; i < listInstitution.Count; i++)
+                {
+                    for(int l = 0; l < listInstitution[i].Count; l++)
+                    {
+                        int similiar_values = 0; // serve para ver o numero de repeticoes entre listas
+
+                        for (int j = 0; j < listInstitution.Count; j++)
+                        {
+                            for (int k = 0; k < listInstitution[j].Count; k++)
+                            {
+                                if(listInstitution[i][l].id == listInstitution[j][k].id)
+                                {
+                                    similiar_values++;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if(listStr.Count > 9)
+                        {
+                            if(similiar_values > 4)
+                            {
+                                if(!searchResult.ContainsKey(listInstitution[i][l]))
+                                {
+                                    searchResult.Add(listInstitution[i][l], similiar_values);
+                                    auxNum.Add(similiar_values);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!searchResult.ContainsKey(listInstitution[i][l]))
+                            {
+                                searchResult.Add(listInstitution[i][l], similiar_values);
+                                auxNum.Add(similiar_values);
+                            }
+                        }
+                    }
+                }
+
+               
+
+                    result = listStr.ToString();
+            }
+
+            return result;
         }
 
         // PUT odata/Institutions(5)
@@ -172,6 +255,11 @@ namespace HealthPlusAPI.Controllers
         private bool InstitutionExists(int key)
         {
             return db.Institution.Count(e => e.id == key) > 0;
+        }
+
+        private IHttpActionResult BadRequestReturn()
+        {
+            return BadRequest(ModelState);
         }
     }
 }
