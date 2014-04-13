@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInstitution", "WebInstitution\WebInstitution.csproj", "{2F55F10D-C61B-4876-A1A5-1A1B2F857E4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthPlusAPI", "HealthPlusAPI\HealthPlusAPI.csproj", "{F8A5B296-5847-482B-8151-FD45C1516B0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{0414D5A9-FA2C-4ED8-A2EA-B66A9DEAEEA0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0087976E-B2F1-4163-8574-C070EE07D51C} = {0087976E-B2F1-4163-8574-C070EE07D51C}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{B97E69C7-3E18-4B9D-AFD4-19E895F8E748}"
 	ProjectSection(SolutionItems) = preProject

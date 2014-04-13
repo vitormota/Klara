@@ -57,7 +57,9 @@
       <HintPath>..\packages\MySql.Data.Entity.EF6.6.8.3\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -156,8 +158,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\AdsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstitutionsController.cs" />
+    <Compile Include="Controllers\ReferenceBankController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,6 +172,7 @@
     <Compile Include="Models\Ad.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuxiliarClass\AuxiliarFunctions.cs" />
     <Compile Include="Models\Client.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
@@ -184,6 +190,11 @@
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HealthPlus.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HealthPlus.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HealthPlus1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HealthPlus.edmx</DependentUpon>
@@ -231,7 +242,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <EntityDeploy Include="Models\HealthPlus.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HealthPlus.Designer.cs</LastGenOutput>
+      <LastGenOutput>HealthPlus1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\HealthPlus.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

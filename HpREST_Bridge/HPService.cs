@@ -1,8 +1,8 @@
 ﻿using System;
 using HpREST_Bridge.Auth;
 using Newtonsoft.Json.Linq;
-using System.Net;
-
+using System.Net;using System.Collections.Generic;
+using Newtonsoft.Json;
 namespace HpREST_Bridge
 {
 
@@ -25,6 +25,8 @@ namespace HpREST_Bridge
         /// </summary>
         private const string accounts_controller = "odata/Accounts";
         private const string clients_controller = "odata/Clients";
+        private const string institutions_controller = "odata/Institutions";
+        private const string ads_controller = "odata/Ads";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -121,6 +123,26 @@ namespace HpREST_Bridge
             }
 
             return response.ToString();
+        }
+
+        public string SearchInstitution(string textSearch)
+        {
+            Dictionary<string, string> json_str = new Dictionary<string, string>();
+            json_str.Add("textSearch", textSearch);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/SearchInstitution", JsonConvert.SerializeObject(json_str));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            string auxJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes
+            return auxJSON;
+        }
+
+        public string SearchAd(string textSearch)
+        {
+            
+            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
+            
+            return responce;
         }
     }
 }

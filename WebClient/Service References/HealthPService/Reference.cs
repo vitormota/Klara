@@ -107,6 +107,18 @@ namespace WebClient_.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UserLogin", ReplyAction="http://tempuri.org/IHPService/UserLoginResponse")]
         System.Threading.Tasks.Task<string> UserLoginAsync(string access_token, int provider);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchInstitution", ReplyAction="http://tempuri.org/IHPService/SearchInstitutionResponse")]
+        string SearchInstitution(string textSearch);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchInstitution", ReplyAction="http://tempuri.org/IHPService/SearchInstitutionResponse")]
+        System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchAd", ReplyAction="http://tempuri.org/IHPService/SearchAdResponse")]
+        string SearchAd(string textSearch);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchAd", ReplyAction="http://tempuri.org/IHPService/SearchAdResponse")]
+        System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -174,6 +186,22 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> UserLoginAsync(string access_token, int provider) {
             return base.Channel.UserLoginAsync(access_token, provider);
+        }
+        
+        public string SearchInstitution(string textSearch) {
+            return base.Channel.SearchInstitution(textSearch);
+        }
+        
+        public System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch) {
+            return base.Channel.SearchInstitutionAsync(textSearch);
+        }
+        
+        public string SearchAd(string textSearch) {
+            return base.Channel.SearchAd(textSearch);
+        }
+        
+        public System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch) {
+            return base.Channel.SearchAdAsync(textSearch);
         }
     }
 }
