@@ -85,4 +85,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SearchAd">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="textSearch" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchAdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SearchAdResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

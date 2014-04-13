@@ -27,6 +27,7 @@ namespace HpREST_Bridge
         private const string accounts_controller = "odata/Accounts";
         private const string clients_controller = "odata/Clients";
         private const string institutions_controller = "odata/Institutions";
+        private const string ads_controller = "odata/Ads";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -110,6 +111,14 @@ namespace HpREST_Bridge
 
             string auxJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes
             return auxJSON;
+        }
+
+        public string SearchAd(string textSearch)
+        {
+            
+            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
+            
+            return responce;
         }
     }
 }
