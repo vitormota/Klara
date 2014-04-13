@@ -28,6 +28,7 @@ namespace HealthPlusAPI.Controllers
     public class InstitutionsController : ODataController
     {
         private healthplusEntities db = new healthplusEntities();
+        private Models.AuxiliarClass.AuxiliarFunctions auxFunctions = new Models.AuxiliarClass.AuxiliarFunctions();
 
         // GET odata/Institutions
         [Queryable]
@@ -56,7 +57,7 @@ namespace HealthPlusAPI.Controllers
             {
                 // Substituir muitos espacos introduzidos por apenas um espaco
                 string textSearch = (string)parameters["textSearch"];
-                textSearch.Replace("\\s+", " ");
+                textSearch.Replace("(,|?|!|&|=|\\(|\\))*\\s+(,|?|!|&|=|\\(|\\))*", " ");
 
                 // Partir a string em palavras para a futura pesquisa
                 string[] arrayStr = textSearch.Split(' ');
@@ -74,56 +75,74 @@ namespace HealthPlusAPI.Controllers
                 List<List<Institution>> listInstitution = new List<List<Institution>>();
                 for (int i = 0; i < listStr.Count; i++)
                 {
-                    listInstitution.Add(db.Institution.Where(Institution => Institution.city.Contains(listStr[i])).Union(db.Institution.Where(Institution => Institution.name.Contains(listStr[i]))).ToList());
+                    List<Institution> auxList = new List<Institution>(); // Lista para auxiliar nos foreach
+                    string searchTextFor = auxFunctions.RemoverAcentos(listStr[i]).ToLower(); // Esta variavel auxiliar teve de ser criada para que possa funcionar na query que esta abaixo
+                    //listInstitution.Add(db.Institution.Where(Institution => auxFunctions.RemoverAcentos(Institution.city).Contains(searchTextFor)).Union(db.Institution.Where(Institution => auxFunctions.RemoverAcentos(Institution.name).Contains(searchTextFor))).ToList());
+                    
+                    foreach(Institution institution in db.Institution)
+                    {
+                        if(auxFunctions.RemoverAcentos(institution.name).ToLower().Contains(searchTextFor))
+                        {
+                            if(!auxList.Contains(institution))
+                            {
+                                auxList.Add(institution);
+                            }
+                        }
+                        else if(auxFunctions.RemoverAcentos(institution.city).ToLower().Contains(searchTextFor))
+                        {
+                            if (!auxList.Contains(institution))
+                            {
+                                auxList.Add(institution);
+                            }
+                        }
+                    }
+
+                    listInstitution.Add(auxList);
                 }
 
                 // Pedaco de codigo que vai dar a ordem da pesquisa
                 Dictionary<Institution, int> searchResult = new Dictionary<Institution, int>(); // Local onde ficam guardados os registos da pesquisa
-                List<int> auxNum = new List<int>(); // Vai guardar os valores de forma provisoria
-
+            
                 for (int i = 0; i < listInstitution.Count; i++)
                 {
-                    for(int l = 0; l < listInstitution[i].Count; l++)
+                    for (int l = 0; l < listInstitution[i].Count; l++)
                     {
                         int similiar_values = 0; // serve para ver o numero de repeticoes entre listas
 
-                        for (int j = 0; j < listInstitution.Count; j++)
+                        if (!searchResult.ContainsKey(listInstitution[i][l])) // se a instituicao ja estiver la nao precisa de fazer os ciclos
                         {
-                            for (int k = 0; k < listInstitution[j].Count; k++)
+                            for (int j = 0; j < listInstitution.Count; j++)
                             {
-                                if(listInstitution[i][l].id == listInstitution[j][k].id)
+                                for (int k = 0; k < listInstitution[j].Count; k++)
                                 {
-                                    similiar_values++;
-                                    break;
+                                    if (listInstitution[i][l].id == listInstitution[j][k].id)
+                                    {
+                                        similiar_values++;
+                                        break;
+                                    }
                                 }
                             }
-                        }
 
-                        if(listStr.Count > 9)
-                        {
-                            if(similiar_values > 4)
-                            {
-                                if(!searchResult.ContainsKey(listInstitution[i][l]))
-                                {
-                                    searchResult.Add(listInstitution[i][l], similiar_values);
-                                    auxNum.Add(similiar_values);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (!searchResult.ContainsKey(listInstitution[i][l]))
-                            {
-                                searchResult.Add(listInstitution[i][l], similiar_values);
-                                auxNum.Add(similiar_values);
-                            }
+                            searchResult.Add(listInstitution[i][l], similiar_values);
                         }
                     }
                 }
+                // Final do ciclo for
 
-               
+                Dictionary<Institution, int> searchResultSort = new Dictionary<Institution, int>();
+                foreach(var institution in searchResult.OrderBy(inst => inst.Value))
+                {
+                    searchResultSort.Add(institution.Key, institution.Value);
+                }
 
-                    result = listStr.ToString();
+                List<Institution> listFinalSearch = new List<Institution>(); // Lista, gerada a partir de um dicionario, que vai ter as instituicoes ordenadas, foi feito com uma lista para auxiliar na conversao para JSON
+                foreach(var institution in searchResultSort)
+                {
+                    listFinalSearch.Add(institution.Key);
+                }
+
+                listFinalSearch.Reverse(); // necessario inverter a ordem para primeiro mostrar aqueles que estao mais de acordo com o input
+                result = JsonConvert.SerializeObject(listFinalSearch);
             }
 
             return result;

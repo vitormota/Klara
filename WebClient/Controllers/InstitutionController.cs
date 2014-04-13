@@ -22,7 +22,9 @@ namespace WebClient_.Controllers
         public string SearchInstitution(string textSearch)
         {
             string result = mService.SearchInstitution(textSearch);
-            return result;
+            
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+            return JsonConvert.SerializeObject(resultList); // Para testar se esta a funcionar bem
         }
 	}
 }

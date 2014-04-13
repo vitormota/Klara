@@ -106,9 +106,10 @@ namespace HpREST_Bridge
             json_str.Add("textSearch", textSearch);
 
             string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/SearchInstitution", JsonConvert.SerializeObject(json_str));
-            Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
-            return resultDict["value"];
+            string auxJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes
+            return auxJSON;
         }
     }
 }

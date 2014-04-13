@@ -172,6 +172,7 @@
     <Compile Include="Models\Ad.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuxiliarClass\AuxiliarFunctions.cs" />
     <Compile Include="Models\Client.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
