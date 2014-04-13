@@ -1,6 +1,4 @@
-﻿@model WebClient_.Models.Register
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -31,14 +29,14 @@
     <fieldset>
         <legend>Registration info</legend>
 
-        @Html.HiddenFor(model => model.account_model.fb_id)
+        @*@Html.HiddenFor(model => model.account_model.fb_id)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.client_model.name)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.client_model.name)
-        </div>
+        </div>*@
 
         @* As of time of writing DB does not suport email for a user 
             
@@ -53,7 +51,7 @@
                 @Html.EditorFor(model => model.client_model.email)
             </div>*@
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.client_model.phone_number)
         </div>
         <div class="editor-field">
@@ -65,16 +63,12 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.client_model.address)
         </div>
-        <div>
-            <label>Is this your tromba?</label>
-            <img id="user_photo" />
-        </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.client_model.nif)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.client_model.nif)
-        </div>
+        </div>*@
         <br />
         <input type="submit" value="Confirm" />
     </fieldset>

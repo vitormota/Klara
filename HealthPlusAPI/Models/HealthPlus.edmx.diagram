@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6347c224868d475b92500c408998d9cb" Name="Diagram1">
-        <EntityTypeShape EntityType="robinfoo_lgpModel.Acccount" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="0862b912cad2479ab6a0ddc17de6dc3e" Name="Diagram1">
+        <EntityTypeShape EntityType="robinfoo_lgpModel.Account" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="robinfoo_lgpModel.Ad" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="robinfoo_lgpModel.Client" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="robinfoo_lgpModel.Cupon" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />

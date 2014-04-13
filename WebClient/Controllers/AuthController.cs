@@ -20,8 +20,8 @@ namespace WebClient_.Controllers
         // GET: /Auth/
         public ActionResult Index()
         {
-            Register registration_info = new Register();
-            return View(registration_info);
+            
+            return View();
         }
 
         /// <summary>
@@ -34,17 +34,34 @@ namespace WebClient_.Controllers
         public ActionResult registerUser(string access_token,int provider)
         {
 
-            string response = mService.RegisterUser(access_token,provider);
+            JObject response = JObject.Parse(mService.RegisterUser(access_token,provider));
 
-            return RedirectToAction("index", "home", new { id = 1 });
+            //Save session
+            saveSession(response,access_token,provider);
+
+            return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult userLogin(string access_token,int provider)
         {
-            //string response = mService.UserLogin(access_token,provider);
+            JObject response = JObject.Parse(mService.UserLogin(access_token,provider));
 
-            return RedirectToAction("index", "home", new { id = 1 });
+            //Save session
+            saveSession(response,access_token,provider);
+            
+            return RedirectToAction("Index", "Home");
+        }
+
+        private void saveSession(JObject json,string access_token,int provider_id)
+        {
+            Session["name"] = json["name"].ToString();
+            Session["access_token"] = access_token;
+            Session["provider_id"] = provider_id;
+            //If it is a returning user this value will be null
+            //and must be fecthed async
+            //if the user just registered picture picture_url will be availiable
+            Session["profile_picture_url"] = json["picture"];
         }
     }
 }

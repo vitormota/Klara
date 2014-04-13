@@ -25,7 +25,7 @@ namespace HealthPlusAPI.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Acccount> Acccount { get; set; }
+        public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<Ad> Ad { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Cupon> Cupon { get; set; }

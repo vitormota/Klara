@@ -13,6 +13,10 @@ namespace HpREST_Bridge.Auth
     class FacebookLoginAdapter : ILoginProvider
     {
 
+        /// <summary>
+        /// Add fields to this dictionary as provided on
+        /// http://developers.facebook.com
+        /// </summary>
         private readonly Dictionary<int, string> FIELDS = new Dictionary<int, string>(){
             {5 , "email" }, 
             {10 , "username"},

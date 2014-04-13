@@ -21,7 +21,7 @@ namespace HealthPlusAPI.Controllers
     using System.Web.Http.OData.Builder;
     using HealthPlusAPI.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Acccount>("Accounts");
+    builder.EntitySet<Account>("Accounts");
     config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
     */
     public class AccountsController : ODataController
@@ -30,32 +30,32 @@ namespace HealthPlusAPI.Controllers
 
         // GET odata/Accounts
         [Queryable]
-        public IQueryable<Acccount> GetAccounts()
+        public IQueryable<Account> GetAccounts()
         {
-            return db.Acccount;
+            return db.Account;
         }
 
-        // GET odata/Accounts(5)
+        // GET odata/Accounts(5L)
         [Queryable]
-        public SingleResult<Acccount> GetAcccount([FromODataUri] int key)
+        public SingleResult<Account> GetAccount([FromODataUri] long key)
         {
-            return SingleResult.Create(db.Acccount.Where(acccount => acccount.id == key));
+            return SingleResult.Create(db.Account.Where(Account => Account.fb_id == key));
         }
 
         // PUT odata/Accounts(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] int key, Acccount acccount)
+        public async Task<IHttpActionResult> Put([FromODataUri] int key, Account Account)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (key != acccount.id)
+            if (key != Account.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(acccount).State = EntityState.Modified;
+            db.Entry(Account).State = EntityState.Modified;
 
             try
             {
@@ -63,7 +63,7 @@ namespace HealthPlusAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AcccountExists(key))
+                if (!AccountExists(key))
                 {
                     return NotFound();
                 }
@@ -73,39 +73,39 @@ namespace HealthPlusAPI.Controllers
                 }
             }
 
-            return Updated(acccount);
+            return Updated(Account);
         }
 
         // POST odata/Accounts
-        public async Task<IHttpActionResult> Post(Acccount acccount)
+        public async Task<IHttpActionResult> Post(Account Account)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Acccount.Add(acccount);
+            db.Account.Add(Account);
             await db.SaveChangesAsync();
 
-            return Created(acccount);
+            return Created(Account);
         }
 
         // PATCH odata/Accounts(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Acccount> patch)
+        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Account> patch)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Acccount acccount = await db.Acccount.FindAsync(key);
-            if (acccount == null)
+            Account Account = await db.Account.FindAsync(key);
+            if (Account == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(acccount);
+            patch.Patch(Account);
 
             try
             {
@@ -113,7 +113,7 @@ namespace HealthPlusAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AcccountExists(key))
+                if (!AccountExists(key))
                 {
                     return NotFound();
                 }
@@ -123,19 +123,19 @@ namespace HealthPlusAPI.Controllers
                 }
             }
 
-            return Updated(acccount);
+            return Updated(Account);
         }
 
         // DELETE odata/Accounts(5)
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            Acccount acccount = await db.Acccount.FindAsync(key);
-            if (acccount == null)
+            Account Account = await db.Account.FindAsync(key);
+            if (Account == null)
             {
                 return NotFound();
             }
 
-            db.Acccount.Remove(acccount);
+            db.Account.Remove(Account);
             await db.SaveChangesAsync();
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -150,9 +150,9 @@ namespace HealthPlusAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool AcccountExists(int key)
+        private bool AccountExists(int key)
         {
-            return db.Acccount.Count(e => e.id == key) > 0;
+            return db.Account.Count(e => e.id == key) > 0;
         }
     }
 }

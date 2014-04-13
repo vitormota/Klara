@@ -36,10 +36,11 @@ window.fbAsyncInit = function () {
 function getData() {
     FB.getLoginStatus(function (response) {
         var accessToken = response.authResponse.accessToken;
-        $.post("/Auth/registerUser", { 'access_token': accessToken , 'provider' : FACEBOOK_CODE },
+        $.post("/Auth/userLogin", { 'access_token': accessToken , 'provider' : FACEBOOK_CODE },
         function (data, statusText) {
             var name = data.name;
             var id = data.id;
+            setTimeout(function () { window.location.href = "Home/" }, 500);;
         });
     });
 }

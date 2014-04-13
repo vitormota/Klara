@@ -1,6 +1,7 @@
 ﻿using System;
 using HpREST_Bridge.Auth;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace HpREST_Bridge
 {
@@ -66,35 +67,60 @@ namespace HpREST_Bridge
             Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token,(Utility.LoginProvider) provider);
 
             ilp.addFieldRequest(REQUEST.EMAIL, REQUEST.HOMETWON, REQUEST.PROF_PIC, REQUEST.USERNAME);
-            JObject json = JObject.Parse(ilp.makeRequest().ToString());
-
-            string s = (string)json["id"];
+            JObject face_response = JObject.Parse(ilp.makeRequest().ToString());
 
             JObject account = new JObject(
-                new JProperty("fb_id", json["id"])
+                //new JProperty("fb_id", face_response["id"])
+                new JProperty("fb_id", face_response["id"].ToString())
                 );
 
-            JObject response = JObject.Parse(RestUtility.HttpPostJSON(base_url + accounts_controller, account));
+            JObject api_response = JObject.Parse(RestUtility.HttpPostJSON(base_url + accounts_controller, account));
 
             ///Please follow HealthPlusAPI Client model to define this JSON
             JObject client = new JObject(
-                new JProperty("id", response["id"]),
-                new JProperty("name", json["name"]),
-                new JProperty("city", json["hometown"]["name"]),
-                new JProperty("email", json["email"])
+                new JProperty("id", api_response["id"]),
+                new JProperty("name", face_response["name"]),
+                new JProperty("city", face_response["hometown"]["name"]),
+                new JProperty("email", face_response["email"])
                 );
 
-            response = JObject.Parse(RestUtility.HttpPostJSON(base_url + clients_controller,client));
+            api_response = JObject.Parse(RestUtility.HttpPostJSON(base_url + clients_controller,client));
+            api_response.Add(new JProperty("picture", face_response["picture"]["data"]["url"]));
 
-            return response.ToString();
+            return api_response.ToString();
         }
 
 
         public string UserLogin(string access_token, int provider)
         {
             Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token, (Utility.LoginProvider)provider);
+            
+            //Grab the user id
             JObject json = JObject.Parse(ilp.makeRequest().ToString());
-            return "";
+            //Find it on DB
+            string get_result = null;
+
+            //If user is not present on DB, API will respond with a 404,
+            //causing the api_response parsing to throw an exception...
+            //until proper solution is found, this is the implemented workaround
+
+            get_result = RestUtility.HttpGet(base_url + accounts_controller + "(" + json["id"] + "L)");
+            if(get_result==null && ((HttpWebResponse)RestUtility.exception.Response).StatusCode==HttpStatusCode.NotFound){
+                //If API responded with a 404 the exception was caught and stored
+                //
+                //TODO: Fix API, so a proper api_response is made, and the service won't crash...
+                return RegisterUser(access_token, provider);
+            }
+            JObject response = JObject.Parse(get_result);
+            response.Add(new JProperty("name", json["name"].ToString()));
+            JToken provider_id = response["fb_id"];
+            if (provider_id == null)
+            {
+                //not registered
+                return RegisterUser(access_token,provider);
+            }
+
+            return response.ToString();
         }
     }
 }

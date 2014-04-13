@@ -12,9 +12,9 @@ namespace HealthPlusAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Acccount
+    public partial class Account
     {
-        public Acccount()
+        public Account()
         {
             this.type = "client";
             this.receive_notification = true;

@@ -1,9 +1,15 @@
-﻿@{
+﻿@model WebClient_.Models.UserInfo
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
+
+@*Test*@
+@Html.DisplayNameFor(model=>model.name)
+@Html.DisplayFor(model=>model.name)
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>

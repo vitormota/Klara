@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using WebClient_.Models;
 
 namespace WebClient_.Controllers
 {
@@ -6,8 +7,15 @@ namespace WebClient_.Controllers
     {
         public ActionResult Index()
         {
-            
-            return View();
+            //TEST
+            UserInfo user = new UserInfo();
+            user.name = (string)Session["name"];
+            if (Session["picture"] != null)
+            {
+                user.picture_url = (string)Session["picture"].ToString();
+            }
+
+            return View(user);
         }
 
         public ActionResult About()

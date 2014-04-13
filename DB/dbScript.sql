@@ -9,7 +9,7 @@ drop table if exists Client;
 drop table if exists Subscribable;
 drop table if exists Acccount;
 
---create table Acccount (
+--create table Account (
 --	id int not null auto_increment primary key,
 --	type enum('client', 'institution'),
 --	fb_id bigint not null,
@@ -18,7 +18,7 @@ drop table if exists Acccount;
 --	currency enum('USD', 'EUR', 'YEN')
 --);
 
-CREATE TABLE Acccount (
+CREATE TABLE Account (
   id int NOT NULL AUTO_INCREMENT,
   type enum('client','institution') DEFAULT 'client',
   fb_id bigint(20) NOT NULL,

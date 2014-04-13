@@ -161,7 +161,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Acccount.cs">
+    <Compile Include="Models\Account.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ad.cs">

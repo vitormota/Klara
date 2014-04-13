@@ -11,6 +11,9 @@ namespace HpREST_Bridge
 {
     class RestUtility
     {
+
+        public static WebException exception = null;
+
         /// <summary>
         /// Use this for GET Requests
         /// </summary>
@@ -20,11 +23,27 @@ namespace HpREST_Bridge
         {
             HttpWebRequest req = WebRequest.Create(url) as HttpWebRequest;
             string result = null;
-            using (HttpWebResponse resp = req.GetResponse() as HttpWebResponse)
+            //TODO: remove try catch clause
+            //this is a workaround bacause API when queryied if a user exists on DB (and it doesn't)
+            //the api_response will be a 404, causing an WebException
+            try
             {
-                StreamReader reader = new StreamReader(resp.GetResponseStream());
-                result = reader.ReadToEnd();
+                using (HttpWebResponse resp = req.GetResponse() as HttpWebResponse)
+                {
+                    StreamReader reader = new StreamReader(resp.GetResponseStream());
+                    result = reader.ReadToEnd();
+                }
             }
+            catch (WebException ex)
+            {
+                if (ex.Status == WebExceptionStatus.ProtocolError)
+                {
+                    exception = ex;
+                    System.Diagnostics.Debug.WriteLine("Status Code : {0}", ((HttpWebResponse)ex.Response).StatusCode);
+                    System.Diagnostics.Debug.WriteLine("Status Description : {0}", ((HttpWebResponse)ex.Response).StatusDescription);
+                }
+            }
+            
             return result;
         }
 
@@ -78,9 +97,9 @@ namespace HpREST_Bridge
         /// Make a JSON request with POST headers
         /// </summary>
         /// <param name="url">url to send to</param>
-        /// <param name="data">json data object, it can be a string</param>
-        /// <returns>The receiver's response</returns>
-        /// TODO: Should we check json consistency to prevent invalid request to API?
+        /// <param name="data">face_response data object, it can be a string</param>
+        /// <returns>The receiver's api_response</returns>
+        /// TODO: Should we check face_response consistency to prevent invalid request to API?
         /// ERROR handling
         public static string HttpPostJSON(string url, Object data)
         {
@@ -97,7 +116,7 @@ namespace HpREST_Bridge
                 streamWriter.Close();
             }
 
-            // Get the response.
+            // Get the api_response.
             WebResponse response = request.GetResponse();
             var streamReader = new StreamReader(response.GetResponseStream());
             dynamic result = streamReader.ReadToEnd();
