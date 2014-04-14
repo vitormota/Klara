@@ -32,6 +32,12 @@ namespace HealthPlusAPI
             institutionsSubscribe.Parameter<string>("client_id");
             institutionsSubscribe.Returns<string>();
 
+            // Adicionar a action para eliminar uma subscricao anteriormente feita
+            ActionConfiguration deleteSubscription = builder.Entity<Subscription>().Action("DeleteSubscription");
+            deleteSubscription.Parameter<string>("client_id");
+            deleteSubscription.Parameter<string>("institution_id");
+            deleteSubscription.Returns<string>();
+
             builder.EntitySet<Institution>("Institutions");
 
             // Adicionar a action para procurar instituicoes

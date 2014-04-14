@@ -131,6 +131,12 @@ namespace WebClient_.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/SubscribeInstitutionResponse")]
         System.Threading.Tasks.Task<string> SubscribeInstitutionAsync(int institution_id, long client_id_by_session);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UnsubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/UnsubscribeInstitutionResponse")]
+        string UnsubscribeInstitution(int institution_id, long client_id_by_session);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UnsubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/UnsubscribeInstitutionResponse")]
+        System.Threading.Tasks.Task<string> UnsubscribeInstitutionAsync(int institution_id, long client_id_by_session);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -230,6 +236,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> SubscribeInstitutionAsync(int institution_id, long client_id_by_session) {
             return base.Channel.SubscribeInstitutionAsync(institution_id, client_id_by_session);
+        }
+        
+        public string UnsubscribeInstitution(int institution_id, long client_id_by_session) {
+            return base.Channel.UnsubscribeInstitution(institution_id, client_id_by_session);
+        }
+        
+        public System.Threading.Tasks.Task<string> UnsubscribeInstitutionAsync(int institution_id, long client_id_by_session) {
+            return base.Channel.UnsubscribeInstitutionAsync(institution_id, client_id_by_session);
         }
     }
 }

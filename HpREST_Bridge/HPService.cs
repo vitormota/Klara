@@ -179,7 +179,39 @@ namespace HpREST_Bridge
                     new JProperty("subscribable_id", institution_id),
                     new JProperty("client_id", client_id));
 
-                return_str = RestUtility.HttpPostJSON(base_url + subscriptions_controller, subscription);
+                string postJSONSubs = RestUtility.HttpPostJSON(base_url + subscriptions_controller, subscription);
+                Dictionary<string, Object> resultDictSubs = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSONSubs);
+
+                return_str = resultDictSubs["value"].ToString();
+            }
+
+            return return_str;
+        }
+
+        public string UnsubscribeInstitution(int institution_id, long client_id_by_session)
+        {
+            string return_str = null;
+
+            Dictionary<string, string> json_str_long = new Dictionary<string, string>();
+            json_str_long.Add("client_id_by_session", client_id_by_session.ToString());
+            string postJSONGetID = RestUtility.HttpPostJSON(base_url + clients_controller + "(0)/GetClientIDFacebook", JsonConvert.SerializeObject(json_str_long));
+
+            if(postJSONGetID.Equals("error"))
+            {
+                return_str = "error";
+            }
+            else
+            {
+                Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSONGetID);
+                string client_id = resultDict["value"];
+
+                Dictionary<string, string> json_dict = new Dictionary<string, string>();
+                json_dict.Add("institution_id", institution_id.ToString());
+                json_dict.Add("client_id", client_id);
+                string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "(0)/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
+                
+                Dictionary<string, string> resultDictSubs = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
+                return_str = resultDictSubs["value"];
             }
 
             return return_str;

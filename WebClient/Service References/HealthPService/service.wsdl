@@ -61,6 +61,12 @@
   <wsdl:message name="IHPService_SubscribeInstitution_OutputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeInstitutionResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_UnsubscribeInstitution_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeInstitution" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_UnsubscribeInstitution_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeInstitutionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IHPService">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetData" message="tns:IHPService_GetData_InputMessage" />
@@ -97,6 +103,10 @@
     <wsdl:operation name="SubscribeInstitution">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SubscribeInstitution" message="tns:IHPService_SubscribeInstitution_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SubscribeInstitutionResponse" message="tns:IHPService_SubscribeInstitution_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeInstitution">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/UnsubscribeInstitution" message="tns:IHPService_UnsubscribeInstitution_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/UnsubscribeInstitutionResponse" message="tns:IHPService_UnsubscribeInstitution_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IHPService" type="tns:IHPService">
@@ -175,6 +185,15 @@
     </wsdl:operation>
     <wsdl:operation name="SubscribeInstitution">
       <soap:operation soapAction="http://tempuri.org/IHPService/SubscribeInstitution" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeInstitution">
+      <soap:operation soapAction="http://tempuri.org/IHPService/UnsubscribeInstitution" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

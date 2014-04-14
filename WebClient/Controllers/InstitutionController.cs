@@ -64,10 +64,20 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string SubscribeInstitution()
         {
-            int institution_id = 3;
+            int institution_id = 2;
             long client_id_by_session = 100001147170248; // Posteriormente, vai-se buscar o valor da sessao
 
             string result = mService.SubscribeInstitution(institution_id, client_id_by_session);
+            return result;
+        }
+
+        [HttpPost]
+        public string UnsubscribeInstitution()
+        {
+            int institution_id = 2;
+            long client_id_by_session = 100001147170248; // Posteriormente, vai-se buscar o valor da sessao
+
+            string result = mService.UnsubscribeInstitution(institution_id, client_id_by_session);
             return result;
         }
 	}

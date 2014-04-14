@@ -121,7 +121,6 @@ namespace HpREST_Bridge
             var streamReader = new StreamReader(response.GetResponseStream());
             dynamic result = streamReader.ReadToEnd();
             return result;
-    }    }
-
-
+        }
+    }
 }

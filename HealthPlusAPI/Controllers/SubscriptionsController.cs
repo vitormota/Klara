@@ -184,6 +184,33 @@ namespace HealthPlusAPI.Controllers
             return Updated(subscription);
         }
 
+        [HttpPost]
+        public string DeleteSubscription([FromODataUri] int key, ODataActionParameters parameters)
+        {
+            string return_str = null;
+
+            if(!ModelState.IsValid)
+            {
+                return_str = "error";
+            }
+            else
+            {
+                int institution_id = Convert.ToInt32((string)parameters["institution_id"]);
+                int client_id = Convert.ToInt32((string)parameters["client_id"]);
+
+                // Seleccao das subscricoes a partir da instituicao
+                List<Subscription> listSubscription = db.Subscription.Where(Subscription => Subscription.client_id == client_id && Subscription.subscribable_id == institution_id).ToList();
+                Subscription selectedSubscription = listSubscription[0];
+
+                db.Subscription.Remove(selectedSubscription);
+                db.SaveChanges();
+
+                return_str = "ok";
+            }
+
+            return return_str;
+        }
+
         // DELETE odata/Subscriptions(5)
         public IHttpActionResult Delete([FromODataUri] int key)
         {

@@ -128,4 +128,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="UnsubscribeInstitution">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="institution_id" type="xs:int" />
+        <xs:element minOccurs="0" name="client_id_by_session" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnsubscribeInstitutionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UnsubscribeInstitutionResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

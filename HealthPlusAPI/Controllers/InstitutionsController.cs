@@ -66,7 +66,11 @@ namespace HealthPlusAPI.Controllers
                 // Selecionar as palavras com mais de duas letras
                 for(int i = 0; i < arrayStr.Count(); i++)
                 {
-                    if(arrayStr[i].Length > 2)
+                    if(arrayStr[i].Length > 1)
+                    {
+                        listStr.Add(arrayStr[i]);
+                    }
+                    else if(arrayStr[i].Length.Equals(1) && arrayStr.Count().Equals(1))
                     {
                         listStr.Add(arrayStr[i]);
                     }
