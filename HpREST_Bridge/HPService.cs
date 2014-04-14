@@ -27,6 +27,7 @@ namespace HpREST_Bridge
         private const string clients_controller = "odata/Clients";
         private const string institutions_controller = "odata/Institutions";
         private const string ads_controller = "odata/Ads";
+        private const string subscriptions_controller = "odata/Subscriptions";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -133,8 +134,8 @@ namespace HpREST_Bridge
             string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/SearchInstitution", JsonConvert.SerializeObject(json_str));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
-            string auxJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes
-            return auxJSON;
+            string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
+            return returnJSON;
         }
 
         public string SearchAd(string textSearch)
@@ -145,7 +146,11 @@ namespace HpREST_Bridge
 
         public string InstitutionsSubscribe(int client_id)
         {
-            return "error";
+            string getURL = RestUtility.HttpGet(base_url + subscriptions_controller + "(" + client_id + ")");
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(getURL);
+
+            string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
+            return returnJSON;
         }
     }
 }

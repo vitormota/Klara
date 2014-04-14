@@ -31,7 +31,7 @@ namespace WebClient_.Controllers
             else
             {
                 List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
-                return_str = JsonConvert.SerializeObject(resultList); // Para testar se esta a funcionar bem
+                return_str = result; // Para testar se esta a funcionar bem
             }
 
             return return_str;
@@ -40,7 +40,7 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string InstitutionsSubscribe()
         {
-            int client_id = 0;
+            int client_id = 0; // Serve para teste
             string return_str = null;
             string result = mService.InstitutionsSubscribe(client_id);
 
@@ -48,9 +48,14 @@ namespace WebClient_.Controllers
             {
                 return_str = "error";
             }
+            else if(result.Equals("no subscriptions"))
+            {
+                return_str = "no subscriptions";
+            }
             else
             {
-                return_str = "instituições";
+                List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+                return_str = result; // Para testar se esta a funcionar bem
             }
 
             return return_str;

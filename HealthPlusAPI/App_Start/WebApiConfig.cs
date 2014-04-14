@@ -19,6 +19,7 @@ namespace HealthPlusAPI
             builder.EntitySet<Account>("Accounts");
             builder.EntitySet<Client>("Clients");
             builder.EntitySet<Ad>("Ads");
+            builder.EntitySet<Subscription>("Subscriptions");
             builder.EntitySet<Institution>("Institutions");
 
             // Adicionar a action para procurar instituicoes
