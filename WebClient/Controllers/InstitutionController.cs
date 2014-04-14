@@ -40,7 +40,7 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string InstitutionsSubscribe()
         {
-            int client_id = 0; // Serve para teste
+            int client_id = 36; // Serve para teste
             string return_str = null;
             string result = mService.InstitutionsSubscribe(client_id);
 
@@ -59,6 +59,16 @@ namespace WebClient_.Controllers
             }
 
             return return_str;
+        }
+
+        [HttpPost]
+        public string SubscribeInstitution()
+        {
+            int institution_id = 3;
+            long client_id_by_session = 100001147170248; // Posteriormente, vai-se buscar o valor da sessao
+
+            string result = mService.SubscribeInstitution(institution_id, client_id_by_session);
+            return result;
         }
 	}
 }

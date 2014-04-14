@@ -38,6 +38,9 @@ namespace HpREST_Bridge
 
         [OperationContract]
         string InstitutionsSubscribe(int client_id);
+
+        [OperationContract]
+        string SubscribeInstitution(int institution_id, long client_id_by_session);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

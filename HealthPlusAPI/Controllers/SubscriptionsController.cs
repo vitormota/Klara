@@ -36,34 +36,41 @@ namespace HealthPlusAPI.Controllers
         }
 
         // GET odata/Subscriptions(5)
-        [HttpGet]
-        public string GetSubscription([FromODataUri] int key)
+        [Queryable]
+        public SingleResult<Subscription> GetSubscription([FromODataUri] int key)
+        {
+            return null;
+        }
+
+        [HttpPost]
+        public string InstitutionsSubscribe([FromODataUri] int key, ODataActionParameters parameters)
         {
             string result = null;
+            int client_id = Convert.ToInt32((string)parameters["client_id"]);
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 result = "error";
             }
             else
             {
                 // Dada a chave permite ir a tabela de subscricoes saber quais as subcricoes relacionadas com o id do cliente
-                List<Subscription> list_subscription = db.Subscription.Where(Subscription => Subscription.client_id == key).ToList();
+                List<Subscription> list_subscription = db.Subscription.Where(Subscription => Subscription.client_id == client_id).ToList();
                 List<Institution> list_institution = new List<Institution>();
 
-                for(int i = 0; i < list_subscription.Count; i++)
+                for (int i = 0; i < list_subscription.Count; i++)
                 {
                     int subscrible_id = list_subscription[i].subscribable_id;
                     // Ira servir para a obtencao da query e assim extrair os resultados
                     List<Institution> list_institution_query = db.Institution.Where(Institution => Institution.id == subscrible_id).ToList();
-                    
-                    if(!list_institution_query.Count.Equals(0))
+
+                    if (!list_institution_query.Count.Equals(0))
                     {
                         list_institution.Add(list_institution_query[0]);
                     }
                 }
 
-                if(list_institution.Count.Equals(0))
+                if (list_institution.Count.Equals(0))
                 {
                     result = "no subscriptions";
                 }
@@ -111,32 +118,34 @@ namespace HealthPlusAPI.Controllers
         }
 
         // POST odata/Subscriptions
-        public IHttpActionResult Post(Subscription subscription)
+        public string Post(Subscription subscription)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return "error";
             }
-
-            db.Subscription.Add(subscription);
-
-            try
+            else
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (SubscriptionExists(subscription.subscribable_id))
+                db.Subscription.Add(subscription);
+
+                try
                 {
-                    return Conflict();
+                    db.SaveChanges();
                 }
-                else
+                catch (DbUpdateException)
                 {
-                    throw;
+                    if (SubscriptionExists(subscription.subscribable_id))
+                    {
+                        return "exist subscription";
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
 
-            return Created(subscription);
+            return JsonConvert.SerializeObject(subscription);
         }
 
         // PATCH odata/Subscriptions(5)

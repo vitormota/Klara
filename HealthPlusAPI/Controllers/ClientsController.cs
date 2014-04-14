@@ -12,6 +12,7 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
+using Newtonsoft.Json;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -39,7 +40,31 @@ namespace HealthPlusAPI.Controllers
         [Queryable]
         public SingleResult<Client> GetClient([FromODataUri] int key)
         {
-            return SingleResult.Create(db.Client.Where(client => client.id == key));
+            return SingleResult.Create(db.Client.Where(Client => Client.id == key));
+        }
+
+        [HttpPost]
+        public string GetClientIDFacebook([FromODataUri] int key, ODataActionParameters parameters)
+        {
+            string return_str = null;
+            long facebook_id = Convert.ToInt64((string)parameters["client_id_by_session"]);
+
+            if (!ModelState.IsValid)
+            {
+                return_str = "error";
+            }
+            else
+            {
+                // Obter o id na tabela account a partir do id do facebook
+                List<Account> account_list = db.Account.Where(Account => Account.fb_id == facebook_id).ToList();
+                int client_id = account_list[0].id;
+
+                // Extrair o id do cliente
+                List<Client> client_list = db.Client.Where(Client => Client.id == client_id).ToList();
+                return_str = (client_list[0].id).ToString();
+            }
+
+            return return_str;
         }
 
         // PUT odata/Clients(5)

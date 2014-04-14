@@ -125,6 +125,12 @@ namespace WebClient_.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InstitutionsSubscribe", ReplyAction="http://tempuri.org/IHPService/InstitutionsSubscribeResponse")]
         System.Threading.Tasks.Task<string> InstitutionsSubscribeAsync(int client_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/SubscribeInstitutionResponse")]
+        string SubscribeInstitution(int institution_id, long client_id_by_session);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/SubscribeInstitutionResponse")]
+        System.Threading.Tasks.Task<string> SubscribeInstitutionAsync(int institution_id, long client_id_by_session);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -216,6 +222,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> InstitutionsSubscribeAsync(int client_id) {
             return base.Channel.InstitutionsSubscribeAsync(client_id);
+        }
+        
+        public string SubscribeInstitution(int institution_id, long client_id_by_session) {
+            return base.Channel.SubscribeInstitution(institution_id, client_id_by_session);
+        }
+        
+        public System.Threading.Tasks.Task<string> SubscribeInstitutionAsync(int institution_id, long client_id_by_session) {
+            return base.Channel.SubscribeInstitutionAsync(institution_id, client_id_by_session);
         }
     }
 }

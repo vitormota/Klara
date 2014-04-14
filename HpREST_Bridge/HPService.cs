@@ -146,11 +146,43 @@ namespace HpREST_Bridge
 
         public string InstitutionsSubscribe(int client_id)
         {
-            string getURL = RestUtility.HttpGet(base_url + subscriptions_controller + "(" + client_id + ")");
-            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(getURL);
+            Dictionary<string, string> json_str_int = new Dictionary<string, string>();
+            string client_id_str = client_id.ToString();
+            json_str_int.Add("client_id", client_id_str);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "(0)/InstitutionsSubscribe", JsonConvert.SerializeObject(json_str_int));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
             return returnJSON;
+        }
+
+        public string SubscribeInstitution(int institution_id, long client_id_by_session)
+        {
+            string return_str = null;
+            
+            Dictionary<string, string> json_str_long = new Dictionary<string, string>();
+            json_str_long.Add("client_id_by_session", client_id_by_session.ToString());
+            string postJSON = RestUtility.HttpPostJSON(base_url + clients_controller + "(0)/GetClientIDFacebook", JsonConvert.SerializeObject(json_str_long));
+
+            if (postJSON.Equals("error"))
+            {
+                return_str = "error";
+            }
+            else
+            {
+                Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
+
+                int client_id = Convert.ToInt32(resultDict["value"]);
+
+                JObject subscription = new JObject(
+                    new JProperty("subscribable_id", institution_id),
+                    new JProperty("client_id", client_id));
+
+                return_str = RestUtility.HttpPostJSON(base_url + subscriptions_controller, subscription);
+            }
+
+            return return_str;
         }
     }
 }
