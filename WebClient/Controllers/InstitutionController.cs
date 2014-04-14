@@ -21,8 +21,8 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string SearchInstitution(string textSearch)
         {
-            string result = mService.SearchInstitution(textSearch);
             string return_str = null;
+            string result = mService.SearchInstitution(textSearch);
 
             if(result.Equals("error"))
             {
@@ -32,6 +32,25 @@ namespace WebClient_.Controllers
             {
                 List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
                 return_str = JsonConvert.SerializeObject(resultList); // Para testar se esta a funcionar bem
+            }
+
+            return return_str;
+        }
+
+        [HttpPost]
+        public string InstitutionsSubscribe()
+        {
+            int client_id = 0;
+            string return_str = null;
+            string result = mService.InstitutionsSubscribe(client_id);
+
+            if(result.Equals("error"))
+            {
+                return_str = "error";
+            }
+            else
+            {
+                return_str = "instituições";
             }
 
             return return_str;

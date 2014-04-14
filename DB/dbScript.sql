@@ -7,7 +7,7 @@ drop table if exists Inst_Group;
 drop table if exists Manager;
 drop table if exists Client;
 drop table if exists Subscribable;
-drop table if exists Acccount;
+drop table if exists Account;
 
 --create table Account (
 --	id int not null auto_increment primary key,

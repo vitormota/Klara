@@ -139,10 +139,13 @@ namespace HpREST_Bridge
 
         public string SearchAd(string textSearch)
         {
-            
             string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
-            
             return responce;
+        }
+
+        public string InstitutionsSubscribe(int client_id)
+        {
+            return "error";
         }
     }
 }

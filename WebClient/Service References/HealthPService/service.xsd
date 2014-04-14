@@ -99,4 +99,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="InstitutionsSubscribe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InstitutionsSubscribeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InstitutionsSubscribeResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
