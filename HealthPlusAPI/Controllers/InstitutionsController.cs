@@ -51,7 +51,7 @@ namespace HealthPlusAPI.Controllers
 
             if (!ModelState.IsValid)
             {
-                BadRequestReturn();
+                result = "error";
             }
             else
             {
@@ -274,11 +274,6 @@ namespace HealthPlusAPI.Controllers
         private bool InstitutionExists(int key)
         {
             return db.Institution.Count(e => e.id == key) > 0;
-        }
-
-        private IHttpActionResult BadRequestReturn()
-        {
-            return BadRequest(ModelState);
         }
     }
 }
