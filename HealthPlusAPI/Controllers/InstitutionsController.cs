@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Device.Location;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -152,6 +153,52 @@ namespace HealthPlusAPI.Controllers
             return result;
         }
 
+        [HttpPost]
+        public string NearestInstitutions([FromODataUri] int key, ODataActionParameters parameters)
+        {
+            string result = null;
+
+            if (!ModelState.IsValid)
+            {
+                result = "error";
+            }
+            else
+            {
+                double latitude = Convert.ToDouble((string)parameters["latitude"]);
+                double longitude = Convert.ToDouble((string)parameters["longitude"]);
+                double distance = Convert.ToDouble((string)parameters["distance"]);
+
+                List<Institution> listInstitutions = db.Institution.ToList();
+                Dictionary<Institution, double> dictInstitutions = new Dictionary<Institution, double>();
+
+                for (int i = 0; i < listInstitutions.Count; i++)
+                {
+                    double calculateDistance = CalculateDistanceGPSCoordinates(Convert.ToDouble(listInstitutions[i].latitude), Convert.ToDouble(listInstitutions[i].longitude), latitude, longitude);
+
+                    if (calculateDistance <= distance)
+                    {
+                        dictInstitutions.Add(listInstitutions[i], calculateDistance);
+                    }
+                }
+
+                Dictionary<Institution, double> dictInstitutionsSort = new Dictionary<Institution, double>();
+                foreach (var institution in dictInstitutions.OrderBy(inst => inst.Value))
+                {
+                    dictInstitutionsSort.Add(institution.Key, institution.Value);
+                }
+
+                List<Institution> listFinalSearch = new List<Institution>(); // Lista, gerada a partir de um dicionario, que vai ter as instituicoes ordenadas, foi feito com uma lista para auxiliar na conversao para JSON
+                foreach (var institution in dictInstitutionsSort)
+                {
+                    listFinalSearch.Add(institution.Key);
+                }
+
+                result = JsonConvert.SerializeObject(listFinalSearch);
+            }
+
+            return result;
+        }
+
         // PUT odata/Institutions(5)
         public IHttpActionResult Put([FromODataUri] int key, Institution institution)
         {
@@ -278,6 +325,14 @@ namespace HealthPlusAPI.Controllers
         private bool InstitutionExists(int key)
         {
             return db.Institution.Count(e => e.id == key) > 0;
+        }
+
+        private double CalculateDistanceGPSCoordinates(double lat1, double long1, double lat2, double long2)
+        {
+            var first_point = new GeoCoordinate(lat1, long1);
+            var second_point = new GeoCoordinate(lat2, long2);
+
+            return (first_point.GetDistanceTo(second_point) / 1000);
         }
     }
 }

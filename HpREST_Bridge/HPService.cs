@@ -216,5 +216,21 @@ namespace HpREST_Bridge
 
             return return_str;
         }
+
+        public string NearestInstitutions(double latitude, double longitude, double distance)
+        {
+            string return_str = null;
+
+            Dictionary<string, string> json_str_double = new Dictionary<string, string>();
+            json_str_double.Add("latitude", latitude.ToString());
+            json_str_double.Add("longitude", longitude.ToString());
+            json_str_double.Add("distance", distance.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/NearestInstitutions", JsonConvert.SerializeObject(json_str_double));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDict["value"].ToString();
+            return return_str;
+        }
     }
 }

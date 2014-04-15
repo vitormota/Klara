@@ -45,6 +45,12 @@ namespace HealthPlusAPI
             searchInstitution.Parameter<string>("textSearch");
             searchInstitution.Returns<string>();
 
+            ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Action("NearestInstitutions");
+            nearestInstitutions.Parameter<string>("latitude");
+            nearestInstitutions.Parameter<string>("longitude");
+            nearestInstitutions.Parameter<string>("distance");
+            nearestInstitutions.Returns<string>();
+
             config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
         }
     }

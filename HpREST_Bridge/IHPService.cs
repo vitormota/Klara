@@ -44,6 +44,9 @@ namespace HpREST_Bridge
 
         [OperationContract]
         string UnsubscribeInstitution(int institution_id, long client_id_by_session);
+
+        [OperationContract]
+        string NearestInstitutions(double latitude, double longitude, double distance);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
