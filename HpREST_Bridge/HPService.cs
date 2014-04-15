@@ -136,6 +136,25 @@ namespace HpREST_Bridge
         // Members - Institution 
         //---------------------------------------------------------------------
 
+        public string EditInstitutionDetails(string model_data,int id)
+        {
+            JObject data = JObject.Parse(model_data);
+            string response = RestUtility.HttpPutJSON(base_url + institutions_controller+"("+id+")", data);
+            //Strip response from sensitive information?
+            //
+            return response;
+        }
+
+        /// <summary>
+        /// Get institution by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string GetInstitution(int id)
+        {
+            return RestUtility.HttpGet(base_url + institutions_controller + "("+id+")");
+        }
+
         public string SearchInstitution(string textSearch)
         {
             Dictionary<string, string> json_str = new Dictionary<string, string>();
