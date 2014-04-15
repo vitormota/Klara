@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Device.Location;
 using WebClient_.HealthPService;
 
 namespace WebClient_.Controllers
@@ -24,7 +25,7 @@ namespace WebClient_.Controllers
             string return_str = null;
             string result = mService.SearchInstitution(textSearch);
 
-            if(result.Equals("error"))
+            if (result.Equals("error"))
             {
                 return_str = "error";
             }
@@ -44,11 +45,11 @@ namespace WebClient_.Controllers
             string return_str = null;
             string result = mService.InstitutionsSubscribe(client_id);
 
-            if(result.Equals("error"))
+            if (result.Equals("error"))
             {
                 return_str = "error";
             }
-            else if(result.Equals("no subscriptions"))
+            else if (result.Equals("no subscriptions"))
             {
                 return_str = "no subscriptions";
             }
@@ -80,5 +81,28 @@ namespace WebClient_.Controllers
             string result = mService.UnsubscribeInstitution(institution_id, client_id_by_session);
             return result;
         }
-	}
+
+        [HttpPost]
+        public string NearestInstitutions()
+        {
+            double latitude = 41.228229;
+            double longitude = -8.307141399999999;
+            double distance = 5000;
+
+            string return_str = null;
+            string result = mService.NearestInstitutions(latitude, longitude, distance);
+            
+            if (result.Equals("error"))
+            {
+                return_str = "error";
+            }
+            else
+            {
+                List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+                return_str = result; // Para testar se esta a funcionar bem
+            }
+
+            return return_str;
+        }
+    }
 }

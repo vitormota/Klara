@@ -221,23 +221,20 @@ namespace HpREST_Bridge
             return return_str;
         }
 
-        public string EditInstitutionDetails(string model_data,int id)
+        public string NearestInstitutions(double latitude, double longitude, double distance)
         {
-            JObject data = JObject.Parse(model_data);
-            string response = RestUtility.HttpPutJSON(base_url + institutions_controller+"("+id+")", data);
-            //Strip response from sensitive information?
-            //
-            return response;
-        }
+            string return_str = null;
 
-        /// <summary>
-        /// Get institution by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public string GetInstitution(int id)
-        {
-            return RestUtility.HttpGet(base_url + institutions_controller + "("+id+")");
+            Dictionary<string, string> json_str_double = new Dictionary<string, string>();
+            json_str_double.Add("latitude", latitude.ToString());
+            json_str_double.Add("longitude", longitude.ToString());
+            json_str_double.Add("distance", distance.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/NearestInstitutions", JsonConvert.SerializeObject(json_str_double));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDict["value"].ToString();
+            return return_str;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace HpREST_Bridge
         string UnsubscribeInstitution(int institution_id, long client_id_by_session);
 
         [OperationContract]
-        string GetInstitution(int id);
+        string NearestInstitutions(double latitude, double longitude, double distance);
 
         /// <summary>
         /// Change institution details

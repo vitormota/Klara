@@ -137,6 +137,12 @@ namespace WebClient_.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UnsubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/UnsubscribeInstitutionResponse")]
         System.Threading.Tasks.Task<string> UnsubscribeInstitutionAsync(int institution_id, long client_id_by_session);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/NearestInstitutions", ReplyAction="http://tempuri.org/IHPService/NearestInstitutionsResponse")]
+        string NearestInstitutions(double latitude, double longitude, double distance);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/NearestInstitutions", ReplyAction="http://tempuri.org/IHPService/NearestInstitutionsResponse")]
+        System.Threading.Tasks.Task<string> NearestInstitutionsAsync(double latitude, double longitude, double distance);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -244,6 +250,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> UnsubscribeInstitutionAsync(int institution_id, long client_id_by_session) {
             return base.Channel.UnsubscribeInstitutionAsync(institution_id, client_id_by_session);
+        }
+        
+        public string NearestInstitutions(double latitude, double longitude, double distance) {
+            return base.Channel.NearestInstitutions(latitude, longitude, distance);
+        }
+        
+        public System.Threading.Tasks.Task<string> NearestInstitutionsAsync(double latitude, double longitude, double distance) {
+            return base.Channel.NearestInstitutionsAsync(latitude, longitude, distance);
         }
     }
 }
