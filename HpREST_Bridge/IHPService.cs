@@ -44,6 +44,17 @@ namespace HpREST_Bridge
 
         [OperationContract]
         string UnsubscribeInstitution(int institution_id, long client_id_by_session);
+
+        [OperationContract]
+        string GetInstitution(int id);
+
+        /// <summary>
+        /// Change institution details
+        /// </summary>
+        /// <param name="model_data">data to update</param>
+        /// <returns>API response</returns>
+        [OperationContract]
+        string EditInstitutionDetails(string model_data,int id);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

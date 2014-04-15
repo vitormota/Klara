@@ -61,7 +61,7 @@ namespace HpREST_Bridge
         }
 
         //---------------------------------------------------------------------
-        // Members - POST
+        // Members - User
         //---------------------------------------------------------------------
 
         public string RegisterUser(string access_token, int provider)
@@ -126,6 +126,16 @@ namespace HpREST_Bridge
             return response.ToString();
         }
 
+        public string SearchAd(string textSearch)
+        {
+            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
+            return responce;
+        }
+
+        //---------------------------------------------------------------------
+        // Members - Institution 
+        //---------------------------------------------------------------------
+
         public string SearchInstitution(string textSearch)
         {
             Dictionary<string, string> json_str = new Dictionary<string, string>();
@@ -136,12 +146,6 @@ namespace HpREST_Bridge
 
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
             return returnJSON;
-        }
-
-        public string SearchAd(string textSearch)
-        {
-            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
-            return responce;
         }
 
         public string InstitutionsSubscribe(int client_id)
@@ -215,6 +219,25 @@ namespace HpREST_Bridge
             }
 
             return return_str;
+        }
+
+        public string EditInstitutionDetails(string model_data,int id)
+        {
+            JObject data = JObject.Parse(model_data);
+            string response = RestUtility.HttpPutJSON(base_url + institutions_controller+"("+id+")", data);
+            //Strip response from sensitive information?
+            //
+            return response;
+        }
+
+        /// <summary>
+        /// Get institution by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string GetInstitution(int id)
+        {
+            return RestUtility.HttpGet(base_url + institutions_controller + "("+id+")");
         }
     }
 }

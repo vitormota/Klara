@@ -1,0 +1,112 @@
+﻿@model WebInstitution.Models.InstitutionProfileModel
+
+@{
+    ViewBag.Title = "InstitutionPageEdit";
+}
+
+<h2>InstitutionPageEdit</h2>
+
+
+@using (Html.BeginForm("SubmitDetails", "Account", Model))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>InstitutionProfileModel</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.group_id, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.group_id)
+                @Html.ValidationMessageFor(model => model.group_id)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name)
+                @Html.ValidationMessageFor(model => model.name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.address)
+                @Html.ValidationMessageFor(model => model.address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.city, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.city)
+                @Html.ValidationMessageFor(model => model.city)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.latitude, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.latitude)
+                @Html.ValidationMessageFor(model => model.latitude)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.longitude, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.longitude)
+                @Html.ValidationMessageFor(model => model.longitude)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email)
+                @Html.ValidationMessageFor(model => model.email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.website, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.website)
+                @Html.ValidationMessageFor(model => model.website)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.phone_number, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.phone_number)
+                @Html.ValidationMessageFor(model => model.phone_number)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fax, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fax)
+                @Html.ValidationMessageFor(model => model.fax)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
