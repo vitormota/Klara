@@ -1,8 +1,10 @@
 ﻿using System;
 using HpREST_Bridge.Auth;
 using Newtonsoft.Json.Linq;
-using System.Net;using System.Collections.Generic;
+using System.Net;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+
 namespace HpREST_Bridge
 {
 
@@ -28,6 +30,7 @@ namespace HpREST_Bridge
         private const string institutions_controller = "odata/Institutions";
         private const string ads_controller = "odata/Ads";
         private const string subscriptions_controller = "odata/Subscriptions";
+        private const string managers_controller = "odata/Managers";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -135,6 +138,19 @@ namespace HpREST_Bridge
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
+            return returnJSON;
+        }
+
+        public string ManagerLogin(string username, string password)
+        {
+            Dictionary<string, string> json_str = new Dictionary<string, string>();
+            json_str.Add("username", username);
+            json_str.Add("password", password);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + managers_controller + "(0)/ManagerLogin", JsonConvert.SerializeObject(json_str));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            string returnJSON = resultDict["value"].ToString();
             return returnJSON;
         }
 

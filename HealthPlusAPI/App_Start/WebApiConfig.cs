@@ -45,6 +45,14 @@ namespace HealthPlusAPI
             searchInstitution.Parameter<string>("textSearch");
             searchInstitution.Returns<string>();
 
+            builder.EntitySet<Manager>("Managers");
+
+            // Adicionar a action para procurar instituicoes
+            ActionConfiguration managerLogin = builder.Entity<Manager>().Action("ManagerLogin");
+            managerLogin.Parameter<string>("username");
+            managerLogin.Parameter<string>("password");
+            managerLogin.Returns<string>();
+
             config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
         }
     }
