@@ -64,7 +64,7 @@ namespace HpREST_Bridge
         }
 
         //---------------------------------------------------------------------
-        // Members - POST
+        // Members - User
         //---------------------------------------------------------------------
 
         public string RegisterUser(string access_token, int provider)
@@ -129,6 +129,35 @@ namespace HpREST_Bridge
             return response.ToString();
         }
 
+        public string SearchAd(string textSearch)
+        {
+            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
+            return responce;
+        }
+
+        //---------------------------------------------------------------------
+        // Members - Institution 
+        //---------------------------------------------------------------------
+
+        public string EditInstitutionDetails(string model_data,int id)
+        {
+            JObject data = JObject.Parse(model_data);
+            string response = RestUtility.HttpPutJSON(base_url + institutions_controller+"("+id+")", data);
+            //Strip response from sensitive information?
+            //
+            return response;
+        }
+
+        /// <summary>
+        /// Get institution by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string GetInstitution(int id)
+        {
+            return RestUtility.HttpGet(base_url + institutions_controller + "("+id+")");
+        }
+
         public string SearchInstitution(string textSearch)
         {
             Dictionary<string, string> json_str = new Dictionary<string, string>();
@@ -152,12 +181,6 @@ namespace HpREST_Bridge
 
             string returnJSON = resultDict["value"].ToString();
             return returnJSON;
-        }
-
-        public string SearchAd(string textSearch)
-        {
-            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
-            return responce;
         }
 
         public string InstitutionsSubscribe(int client_id)
@@ -230,6 +253,22 @@ namespace HpREST_Bridge
                 return_str = resultDictSubs["value"];
             }
 
+            return return_str;
+        }
+
+        public string NearestInstitutions(double latitude, double longitude, double distance)
+        {
+            string return_str = null;
+
+            Dictionary<string, string> json_str_double = new Dictionary<string, string>();
+            json_str_double.Add("latitude", latitude.ToString());
+            json_str_double.Add("longitude", longitude.ToString());
+            json_str_double.Add("distance", distance.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/NearestInstitutions", JsonConvert.SerializeObject(json_str_double));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDict["value"].ToString();
             return return_str;
         }
     }

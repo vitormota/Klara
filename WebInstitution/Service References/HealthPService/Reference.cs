@@ -80,6 +80,24 @@ namespace WebInstitution.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/ManagerLogin", ReplyAction="http://tempuri.org/IHPService/ManagerLoginResponse")]
         System.Threading.Tasks.Task<string> ManagerLoginAsync(string unsername, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/NearestInstitutions", ReplyAction="http://tempuri.org/IHPService/NearestInstitutionsResponse")]
+        string NearestInstitutions(double latitude, double longitude, double distance);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/NearestInstitutions", ReplyAction="http://tempuri.org/IHPService/NearestInstitutionsResponse")]
+        System.Threading.Tasks.Task<string> NearestInstitutionsAsync(double latitude, double longitude, double distance);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/EditInstitutionDetails", ReplyAction="http://tempuri.org/IHPService/EditInstitutionDetailsResponse")]
+        string EditInstitutionDetails(string model_data, int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/EditInstitutionDetails", ReplyAction="http://tempuri.org/IHPService/EditInstitutionDetailsResponse")]
+        System.Threading.Tasks.Task<string> EditInstitutionDetailsAsync(string model_data, int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInstitution", ReplyAction="http://tempuri.org/IHPService/GetInstitutionResponse")]
+        string GetInstitution(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInstitution", ReplyAction="http://tempuri.org/IHPService/GetInstitutionResponse")]
+        System.Threading.Tasks.Task<string> GetInstitutionAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -195,6 +213,30 @@ namespace WebInstitution.HealthPService {
         
         public System.Threading.Tasks.Task<string> ManagerLoginAsync(string unsername, string password) {
             return base.Channel.ManagerLoginAsync(unsername, password);
+        }
+        
+        public string NearestInstitutions(double latitude, double longitude, double distance) {
+            return base.Channel.NearestInstitutions(latitude, longitude, distance);
+        }
+        
+        public System.Threading.Tasks.Task<string> NearestInstitutionsAsync(double latitude, double longitude, double distance) {
+            return base.Channel.NearestInstitutionsAsync(latitude, longitude, distance);
+        }
+        
+        public string EditInstitutionDetails(string model_data, int id) {
+            return base.Channel.EditInstitutionDetails(model_data, id);
+        }
+        
+        public System.Threading.Tasks.Task<string> EditInstitutionDetailsAsync(string model_data, int id) {
+            return base.Channel.EditInstitutionDetailsAsync(model_data, id);
+        }
+        
+        public string GetInstitution(int id) {
+            return base.Channel.GetInstitution(id);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetInstitutionAsync(int id) {
+            return base.Channel.GetInstitutionAsync(id);
         }
     }
 }

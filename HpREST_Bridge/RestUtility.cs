@@ -122,5 +122,25 @@ namespace HpREST_Bridge
             dynamic result = streamReader.ReadToEnd();
             return result;
         }
+
+        public static string HttpPutJSON(string url, Object data)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "application/json";
+            request.Method = "PUT";
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(data);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            // Get the api_response.
+            WebResponse response = request.GetResponse();
+            var streamReader = new StreamReader(response.GetResponseStream());
+            dynamic result = streamReader.ReadToEnd();
+            return result;
+        }
     }
 }
