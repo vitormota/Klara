@@ -64,17 +64,17 @@ namespace HealthPlusAPI.Controllers
 
                     if (m == null)
                     {
-                        result = "not a valid user";
+                        result = "invalid user";
                     }
                     else
                     {
                         if (m.password.Equals(auxFunctions.GetSHA1Hash(password)))
                         {
-                            result = "logged";
+                            result = "" + m.id;
                         }
                         else
                         {
-                            result = "incorrect password";
+                            result = "invalid password";
                         }
                     }
                 }

@@ -19,22 +19,47 @@ namespace WebInstitution.Controllers
         }
 
         [HttpPost]
-        public string ManagerLogin(string username, string password)
+        public ActionResult ManagerLogin(string username, string password)
         {
-            string return_str = null;
             string result_str = mService.ManagerLogin(username, password);
 
-            //if (result.Equals("error"))
-            //{
-            //    return_str = "error";
-            //}
-            //else
-            //{
-            //    List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
-            //    return_str = result; // Para testar se esta a funcionar bem
-            //}
+            if (Session["userId"] != null)
+            {
+                result_str = "already logged";
+            } 
+            else if (result_str == "invalid user" || result_str == "invalid password")
+            {
+                //result_str = "error";
+            }
+            else
+            {
+                //Session["userId"] = Convert.ToInt32(result_str);
+                Session["userId"] = result_str;
+            }
 
-            return return_str;
+            ViewData["login"] = result_str;
+
+            return View("Index");
+        }
+
+        [HttpGet]
+        public ActionResult ManagerLogout()
+        {
+            string response = "";
+
+            if (Session["userId"] == null)
+            {
+                response = "not logged yet";
+            }
+            else
+            {
+                Session.Remove("userId");
+                response = "logout done";
+            }
+
+            ViewData["login"] = response;
+
+            return View("Index");
         }
 
         //
