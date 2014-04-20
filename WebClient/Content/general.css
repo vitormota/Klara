@@ -122,6 +122,10 @@ div.no_background.panel-heading{
     background-color:transparent;
 }
 
+div.col-no-left-padding{
+    padding-left:0px;
+}
+
 h3.hp_user_accordion_title > a{
     color:#DA776B;
 }
