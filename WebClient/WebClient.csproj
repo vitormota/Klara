@@ -184,6 +184,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstitutionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +203,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\home.css" />
+    <Content Include="Content\Images\cupoes_adquiridos.png" />
+    <Content Include="Content\Images\cupoes_subscritos.png" />
+    <Content Include="Content\Images\dados_pessoais.png" />
     <Content Include="Content\Images\h-logo.png" />
     <Content Include="Content\Images\pictogramas-01.png" />
     <Content Include="favicon.ico" />
@@ -268,6 +272,7 @@
     <Content Include="Views\Institution\Index.cshtml" />
     <Content Include="Views\Shared\_SearchBar.cshtml" />
     <Content Include="Views\Ad\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
