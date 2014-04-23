@@ -31,6 +31,7 @@ namespace HpREST_Bridge
         private const string ads_controller = "odata/Ads";
         private const string subscriptions_controller = "odata/Subscriptions";
         private const string managers_controller = "odata/Managers";
+        private const string cupons_controller = "odata/Cupon";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -52,15 +53,6 @@ namespace HpREST_Bridge
                 composite.StringValue += "Suffix";
             }
             return composite;
-        }
-
-        /// <summary>
-        /// TESTING, please ignore
-        /// </summary>
-        /// <returns></returns>
-        public string GetAccounts()
-        {
-            return RestUtility.HttpGet(base_url+accounts_controller);
         }
 
         //---------------------------------------------------------------------
@@ -95,7 +87,6 @@ namespace HpREST_Bridge
 
             return api_response.ToString();
         }
-
 
         public string UserLogin(string access_token, int provider)
         {
@@ -270,6 +261,16 @@ namespace HpREST_Bridge
 
             return_str = resultDict["value"].ToString();
             return return_str;
+        }
+
+        /// <summary>
+        ///  Retrieve purchased cupoes from API with specified client id (internal)
+        /// </summary>
+        /// <param name="id">client id</param>
+        /// <returns></returns>
+        public string GetClientPurchases(int id)
+        {
+            return RestUtility.HttpGet(cupons_controller+"("+id+")");
         }
     }
 }

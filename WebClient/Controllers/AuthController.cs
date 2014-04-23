@@ -55,6 +55,7 @@ namespace WebClient_.Controllers
 
         private void saveSession(JObject json,string access_token,int provider_id)
         {
+            Session["internal_id"] = json["id"].ToString();
             Session["name"] = json["name"].ToString();
             Session["access_token"] = access_token;
             Session["provider_id"] = provider_id;

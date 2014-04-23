@@ -18,6 +18,7 @@ namespace HealthPlusAPI
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Account>("Accounts");
             builder.EntitySet<Client>("Clients");
+            builder.EntitySet<Cupon>("Cupon");
 
             // Adicionar a action para retornar um id de um cliente que esta associado a um id do facebook
             ActionConfiguration getClientIdFacebook = builder.Entity<Client>().Action("GetClientIDFacebook");
