@@ -154,3 +154,5 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+/HpREST_Bridge/Auth/*.orig
+/HpREST_Bridge/*.orig

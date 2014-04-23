@@ -1,0 +1,165 @@
+﻿@model WebClient_.Models.UserInfo
+
+@{
+    ViewBag.Title = "User Page";
+}
+
+
+<div class="row col-xs-12 col-md-12">
+    <br />
+    <div class="col-xs-3 col-md-2">
+
+        <img class="img-thumbnail center-block" src="~/Content/images/no_image.png" alt="Foto do Utilizador" />
+    </div>
+    <div class="col-xs-8 col-md-4">
+        <h3> Vitor Mota</h3>
+        <h4> ei12166@fe.up.pt</h4>
+        <br />
+        <hr class="hplus hplus_HR1" />
+    </div>
+
+    <br />
+
+</div>
+<div id="accordion">
+    <div class="row col-xs-12 col-md-12">
+        <div class="col-xs-3 col-md-2">
+
+            <img class="img-thumbnail center-block" src="~/Content/images/dados_pessoais.png" alt="Dados Pessoais" />
+        </div>
+        <p style="height:20px"></p>
+
+        <div class="col-xs-8 col-md-4">
+            <div class="panel-group" id="accordion">
+                <div class="hp_panel_user_page_accordion panel panel-default">
+                    <div class="no_background panel-heading" id="div_badge1">
+                        <h3 data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="hp_user_accordion_title panel-title">
+                            <a href="#collapseOne">
+                                Dados Pessoais
+                                <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge1"></span></span>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Body
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix visible-xs"></div>
+
+    </div>
+    <div class="col-xs-11 col-md-6">
+        <br />
+        <hr class="hplus hplus_HR2" />
+    </div>
+
+    <div class="row col-xs-12 col-md-12">
+
+        <div class="col-xs-3 col-md-2">
+
+            <img class="img-thumbnail center-block" src="~/Content/images/cupoes_subscritos.png" alt="Cupoes Subscritos" />
+        </div>
+        <p style="height:20px"></p>
+        <div class="col-xs-8 col-md-4">
+            <div class="panel-group" id="accordion">
+                <div class="hp_panel_user_page_accordion panel panel-default">
+                    <div class="no_background panel-heading " id="div_badge2">
+                        <h3 data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="hp_user_accordion_title panel-title">
+                            <a href="#collapseTwo">
+                                Cupoes Subscritos
+                                <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge2"></span></span>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Body
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-xs-11 col-md-6">
+        <br />
+        <hr class="hplus hplus_HR2" />
+    </div>
+
+    <div class="row col-xs-12 col-md-12">
+
+        <div class="col-xs-3 col-md-2">
+
+            <img class="img-thumbnail center-block" src="~/Content/images/cupoes_adquiridos.png" alt="Cupoes adquiridos" />
+        </div>
+        <p style="height:20px"></p>
+        <div class="col-xs-8 col-md-4">
+            <div class="panel-group" id="accordion">
+                <div class="hp_panel_user_page_accordion panel panel-default">
+                    <div class="no_background panel-heading " >
+                        <h3 data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="hp_user_accordion_title panel-title" id="div_badge3">
+                            <a href="#collapseThree">
+                                Cupoes adquiridos
+                                <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge3"></span></span>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Body
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-xs-11 col-md-6">
+        <br />
+        <hr class="hplus hplus_HR2" />
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var badge1 = false;
+    $("#div_badge1").click(function () {
+        if (!badge1) {
+            $("#dp-badge1").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
+            badge1 = true;
+        } else {
+            $("#dp-badge1").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
+            badge1 = false;
+        }
+    });
+
+    var badge2 = false;
+    $("#div_badge2").click(function () {
+        if (!badge2) {
+            $("#dp-badge2").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
+            badge2 = true;
+        } else {
+            $("#dp-badge2").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
+            badge2 = false;
+        }
+    });
+
+    var badge3 = false;
+    $("#div_badge3").click(function () {
+        if (!badge3) {
+            $("#dp-badge3").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
+            badge3 = true;
+        } else {
+            $("#dp-badge3").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
+            badge3 = false;
+        }
+    });
+
+    
+</script>
