@@ -113,9 +113,12 @@ create table Cupon (
 	client_id int not null,
 	ad_id int not null,
 	state int not null,
-	start_time datetime not null,
-	end_time datetime not null,
-	purchase_time datetime not null,
+	--start_time datetime not null,
+	start_time date not null,
+	--end_time datetime not null,
+	end_time date not null,
+	--purchase_time datetime not null,
+	purchase_time date not null,
 	foreign key (ad_id) references Ad(id) on delete cascade,
 	foreign key (client_id) references Client(id) on delete cascade
 );

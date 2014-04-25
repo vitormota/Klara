@@ -14,18 +14,29 @@ namespace HealthPlusAPI
         {
             // Web API configuration and services
 
+            config.MapHttpAttributeRoutes();
+
             // Web API routes
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Account>("Accounts");
             builder.EntitySet<Client>("Clients");
+            builder.EntitySet<Cupon>("Cupon");
+            builder.EntitySet<Ad>("Ads");
+            builder.EntitySet<Subscription>("Subscriptions");
+            builder.EntitySet<Institution>("Institutions");
+            builder.EntitySet<Manager>("Managers");
+
+            ActionConfiguration getClientPurchases = builder.Entity<Cupon>().Action("GetPurchases");
+            getClientPurchases.Returns<string>();
+
+            
 
             // Adicionar a action para retornar um id de um cliente que esta associado a um id do facebook
             ActionConfiguration getClientIdFacebook = builder.Entity<Client>().Action("GetClientIDFacebook");
             getClientIdFacebook.Parameter<string>("client_id_by_session");
             getClientIdFacebook.Returns<string>();
 
-            builder.EntitySet<Ad>("Ads");
-            builder.EntitySet<Subscription>("Subscriptions");
+           
 
             // Adicionar a action para retornar todas as subscricoes feitas pelo utilizador
             ActionConfiguration institutionsSubscribe = builder.Entity<Subscription>().Action("InstitutionsSubscribe");
@@ -38,14 +49,14 @@ namespace HealthPlusAPI
             deleteSubscription.Parameter<string>("institution_id");
             deleteSubscription.Returns<string>();
 
-            builder.EntitySet<Institution>("Institutions");
+           
 
             // Adicionar a action para procurar instituicoes
             ActionConfiguration searchInstitution = builder.Entity<Institution>().Action("SearchInstitution");
             searchInstitution.Parameter<string>("textSearch");
             searchInstitution.Returns<string>();
 
-            builder.EntitySet<Manager>("Managers");
+            
 
             // Adicionar a action para procurar instituicoes
             ActionConfiguration managerLogin = builder.Entity<Manager>().Action("ManagerLogin");
