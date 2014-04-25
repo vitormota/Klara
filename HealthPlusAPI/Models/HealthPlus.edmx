@@ -53,9 +53,9 @@
           <Property Name="client_id" Type="int" Nullable="false" />
           <Property Name="ad_id" Type="int" Nullable="false" />
           <Property Name="state" Type="int" Nullable="false" />
-          <Property Name="start_time" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="end_time" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="purchase_time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="start_time" Type="date" Nullable="false" />
+          <Property Name="end_time" Type="date" Nullable="false" />
+          <Property Name="purchase_time" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Inst_Group">
           <Key>

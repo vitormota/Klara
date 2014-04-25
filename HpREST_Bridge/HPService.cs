@@ -32,6 +32,10 @@ namespace HpREST_Bridge
         private const string subscriptions_controller = "odata/Subscriptions";
         private const string managers_controller = "odata/Managers";
         private const string cupons_controller = "odata/Cupon";
+        /// <summary>
+        /// Controllers internal actions defines
+        /// </summary> 
+        private const string action_get_purchases = "GetPurchases";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -124,6 +128,30 @@ namespace HpREST_Bridge
         {
             string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
             return responce;
+        }
+
+        //---------------------------------------------------------------------
+        // Members - Client
+        //---------------------------------------------------------------------
+
+        /// <summary>
+        ///  Retrieve purchased cupoes from API with specified client id (internal)
+        /// </summary>
+        /// <param name="id">client id</param>
+        /// <returns></returns>
+        public string GetClientPurchases(int id)
+        {
+            return RestUtility.HttpPostJSON(base_url+ cupons_controller+"("+id+")/"+action_get_purchases,"");
+        }
+
+        public string GetClientDetails(int id)
+        {
+            return RestUtility.HttpGet(base_url+clients_controller + "(" + id + ")");
+        }
+
+        public string UpdateClientDetails(int id, string client_jobj)
+        {
+            return RestUtility.HttpPutJSON(base_url + clients_controller + "(" + id + ")", client_jobj);
         }
 
         //---------------------------------------------------------------------
@@ -263,14 +291,6 @@ namespace HpREST_Bridge
             return return_str;
         }
 
-        /// <summary>
-        ///  Retrieve purchased cupoes from API with specified client id (internal)
-        /// </summary>
-        /// <param name="id">client id</param>
-        /// <returns></returns>
-        public string GetClientPurchases(int id)
-        {
-            return RestUtility.HttpGet(cupons_controller+"("+id+")");
-        }
+        
     }
 }
