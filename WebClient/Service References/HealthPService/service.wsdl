@@ -19,11 +19,23 @@
   <wsdl:message name="IHPService_GetDataUsingDataContract_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
   </wsdl:message>
-  <wsdl:message name="IHPService_GetAccounts_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAccounts" />
+  <wsdl:message name="IHPService_GetClientDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientDetails" />
   </wsdl:message>
-  <wsdl:message name="IHPService_GetAccounts_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAccountsResponse" />
+  <wsdl:message name="IHPService_GetClientDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetClientPurchases_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientPurchases" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetClientPurchases_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientPurchasesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_UpdateClientDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateClientDetails" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_UpdateClientDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateClientDetailsResponse" />
   </wsdl:message>
   <wsdl:message name="IHPService_RegisterUser_InputMessage">
     <wsdl:part name="parameters" element="tns:RegisterUser" />
@@ -67,11 +79,29 @@
   <wsdl:message name="IHPService_UnsubscribeInstitution_OutputMessage">
     <wsdl:part name="parameters" element="tns:UnsubscribeInstitutionResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_ManagerLogin_InputMessage">
+    <wsdl:part name="parameters" element="tns:ManagerLogin" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_ManagerLogin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ManagerLoginResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_NearestInstitutions_InputMessage">
     <wsdl:part name="parameters" element="tns:NearestInstitutions" />
   </wsdl:message>
   <wsdl:message name="IHPService_NearestInstitutions_OutputMessage">
     <wsdl:part name="parameters" element="tns:NearestInstitutionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_EditInstitutionDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditInstitutionDetails" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_EditInstitutionDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditInstitutionDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetInstitution_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInstitution" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetInstitution_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInstitutionResponse" />
   </wsdl:message>
   <wsdl:portType name="IHPService">
     <wsdl:operation name="GetData">
@@ -82,9 +112,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetDataUsingDataContract" message="tns:IHPService_GetDataUsingDataContract_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetDataUsingDataContractResponse" message="tns:IHPService_GetDataUsingDataContract_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetAccounts">
-      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetAccounts" message="tns:IHPService_GetAccounts_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetAccountsResponse" message="tns:IHPService_GetAccounts_OutputMessage" />
+    <wsdl:operation name="GetClientDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetClientDetails" message="tns:IHPService_GetClientDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetClientDetailsResponse" message="tns:IHPService_GetClientDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientPurchases">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetClientPurchases" message="tns:IHPService_GetClientPurchases_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetClientPurchasesResponse" message="tns:IHPService_GetClientPurchases_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/UpdateClientDetails" message="tns:IHPService_UpdateClientDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/UpdateClientDetailsResponse" message="tns:IHPService_UpdateClientDetails_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RegisterUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/RegisterUser" message="tns:IHPService_RegisterUser_InputMessage" />
@@ -114,9 +152,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/UnsubscribeInstitution" message="tns:IHPService_UnsubscribeInstitution_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/UnsubscribeInstitutionResponse" message="tns:IHPService_UnsubscribeInstitution_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ManagerLogin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/ManagerLogin" message="tns:IHPService_ManagerLogin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/ManagerLoginResponse" message="tns:IHPService_ManagerLogin_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NearestInstitutions">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/NearestInstitutions" message="tns:IHPService_NearestInstitutions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/NearestInstitutionsResponse" message="tns:IHPService_NearestInstitutions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditInstitutionDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetails" message="tns:IHPService_EditInstitutionDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetailsResponse" message="tns:IHPService_EditInstitutionDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInstitution">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetInstitution" message="tns:IHPService_GetInstitution_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetInstitutionResponse" message="tns:IHPService_GetInstitution_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IHPService" type="tns:IHPService">
@@ -139,8 +189,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAccounts">
-      <soap:operation soapAction="http://tempuri.org/IHPService/GetAccounts" style="document" />
+    <wsdl:operation name="GetClientDetails">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetClientDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientPurchases">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetClientPurchases" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientDetails">
+      <soap:operation soapAction="http://tempuri.org/IHPService/UpdateClientDetails" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -211,8 +279,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ManagerLogin">
+      <soap:operation soapAction="http://tempuri.org/IHPService/ManagerLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NearestInstitutions">
       <soap:operation soapAction="http://tempuri.org/IHPService/NearestInstitutions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditInstitutionDetails">
+      <soap:operation soapAction="http://tempuri.org/IHPService/EditInstitutionDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInstitution">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetInstitution" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

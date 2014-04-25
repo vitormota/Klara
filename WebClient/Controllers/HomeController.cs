@@ -20,9 +20,11 @@ namespace WebClient_.Controllers
 
         public ActionResult About()
         {
+            int client_id = 36; // Id de teste
+
             ViewBag.Message = "Your application description page.";
             HealthPService.IHPService client = new HealthPService.HPServiceClient();
-            ViewBag.Message = client.GetAccounts();
+            ViewBag.Message = client.GetClientDetails(client_id);
             return View();
         }
 

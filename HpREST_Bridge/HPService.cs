@@ -215,63 +215,34 @@ namespace HpREST_Bridge
             return returnJSON;
         }
 
-        public string SubscribeInstitution(int institution_id, long client_id_by_session)
+        public string SubscribeInstitution(int institution_id, int client_id)
         {
             string return_str = null;
-            
-            Dictionary<string, string> json_str_long = new Dictionary<string, string>();
-            json_str_long.Add("client_id_by_session", client_id_by_session.ToString());
-            string postJSON = RestUtility.HttpPostJSON(base_url + clients_controller + "(0)/GetClientIDFacebook", JsonConvert.SerializeObject(json_str_long));
 
-            if (postJSON.Equals("error"))
-            {
-                return_str = "error";
-            }
-            else
-            {
-                Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
+            JObject subscription = new JObject(
+                new JProperty("subscribable_id", institution_id),
+                new JProperty("client_id", client_id));
 
-                int client_id = Convert.ToInt32(resultDict["value"]);
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller, subscription);
+            Dictionary<string, Object> resultDictSubs = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
-                JObject subscription = new JObject(
-                    new JProperty("subscribable_id", institution_id),
-                    new JProperty("client_id", client_id));
-
-                string postJSONSubs = RestUtility.HttpPostJSON(base_url + subscriptions_controller, subscription);
-                Dictionary<string, Object> resultDictSubs = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSONSubs);
-
-                return_str = resultDictSubs["value"].ToString();
-            }
-
+            return_str = resultDictSubs["value"].ToString();
             return return_str;
         }
 
-        public string UnsubscribeInstitution(int institution_id, long client_id_by_session)
+        public string UnsubscribeInstitution(int institution_id, int client_id)
         {
             string return_str = null;
 
-            Dictionary<string, string> json_str_long = new Dictionary<string, string>();
-            json_str_long.Add("client_id_by_session", client_id_by_session.ToString());
-            string postJSONGetID = RestUtility.HttpPostJSON(base_url + clients_controller + "(0)/GetClientIDFacebook", JsonConvert.SerializeObject(json_str_long));
-
-            if(postJSONGetID.Equals("error"))
-            {
-                return_str = "error";
-            }
-            else
-            {
-                Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSONGetID);
-                string client_id = resultDict["value"];
-
-                Dictionary<string, string> json_dict = new Dictionary<string, string>();
-                json_dict.Add("institution_id", institution_id.ToString());
-                json_dict.Add("client_id", client_id);
-                string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "(0)/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
+            Dictionary<string, string> json_dict = new Dictionary<string, string>();
+            json_dict.Add("institution_id", institution_id.ToString());
+            json_dict.Add("client_id", client_id.ToString());
+            
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "(0)/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
                 
-                Dictionary<string, string> resultDictSubs = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
-                return_str = resultDictSubs["value"];
-            }
-
+            Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
+            return_str = resultDict["value"];
+            
             return return_str;
         }
 

@@ -66,9 +66,9 @@ namespace WebClient_.Controllers
         public string SubscribeInstitution()
         {
             int institution_id = 2;
-            long client_id_by_session = 100001147170248; // Posteriormente, vai-se buscar o valor da sessao
+            int client_id = 36; // Posteriormente, vai-se buscar o valor da sessao
 
-            string result = mService.SubscribeInstitution(institution_id, client_id_by_session);
+            string result = mService.SubscribeInstitution(institution_id, client_id);
             return result;
         }
 
@@ -76,9 +76,9 @@ namespace WebClient_.Controllers
         public string UnsubscribeInstitution()
         {
             int institution_id = 2;
-            long client_id_by_session = 100001147170248; // Posteriormente, vai-se buscar o valor da sessao
+            int client_id = 36; // Posteriormente, vai-se buscar o valor da sessao
 
-            string result = mService.UnsubscribeInstitution(institution_id, client_id_by_session);
+            string result = mService.UnsubscribeInstitution(institution_id, client_id);
             return result;
         }
 

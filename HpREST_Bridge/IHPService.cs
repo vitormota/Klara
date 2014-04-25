@@ -46,10 +46,10 @@ namespace HpREST_Bridge
         string InstitutionsSubscribe(int client_id);
 
         [OperationContract]
-        string SubscribeInstitution(int institution_id, long client_id_by_session);
+        string SubscribeInstitution(int institution_id, int client_id);
 
         [OperationContract]
-        string UnsubscribeInstitution(int institution_id, long client_id_by_session);
+        string UnsubscribeInstitution(int institution_id, int client_id);
 
         [OperationContract]
         string ManagerLogin(string unsername, string password);

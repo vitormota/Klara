@@ -58,7 +58,7 @@ namespace HealthPlusAPI
 
             
 
-            // Adicionar a action para procurar instituicoes
+            // Adicionar a action para gerir login's
             ActionConfiguration managerLogin = builder.Entity<Manager>().Action("ManagerLogin");
             managerLogin.Parameter<string>("username");
             managerLogin.Parameter<string>("password");
