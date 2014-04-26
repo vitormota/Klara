@@ -1,0 +1,50 @@
+.user-separator.desc  {
+    border-color: #f5937d;
+    border-width: 1px 0;
+}
+
+.user-separator.item {
+    border-color: #F0E9CE;
+    border-width: 8px 0;
+}
+
+.hp-panel-user-page-accordion {
+    background-color:transparent;
+    border-color:transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none; 
+}
+
+.no-background.panel-heading{
+    background-color:transparent;
+    padding-left: 0;
+}
+
+.col-no-left-padding{
+    padding-left: 0;
+}
+
+a.panel-title {
+    color: #DA776B;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+a.panel-title:hover {
+    text-decoration: none;
+}
+
+.user-desc {
+	margin-top: 4.4em;
+	color: #575656;
+}
+
+.user-desc img, #accordion img {
+	width: 4em;
+	height: auto;
+	max-height: 4em;
+}
+
+.body-content {
+	margin-bottom: 4.4em;
+}
