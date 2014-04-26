@@ -13,6 +13,7 @@ using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
 using Newtonsoft.Json;
+using System.Net.Mail;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -193,6 +194,37 @@ namespace HealthPlusAPI.Controllers
         private bool ClientExists(int key)
         {
             return db.Client.Count(e => e.id == key) > 0;
+        }
+
+        public bool ConcactSupport(string email, string msg, Client client)
+        {
+            SmtpClient mySmtpClient = new SmtpClient("my.smtp.exampleserver.net");
+
+            // set smtp-client with basicAuthentication
+            mySmtpClient.UseDefaultCredentials = false;
+            System.Net.NetworkCredential basicAuthenticationInfo = new
+               System.Net.NetworkCredential("username", "password");
+            mySmtpClient.Credentials = basicAuthenticationInfo;
+
+            // add from,to mailaddresses
+            MailAddress from = new MailAddress(client.email, client.name);
+            MailAddress to = new MailAddress(email, "HealthPlusSupport");
+            MailMessage myMail = new System.Net.Mail.MailMessage(from, to);
+
+
+            // set subject and encoding
+            myMail.Subject = "Client Support";
+            myMail.SubjectEncoding = System.Text.Encoding.UTF8;
+
+            // set body-message and encoding
+            myMail.Body = msg;
+            myMail.BodyEncoding = System.Text.Encoding.UTF8;
+            // text or html
+            myMail.IsBodyHtml = true;
+
+            mySmtpClient.Send(myMail);
+
+            return true;
         }
     }
 }

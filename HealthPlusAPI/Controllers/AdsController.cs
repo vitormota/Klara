@@ -11,6 +11,7 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
+using System.Device.Location;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -23,6 +24,9 @@ namespace HealthPlusAPI.Controllers
     builder.EntitySet<Ad>("Ads");
     config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
     */
+
+
+
     public class AdsController : ODataController
     {
         private healthplusEntities db = new healthplusEntities();
@@ -38,10 +42,47 @@ namespace HealthPlusAPI.Controllers
         [Queryable]
         public IQueryable<Ad> GetAd([FromODataUri] string key)
         {
+            int Distance = int.MaxValue;
+
+            //[close(1500)]-!-<search string>
+            if (key.StartsWith("[close("))
+            {
+                string[] separator = new string[]{"-!-"};
+                string[] separator1 = new string[] { ")" };
+                string[] str0 = key.Split(separator,2,StringSplitOptions.None);
+                string str1 = str0[0];
+                key = str0[1];
+                str1 = str1.Substring(7, str1.Length - 7);
+                str0 = key.Split(separator1, 2, StringSplitOptions.None);
+                Distance = int.Parse(str0[0]);
+                
+            }
+
+            IQueryable<Ad> searchedAds01 = db.Ad.Where(Ad => Ad.name.Contains(key)).Concat( 
+                                           db.Ad.Where(Ad => Ad.service.Contains(key))).Concat(
+                                           db.Ad.Where(Ad => Ad.specialty.Contains(key))).Concat(
+                                           db.Ad.Where(Ad => Ad.description.Contains(key))).Distinct();
+
+            IQueryable<Ad> searchedAds = null;
+            double[] myLatLong = getMyLat_Long();
+            foreach(Ad ad in searchedAds01){
+                Institution ins = db.Institution.Where(Institution => Institution.id.Equals(ad.institution_id)).First();
+                
+                double dist = CalculateDistanceGPSCoordinates(Convert.ToDouble(ins.latitude), Convert.ToDouble(ins.longitude), myLatLong[0], myLatLong[1]);
+                if (Distance >= dist)
+                {
+                    searchedAds.Concat(db.Ad.Where(Ad => Ad.id == ad.id));
+                }
+            }
+
+            return searchedAds;
+
+            /*
             return db.Ad.Where(Ad => Ad.name.Contains(key)).Concat( 
                    db.Ad.Where(Ad => Ad.service.Contains(key))).Concat(
                    db.Ad.Where(Ad => Ad.specialty.Contains(key))).Concat(
                    db.Ad.Where(Ad => Ad.description.Contains(key))).Distinct();
+             * */
         }
 
         // PUT odata/Ads(5)
@@ -170,6 +211,20 @@ namespace HealthPlusAPI.Controllers
         private bool AdExists(int key)
         {
             return db.Ad.Count(e => e.id == key) > 0;
+        }
+
+        private double CalculateDistanceGPSCoordinates(double lat1, double long1, double lat2, double long2)
+        {
+            var first_point = new GeoCoordinate(lat1, long1);
+            var second_point = new GeoCoordinate(lat2, long2);
+
+            return (first_point.GetDistanceTo(second_point) / 1000);
+        }
+
+        private double[] getMyLat_Long()
+        {
+            //TODO usar a localização real, ex: session
+            return new double[]{100.0,100.0};
         }
     }
 }
