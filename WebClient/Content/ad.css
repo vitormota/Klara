@@ -1,0 +1,32 @@
+#cupn-img {
+	width: 18.750em;
+	height: auto;
+}
+
+.separator-title  {
+    border-color: #D86A62;
+    border-width: 2px 0;
+}
+
+.separator-details  {
+    border-color: #F1E9CE;
+    border-width: 4px 0;
+}
+
+h5 {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #A39795;
+}
+
+#cupn-title {
+	text-transform: uppercase;
+	color: #A39795;
+}
+
+#buy-btn {
+	max-width: 64px;
+	height: auto;
+	float: right;
+	margin-top: 1.563em;
+}

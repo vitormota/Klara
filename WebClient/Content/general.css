@@ -14,10 +14,14 @@ p {
 	padding: 0;
 }
 
+.body-content {
+	padding: 4.4em 0 4.4em 0;
+}
+
 /******/
 
 header.navbar {
-	background-color: #d96b64;
+	background-color: #D86A62;
 	padding: 4.4em 0 2.1em 0;
 	margin-bottom: 0;
 	border-radius: 0;
@@ -31,9 +35,8 @@ header.navbar li {
 }
 
 header.navbar .navbar-nav > li > a {
-	color: #F3EEE0;
+	color: white;
 	text-transform: uppercase;
-	font-weight: bold;
 }
 
 header.navbar .navbar-nav > li > a:hover {
