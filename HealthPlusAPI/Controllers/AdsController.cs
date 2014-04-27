@@ -221,7 +221,7 @@ namespace HealthPlusAPI.Controllers
 
         private double CalculateDistanceGPSCoordinates(double lat1, double long1, double lat2, double long2)
         {
-            if (lat1 < -90 || lat1 > 90 || long1 < -90 || long1 > 90 || lat2 < -90 || lat2 > 90 || long2 < -90 || long2 > 90)
+            if (lat1 < -90 || lat1 > 90 || long1 < -180 || long1 > 180 || lat2 < -90 || lat2 > 90 || long2 < -180 || long2 > 180)
                 return 0.0;
             var first_point = new GeoCoordinate(lat1, long1);
             var second_point = new GeoCoordinate(lat2, long2);
@@ -232,7 +232,7 @@ namespace HealthPlusAPI.Controllers
         private double[] getMyLat_Long()
         {
             //TODO usar a localização real, ex: session
-            return new double[]{100.0,100.0};
+            return new double[]{10.0,10.0};
         }
     }
 }
