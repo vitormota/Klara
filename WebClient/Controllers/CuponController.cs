@@ -51,29 +51,49 @@ namespace WebClient_.Controllers
 
             // Desenhar linhas
             float left = iTextSharp.text.Utilities.MillimetersToPoints((float)12.7);
-            float top = iTextSharp.text.Utilities.MillimetersToPoints(30);
+            float delta = (float)17.7;
 
-            pdf_cb.MoveTo(left, top);
-            pdf_cb.LineTo(doc.PageSize.Width / 2, top);
-            pdf_cb.Stroke();
+            // Colocar linhas
+            for (int i = 0; i < 4; i++)
+            {
+                float top = iTextSharp.text.Utilities.MillimetersToPoints(269 - (i * delta));
+
+                pdf_cb.MoveTo(left, top);
+                pdf_cb.LineTo(doc.PageSize.Width / 2, top);
+                pdf_cb.Stroke();
+            }
 
             // Colocacao do texto no pdf
-            doc.Add(new Paragraph("NOME", font_pdf));
-            doc.Add(new Paragraph(name, font_pdf));
+            Paragraph p1 = new Paragraph("NOME", font_pdf);
+            Paragraph p2 = new Paragraph(name, font_pdf);
+            p2.SpacingAfter = 20;
+            doc.Add(p1);
+            doc.Add(p2);
 
-            doc.Add(new Paragraph("DESCRIÇÃO", font_pdf));
-            doc.Add(new Paragraph(description, font_pdf));
+            Paragraph p3 = new Paragraph("DESCRIÇÃO", font_pdf);
+            Paragraph p4 = new Paragraph(description, font_pdf);
+            p4.SpacingAfter = 20;
+            doc.Add(p3);
+            doc.Add(p4);
 
-            doc.Add(new Paragraph("INSTITUIÇÃO", font_pdf));
-            doc.Add(new Paragraph(institution, font_pdf));
+            Paragraph p5 = new Paragraph("INSTITUIÇÃO", font_pdf);
+            Paragraph p6 = new Paragraph(institution, font_pdf);
+            p6.SpacingAfter = 20;
+            doc.Add(p5);
+            doc.Add(p6);
 
             string date_str = date_cupon.Day.ToString() + "-" + date_cupon.Month.ToString() + "-" + date_cupon.Year.ToString() + " | " + date_cupon.Hour.ToString() + "h" + date_cupon.Minute.ToString();
-            doc.Add(new Paragraph("DATA", font_pdf));
-            doc.Add(new Paragraph(date_str, font_pdf));
+            Paragraph p7 = new Paragraph("DATA", font_pdf);
+            Paragraph p8 = new Paragraph(date_str, font_pdf);
+            p8.SpacingAfter = 20;
+            doc.Add(p7);
+            doc.Add(p8);
 
             string price_str = price.ToString() + "€";
-            doc.Add(new Paragraph("PREÇO", font_pdf));
-            doc.Add(new Paragraph(price_str, font_pdf));
+            Paragraph p9 = new Paragraph("PREÇO", font_pdf);
+            Paragraph p10 = new Paragraph(price_str, font_pdf);
+            doc.Add(p9);
+            doc.Add(p10);
             doc.Close();
 
             // Serve para abrir o ficheiro
