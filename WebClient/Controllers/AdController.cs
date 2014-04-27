@@ -10,20 +10,11 @@ namespace WebClient_.Controllers
 {
     public class AdController : Controller
     {
-        private HealthPService.IHPService mService = new HPServiceClient();
         //
         // GET: /Ad/
         public ActionResult Index()
         {
             return View();
-        }
-
-        [HttpPost]
-        public string SearchAd(string textSearch)
-        {
-            string result = mService.SearchAd(textSearch);
-
-            return result; // Para testar se esta a funcionar bem
         }
 	}
 }
