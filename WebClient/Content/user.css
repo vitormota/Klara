@@ -1,5 +1,5 @@
 .user-separator.desc  {
-    border-color: #f5937d;
+    border-color: #D86A62;
     border-width: 1px 0;
 }
 
@@ -43,8 +43,4 @@ a.panel-title:hover {
 	width: 4em;
 	height: auto;
 	max-height: 4em;
-}
-
-.body-content {
-	margin-bottom: 4.4em;
 }

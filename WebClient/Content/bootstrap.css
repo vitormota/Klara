@@ -1583,6 +1583,25 @@ table th[class*="col-"] {
   background-color: #ebcccc;
 }
 @media (max-width: 767px) {
+  .navbar-header img {
+      padding-left: 15px;
+   }
+
+  .navbar {
+      padding: 1em 0 1em 0 !important;
+  }
+
+  header.navbar .navbar-right {
+	position: relative !important;
+	bottom: inherit !important;
+	right: inherit !important;
+  }
+
+  .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+     margin-top: 1.2em !important;
+     border-color: #F3EEE0 !important;
+  }
+  
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
