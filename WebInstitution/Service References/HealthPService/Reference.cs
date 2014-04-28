@@ -27,11 +27,23 @@ namespace WebInstitution.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IHPService/GetDataUsingDataContractResponse")]
         System.Threading.Tasks.Task<HpREST_Bridge.CompositeType> GetDataUsingDataContractAsync(HpREST_Bridge.CompositeType composite);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAccounts", ReplyAction="http://tempuri.org/IHPService/GetAccountsResponse")]
-        string GetAccounts();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetClientDetails", ReplyAction="http://tempuri.org/IHPService/GetClientDetailsResponse")]
+        string GetClientDetails(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAccounts", ReplyAction="http://tempuri.org/IHPService/GetAccountsResponse")]
-        System.Threading.Tasks.Task<string> GetAccountsAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetClientDetails", ReplyAction="http://tempuri.org/IHPService/GetClientDetailsResponse")]
+        System.Threading.Tasks.Task<string> GetClientDetailsAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetClientPurchases", ReplyAction="http://tempuri.org/IHPService/GetClientPurchasesResponse")]
+        string GetClientPurchases(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetClientPurchases", ReplyAction="http://tempuri.org/IHPService/GetClientPurchasesResponse")]
+        System.Threading.Tasks.Task<string> GetClientPurchasesAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UpdateClientDetails", ReplyAction="http://tempuri.org/IHPService/UpdateClientDetailsResponse")]
+        string UpdateClientDetails(int id, string client_jobj);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UpdateClientDetails", ReplyAction="http://tempuri.org/IHPService/UpdateClientDetailsResponse")]
+        System.Threading.Tasks.Task<string> UpdateClientDetailsAsync(int id, string client_jobj);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/RegisterUser", ReplyAction="http://tempuri.org/IHPService/RegisterUserResponse")]
         string RegisterUser(string access_token, int provider);
@@ -64,16 +76,16 @@ namespace WebInstitution.HealthPService {
         System.Threading.Tasks.Task<string> InstitutionsSubscribeAsync(int client_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/SubscribeInstitutionResponse")]
-        string SubscribeInstitution(int institution_id, long client_id_by_session);
+        string SubscribeInstitution(int institution_id, int client_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/SubscribeInstitutionResponse")]
-        System.Threading.Tasks.Task<string> SubscribeInstitutionAsync(int institution_id, long client_id_by_session);
+        System.Threading.Tasks.Task<string> SubscribeInstitutionAsync(int institution_id, int client_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UnsubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/UnsubscribeInstitutionResponse")]
-        string UnsubscribeInstitution(int institution_id, long client_id_by_session);
+        string UnsubscribeInstitution(int institution_id, int client_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UnsubscribeInstitution", ReplyAction="http://tempuri.org/IHPService/UnsubscribeInstitutionResponse")]
-        System.Threading.Tasks.Task<string> UnsubscribeInstitutionAsync(int institution_id, long client_id_by_session);
+        System.Threading.Tasks.Task<string> UnsubscribeInstitutionAsync(int institution_id, int client_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/ManagerLogin", ReplyAction="http://tempuri.org/IHPService/ManagerLoginResponse")]
         string ManagerLogin(string unsername, string password);
@@ -92,6 +104,12 @@ namespace WebInstitution.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/EditInstitutionDetails", ReplyAction="http://tempuri.org/IHPService/EditInstitutionDetailsResponse")]
         System.Threading.Tasks.Task<string> EditInstitutionDetailsAsync(string model_data, int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/CreateAd", ReplyAction="http://tempuri.org/IHPService/CreateAdResponse")]
+        string CreateAd(string model_data);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/CreateAd", ReplyAction="http://tempuri.org/IHPService/CreateAdResponse")]
+        System.Threading.Tasks.Task<string> CreateAdAsync(string model_data);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInstitution", ReplyAction="http://tempuri.org/IHPService/GetInstitutionResponse")]
         string GetInstitution(int id);
@@ -143,12 +161,28 @@ namespace WebInstitution.HealthPService {
             return base.Channel.GetDataUsingDataContractAsync(composite);
         }
         
-        public string GetAccounts() {
-            return base.Channel.GetAccounts();
+        public string GetClientDetails(int id) {
+            return base.Channel.GetClientDetails(id);
         }
         
-        public System.Threading.Tasks.Task<string> GetAccountsAsync() {
-            return base.Channel.GetAccountsAsync();
+        public System.Threading.Tasks.Task<string> GetClientDetailsAsync(int id) {
+            return base.Channel.GetClientDetailsAsync(id);
+        }
+        
+        public string GetClientPurchases(int id) {
+            return base.Channel.GetClientPurchases(id);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetClientPurchasesAsync(int id) {
+            return base.Channel.GetClientPurchasesAsync(id);
+        }
+        
+        public string UpdateClientDetails(int id, string client_jobj) {
+            return base.Channel.UpdateClientDetails(id, client_jobj);
+        }
+        
+        public System.Threading.Tasks.Task<string> UpdateClientDetailsAsync(int id, string client_jobj) {
+            return base.Channel.UpdateClientDetailsAsync(id, client_jobj);
         }
         
         public string RegisterUser(string access_token, int provider) {
@@ -191,20 +225,20 @@ namespace WebInstitution.HealthPService {
             return base.Channel.InstitutionsSubscribeAsync(client_id);
         }
         
-        public string SubscribeInstitution(int institution_id, long client_id_by_session) {
-            return base.Channel.SubscribeInstitution(institution_id, client_id_by_session);
+        public string SubscribeInstitution(int institution_id, int client_id) {
+            return base.Channel.SubscribeInstitution(institution_id, client_id);
         }
         
-        public System.Threading.Tasks.Task<string> SubscribeInstitutionAsync(int institution_id, long client_id_by_session) {
-            return base.Channel.SubscribeInstitutionAsync(institution_id, client_id_by_session);
+        public System.Threading.Tasks.Task<string> SubscribeInstitutionAsync(int institution_id, int client_id) {
+            return base.Channel.SubscribeInstitutionAsync(institution_id, client_id);
         }
         
-        public string UnsubscribeInstitution(int institution_id, long client_id_by_session) {
-            return base.Channel.UnsubscribeInstitution(institution_id, client_id_by_session);
+        public string UnsubscribeInstitution(int institution_id, int client_id) {
+            return base.Channel.UnsubscribeInstitution(institution_id, client_id);
         }
         
-        public System.Threading.Tasks.Task<string> UnsubscribeInstitutionAsync(int institution_id, long client_id_by_session) {
-            return base.Channel.UnsubscribeInstitutionAsync(institution_id, client_id_by_session);
+        public System.Threading.Tasks.Task<string> UnsubscribeInstitutionAsync(int institution_id, int client_id) {
+            return base.Channel.UnsubscribeInstitutionAsync(institution_id, client_id);
         }
         
         public string ManagerLogin(string unsername, string password) {
@@ -229,6 +263,14 @@ namespace WebInstitution.HealthPService {
         
         public System.Threading.Tasks.Task<string> EditInstitutionDetailsAsync(string model_data, int id) {
             return base.Channel.EditInstitutionDetailsAsync(model_data, id);
+        }
+        
+        public string CreateAd(string model_data) {
+            return base.Channel.CreateAd(model_data);
+        }
+        
+        public System.Threading.Tasks.Task<string> CreateAdAsync(string model_data) {
+            return base.Channel.CreateAdAsync(model_data);
         }
         
         public string GetInstitution(int id) {

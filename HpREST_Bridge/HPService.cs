@@ -166,6 +166,14 @@ namespace HpREST_Bridge
             //
             return response;
         }
+        public string CreateAd(string model_data)
+        {
+            JObject data = JObject.Parse(model_data);
+            string response = RestUtility.HttpPostJSON(base_url + ads_controller, data);
+            //Strip response from sensitive information?
+            //
+            return response;
+        }
 
         /// <summary>
         /// Get institution by id

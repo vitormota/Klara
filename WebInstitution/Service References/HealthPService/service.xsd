@@ -29,15 +29,46 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetAccounts">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAccountsResponse">
+  <xs:element name="GetClientDetails">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GetAccountsResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetClientDetailsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientPurchases">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientPurchasesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetClientPurchasesResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateClientDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+        <xs:element minOccurs="0" name="client_jobj" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateClientDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateClientDetailsResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -117,7 +148,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="institution_id" type="xs:int" />
-        <xs:element minOccurs="0" name="client_id_by_session" type="xs:long" />
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -132,7 +163,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="institution_id" type="xs:int" />
-        <xs:element minOccurs="0" name="client_id_by_session" type="xs:long" />
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -186,6 +217,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="EditInstitutionDetailsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateAd">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="model_data" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateAdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreateAdResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

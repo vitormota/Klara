@@ -66,6 +66,9 @@ namespace HpREST_Bridge
         string EditInstitutionDetails(string model_data, int id);
 
         [OperationContract]
+        string CreateAd(string model_data);
+
+        [OperationContract]
         string GetInstitution(int id);
 
     }
