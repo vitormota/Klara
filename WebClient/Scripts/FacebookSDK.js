@@ -81,3 +81,26 @@ function testAPI(uid) {
         console.log(response);
     });
 }
+
+// Funcao que vai permitir a partilha pelo Facebook
+function ShareFacebook()
+{
+    FB.ui(
+	{
+        // Dados tem que ser alterados para quando o programa correr
+	  	method: 'feed',
+	  	name: 'Desconto na Health+',
+	  	link: 'http://localhost:52170/Cupon/Index',
+	  	picture: 'http://localhost:52170/Content/Images/logo.png',
+	  	description: 'Venha conhecer os fantásticos descontos da Health+'
+	},
+
+	function (response) {
+	  	if (response && response.post_id) {
+	  	    console.log('Publicacao publicada!!');
+	  	}
+	  	else {
+	  	    console.log('Publicacao nao publicada!!');
+	  	}
+	});
+}
