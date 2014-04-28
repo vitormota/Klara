@@ -215,6 +215,7 @@
     <Content Include="Content\Images\cupon.png" />
     <Content Include="Content\Images\dados_pessoais.png" />
     <Content Include="Content\Images\h-logo.png" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\pictogramas-01.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
