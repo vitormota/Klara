@@ -199,6 +199,48 @@ namespace HealthPlusAPI.Controllers
             return result;
         }
 
+        
+        [HttpPost]
+        public string FetchInstitutions([FromODataUri] int key, ODataActionParameters parameters)
+        {
+            string result = null;
+            int managerId = Convert.ToInt32((string)parameters["manager_id"]);
+
+            if (!ModelState.IsValid)
+            {
+                result = "error";
+            }
+            else
+            {
+                try
+                {
+
+                    var institutions =
+                        from ins in db.Institution
+                        join map in db.Manager_Institution_maps on ins.id equals map.institution_id
+                        where map.manager_id == managerId
+                        select ins;
+
+                    result = JsonConvert.SerializeObject(institutions.ToList());
+
+                    if (institutions == null)
+                    {
+                        result = "invalid user";
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+                catch (WebException e)
+                {
+                    result = e.Message;
+                }
+            }
+
+            return result;
+        }
+
         // PUT odata/Institutions(5)
         public IHttpActionResult Put([FromODataUri] int key, Institution institution)
         {

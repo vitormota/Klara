@@ -63,6 +63,12 @@ namespace WebInstitution.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchInstitution", ReplyAction="http://tempuri.org/IHPService/SearchInstitutionResponse")]
         System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/FetchInstitutions", ReplyAction="http://tempuri.org/IHPService/FetchInstitutionsResponse")]
+        string FetchInstitutions(string manager_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/FetchInstitutions", ReplyAction="http://tempuri.org/IHPService/FetchInstitutionsResponse")]
+        System.Threading.Tasks.Task<string> FetchInstitutionsAsync(string manager_id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchAd", ReplyAction="http://tempuri.org/IHPService/SearchAdResponse")]
         string SearchAd(string textSearch);
         
@@ -98,6 +104,12 @@ namespace WebInstitution.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/NearestInstitutions", ReplyAction="http://tempuri.org/IHPService/NearestInstitutionsResponse")]
         System.Threading.Tasks.Task<string> NearestInstitutionsAsync(double latitude, double longitude, double distance);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SeeCuponsActive", ReplyAction="http://tempuri.org/IHPService/SeeCuponsActiveResponse")]
+        string SeeCuponsActive(int client_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SeeCuponsActive", ReplyAction="http://tempuri.org/IHPService/SeeCuponsActiveResponse")]
+        System.Threading.Tasks.Task<string> SeeCuponsActiveAsync(int client_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/EditInstitutionDetails", ReplyAction="http://tempuri.org/IHPService/EditInstitutionDetailsResponse")]
         string EditInstitutionDetails(string model_data, int id);
@@ -209,6 +221,14 @@ namespace WebInstitution.HealthPService {
             return base.Channel.SearchInstitutionAsync(textSearch);
         }
         
+        public string FetchInstitutions(string manager_id) {
+            return base.Channel.FetchInstitutions(manager_id);
+        }
+        
+        public System.Threading.Tasks.Task<string> FetchInstitutionsAsync(string manager_id) {
+            return base.Channel.FetchInstitutionsAsync(manager_id);
+        }
+        
         public string SearchAd(string textSearch) {
             return base.Channel.SearchAd(textSearch);
         }
@@ -255,6 +275,14 @@ namespace WebInstitution.HealthPService {
         
         public System.Threading.Tasks.Task<string> NearestInstitutionsAsync(double latitude, double longitude, double distance) {
             return base.Channel.NearestInstitutionsAsync(latitude, longitude, distance);
+        }
+        
+        public string SeeCuponsActive(int client_id) {
+            return base.Channel.SeeCuponsActive(client_id);
+        }
+        
+        public System.Threading.Tasks.Task<string> SeeCuponsActiveAsync(int client_id) {
+            return base.Channel.SeeCuponsActiveAsync(client_id);
         }
         
         public string EditInstitutionDetails(string model_data, int id) {

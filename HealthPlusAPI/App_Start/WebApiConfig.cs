@@ -60,12 +60,21 @@ namespace HealthPlusAPI
             searchInstitution.Returns<string>();
 
             
-
             // Adicionar a action para gerir login's
             ActionConfiguration managerLogin = builder.Entity<Manager>().Action("ManagerLogin");
             managerLogin.Parameter<string>("username");
             managerLogin.Parameter<string>("password");
             managerLogin.Returns<string>();
+
+            // Instituições geríveis pelo manager
+            ActionConfiguration fetchInstitutions = builder.Entity<Institution>().Action("FetchInstitutions");
+            fetchInstitutions.Parameter<string>("manager_id");
+            fetchInstitutions.Returns<string>();
+
+            // Inserir um novo anúncio
+            //ActionConfiguration insertAd = builder.Entity<Ad>().Action("InsertAd");
+            //fetchInstitutions.Parameter<Ad>("ad");
+            //fetchInstitutions.Returns<string>();
 
             ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Action("NearestInstitutions");
             nearestInstitutions.Parameter<string>("latitude");

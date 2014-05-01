@@ -116,6 +116,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="FetchInstitutions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="manager_id" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FetchInstitutionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="FetchInstitutionsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SearchAd">
     <xs:complexType>
       <xs:sequence>
@@ -202,6 +216,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="NearestInstitutionsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SeeCuponsActive">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SeeCuponsActiveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SeeCuponsActiveResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
