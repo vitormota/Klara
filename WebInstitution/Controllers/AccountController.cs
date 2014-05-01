@@ -10,6 +10,7 @@ namespace WebInstitution.Controllers
 {
     public class AccountController : Controller
     {
+
         private HealthPService.IHPService mService = new HPServiceClient();
 
         //
@@ -22,7 +23,8 @@ namespace WebInstitution.Controllers
                 return Details(Convert.ToInt32(Session["inst_id"]));
             }
             //Not logged in
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
+            return View();
         }
 
         //
@@ -74,6 +76,49 @@ namespace WebInstitution.Controllers
             return RedirectToAction("Details", new { id = model.id});
         }
 
+        public ActionResult ManagerLogin(string username, string password)
+        {
+            string result_str = mService.ManagerLogin(username, password);
+
+            if (Session["inst_id"] != null)
+            {
+                result_str = "already logged";
+            }
+            else if (result_str == "invalid user" || result_str == "invalid password")
+            {
+                //result_str = "error";
+            }
+            else
+            {
+                //Session["userId"] = Convert.ToInt32(result_str);
+                Session["inst_id"] = result_str;
+            }
+
+            ViewData["login"] = result_str;
+
+            return View("Index");
+        }
+
+        [HttpGet]
+        public ActionResult ManagerLogout()
+        {
+            string response = "";
+
+            if (Session["inst_id"] == null)
+            {
+                response = "not logged yet";
+            }
+            else
+            {
+                Session.Remove("inst_id");
+                response = "logout done";
+            }
+
+            ViewData["login"] = response;
+
+            return View("Index");
+        }
+
         private static void jsonToModel(Models.InstitutionProfileModel model,JObject json){
             model.id = Convert.ToInt32(json["id"].ToString());
             model.name = json["name"].ToString();
@@ -86,5 +131,7 @@ namespace WebInstitution.Controllers
             model.phone_number = json["phone_number"].ToString();
             //model.group_id = json["group_id"];
         }
+
+
 	}
 }

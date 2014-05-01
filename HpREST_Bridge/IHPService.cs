@@ -57,6 +57,9 @@ namespace HpREST_Bridge
         [OperationContract]
         string NearestInstitutions(double latitude, double longitude, double distance);
 
+        [OperationContract]
+        string SeeCuponsActive(int client_id);
+
         /// <summary>
         /// Change institution details
         /// </summary>
@@ -64,6 +67,9 @@ namespace HpREST_Bridge
         /// <returns>API response</returns>
         [OperationContract]
         string EditInstitutionDetails(string model_data, int id);
+
+        [OperationContract]
+        string CreateAd(string model_data);
 
         [OperationContract]
         string GetInstitution(int id);

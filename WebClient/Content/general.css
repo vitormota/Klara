@@ -14,10 +14,14 @@ p {
 	padding: 0;
 }
 
+.body-content {
+	margin-bottom: 4.4em;
+}
+
 /******/
 
 header.navbar {
-	background-color: #d96b64;
+	background-color: #D86A62;
 	padding: 4.4em 0 2.1em 0;
 	margin-bottom: 0;
 	border-radius: 0;
@@ -31,9 +35,8 @@ header.navbar li {
 }
 
 header.navbar .navbar-nav > li > a {
-	color: #F3EEE0;
+	color: white;
 	text-transform: uppercase;
-	font-weight: bold;
 }
 
 header.navbar .navbar-nav > li > a:hover {
@@ -48,6 +51,24 @@ header.navbar .navbar-right {
 	position: absolute;
 	bottom: 0;
 	right: 0;
+}
+
+header.navbar .navbar-toggle {
+	border-color: #F3EEE0;
+	margin: 0;
+	margin-right: 15px;
+}
+
+header.navbar .navbar-toggle:hover {
+	background-color: #D98573;
+}
+
+header.navbar .navbar-toggle:focus {
+	background-color: #D98573;
+}
+
+header.navbar .navbar-toggle .icon-bar {
+	background-color: #F3EEE0;
 }
 
 
@@ -68,6 +89,7 @@ footer p {
 	height: 64px;
 	background-color: #f0e9ce;
 	padding: 1em 1.5em 1em 1.5em;
+	margin-bottom: 2.7em;
 }
 
 .search-box img {

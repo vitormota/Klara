@@ -5,8 +5,17 @@
 }
 
 <h2>Cupon</h2>
+<script type="text/javascript" src="~/Scripts/FacebookSDK.js"></script>
 
 <form method="post" action="../Cupon/PrintCupon">
     <input type="submit" value="Imprimir cupão" />
 </form>
+
+<form method="post" action="../Cupon/SeeCuponsActive">
+    <input type="submit" value="Ver cupões activos" />
+</form>
+
+<button onclick="ShareFacebook();"> Facebook </button>
+
+
 

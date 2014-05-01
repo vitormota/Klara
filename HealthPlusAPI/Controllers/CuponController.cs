@@ -10,6 +10,7 @@ using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -38,6 +39,31 @@ namespace HealthPlusAPI.Controllers
         public SingleResult<Cupon> GetCupon([FromODataUri] int key)
         {
             return SingleResult.Create(db.Cupon.Where(cupon => cupon.id == key));
+        }
+
+        [HttpPost]
+        public string SeeCuponsActive([FromODataUri] int key)
+        {
+            int client_id = key;
+            string result = null;
+
+            if (!ModelState.IsValid)
+            {
+                result = "error";
+            }
+            else
+            {
+                DateTime now = DateTime.Now;
+                // Obter os dados da base de dados mas estao sem ordem 
+                var listCuponNoOrder = db.Cupon.Where(cupon => cupon.client_id == client_id && cupon.start_time <= now && cupon.end_time >= now && cupon.state == 0);
+                // Lista com os cupoes ativos e que vao estar ordenados pela data final
+                List<Cupon> listCupons = (from cupon in listCuponNoOrder
+                                         orderby cupon.end_time
+                                         select cupon).ToList();
+                result = JsonConvert.SerializeObject(listCupons);
+            }
+
+            return result;
         }
 
         ///// <summary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,83 +8,43 @@ using WebInstitution.HealthPService;
 
 namespace WebInstitution.Controllers
 {
-    public class ManagerController : Controller
+    public class AdController : Controller
     {
         private HealthPService.IHPService mService = new HPServiceClient();
-
+        
         //
-        // GET: /Manager/
+        // GET: /Ad/
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult ManagerLogin(string username, string password)
-        {
-            string result_str = mService.ManagerLogin(username, password);
-
-            if (Session["userId"] != null)
-            {
-                result_str = "already logged";
-            } 
-            else if (result_str == "invalid user" || result_str == "invalid password")
-            {
-                //result_str = "error";
-            }
-            else
-            {
-                //Session["userId"] = Convert.ToInt32(result_str);
-                Session["userId"] = result_str;
-            }
-
-            ViewData["login"] = result_str;
-
-            return View("Index");
-        }
-
-        [HttpGet]
-        public ActionResult ManagerLogout()
-        {
-            string response = "";
-
-            if (Session["userId"] == null)
-            {
-                response = "not logged yet";
-            }
-            else
-            {
-                Session.Remove("userId");
-                response = "logout done";
-            }
-
-            ViewData["login"] = response;
-
-            return View("Index");
-        }
-
         //
-        // GET: /Manager/Details/5
+        // GET: /Ad/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
         //
-        // GET: /Manager/Create
+        // GET: /Ad/Create
         public ActionResult Create()
         {
             return View();
         }
 
         //
-        // POST: /Manager/Create
+        // POST: /Ad/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Models.AdModel ad)
         {
             try
             {
-                // TODO: Add insert logic here
+                JObject send_data = Models.AdModel.modelToJSON(ad);
+
+                ad.institution_id = Convert.ToInt32(Session["inst_id"]);
+
+                string response = mService.CreateAd(send_data.ToString());
 
                 return RedirectToAction("Index");
             }
@@ -94,14 +55,14 @@ namespace WebInstitution.Controllers
         }
 
         //
-        // GET: /Manager/Edit/5
+        // GET: /Ad/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
         //
-        // POST: /Manager/Edit/5
+        // POST: /Ad/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -118,14 +79,14 @@ namespace WebInstitution.Controllers
         }
 
         //
-        // GET: /Manager/Delete/5
+        // GET: /Ad/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
         //
-        // POST: /Manager/Delete/5
+        // POST: /Ad/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

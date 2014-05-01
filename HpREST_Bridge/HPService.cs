@@ -168,6 +168,14 @@ namespace HpREST_Bridge
             //
             return response;
         }
+        public string CreateAd(string model_data)
+        {
+            JObject data = JObject.Parse(model_data);
+            string response = RestUtility.HttpPostJSON(base_url + ads_controller, data);
+            //Strip response from sensitive information?
+            //
+            return response;
+        }
 
         /// <summary>
         /// Get institution by id
@@ -261,6 +269,17 @@ namespace HpREST_Bridge
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             return_str = resultDict["value"].ToString();
+            return return_str;
+        }
+
+        public string SeeCuponsActive(int client_id)
+        {
+            string return_str = null;
+            string postJSON = RestUtility.HttpPostJSON(base_url + cupons_controller + "(" + client_id + ")/SeeCuponsActive", null);
+
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+            return_str = resultDict["value"].ToString();
+            
             return return_str;
         }
 

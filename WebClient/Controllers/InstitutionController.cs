@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Device.Location;
 using WebClient_.HealthPService;
+using System.Net.Mail;
 
 namespace WebClient_.Controllers
 {
@@ -22,44 +23,20 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string SearchInstitution(string textSearch)
         {
-            string return_str = null;
             string result = mService.SearchInstitution(textSearch);
 
-            if (result.Equals("error"))
-            {
-                return_str = "error";
-            }
-            else
-            {
-                List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
-                return_str = result; // Para testar se esta a funcionar bem
-            }
-
-            return return_str;
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+            return result;
         }
 
         [HttpPost]
         public string InstitutionsSubscribe()
         {
             int client_id = 36; // Serve para teste
-            string return_str = null;
             string result = mService.InstitutionsSubscribe(client_id);
 
-            if (result.Equals("error"))
-            {
-                return_str = "error";
-            }
-            else if (result.Equals("no subscriptions"))
-            {
-                return_str = "no subscriptions";
-            }
-            else
-            {
-                List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
-                return_str = result; // Para testar se esta a funcionar bem
-            }
-
-            return return_str;
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+            return result;
         }
 
         [HttpPost]
@@ -89,20 +66,28 @@ namespace WebClient_.Controllers
             double longitude = -8.307141399999999;
             double distance = 5000;
 
-            string return_str = null;
             string result = mService.NearestInstitutions(latitude, longitude, distance);
-            
-            if (result.Equals("error"))
-            {
-                return_str = "error";
-            }
-            else
-            {
-                List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
-                return_str = result; // Para testar se esta a funcionar bem
-            }
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+           
+            return result;
+        }
 
-            return return_str;
+        [HttpPost]
+        public void SendEmailAboutInstitutions()
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.sapo.pt");
+
+            mail.From = new MailAddress("healthplus_notifications@sapo.pt");
+            mail.To.Add("antonio_ribeiro01@hotmail.com");
+            mail.Subject = "Atualizações de subscrições";
+            mail.Body = "Aqui irão estar as ultimas atualizações das instituições subscritas!! :)";
+
+            SmtpServer.Port = 25;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("healthplus_notifications@sapo.pt", "healthplus");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
         }
     }
 }
