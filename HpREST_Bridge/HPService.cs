@@ -270,6 +270,17 @@ namespace HpREST_Bridge
             return return_str;
         }
 
+        public string SeeCuponsActive(int client_id)
+        {
+            string return_str = null;
+            string postJSON = RestUtility.HttpPostJSON(base_url + cupons_controller + "(" + client_id + ")/SeeCuponsActive", null);
+
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+            return_str = resultDict["value"].ToString();
+            
+            return return_str;
+        }
+
         
     }
 }

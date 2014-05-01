@@ -22,44 +22,20 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string SearchInstitution(string textSearch)
         {
-            string return_str = null;
             string result = mService.SearchInstitution(textSearch);
 
-            if (result.Equals("error"))
-            {
-                return_str = "error";
-            }
-            else
-            {
-                List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
-                return_str = result; // Para testar se esta a funcionar bem
-            }
-
-            return return_str;
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+            return result;
         }
 
         [HttpPost]
         public string InstitutionsSubscribe()
         {
             int client_id = 36; // Serve para teste
-            string return_str = null;
             string result = mService.InstitutionsSubscribe(client_id);
 
-            if (result.Equals("error"))
-            {
-                return_str = "error";
-            }
-            else if (result.Equals("no subscriptions"))
-            {
-                return_str = "no subscriptions";
-            }
-            else
-            {
-                List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
-                return_str = result; // Para testar se esta a funcionar bem
-            }
-
-            return return_str;
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+            return result;
         }
 
         [HttpPost]
@@ -89,20 +65,10 @@ namespace WebClient_.Controllers
             double longitude = -8.307141399999999;
             double distance = 5000;
 
-            string return_str = null;
             string result = mService.NearestInstitutions(latitude, longitude, distance);
-            
-            if (result.Equals("error"))
-            {
-                return_str = "error";
-            }
-            else
-            {
-                List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
-                return_str = result; // Para testar se esta a funcionar bem
-            }
-
-            return return_str;
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
+           
+            return result;
         }
     }
 }

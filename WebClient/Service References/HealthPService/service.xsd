@@ -205,6 +205,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SeeCuponsActive">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SeeCuponsActiveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SeeCuponsActiveResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="EditInstitutionDetails">
     <xs:complexType>
       <xs:sequence>
@@ -217,6 +231,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="EditInstitutionDetailsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateAd">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="model_data" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateAdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreateAdResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

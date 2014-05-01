@@ -29,7 +29,10 @@ namespace HealthPlusAPI
             ActionConfiguration getClientPurchases = builder.Entity<Cupon>().Action("GetPurchases");
             getClientPurchases.Returns<string>();
 
-            
+            // Ver quais os cupoes que estao ativos (que estao dentro da data de validade e que ainda nao foram usados)
+            ActionConfiguration seeCuponsActive = builder.Entity<Cupon>().Action("SeeCuponsActive");
+            seeCuponsActive.Returns<string>();
+
 
             // Adicionar a action para retornar um id de um cliente que esta associado a um id do facebook
             ActionConfiguration getClientIdFacebook = builder.Entity<Client>().Action("GetClientIDFacebook");

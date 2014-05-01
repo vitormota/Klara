@@ -57,6 +57,9 @@ namespace HpREST_Bridge
         [OperationContract]
         string NearestInstitutions(double latitude, double longitude, double distance);
 
+        [OperationContract]
+        string SeeCuponsActive(int client_id);
+
         /// <summary>
         /// Change institution details
         /// </summary>

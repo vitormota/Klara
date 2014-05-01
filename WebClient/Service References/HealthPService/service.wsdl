@@ -91,11 +91,23 @@
   <wsdl:message name="IHPService_NearestInstitutions_OutputMessage">
     <wsdl:part name="parameters" element="tns:NearestInstitutionsResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_SeeCuponsActive_InputMessage">
+    <wsdl:part name="parameters" element="tns:SeeCuponsActive" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_SeeCuponsActive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SeeCuponsActiveResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_EditInstitutionDetails_InputMessage">
     <wsdl:part name="parameters" element="tns:EditInstitutionDetails" />
   </wsdl:message>
   <wsdl:message name="IHPService_EditInstitutionDetails_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditInstitutionDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_CreateAd_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAd" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_CreateAd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAdResponse" />
   </wsdl:message>
   <wsdl:message name="IHPService_GetInstitution_InputMessage">
     <wsdl:part name="parameters" element="tns:GetInstitution" />
@@ -160,9 +172,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/NearestInstitutions" message="tns:IHPService_NearestInstitutions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/NearestInstitutionsResponse" message="tns:IHPService_NearestInstitutions_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SeeCuponsActive">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SeeCuponsActive" message="tns:IHPService_SeeCuponsActive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SeeCuponsActiveResponse" message="tns:IHPService_SeeCuponsActive_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EditInstitutionDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetails" message="tns:IHPService_EditInstitutionDetails_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetailsResponse" message="tns:IHPService_EditInstitutionDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateAd">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/CreateAd" message="tns:IHPService_CreateAd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/CreateAdResponse" message="tns:IHPService_CreateAd_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetInstitution">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetInstitution" message="tns:IHPService_GetInstitution_InputMessage" />
@@ -297,8 +317,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SeeCuponsActive">
+      <soap:operation soapAction="http://tempuri.org/IHPService/SeeCuponsActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EditInstitutionDetails">
       <soap:operation soapAction="http://tempuri.org/IHPService/EditInstitutionDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateAd">
+      <soap:operation soapAction="http://tempuri.org/IHPService/CreateAd" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

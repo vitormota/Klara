@@ -9,11 +9,13 @@ using System.IO;
 using System.Diagnostics;
 using System.Web.Hosting;
 using iTextSharp.text.pdf.draw;
+using WebClient_.HealthPService;
 
 namespace WebClient_.Controllers
 {
     public class CuponController : Controller
     {
+        private HealthPService.IHPService mService = new HPServiceClient();
         //
         // GET: /Cupon/
         public ActionResult Index()
@@ -112,6 +114,16 @@ namespace WebClient_.Controllers
             Process.Start(sInfo);
 
             return "LOOOL";
+        }
+
+        [HttpPost]
+        public string SeeCuponsActive()
+        {
+            // int client_id = Convert.ToInt32(Session["internal_id"]);
+            int client_id = 36; // efeitos de teste
+            
+            string result = mService.SeeCuponsActive(client_id);
+            return result;
         }
 	}
 }
