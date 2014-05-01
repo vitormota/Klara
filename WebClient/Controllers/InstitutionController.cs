@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Device.Location;
 using WebClient_.HealthPService;
+using System.Net.Mail;
 
 namespace WebClient_.Controllers
 {
@@ -69,6 +70,24 @@ namespace WebClient_.Controllers
             List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar as instituicoes que recebeu para uma lista, com um dicionario la dentro
            
             return result;
+        }
+
+        [HttpPost]
+        public void SendEmailAboutInstitutions()
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.sapo.pt");
+
+            mail.From = new MailAddress("healthplus_notifications@sapo.pt");
+            mail.To.Add("antonio_ribeiro01@hotmail.com");
+            mail.Subject = "Atualizações de subscrições";
+            mail.Body = "Aqui irão estar as ultimas atualizações das instituições subscritas!! :)";
+
+            SmtpServer.Port = 25;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("healthplus_notifications@sapo.pt", "healthplus");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
         }
     }
 }

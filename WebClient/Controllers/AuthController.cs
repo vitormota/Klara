@@ -49,7 +49,7 @@ namespace WebClient_.Controllers
 
             //Save session
             saveSession(response,access_token,provider);
-            
+
             return RedirectToAction("Index", "Home");
         }
 

@@ -8,11 +8,15 @@
 
 <div class="row user-desc">
     <div class="col-xs-2 col-md-1">
-        <img src="~/Content/images/no_image.png" alt="Foto do Utilizador" />
+        <img class="img-rounded" src="@Session["profile_picture_url"].ToString()" alt="Foto do Utilizador" />
     </div>
     <div class="col-xs-8 col-md-4">
-        <h4> Vitor Mota</h4>
-        <h4> ei12166@fe.up.pt</h4>
+        <h4>@Html.DisplayFor(m => m.name)</h4>
+        <h4> @Html.DisplayFor(m => m.email)</h4>
+        @Html.LabelFor(m => m.city)
+        @Html.DisplayFor(m=> m.city)
+        @Html.LabelFor(m => m.address)
+        @Html.DisplayFor(m => m.address)
         <hr class="user-separator desc" />
     </div>
 </div>

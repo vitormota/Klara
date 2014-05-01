@@ -97,6 +97,7 @@ namespace HpREST_Bridge
             Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token, (Utility.LoginProvider)provider);
             
             //Grab the user id
+            ilp.addFieldRequest(REQUEST.PROF_PIC);
             JObject json = JObject.Parse(ilp.makeRequest().ToString());
             //Find it on DB
             string get_result = null;
@@ -113,7 +114,8 @@ namespace HpREST_Bridge
                 return RegisterUser(access_token, provider);
             }
             JObject response = JObject.Parse(get_result);
-            response.Add(new JProperty("name", json["name"].ToString()));
+            response.Add(new JProperty("name", json["name"]));
+            response.Add(new JProperty("picture", json["picture"]["data"]["url"]));
             JToken provider_id = response["fb_id"];
             if (provider_id == null)
             {

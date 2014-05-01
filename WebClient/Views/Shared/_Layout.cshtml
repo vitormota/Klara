@@ -23,8 +23,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Login</a></li>
+                    <li><a href="/">Home</a></li>
+                    @if (Session["name"] != null)
+                    {
+                        <li><a href="/User/">@Session["name"].ToString()</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Auth/">Login</a></li>
+                    }
+                    
                 </ul>
             </div>
         </div>
