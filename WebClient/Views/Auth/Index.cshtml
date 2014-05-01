@@ -9,67 +9,14 @@
 <!--FACEBOOK SDK and authentication-->
 
 <div id="fb-root"></div>
-<script type="text/javascript" src="Scripts/FacebookSDK.js"></script>
+<script type="text/javascript" src="/Scripts/FacebookSDK.js"></script>
 
 
 <h2>Index</h2>
 
+
 <!-- FACEBOOK button plugin -->
 
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+<div class="fb-login-button" data-max-rows="1" 
+     data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
 
-
-
-@using (Ajax.BeginForm("registerUser", "Auth",
-    new AjaxOptions { UpdateTargetId = "divRegistration" }))
-{
-    
-    @* This form is to be deleted, only data not retrived from facebook should have fields*@
-    
-    <fieldset>
-        <legend>Registration info</legend>
-
-        @*@Html.HiddenFor(model => model.account_model.fb_id)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.client_model.name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.client_model.name)
-        </div>*@
-
-        @* As of time of writing DB does not suport email for a user 
-            
-            //TODO: uncoment here on model and pass it to the controler
-
-            *@
-
-        @*<div class="editor-label">
-                @Html.LabelFor(model => model.client_model.email)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.client_model.email)
-            </div>*@
-
-        @*<div class="editor-label">
-            @Html.LabelFor(model => model.client_model.phone_number)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.client_model.phone_number)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.client_model.address)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.client_model.address)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.client_model.nif)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.client_model.nif)
-        </div>*@
-        <br />
-        <input type="submit" value="Confirm" />
-    </fieldset>
-}

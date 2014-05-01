@@ -21,7 +21,7 @@ window.fbAsyncInit = function () {
             var uid = response.authResponse.userID;
             var accessToken = response.authResponse.accessToken;
             getData();
-
+            //window.location.href = "/User";
         } else if (response.status === 'not_authorized') {
             // the user is logged in to Facebook, 
             // but has not authenticated your app
@@ -40,7 +40,10 @@ function getData() {
         function (data, statusText) {
             var name = data.name;
             var id = data.id;
-            setTimeout(function () { window.location.href = "Home/" }, 500);;
+            var img_link = "http://graph.facebook.com/" + response.id + "/picture?type=large";
+            setTimeout(function () {
+                window.location.pathname = "/Home";
+            }, 200);
         });
     });
 }
