@@ -12,6 +12,12 @@ window.fbAsyncInit = function () {
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true  // parse XFBML
     });
+    FB.login(function (response) {
+        if (response.authResponse) {
+            // user sucessfully logged in
+            var accessToken = response.authResponse.accessToken;
+        }
+    }, { scope: 'email,publish_stream,email,read_stream,user_birthday' });
     FB.Event.subscribe('auth.authResponseChange', function (response) {
         // Here we specify what we do with the response anytime this event occurs.
         if (response.status === 'connected') {
@@ -31,7 +37,10 @@ window.fbAsyncInit = function () {
 
         }
     });
+    
 };
+
+
 
 function getData() {
     FB.getLoginStatus(function (response) {
