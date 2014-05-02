@@ -79,7 +79,7 @@ namespace WebClient_.Controllers
             SmtpClient SmtpServer = new SmtpClient("smtp.sapo.pt");
 
             mail.From = new MailAddress("healthplus_notifications@sapo.pt");
-            mail.To.Add("antonio_ribeiro01@hotmail.com");
+            mail.To.Add("antonio_ribeiro01@hotmail.com"); //antonio_ribeiro01@hotmail.com
             mail.Subject = "Atualizações de subscrições";
             mail.Body = "Aqui irão estar as ultimas atualizações das instituições subscritas!! :)";
 
