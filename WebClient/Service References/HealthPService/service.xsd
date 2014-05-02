@@ -116,6 +116,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="FetchInstitutions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="manager_id" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FetchInstitutionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="FetchInstitutionsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SearchAd">
     <xs:complexType>
       <xs:sequence>
@@ -216,6 +230,50 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="SeeCuponsActiveResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubscribeAd">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
+        <xs:element minOccurs="0" name="ad_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubscribeAdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SubscribeAdResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnsubscribeAd">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
+        <xs:element minOccurs="0" name="ad_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnsubscribeAdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UnsubscribeAdResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AdsSubscribe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AdsSubscribeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AdsSubscribeResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

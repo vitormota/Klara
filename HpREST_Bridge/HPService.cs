@@ -257,7 +257,7 @@ namespace HpREST_Bridge
             string return_str = null;
 
             Dictionary<string, string> json_dict = new Dictionary<string, string>();
-            json_dict.Add("institution_id", institution_id.ToString());
+            json_dict.Add("subscribable_id", institution_id.ToString());
             json_dict.Add("client_id", client_id.ToString());
             
             string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
@@ -295,6 +295,48 @@ namespace HpREST_Bridge
             return return_str;
         }
 
-        
+        public string SubscribeAd(int client_id, int ad_id)
+        {
+            string return_str = null;
+
+            JObject subscription = new JObject(
+                new JProperty("subscribable_id", ad_id),
+                new JProperty("client_id", client_id));
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller, subscription);
+            Dictionary<string, Object> resultDictSubs = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDictSubs["value"].ToString();
+            return return_str;
+        }
+
+        public string UnsubscribeAd(int client_id, int ad_id)
+        {
+            string return_str = null;
+
+            Dictionary<string, string> dictJSON = new Dictionary<string, string>();
+            dictJSON.Add("subscribable_id", ad_id.ToString());
+            dictJSON.Add("client_id", client_id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/DeleteSubscription", JsonConvert.SerializeObject(dictJSON));
+
+            Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
+            return_str = resultDict["value"];
+
+            return return_str;
+        }
+
+        public string AdsSubscribe(int client_id)
+        {
+            Dictionary<string, string> json_str_int = new Dictionary<string, string>();
+            string client_id_str = client_id.ToString();
+            json_str_int.Add("client_id", client_id_str);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/AdsSubscribe", JsonConvert.SerializeObject(json_str_int));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
+            return returnJSON;
+        }
     }
 }

@@ -61,13 +61,9 @@ namespace HealthPlusAPI.Controllers
                 for (int i = 0; i < list_subscription.Count; i++)
                 {
                     int subscrible_id = list_subscription[i].subscribable_id;
-                    // Ira servir para a obtencao da query e assim extrair os resultados
-                    List<Institution> list_institution_query = db.Institution.Where(Institution => Institution.id == subscrible_id).ToList();
-
-                    if (!list_institution_query.Count.Equals(0))
-                    {
-                        list_institution.Add(list_institution_query[0]);
-                    }
+                    // Ira servir para a obtencao da query e assim extrair um resultado de cada vez
+                    Institution list_institution_query = db.Institution.Where(Institution => Institution.id == subscrible_id).ToList().First();
+                    list_institution.Add(list_institution_query);
                 }
 
                 if (list_institution.Count.Equals(0))
@@ -77,6 +73,43 @@ namespace HealthPlusAPI.Controllers
                 else
                 {
                     result = JsonConvert.SerializeObject(list_institution);
+                }
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public string AdsSubscribe(ODataActionParameters parameters)
+        {
+            string result = null;
+            int client_id = Convert.ToInt32((string)parameters["client_id"]);
+
+            if (!ModelState.IsValid)
+            {
+                result = "error";
+            }
+            else
+            {
+                // Dada a chave permite ir a tabela de subscricoes saber quais as subcricoes relacionadas com o id do cliente
+                List<Subscription> list_subscription = db.Subscription.Where(Subscription => Subscription.client_id == client_id).ToList();
+                List<Ad> list_ad = new List<Ad>();
+
+                for (int i = 0; i < list_subscription.Count; i++)
+                {
+                    int subscrible_id = list_subscription[i].subscribable_id;
+                    // Ira servir para a obtencao da query e assim extrair um resultado de cada vez
+                    Ad list_ad_query = db.Ad.Where(Ad => Ad.id == subscrible_id).ToList().First();
+                    list_ad.Add(list_ad_query);
+                }
+
+                if (list_ad.Count.Equals(0))
+                {
+                    result = "no subscriptions";
+                }
+                else
+                {
+                    result = JsonConvert.SerializeObject(list_ad);
                 }
             }
 
@@ -126,22 +159,22 @@ namespace HealthPlusAPI.Controllers
             }
             else
             {
-                db.Subscription.Add(subscription);
+                if (db.Subscription.Count(subs => subs.subscribable_id == subscription.subscribable_id) == 0)
+                {
+                    db.Subscription.Add(subscription);
 
-                try
-                {
-                    db.SaveChanges();
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateException)
+                    {
+                        return "error update";
+                    }
                 }
-                catch (DbUpdateException)
+                else
                 {
-                    if (SubscriptionExists(subscription.subscribable_id))
-                    {
-                        return "exist subscription";
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return "exist subscription";
                 }
             }
 
@@ -195,11 +228,11 @@ namespace HealthPlusAPI.Controllers
             }
             else
             {
-                int institution_id = Convert.ToInt32((string)parameters["institution_id"]);
+                int subscribable_id_parameter = Convert.ToInt32((string)parameters["subscribable_id"]);
                 int client_id = Convert.ToInt32((string)parameters["client_id"]);
 
                 // Seleccao das subscricoes a partir da instituicao
-                List<Subscription> listSubscription = db.Subscription.Where(Subscription => Subscription.client_id == client_id && Subscription.subscribable_id == institution_id).ToList();
+                List<Subscription> listSubscription = db.Subscription.Where(Subscription => Subscription.client_id == client_id && Subscription.subscribable_id == subscribable_id_parameter).ToList();
                 Subscription selectedSubscription = listSubscription[0];
 
                 db.Subscription.Remove(selectedSubscription);

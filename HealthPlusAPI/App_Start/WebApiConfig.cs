@@ -40,16 +40,20 @@ namespace HealthPlusAPI
             getClientIdFacebook.Returns<string>();
 
            
-
-            // Adicionar a action para retornar todas as subscricoes feitas pelo utilizador
+            // Adicionar a action para retornar todas as subscricoes de instituicoes feitas pelo utilizador
             ActionConfiguration institutionsSubscribe = builder.Entity<Subscription>().Collection.Action("InstitutionsSubscribe");
             institutionsSubscribe.Parameter<string>("client_id");
             institutionsSubscribe.Returns<string>();
 
+            // Adicionar a action para retornar todas as subscricoes de anuncios feitas pelo utilizador
+            ActionConfiguration adsSubscribe = builder.Entity<Subscription>().Collection.Action("AdsSubscribe");
+            adsSubscribe.Parameter<string>("client_id");
+            adsSubscribe.Returns<string>();
+
             // Adicionar a action para eliminar uma subscricao anteriormente feita
             ActionConfiguration deleteSubscription = builder.Entity<Subscription>().Collection.Action("DeleteSubscription");
             deleteSubscription.Parameter<string>("client_id");
-            deleteSubscription.Parameter<string>("institution_id");
+            deleteSubscription.Parameter<string>("subscribable_id");
             deleteSubscription.Returns<string>();
 
            
