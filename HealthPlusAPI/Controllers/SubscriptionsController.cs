@@ -43,7 +43,7 @@ namespace HealthPlusAPI.Controllers
         }
 
         [HttpPost]
-        public string InstitutionsSubscribe([FromODataUri] int key, ODataActionParameters parameters)
+        public string InstitutionsSubscribe(ODataActionParameters parameters)
         {
             string result = null;
             int client_id = Convert.ToInt32((string)parameters["client_id"]);
@@ -185,7 +185,7 @@ namespace HealthPlusAPI.Controllers
         }
 
         [HttpPost]
-        public string DeleteSubscription([FromODataUri] int key, ODataActionParameters parameters)
+        public string DeleteSubscription(ODataActionParameters parameters)
         {
             string return_str = null;
 

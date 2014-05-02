@@ -192,7 +192,7 @@ namespace HpREST_Bridge
             Dictionary<string, string> json_str = new Dictionary<string, string>();
             json_str.Add("textSearch", textSearch);
 
-            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/SearchInstitution", JsonConvert.SerializeObject(json_str));
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "/SearchInstitution", JsonConvert.SerializeObject(json_str));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
@@ -230,7 +230,7 @@ namespace HpREST_Bridge
             string client_id_str = client_id.ToString();
             json_str_int.Add("client_id", client_id_str);
 
-            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "(0)/InstitutionsSubscribe", JsonConvert.SerializeObject(json_str_int));
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/InstitutionsSubscribe", JsonConvert.SerializeObject(json_str_int));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
@@ -260,7 +260,7 @@ namespace HpREST_Bridge
             json_dict.Add("institution_id", institution_id.ToString());
             json_dict.Add("client_id", client_id.ToString());
             
-            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "(0)/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
                 
             Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
             return_str = resultDict["value"];
@@ -277,7 +277,7 @@ namespace HpREST_Bridge
             json_str_double.Add("longitude", longitude.ToString());
             json_str_double.Add("distance", distance.ToString());
 
-            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/NearestInstitutions", JsonConvert.SerializeObject(json_str_double));
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "/NearestInstitutions", JsonConvert.SerializeObject(json_str_double));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             return_str = resultDict["value"].ToString();

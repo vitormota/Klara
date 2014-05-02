@@ -46,7 +46,7 @@ namespace HealthPlusAPI.Controllers
         }
 
         [HttpPost]
-        public string SearchInstitution([FromODataUri] int key, ODataActionParameters parameters)
+        public string SearchInstitution(ODataActionParameters parameters)
         {
             string result = null;
 
@@ -154,7 +154,7 @@ namespace HealthPlusAPI.Controllers
         }
 
         [HttpPost]
-        public string NearestInstitutions([FromODataUri] int key, ODataActionParameters parameters)
+        public string NearestInstitutions(ODataActionParameters parameters)
         {
             string result = null;
 

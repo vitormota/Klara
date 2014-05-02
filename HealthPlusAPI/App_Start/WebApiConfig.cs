@@ -35,19 +35,19 @@ namespace HealthPlusAPI
 
 
             // Adicionar a action para retornar um id de um cliente que esta associado a um id do facebook
-            ActionConfiguration getClientIdFacebook = builder.Entity<Client>().Action("GetClientIDFacebook");
+            ActionConfiguration getClientIdFacebook = builder.Entity<Client>().Collection.Action("GetClientIDFacebook");
             getClientIdFacebook.Parameter<string>("client_id_by_session");
             getClientIdFacebook.Returns<string>();
 
            
 
             // Adicionar a action para retornar todas as subscricoes feitas pelo utilizador
-            ActionConfiguration institutionsSubscribe = builder.Entity<Subscription>().Action("InstitutionsSubscribe");
+            ActionConfiguration institutionsSubscribe = builder.Entity<Subscription>().Collection.Action("InstitutionsSubscribe");
             institutionsSubscribe.Parameter<string>("client_id");
             institutionsSubscribe.Returns<string>();
 
             // Adicionar a action para eliminar uma subscricao anteriormente feita
-            ActionConfiguration deleteSubscription = builder.Entity<Subscription>().Action("DeleteSubscription");
+            ActionConfiguration deleteSubscription = builder.Entity<Subscription>().Collection.Action("DeleteSubscription");
             deleteSubscription.Parameter<string>("client_id");
             deleteSubscription.Parameter<string>("institution_id");
             deleteSubscription.Returns<string>();
@@ -55,7 +55,7 @@ namespace HealthPlusAPI
            
 
             // Adicionar a action para procurar instituicoes
-            ActionConfiguration searchInstitution = builder.Entity<Institution>().Action("SearchInstitution");
+            ActionConfiguration searchInstitution = builder.Entity<Institution>().Collection.Action("SearchInstitution");
             searchInstitution.Parameter<string>("textSearch");
             searchInstitution.Returns<string>();
 
@@ -76,7 +76,7 @@ namespace HealthPlusAPI
             //fetchInstitutions.Parameter<Ad>("ad");
             //fetchInstitutions.Returns<string>();
 
-            ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Action("NearestInstitutions");
+            ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Collection.Action("NearestInstitutions");
             nearestInstitutions.Parameter<string>("latitude");
             nearestInstitutions.Parameter<string>("longitude");
             nearestInstitutions.Parameter<string>("distance");

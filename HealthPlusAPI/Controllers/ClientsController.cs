@@ -45,7 +45,7 @@ namespace HealthPlusAPI.Controllers
         }
 
         [HttpPost]
-        public string GetClientIDFacebook([FromODataUri] int key, ODataActionParameters parameters)
+        public string GetClientIDFacebook(ODataActionParameters parameters)
         {
             string return_str = null;
             long facebook_id = Convert.ToInt64((string)parameters["client_id_by_session"]);
