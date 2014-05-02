@@ -82,6 +82,12 @@ namespace HealthPlusAPI
             nearestInstitutions.Parameter<string>("distance");
             nearestInstitutions.Returns<string>();
 
+
+            ActionConfiguration contactSupport = builder.Entity<Client>().Action("ContactSupport");
+            contactSupport.Parameter<string>("email");
+            contactSupport.Parameter<string>("msg");
+            contactSupport.Returns<string>();
+
             config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
         }
     }

@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
-using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
-using Newtonsoft.Json;
 using System.Net.Mail;
+using System.Net;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -196,14 +193,21 @@ namespace HealthPlusAPI.Controllers
             return db.Client.Count(e => e.id == key) > 0;
         }
 
-        public bool ConcactSupport(string email, string msg, Client client)
+        [HttpPost]
+        public string ContactSupport([FromODataUri] int key, ODataActionParameters parameters)
         {
-            SmtpClient mySmtpClient = new SmtpClient("my.smtp.exampleserver.net");
+            string email = parameters["email"].ToString();
+            string msg = parameters["msg"].ToString();
+
+            
+            Client client = db.Client.Where(Client => Client.id.Equals(key)).First<Client>();
+            
+            SmtpClient mySmtpClient = new SmtpClient("smtp.sapo.pt");
 
             // set smtp-client with basicAuthentication
             mySmtpClient.UseDefaultCredentials = false;
             System.Net.NetworkCredential basicAuthenticationInfo = new
-               System.Net.NetworkCredential("username", "password");
+               System.Net.NetworkCredential("healthplus_notifications@sapo.pt", "healthplus");
             mySmtpClient.Credentials = basicAuthenticationInfo;
 
             // add from,to mailaddresses
@@ -221,10 +225,12 @@ namespace HealthPlusAPI.Controllers
             myMail.BodyEncoding = System.Text.Encoding.UTF8;
             // text or html
             myMail.IsBodyHtml = true;
+            mySmtpClient.Port = 25;
+            mySmtpClient.EnableSsl = true;
 
             mySmtpClient.Send(myMail);
 
-            return true;
+            return "Ok";
         }
     }
 }
