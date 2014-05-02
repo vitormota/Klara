@@ -126,8 +126,11 @@ namespace HealthPlusAPI.Controllers
         }
 
         // POST odata/Ads
+        [HttpPost]
         public IHttpActionResult Post(Ad ad)
         {
+            string str = ModelState.ToString();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -154,6 +157,7 @@ namespace HealthPlusAPI.Controllers
             return Created(ad);
         }
 
+      
         // PATCH odata/Ads(5)
         [AcceptVerbs("PATCH", "MERGE")]
         public IHttpActionResult Patch([FromODataUri] int key, Delta<Ad> patch)

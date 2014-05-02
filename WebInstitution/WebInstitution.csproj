@@ -178,8 +178,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdModel.cs" />
-    <Compile Include="Models\InstitutionProfileModel.cs" />
+    <Compile Include="Models\AdFormModel.cs" />
+    <Compile Include="Models\InstitutionModel.cs" />
+    <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\HealthPService\Reference.cs">
       <AutoGen>True</AutoGen>

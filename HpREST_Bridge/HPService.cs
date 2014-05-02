@@ -199,6 +199,18 @@ namespace HpREST_Bridge
             return returnJSON;
         }
 
+        public string FetchInstitutions(string manager_id)
+        {
+            Dictionary<string, string> json_str = new Dictionary<string, string>();
+            json_str.Add("manager_id", manager_id);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/FetchInstitutions", JsonConvert.SerializeObject(json_str));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
+            return returnJSON;
+        }
+
         public string ManagerLogin(string username, string password)
         {
             Dictionary<string, string> json_str = new Dictionary<string, string>();

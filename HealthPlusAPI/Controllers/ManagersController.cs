@@ -87,6 +87,8 @@ namespace HealthPlusAPI.Controllers
             return result;
         }
 
+
+
         // PUT odata/Manager(5)
         public IHttpActionResult Put([FromODataUri] int key, Manager manager)
         {

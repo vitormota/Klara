@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    var mg = (WebInstitution.Models.SessionModel) Session["manager"];
 }
 
 <form method="post" action="../Account/ManagerLogin">
@@ -18,3 +19,16 @@
 <hr />
 
 <h3>@ViewData["login"];</h3>
+
+<hr />
+<div>
+    @if(Session["manager"] != null) 
+    {
+        using (Html.BeginForm("SwitchInstitution", "Account"))
+        {
+            @Html.DropDownList("Institution", mg.getInstitutionsList())
+        
+            <input type="submit" value="Switch" />
+        }
+    }
+</div>

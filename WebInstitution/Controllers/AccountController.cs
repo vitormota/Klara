@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebInstitution.HealthPService;
+using WebInstitution.Models;
 
 namespace WebInstitution.Controllers
 {
@@ -35,7 +37,7 @@ namespace WebInstitution.Controllers
 
             //Construct new Model from json based on API model for a Institution
 
-            Models.InstitutionProfileModel ipm = new Models.InstitutionProfileModel();
+            Models.InstitutionModel ipm = new Models.InstitutionModel();
             jsonToModel(ipm, json);
 
             return View("InstitutionPageDetails",ipm);
@@ -54,13 +56,13 @@ namespace WebInstitution.Controllers
             }
 
             JObject json = JObject.Parse(mService.GetInstitution(id));
-            Models.InstitutionProfileModel ipm = new Models.InstitutionProfileModel();
+            Models.InstitutionModel ipm = new Models.InstitutionModel();
             jsonToModel(ipm, json);
 
             return View("InstitutionPageEdit", ipm);
         }
 
-        public ActionResult SubmitDetails(Models.InstitutionProfileModel model)
+        public ActionResult SubmitDetails(Models.InstitutionModel model)
         {
             if (Session["inst_id"] == null || Convert.ToInt32(Session["inst_id"]) != model.id)
             {
@@ -69,7 +71,7 @@ namespace WebInstitution.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            JObject send_data = Models.InstitutionProfileModel.modelToJSON(model);
+            JObject send_data = Models.InstitutionModel.modelToJSON(model);
 
             string response = mService.EditInstitutionDetails(send_data.ToString(),model.id);
 
@@ -80,7 +82,7 @@ namespace WebInstitution.Controllers
         {
             string result_str = mService.ManagerLogin(username, password);
 
-            if (Session["inst_id"] != null)
+            if (Session["manager"] != null)
             {
                 result_str = "already logged";
             }
@@ -90,8 +92,13 @@ namespace WebInstitution.Controllers
             }
             else
             {
-                //Session["userId"] = Convert.ToInt32(result_str);
-                Session["inst_id"] = result_str;
+                int manager_id = Convert.ToInt32(result_str);
+
+                /// Fetch all institutions under this manager's control
+                result_str = mService.FetchInstitutions( manager_id.ToString() );
+                var institutions = JsonConvert.DeserializeObject<List<InstitutionModel>>(result_str);
+
+                Session["manager"] = new SessionModel { manager_id = manager_id, institutions = institutions, currentInstitution = institutions[0] };
             }
 
             ViewData["login"] = result_str;
@@ -104,13 +111,13 @@ namespace WebInstitution.Controllers
         {
             string response = "";
 
-            if (Session["inst_id"] == null)
+            if (Session["manager"] == null)
             {
                 response = "not logged yet";
             }
             else
             {
-                Session.Remove("inst_id");
+                Session.Remove("manager");
                 response = "logout done";
             }
 
@@ -119,13 +126,31 @@ namespace WebInstitution.Controllers
             return View("Index");
         }
 
-        private static void jsonToModel(Models.InstitutionProfileModel model,JObject json){
+        public ActionResult SwitchInstitution(int institution)
+        {
+            SessionModel session = (SessionModel)Session["manager"];
+
+            foreach (InstitutionModel i in session.institutions)
+            {
+                if (i.id == institution)
+                {
+                    session.currentInstitution = i;
+                    break;
+                }
+            }
+
+            return View("Index");
+        }
+
+        private static void jsonToModel(Models.InstitutionModel model, JObject json)
+        {
             model.id = Convert.ToInt32(json["id"].ToString());
             model.name = json["name"].ToString();
             model.address = json["address"].ToString();
             model.city = json["city"].ToString();
-            model.latitude = Convert.ToDecimal(json["latitude"].ToString());
-            model.longitude = Convert.ToDecimal(json["longitude"].ToString());
+           // model.latitude = Convert.ToDecimal(json["latitude"].ToString());
+            model.latitude = Convert.ToDecimal(json["latitude"]);
+            model.longitude = Convert.ToDecimal(json["longitude"]);
             model.email = json["email"].ToString();
             model.website = json["website"].ToString();
             model.phone_number = json["phone_number"].ToString();

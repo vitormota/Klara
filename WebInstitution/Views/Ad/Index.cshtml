@@ -3,7 +3,8 @@
     <title></title>
 </head>
 <body>
-    <form id="form1" method="post" action="../Ad/Create">
+    @using (Html.BeginForm("Create", "Ad", FormMethod.Post))
+    {
         <div>
             <label for="service">Service: </label>
             <input name="service" type="text" />
@@ -25,12 +26,12 @@
             <input name="price" type="text" />
             <hr />
 
-            <label for="discount">Discount: </label>
-            <input name="discount" type="text" />
+            <label for="previous_price">Previous price: </label>
+            <input name="previous_price" type="text" />
             <hr />
 
-            <label for="buyed_cupons">Coupons: </label>
-            <input name="buyed_cupons" type="text" />
+            <label for="total_cupons">Coupons: </label>
+            <input name="total_cupons" type="text" />
             <hr />
 
             <label for="start_date">Start: </label>
@@ -39,6 +40,7 @@
 
             <button type="submit">Create</button>
         </div>
-    </form>
+    }
+        
 </body>
 </html>

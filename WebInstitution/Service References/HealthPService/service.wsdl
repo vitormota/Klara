@@ -55,6 +55,12 @@
   <wsdl:message name="IHPService_SearchInstitution_OutputMessage">
     <wsdl:part name="parameters" element="tns:SearchInstitutionResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_FetchInstitutions_InputMessage">
+    <wsdl:part name="parameters" element="tns:FetchInstitutions" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_FetchInstitutions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FetchInstitutionsResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_SearchAd_InputMessage">
     <wsdl:part name="parameters" element="tns:SearchAd" />
   </wsdl:message>
@@ -90,6 +96,12 @@
   </wsdl:message>
   <wsdl:message name="IHPService_NearestInstitutions_OutputMessage">
     <wsdl:part name="parameters" element="tns:NearestInstitutionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_SeeCuponsActive_InputMessage">
+    <wsdl:part name="parameters" element="tns:SeeCuponsActive" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_SeeCuponsActive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SeeCuponsActiveResponse" />
   </wsdl:message>
   <wsdl:message name="IHPService_EditInstitutionDetails_InputMessage">
     <wsdl:part name="parameters" element="tns:EditInstitutionDetails" />
@@ -142,6 +154,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SearchInstitution" message="tns:IHPService_SearchInstitution_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SearchInstitutionResponse" message="tns:IHPService_SearchInstitution_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="FetchInstitutions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/FetchInstitutions" message="tns:IHPService_FetchInstitutions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/FetchInstitutionsResponse" message="tns:IHPService_FetchInstitutions_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SearchAd">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SearchAd" message="tns:IHPService_SearchAd_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SearchAdResponse" message="tns:IHPService_SearchAd_OutputMessage" />
@@ -165,6 +181,10 @@
     <wsdl:operation name="NearestInstitutions">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/NearestInstitutions" message="tns:IHPService_NearestInstitutions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/NearestInstitutionsResponse" message="tns:IHPService_NearestInstitutions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SeeCuponsActive">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SeeCuponsActive" message="tns:IHPService_SeeCuponsActive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SeeCuponsActiveResponse" message="tns:IHPService_SeeCuponsActive_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EditInstitutionDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetails" message="tns:IHPService_EditInstitutionDetails_InputMessage" />
@@ -253,6 +273,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="FetchInstitutions">
+      <soap:operation soapAction="http://tempuri.org/IHPService/FetchInstitutions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SearchAd">
       <soap:operation soapAction="http://tempuri.org/IHPService/SearchAd" style="document" />
       <wsdl:input>
@@ -300,6 +329,15 @@
     </wsdl:operation>
     <wsdl:operation name="NearestInstitutions">
       <soap:operation soapAction="http://tempuri.org/IHPService/NearestInstitutions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SeeCuponsActive">
+      <soap:operation soapAction="http://tempuri.org/IHPService/SeeCuponsActive" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -40,6 +40,9 @@ namespace HpREST_Bridge
         string SearchInstitution(string textSearch);
 
         [OperationContract]
+        string FetchInstitutions(string manager_id);
+
+        [OperationContract]
         string SearchAd(string textSearch);
 
         [OperationContract]
