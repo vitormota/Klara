@@ -14,6 +14,7 @@ using HealthPlusAPI.Models;
 using System.IO;
 using System.Drawing;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -86,6 +87,40 @@ namespace HealthPlusAPI.Controllers
             }
 
             return "added";
+        }
+
+        [HttpPost]
+        public string GetAdPhotos(ODataActionParameters parameters)
+        {
+            string ad_str = (string)parameters["ad_ids"];
+
+            List<int> ad_ids = JsonConvert.DeserializeObject<List<int>>(ad_str);
+            List<string> photos = new List<string>();
+
+            List<string> guids = (from map in db.Ad_Photo_maps
+                                where ad_ids.Contains(map.ad_id)
+                                select map.photo_id).ToList();
+
+            foreach (string guid in guids)
+            {
+                try
+                {
+                    string path = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/Ad_Photos"), guid);
+                    Image img = Image.FromFile(path);
+
+                    MemoryStream stream = new MemoryStream();
+                    img.Save(stream, img.RawFormat);
+
+                    photos.Add(Convert.ToBase64String(stream.ToArray()));
+                }
+                catch
+                {
+                    photos.Add("");
+                }
+
+            }
+
+            return "dummy";
         }
 
         // GET odata/Photo(5)

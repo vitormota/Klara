@@ -23,9 +23,23 @@ namespace WebInstitution.Controllers
         }
 
         //
-        // GET: /Ad/Details/5
+        // GET: /Ad/Details
         public ActionResult Details()
         {
+            SessionModel session = (SessionModel)Session["manager"];
+
+            string ads = mService.GetActiveAds(session.currentInstitution.id);
+
+            List<AdDisplayModel> adList = JsonConvert.DeserializeObject<List<AdDisplayModel>>(ads);
+
+            // fetch photos for each ad
+
+            List<int> adIds = new List<int>();
+
+            foreach (AdDisplayModel adm in adList)
+            {
+                adIds.Add(adm.id);
+            }
 
 
 

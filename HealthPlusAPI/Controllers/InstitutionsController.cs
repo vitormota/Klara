@@ -222,7 +222,7 @@ namespace HealthPlusAPI.Controllers
                         select ins;
 
                     result = JsonConvert.SerializeObject(institutions.ToList());
-
+                    
                     if (institutions == null)
                     {
                         result = "invalid user";

@@ -12,6 +12,7 @@ using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
 using System.Device.Location;
+using Newtonsoft.Json;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -89,6 +90,31 @@ namespace HealthPlusAPI.Controllers
                    db.Ad.Where(Ad => Ad.specialty.Contains(key))).Concat(
                    db.Ad.Where(Ad => Ad.description.Contains(key))).Distinct();
              * */
+        }
+
+
+        
+        [HttpPost]
+        public string GetActiveAds(ODataActionParameters parameters)
+        {
+            // deprecated !!!!!!!
+            int institution_id = Convert.ToInt32( (string)parameters["institution_id"] );
+
+            var ads = (from ad in db.Ad
+                       join map in db.Ad_Photo_maps on ad.id equals map.ad_id
+                       join ph in db.Photo on map.photo_id equals ph.guid
+                       into t
+                       from tb in t.DefaultIfEmpty()
+                       where ad.institution_id == institution_id
+                       select new
+                       {
+                           ad,
+                           tb.guid
+                       });
+
+            var l = ads.ToList();
+
+            return JsonConvert.SerializeObject(ads); ;
         }
 
         // PUT odata/Ads(5)

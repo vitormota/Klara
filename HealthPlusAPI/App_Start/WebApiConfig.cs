@@ -79,6 +79,17 @@ namespace HealthPlusAPI
             insertAdPhoto.Parameter<string>("data_stream");
             insertAdPhoto.Returns<string>();
 
+            // Obter fotografias de anúncios
+            ActionConfiguration getAdPhotos = builder.Entity<Photo>().Collection.Action("GetAdPhotos");
+            getAdPhotos.Parameter<string>("ad_ids");
+            getAdPhotos.Returns<string>();
+
+            // Obter anúncios ativos
+            ActionConfiguration activeAds = builder.Entity<Ad>().Collection.Action("GetActiveAds");
+            activeAds.Parameter<string>("institution_id");
+            activeAds.Returns<string>();
+
+
             ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Action("NearestInstitutions");
             nearestInstitutions.Parameter<string>("latitude");
             nearestInstitutions.Parameter<string>("longitude");

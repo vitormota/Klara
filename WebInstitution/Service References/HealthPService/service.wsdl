@@ -127,6 +127,12 @@
   <wsdl:message name="IHPService_InsertAdPhoto_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertAdPhotoResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_GetActiveAds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActiveAds" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetActiveAds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActiveAdsResponse" />
+  </wsdl:message>
   <wsdl:portType name="IHPService">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetData" message="tns:IHPService_GetData_InputMessage" />
@@ -207,6 +213,10 @@
     <wsdl:operation name="InsertAdPhoto">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/InsertAdPhoto" message="tns:IHPService_InsertAdPhoto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/InsertAdPhotoResponse" message="tns:IHPService_InsertAdPhoto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveAds">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetActiveAds" message="tns:IHPService_GetActiveAds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetActiveAdsResponse" message="tns:IHPService_GetActiveAds_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IHPService" type="tns:IHPService">
@@ -384,6 +394,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertAdPhoto">
       <soap:operation soapAction="http://tempuri.org/IHPService/InsertAdPhoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveAds">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetActiveAds" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
