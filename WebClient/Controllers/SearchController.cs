@@ -19,11 +19,10 @@ namespace WebClient_.Controllers
             return View();
         }
 
-        [HttpPost]
-        public string SearchAd(string textSearch) {
-            string result = mService.SearchAd(textSearch);
-
-            return result; // Para testar se esta a funcionar bem
+        [HttpGet]
+        public string Search(FormCollection form) 
+        {
+            return form["textbox"]; // Para testar se esta a funcionar bem
         }
 	}
 }

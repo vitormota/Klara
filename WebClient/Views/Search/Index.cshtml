@@ -7,10 +7,7 @@
 @Styles.Render("~/Content/search.css")
 
 <div id="search-filters-wrapper">
-    <div class="search-box">
-        <img src="~/Content/Images/pictogramas-01.png" />
-        @Html.TextBox("textbox", ViewData.TemplateInfo.FormattedModelValue, new { placeholder = "PESQUISA" })
-    </div>
+    @Html.Partial("_SearchBar")
     <div id="region-filter" class="filter clearfix">
         <img src="~/Content/Images/pictogramas-02.png" />
         <header>
