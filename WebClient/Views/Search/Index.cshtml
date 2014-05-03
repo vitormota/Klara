@@ -3,25 +3,65 @@
     ViewBag.Title = "Search";
 }
 
-@Html.Partial("_SearchBar")
-
+@Styles.Render("~/Content/themes/base/jquery-ui.css")
 @Styles.Render("~/Content/search.css")
 
+<div id="search-filters-wrapper">
+    <div class="search-box">
+        <img src="~/Content/Images/pictogramas-01.png" />
+        @Html.TextBox("textbox", ViewData.TemplateInfo.FormattedModelValue, new { placeholder = "PESQUISA" })
+    </div>
+    <div id="region-filter" class="filter clearfix">
+        <img src="~/Content/Images/pictogramas-02.png" />
+        <header>
+            <h6>REGIÃO</h6>
+            <span class="minus-btn"></span>
+        </header>
+
+        <div class="options">
+            @Html.RadioButton("region", "50", true)
+            <label>> 50 km</label>
+            @Html.RadioButton("region", "50-100", false)
+            <label>> 50 km - < 100 km</label>
+            @Html.RadioButton("region", "100", false)
+            <label>> 100 km</label>
+        </div>
+    </div>
+
+    <div id="price-filter" class="filter clearfix">
+        <img src="~/Content/Images/pictogramas-07.png" />
+        <header>
+            <h6>PREÇO</h6>
+            <span class="minus-btn"></span>
+        </header>
+
+        <div id="slider-range-wrapper">
+            <div id="slider-range"></div>
+            <span id="min-price"></span>
+            <span id="max-price"></span>
+        </div>
+    </div>
+
+    <div id="speciality-filter" class="filter clearfix">
+        <img src="~/Content/Images/pictogramas-08.png" />
+        <header>
+            <h6>ESPECIALIDADE</h6>
+            <span class="minus-btn"></span>
+        </header>
+
+        <div class="options">
+            @Html.RadioButton("region", "cancro1", true)
+            <label> ESPECIALIDADE CANCRO 1 </label>
+            @Html.RadioButton("region", "cancro2", false)
+            <label> ESPECIALIDADE CANCRO 2 </label>
+            @Html.RadioButton("region", "cancro3", false)
+            <label> ESPECIALIDADE CANCRO 3 </label>
+        </div>
+    </div>
+
+</div>
 <div class="row grid-line">
-    <div class="col-md-3">
-        <div class="img-details">
-            <div class="img"></div>
-            <div class="hidden-details">
-                <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
-                <hr/>
-                <span>Desconto 50%</span>
-            </div>
-        </div>
-        <span class="cupn-service">consulta pediatria</span>
-        <span>CUF - Porto</span>
-        <span>19,70 €</span> 
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-2 col-md-offset-3">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -34,7 +74,7 @@
         <span>CUF - Porto</span>
         <span>19,70 €</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -47,7 +87,20 @@
         <span>CUF - Porto</span>
         <span>19,70 €</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
+        <div class="img-details">
+            <div class="img"></div>
+            <div class="hidden-details">
+                <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
+                <hr />
+                <span>Desconto 50%</span>
+            </div>
+        </div>
+        <span class="cupn-service">consulta pediatria</span>
+        <span>CUF - Porto</span>
+        <span>19,70 €</span>
+    </div>
+    <div class="col-md-2">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -63,7 +116,7 @@
 </div>
 
 <div class="row grid-line">
-    <div class="col-md-3">
+    <div class="col-md-2 col-md-offset-3">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -76,7 +129,7 @@
         <span>CUF - Porto</span>
         <span>19,70 €</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -89,7 +142,7 @@
         <span>CUF - Porto</span>
         <span>19,70 €</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -102,7 +155,7 @@
         <span>CUF - Porto</span>
         <span>19,70 €</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -118,7 +171,7 @@
 </div>
 
 <div class="row grid-line">
-    <div class="col-md-3">
+    <div class="col-md-2 col-md-offset-3">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -131,7 +184,7 @@
         <span>CUF - Porto</span>
         <span>19,70 €</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -144,7 +197,7 @@
         <span>CUF - Porto</span>
         <span>19,70 €</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -157,7 +210,7 @@
         <span>CUF - Porto</span>
         <span>19,70 €</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="img-details">
             <div class="img"></div>
             <div class="hidden-details">
@@ -171,3 +224,6 @@
         <span>19,70 €</span>
     </div>
 </div>
+
+
+@Scripts.Render("~/Scripts/local/search.js")
