@@ -128,8 +128,16 @@ namespace HpREST_Bridge
 
         public string SearchAd(string textSearch)
         {
-            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
-            return responce;
+            string return_str = null;
+
+            Dictionary<string, string> json_dict = new Dictionary<string, string>();
+            json_dict.Add("textSearch", textSearch);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + ads_controller + "/SearchAd", JsonConvert.SerializeObject(json_dict));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDict["value"].ToString();
+            return return_str;
         }
 
         //---------------------------------------------------------------------

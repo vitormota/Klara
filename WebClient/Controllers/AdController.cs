@@ -44,5 +44,11 @@ namespace WebClient_.Controllers
             string result = mService.AdsSubscribe(client_id);
             return result;
         }
+
+        public string SearchAd(string textSearch)
+        {
+            string result = mService.SearchAd(textSearch);
+            return result;
+        }
 	}
 }

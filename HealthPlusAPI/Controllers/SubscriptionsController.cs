@@ -12,6 +12,7 @@ using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -72,7 +73,36 @@ namespace HealthPlusAPI.Controllers
                 }
                 else
                 {
-                    result = JsonConvert.SerializeObject(list_institution);
+                    List<JObject> listFinalWithGroups = new List<JObject>(); // Lista que vai ter o nome do grupo no qual a instituição esta associada
+                    for (int i = 0; i < list_institution.Count; i++)
+                    {
+                        string name_group = null;
+
+                        if (list_institution[i].group_id != null)
+                        {
+                            Inst_Group group = db.Inst_Group.Where(gr => gr.id == list_institution[i].group_id).First();
+                            name_group = group.name;
+                        }
+
+                        JObject instWithGroup = new JObject(
+                            new JProperty("id", list_institution[i].id),
+                            new JProperty("group_id", list_institution[i].group_id),
+                            new JProperty("name_group", name_group),
+                            new JProperty("name", list_institution[i].name),
+                            new JProperty("website", list_institution[i].website),
+                            new JProperty("phone_number", list_institution[i].phone_number),
+                            new JProperty("address", list_institution[i].address),
+                            new JProperty("city", list_institution[i].city),
+                            new JProperty("email", list_institution[i].email),
+                            new JProperty("fax", list_institution[i].fax),
+                            new JProperty("latitude", list_institution[i].latitude),
+                            new JProperty("longitude", list_institution[i].longitude));
+
+                        listFinalWithGroups.Add(instWithGroup);
+
+                    }
+
+                    result = JsonConvert.SerializeObject(listFinalWithGroups);
                 }
             }
 
@@ -109,7 +139,39 @@ namespace HealthPlusAPI.Controllers
                 }
                 else
                 {
-                    result = JsonConvert.SerializeObject(list_ad);
+                    List<JObject> listFinalWithInsts = new List<JObject>(); // Lista que vai ter o nome da instituicao na qual o anuncio esta associado
+                    for (int i = 0; i < list_ad.Count; i++)
+                    {
+                        string name_institution = "no institution";
+
+                        Ad aux_ad = list_ad[i]; // Serve para nao dar erro na query que se segue
+                        List<Institution> inst = db.Institution.Where(ins => ins.id == aux_ad.institution_id).ToList();
+
+                        if (inst.Count != 0)
+                        {
+                            name_institution = inst.First().name;
+                        }
+
+                        JObject adWithInst = new JObject(
+                            new JProperty("id", list_ad[i].id),
+                            new JProperty("institution_id", list_ad[i].institution_id),
+                            new JProperty("name_institution", name_institution),
+                            new JProperty("name", list_ad[i].name),
+                            new JProperty("price", list_ad[i].price),
+                            new JProperty("remaining_cupons", list_ad[i].remaining_cupons),
+                            new JProperty("service", list_ad[i].service),
+                            new JProperty("specialty", list_ad[i].specialty),
+                            new JProperty("start_time", list_ad[i].start_time),
+                            new JProperty("end_time", list_ad[i].end_time),
+                            new JProperty("buyed_cupons", list_ad[i].buyed_cupons),
+                            new JProperty("description", list_ad[i].description),
+                            new JProperty("discount", list_ad[i].discount));
+
+                        listFinalWithInsts.Add(adWithInst);
+
+                    }
+
+                    result = JsonConvert.SerializeObject(listFinalWithInsts);
                 }
             }
 

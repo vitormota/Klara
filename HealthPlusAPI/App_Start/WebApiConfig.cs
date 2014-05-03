@@ -56,12 +56,17 @@ namespace HealthPlusAPI
             deleteSubscription.Parameter<string>("subscribable_id");
             deleteSubscription.Returns<string>();
 
-           
+     
 
             // Adicionar a action para procurar instituicoes
             ActionConfiguration searchInstitution = builder.Entity<Institution>().Collection.Action("SearchInstitution");
             searchInstitution.Parameter<string>("textSearch");
             searchInstitution.Returns<string>();
+
+            // Action que vai permitir a pesquisa de anuncios
+            ActionConfiguration searchAd = builder.Entity<Ad>().Collection.Action("SearchAd");
+            searchAd.Parameter<string>("textSearch");
+            searchAd.Returns<string>();
 
             
             // Adicionar a action para gerir login's
