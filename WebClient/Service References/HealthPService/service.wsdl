@@ -121,6 +121,12 @@
   <wsdl:message name="IHPService_AdsSubscribe_OutputMessage">
     <wsdl:part name="parameters" element="tns:AdsSubscribeResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_IsSubscribeUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsSubscribeUser" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_IsSubscribeUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsSubscribeUserResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_EditInstitutionDetails_InputMessage">
     <wsdl:part name="parameters" element="tns:EditInstitutionDetails" />
   </wsdl:message>
@@ -215,6 +221,10 @@
     <wsdl:operation name="AdsSubscribe">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/AdsSubscribe" message="tns:IHPService_AdsSubscribe_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/AdsSubscribeResponse" message="tns:IHPService_AdsSubscribe_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsSubscribeUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/IsSubscribeUser" message="tns:IHPService_IsSubscribeUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/IsSubscribeUserResponse" message="tns:IHPService_IsSubscribeUser_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EditInstitutionDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetails" message="tns:IHPService_EditInstitutionDetails_InputMessage" />
@@ -395,6 +405,15 @@
     </wsdl:operation>
     <wsdl:operation name="AdsSubscribe">
       <soap:operation soapAction="http://tempuri.org/IHPService/AdsSubscribe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsSubscribeUser">
+      <soap:operation soapAction="http://tempuri.org/IHPService/IsSubscribeUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -280,6 +280,33 @@ namespace HealthPlusAPI.Controllers
         }
 
         [HttpPost]
+        public string IsSubscribeUser(ODataActionParameters parameters)
+        {
+            int client_id = Convert.ToInt32(parameters["client_id"]);
+            int subscribable_id = Convert.ToInt32(parameters["subscribable_id"]);
+
+            string return_str = null;
+
+            if (!ModelState.IsValid)
+            {
+                return_str = "error";
+            }
+            else
+            {
+                if(db.Subscription.Count(subs => subs.client_id == client_id && subs.subscribable_id == subscribable_id) > 0)
+                {
+                    return_str = "true";
+                }
+                else
+                {
+                    return_str = "false";
+                }
+            }
+
+            return return_str;
+        }
+
+        [HttpPost]
         public string DeleteSubscription(ODataActionParameters parameters)
         {
             string return_str = null;

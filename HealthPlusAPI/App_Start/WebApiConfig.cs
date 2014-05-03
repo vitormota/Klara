@@ -56,6 +56,12 @@ namespace HealthPlusAPI
             deleteSubscription.Parameter<string>("subscribable_id");
             deleteSubscription.Returns<string>();
 
+            // Action para ver se o user tem alguma subscricao relacionada com aquele subscribable
+            ActionConfiguration isSubscribeUser = builder.Entity<Subscription>().Collection.Action("IsSubscribeUser");
+            isSubscribeUser.Parameter<string>("client_id");
+            isSubscribeUser.Parameter<string>("subscribable_id");
+            isSubscribeUser.Returns<string>();
+
      
 
             // Adicionar a action para procurar instituicoes

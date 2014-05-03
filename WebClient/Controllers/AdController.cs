@@ -19,6 +19,7 @@ namespace WebClient_.Controllers
             return View();
         }
 
+        [HttpPost]
         public string SubscribeAd()
         {
             int client_id = 44;
@@ -28,6 +29,7 @@ namespace WebClient_.Controllers
             return result;
         }
 
+        [HttpPost]
         public string UnsubscribeAd()
         {
             int client_id = 44;
@@ -37,17 +39,33 @@ namespace WebClient_.Controllers
             return result;
         }
 
+        [HttpPost]
         public string AdsSubscribe()
         {
             int client_id = 44;
 
             string result = mService.AdsSubscribe(client_id);
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar os anuncios que recebeu para uma lista, com um dicionario la dentro
+            
             return result;
         }
 
+        [HttpPost]
         public string SearchAd(string textSearch)
         {
             string result = mService.SearchAd(textSearch);
+            List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar os anuncios que recebeu para uma lista, com um dicionario la dentro
+            
+            return result;
+        }
+
+        [HttpPost]
+        public string SubscribeAdUser()
+        {
+            int ad_id = 5;
+            int client_id = 44;
+
+            string result = mService.IsSubscribeUser(client_id, ad_id);
             return result;
         }
 	}

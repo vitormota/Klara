@@ -346,5 +346,18 @@ namespace HpREST_Bridge
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
             return returnJSON;
         }
+
+        public string IsSubscribeUser(int client_id, int subscribable_id)
+        {
+            Dictionary<string, string> json_dict = new Dictionary<string, string>();
+            json_dict.Add("client_id", client_id.ToString());
+            json_dict.Add("subscribable_id", subscribable_id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/IsSubscribeUser", JsonConvert.SerializeObject(json_dict));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            string returnJSON = resultDict["value"].ToString();
+            return returnJSON;
+        }
     }
 }
