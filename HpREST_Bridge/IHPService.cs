@@ -72,6 +72,9 @@ namespace HpREST_Bridge
         [OperationContract]
         string AdsSubscribe(int client_id);
 
+        [OperationContract]
+        string IsSubscribeUser(int client_id, int subscribable_id);
+
         /// <summary>
         /// Change institution details
         /// </summary>

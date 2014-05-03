@@ -128,8 +128,16 @@ namespace HpREST_Bridge
 
         public string SearchAd(string textSearch)
         {
-            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
-            return responce;
+            string return_str = null;
+
+            Dictionary<string, string> json_dict = new Dictionary<string, string>();
+            json_dict.Add("textSearch", textSearch);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + ads_controller + "/SearchAd", JsonConvert.SerializeObject(json_dict));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDict["value"].ToString();
+            return return_str;
         }
 
         //---------------------------------------------------------------------
@@ -336,6 +344,19 @@ namespace HpREST_Bridge
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
+            return returnJSON;
+        }
+
+        public string IsSubscribeUser(int client_id, int subscribable_id)
+        {
+            Dictionary<string, string> json_dict = new Dictionary<string, string>();
+            json_dict.Add("client_id", client_id.ToString());
+            json_dict.Add("subscribable_id", subscribable_id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/IsSubscribeUser", JsonConvert.SerializeObject(json_dict));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            string returnJSON = resultDict["value"].ToString();
             return returnJSON;
         }
     }

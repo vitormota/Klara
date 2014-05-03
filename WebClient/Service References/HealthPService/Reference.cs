@@ -192,6 +192,12 @@ namespace WebClient_.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/AdsSubscribe", ReplyAction="http://tempuri.org/IHPService/AdsSubscribeResponse")]
         System.Threading.Tasks.Task<string> AdsSubscribeAsync(int client_id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/IsSubscribeUser", ReplyAction="http://tempuri.org/IHPService/IsSubscribeUserResponse")]
+        string IsSubscribeUser(int client_id, int subscribable_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/IsSubscribeUser", ReplyAction="http://tempuri.org/IHPService/IsSubscribeUserResponse")]
+        System.Threading.Tasks.Task<string> IsSubscribeUserAsync(int client_id, int subscribable_id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/EditInstitutionDetails", ReplyAction="http://tempuri.org/IHPService/EditInstitutionDetailsResponse")]
         string EditInstitutionDetails(string model_data, int id);
         
@@ -388,6 +394,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> AdsSubscribeAsync(int client_id) {
             return base.Channel.AdsSubscribeAsync(client_id);
+        }
+        
+        public string IsSubscribeUser(int client_id, int subscribable_id) {
+            return base.Channel.IsSubscribeUser(client_id, subscribable_id);
+        }
+        
+        public System.Threading.Tasks.Task<string> IsSubscribeUserAsync(int client_id, int subscribable_id) {
+            return base.Channel.IsSubscribeUserAsync(client_id, subscribable_id);
         }
         
         public string EditInstitutionDetails(string model_data, int id) {

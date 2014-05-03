@@ -73,6 +73,16 @@ namespace WebClient_.Controllers
         }
 
         [HttpPost]
+        public string SubscribeInstitutionUser()
+        {
+            int institution_id = 1;
+            int client_id = 36;
+
+            string result = mService.IsSubscribeUser(client_id, institution_id);
+            return result;
+        }
+
+        [HttpPost]
         public void SendEmailAboutInstitutions()
         {
             MailMessage mail = new MailMessage();
