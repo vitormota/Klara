@@ -25,6 +25,7 @@ namespace HealthPlusAPI
             builder.EntitySet<Subscription>("Subscriptions");
             builder.EntitySet<Institution>("Institutions");
             builder.EntitySet<Manager>("Managers");
+            builder.EntitySet<Photo>("Photos");
 
             ActionConfiguration getClientPurchases = builder.Entity<Cupon>().Action("GetPurchases");
             getClientPurchases.Returns<string>();
@@ -71,10 +72,12 @@ namespace HealthPlusAPI
             fetchInstitutions.Parameter<string>("manager_id");
             fetchInstitutions.Returns<string>();
 
-            // Inserir um novo anúncio
-            //ActionConfiguration insertAd = builder.Entity<Ad>().Action("InsertAd");
-            //fetchInstitutions.Parameter<Ad>("ad");
-            //fetchInstitutions.Returns<string>();
+            // Inserir fotografia para anúncio
+            ActionConfiguration insertAdPhoto = builder.Entity<Photo>().Action("InsertAdPhoto");
+            insertAdPhoto.Parameter<string>("ad_id");
+            insertAdPhoto.Parameter<string>("photo_guid");
+            insertAdPhoto.Parameter<string>("data_stream");
+            insertAdPhoto.Returns<string>();
 
             ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Action("NearestInstitutions");
             nearestInstitutions.Parameter<string>("latitude");

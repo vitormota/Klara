@@ -77,6 +77,9 @@ namespace HpREST_Bridge
         [OperationContract]
         string GetInstitution(int id);
 
+        [OperationContract]
+        string InsertAdPhoto(int ad_id, string photo_guid, string data_stream);
+
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

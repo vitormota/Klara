@@ -276,4 +276,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="InsertAdPhoto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ad_id" type="xs:int" />
+        <xs:element minOccurs="0" name="photo_guid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="data_stream" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertAdPhotoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertAdPhotoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -35,5 +35,8 @@ namespace HealthPlusAPI.Models
         public virtual DbSet<Manager_Institution_maps> Manager_Institution_maps { get; set; }
         public virtual DbSet<Subscribable> Subscribable { get; set; }
         public virtual DbSet<Subscription> Subscription { get; set; }
+        public virtual DbSet<Ad_Photo_maps> Ad_Photo_maps { get; set; }
+        public virtual DbSet<Institution_Photo_maps> Institution_Photo_maps { get; set; }
+        public virtual DbSet<Photo> Photo { get; set; }
     }
 }

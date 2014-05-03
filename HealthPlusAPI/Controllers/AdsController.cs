@@ -136,6 +136,13 @@ namespace HealthPlusAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            Subscribable s = new Subscribable();
+
+            /// Insert in Subscribable to create id
+            db.Subscribable.Add(s);
+            db.SaveChanges();
+            ad.id = s.id;
+
             db.Ad.Add(ad);
 
             try

@@ -131,3 +131,23 @@ create table Subscription (
 	primary key (subscribable_id, client_id)
 );
 
+
+create table Photo (
+	guid varchar(255) primary key
+);
+
+create table Ad_Photo_maps (
+	ad_id int,
+	photo_id varchar(255),
+	foreign key (ad_id) references Ad(id) on delete cascade,
+	foreign key (photo_id) references Photo(id) on delete cascade,
+	primary key (ad_id, photo_id)
+);
+
+create table Institution_Photo_maps (
+	institution_id int,
+	photo_id varchar(255),
+	foreign key (institution_id) references Institution(id) on delete cascade,
+	foreign key (photo_id) references Photo(id) on delete cascade,
+	primary key (institution_id, photo_id)
+);

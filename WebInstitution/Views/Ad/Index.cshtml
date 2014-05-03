@@ -3,7 +3,7 @@
     <title></title>
 </head>
 <body>
-    @using (Html.BeginForm("Create", "Ad", FormMethod.Post))
+    @using (Html.BeginForm("Create", "Ad", FormMethod.Post, new { enctype="multipart/form-data"}))
     {
         <div>
             <label for="service">Service: </label>
@@ -36,6 +36,10 @@
 
             <label for="start_date">Start: </label>
             <input name="start_date" type="date" />
+            <hr />
+
+            <label for="photo">File: </label>
+            <input name="photo" type="file" />
             <hr />
 
             <button type="submit">Create</button>

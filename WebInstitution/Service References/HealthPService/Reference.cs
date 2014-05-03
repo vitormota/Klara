@@ -128,6 +128,12 @@ namespace WebInstitution.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInstitution", ReplyAction="http://tempuri.org/IHPService/GetInstitutionResponse")]
         System.Threading.Tasks.Task<string> GetInstitutionAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InsertAdPhoto", ReplyAction="http://tempuri.org/IHPService/InsertAdPhotoResponse")]
+        string InsertAdPhoto(int ad_id, string photo_guid, string data_stream);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InsertAdPhoto", ReplyAction="http://tempuri.org/IHPService/InsertAdPhotoResponse")]
+        System.Threading.Tasks.Task<string> InsertAdPhotoAsync(int ad_id, string photo_guid, string data_stream);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -307,6 +313,14 @@ namespace WebInstitution.HealthPService {
         
         public System.Threading.Tasks.Task<string> GetInstitutionAsync(int id) {
             return base.Channel.GetInstitutionAsync(id);
+        }
+        
+        public string InsertAdPhoto(int ad_id, string photo_guid, string data_stream) {
+            return base.Channel.InsertAdPhoto(ad_id, photo_guid, data_stream);
+        }
+        
+        public System.Threading.Tasks.Task<string> InsertAdPhotoAsync(int ad_id, string photo_guid, string data_stream) {
+            return base.Channel.InsertAdPhotoAsync(ad_id, photo_guid, data_stream);
         }
     }
 }

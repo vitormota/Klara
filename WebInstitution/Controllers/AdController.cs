@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebInstitution.HealthPService;
 using WebInstitution.Models;
+using System.IO;
 
 namespace WebInstitution.Controllers
 {
@@ -22,8 +24,11 @@ namespace WebInstitution.Controllers
 
         //
         // GET: /Ad/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
+
+
+
             return View();
         }
 
@@ -39,8 +44,11 @@ namespace WebInstitution.Controllers
         [HttpPost]
         public ActionResult Create(Models.AdFormModel ad)
         {
-            
+
             SessionModel session = (SessionModel)Session["manager"];
+
+            HttpPostedFileBase photo = Request.Files["photo"];
+            string guid = System.Guid.NewGuid().ToString();
 
             if (session == null)
             {
@@ -57,13 +65,33 @@ namespace WebInstitution.Controllers
                     new JProperty("description", ad.description),
                     new JProperty("start_time", ad.start_time),
                     new JProperty("end_time", ad.end_time),
-                    new JProperty("price", ad.price.ToString() ), // decimals must have quotes !!
-                    new JProperty("discount", Math.Round( 100*((ad.previous_price - ad.price) / ad.previous_price) ).ToString() ),
+                    new JProperty("price", ad.price.ToString()), // decimals must have quotes !!
+                    new JProperty("discount", Math.Round(100 * ((ad.previous_price - ad.price) / ad.previous_price)).ToString()),
                     new JProperty("remaining_cupons", ad.total_cupons),
                     new JProperty("buyed_cupons", ad.total_cupons)
                     );
 
                 string response = mService.CreateAd(send_data.ToString());
+
+                AdDisplayModel adm = JsonConvert.DeserializeObject<AdDisplayModel>(response);
+
+                if (photo.ContentLength > 0)
+                {
+                    var path = Path.Combine(Path.GetTempFileName());
+                    photo.SaveAs(path);
+
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(photo.InputStream);
+
+                    MemoryStream stream = new MemoryStream();
+                    img.Save(stream, img.RawFormat);
+
+                    // upload image to API
+                    mService.InsertAdPhoto(adm.id, guid, Convert.ToBase64String(stream.ToArray()));
+                }
+                else
+                {
+                    return View();
+                }
 
                 return RedirectToAction("Index");
             }
@@ -119,6 +147,21 @@ namespace WebInstitution.Controllers
             {
                 return View();
             }
+        }
+
+        private Boolean IsFileAnImage(string strFileName)
+        {
+            Boolean RetVal = true;
+            try
+            {
+                System.Drawing.Image img = System.Drawing.Image.FromFile(strFileName);
+                img.Dispose();
+            }
+            catch
+            {
+                RetVal = false;
+            }
+            return RetVal;
         }
     }
 }
