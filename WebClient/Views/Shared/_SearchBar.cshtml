@@ -1,10 +1,9 @@
 ﻿<div class="search-box">
     <img src="~/Content/Images/pictogramas-01.png" />
-    @using (Html.BeginForm("Search", "Search", FormMethod.Get))
-    {
-        @Html.TextBox("textbox", ViewData.TemplateInfo.FormattedModelValue, new { placeholder = "PESQUISA" })
+    <form method="get" action="../Search/Search">
+        <input id="textbox" name="textSearch" placeholder="PESQUISA" />
         <input type="submit" value="Procurar" style="display: none" />
-    }
+    </form>
 </div>
 
 

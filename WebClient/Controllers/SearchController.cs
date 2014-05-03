@@ -20,9 +20,9 @@ namespace WebClient_.Controllers
         }
 
         [HttpGet]
-        public string Search(FormCollection form) 
+        public string Search(string textSearch) 
         {
-            return form["textbox"]; // Para testar se esta a funcionar bem
+            return textSearch; // Para testar se esta a funcionar bem
         }
 	}
 }
