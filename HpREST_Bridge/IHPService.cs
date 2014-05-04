@@ -66,6 +66,18 @@ namespace HpREST_Bridge
         [OperationContract]
         string SeeCuponsActive(int client_id);
 
+        [OperationContract]
+        string SubscribeAd(int client_id, int ad_id);
+
+        [OperationContract]
+        string UnsubscribeAd(int client_id, int ad_id);
+
+        [OperationContract]
+        string AdsSubscribe(int client_id);
+
+        [OperationContract]
+        string IsSubscribeUser(int client_id, int subscribable_id);
+
         /// <summary>
         /// Change institution details
         /// </summary>

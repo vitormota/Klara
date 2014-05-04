@@ -12,6 +12,8 @@ using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using HealthPlusAPI.Models;
 using System.Device.Location;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -30,6 +32,7 @@ namespace HealthPlusAPI.Controllers
     public class AdsController : ODataController
     {
         private healthplusEntities db = new healthplusEntities();
+        private Models.AuxiliarClass.AuxiliarFunctions auxFunctions = new Models.AuxiliarClass.AuxiliarFunctions();
 
         // GET odata/Ads
         [Queryable]
@@ -53,6 +56,7 @@ namespace HealthPlusAPI.Controllers
                 string str1 = str0[0];
                 key = str0[1];
                 //str1 = str1.Substring(7, str1.Length - 7);
+                
                 str0 = str1.Split(separator1, 2, StringSplitOptions.None);
                 Distance = int.Parse(str0[1]);
                 
@@ -62,10 +66,13 @@ namespace HealthPlusAPI.Controllers
                                            db.Ad.Where(Ad => Ad.service.Contains(key))).Concat(
                                            db.Ad.Where(Ad => Ad.specialty.Contains(key))).Concat(
                                            db.Ad.Where(Ad => Ad.description.Contains(key))).Distinct();
+        
             List<Ad> searchedAds01L = searchedAds01.ToList<Ad>();
             IQueryable<Ad> searchedAds = null;
             double[] myLatLong = getMyLat_Long();
-            foreach(Ad ad in searchedAds01L){
+            
+            foreach(Ad ad in searchedAds01L)
+            {
                 Institution ins = db.Institution.Where(Institution => Institution.id.Equals( ad.institution_id)).ToList<Institution>()[0];
                 
                 double dist = CalculateDistanceGPSCoordinates(Convert.ToDouble(ins.latitude), Convert.ToDouble(ins.longitude), myLatLong[0], myLatLong[1]);
@@ -74,13 +81,17 @@ namespace HealthPlusAPI.Controllers
                     if (searchedAds == null)
                     {
                         searchedAds =db.Ad.Where(Ad => Ad.id.Equals( ad.id));
-                    }else{
+                    }
+                    else
+                    {
                         searchedAds.Concat(db.Ad.Where(Ad => Ad.id.Equals( ad.id)));
                     }
                 }
             }
+            
             if (searchedAds == null)
                 return db.Ad.Where(Ad => Ad.id.Equals(-1));
+            
             return searchedAds;
 
             /*
@@ -89,6 +100,154 @@ namespace HealthPlusAPI.Controllers
                    db.Ad.Where(Ad => Ad.specialty.Contains(key))).Concat(
                    db.Ad.Where(Ad => Ad.description.Contains(key))).Distinct();
              * */
+        }
+
+        [HttpPost]
+        public string SearchAd(ODataActionParameters parameters)
+        {
+            string result = null;
+
+            if (!ModelState.IsValid)
+            {
+                result = "error";
+            }
+            else
+            {
+                // Substituir muitos espacos introduzidos por apenas um espaco
+                string textSearch = (string)parameters["textSearch"];
+                textSearch.Replace("(,|?|!|&|=|\\(|\\))*\\s+(,|?|!|&|=|\\(|\\))*", " ");
+
+                // Partir a string em palavras para a futura pesquisa
+                string[] arrayStr = textSearch.Split(' ');
+                List<string> listStr = new List<string>();
+
+                // Selecionar as palavras com mais de duas letras
+                for (int i = 0; i < arrayStr.Count(); i++)
+                {
+                    if (arrayStr[i].Length > 1)
+                    {
+                        listStr.Add(arrayStr[i]);
+                    }
+                    else if (arrayStr[i].Length.Equals(1) && arrayStr.Count().Equals(1))
+                    {
+                        listStr.Add(arrayStr[i]);
+                    }
+                }
+
+                List<List<Ad>> listAd = new List<List<Ad>>();
+                for (int i = 0; i < listStr.Count; i++)
+                {
+                    List<Ad> auxList = new List<Ad>(); // Lista para auxiliar nos foreach
+                    string searchTextFor = auxFunctions.RemoverAcentos(listStr[i]).ToLower(); // Esta variavel auxiliar teve de ser criada para que possa funcionar na query que esta abaixo
+                    //listInstitution.Add(db.Institution.Where(Institution => auxFunctions.RemoverAcentos(Institution.city).Contains(searchTextFor)).Union(db.Institution.Where(Institution => auxFunctions.RemoverAcentos(Institution.name).Contains(searchTextFor))).ToList());
+
+                    foreach (Ad ad in db.Ad)
+                    {
+                        if (auxFunctions.RemoverAcentos(ad.name).ToLower().Contains(searchTextFor))
+                        {
+                            if (!auxList.Contains(ad))
+                            {
+                                auxList.Add(ad);
+                            }
+                        }
+                        else if (auxFunctions.RemoverAcentos(ad.service).ToLower().Contains(searchTextFor))
+                        {
+                            if (!auxList.Contains(ad))
+                            {
+                                auxList.Add(ad);
+                            }
+                        }
+                        else if (auxFunctions.RemoverAcentos(ad.specialty).ToLower().Contains(searchTextFor))
+                        {
+                            if (!auxList.Contains(ad))
+                            {
+                                auxList.Add(ad);
+                            }
+                        }
+                    }
+
+                    listAd.Add(auxList);
+                }
+
+                // Pedaco de codigo que vai dar a ordem da pesquisa
+                Dictionary<Ad, int> searchResult = new Dictionary<Ad, int>(); // Local onde ficam guardados os registos da pesquisa
+
+                for (int i = 0; i < listAd.Count; i++)
+                {
+                    for (int l = 0; l < listAd[i].Count; l++)
+                    {
+                        int similiar_values = 0; // serve para ver o numero de repeticoes entre listas
+
+                        if (!searchResult.ContainsKey(listAd[i][l])) // se a instituicao ja estiver la nao precisa de fazer os ciclos
+                        {
+                            for (int j = 0; j < listAd.Count; j++)
+                            {
+                                for (int k = 0; k < listAd[j].Count; k++)
+                                {
+                                    if (listAd[i][l].id == listAd[j][k].id)
+                                    {
+                                        similiar_values++;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            searchResult.Add(listAd[i][l], similiar_values);
+                        }
+                    }
+                }
+                // Final do ciclo for
+
+                Dictionary<Ad, int> searchResultSort = new Dictionary<Ad, int>();
+                foreach (var ad in searchResult.OrderBy(ad_aux => ad_aux.Value))
+                {
+                    searchResultSort.Add(ad.Key, ad.Value);
+                }
+
+                List<Ad> listFinalSearch = new List<Ad>(); // Lista, gerada a partir de um dicionario, que vai ter as instituicoes ordenadas, foi feito com uma lista para auxiliar na conversao para JSON
+                foreach (var ad in searchResultSort)
+                {
+                    listFinalSearch.Add(ad.Key);
+                }
+
+                listFinalSearch.Reverse(); // necessario inverter a ordem para primeiro mostrar aqueles que estao mais de acordo com o input
+
+                List<JObject> listFinalWithInsts = new List<JObject>(); // Lista que vai ter o nome do grupo no qual a instituição esta associada
+                for (int i = 0; i < listFinalSearch.Count; i++)
+                {
+                    string name_institution = "no institution";
+
+                    Ad aux_ad = listFinalSearch[i]; // Serve para nao dar erro na query que se segue
+                    List<Institution> inst = db.Institution.Where(ins => ins.id == aux_ad.institution_id).ToList();
+                    
+                    if(inst.Count != 0)
+                    {
+                        name_institution = inst.First().name;
+                    }
+
+                    JObject adWithInst = new JObject(
+                        new JProperty("id", listFinalSearch[i].id),
+                        new JProperty("institution_id", listFinalSearch[i].institution_id),
+                        new JProperty("name_institution", name_institution),
+                        new JProperty("name", listFinalSearch[i].name),
+                        new JProperty("price", listFinalSearch[i].price),
+                        new JProperty("remaining_cupons", listFinalSearch[i].remaining_cupons),
+                        new JProperty("service", listFinalSearch[i].service),
+                        new JProperty("specialty", listFinalSearch[i].specialty),
+                        new JProperty("start_time", listFinalSearch[i].start_time),
+                        new JProperty("end_time", listFinalSearch[i].end_time),
+                        new JProperty("buyed_cupons", listFinalSearch[i].buyed_cupons),
+                        new JProperty("description", listFinalSearch[i].description),
+                        new JProperty("discount", listFinalSearch[i].discount));
+
+                    listFinalWithInsts.Add(adWithInst);
+
+                }
+
+                result = JsonConvert.SerializeObject(listFinalWithInsts);
+            }
+
+            return result;
         }
 
         // PUT odata/Ads(5)

@@ -73,13 +73,23 @@ namespace WebClient_.Controllers
         }
 
         [HttpPost]
+        public string SubscribeInstitutionUser()
+        {
+            int institution_id = 1;
+            int client_id = 36;
+
+            string result = mService.IsSubscribeUser(client_id, institution_id);
+            return result;
+        }
+
+        [HttpPost]
         public void SendEmailAboutInstitutions()
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.sapo.pt");
 
             mail.From = new MailAddress("healthplus_notifications@sapo.pt");
-            mail.To.Add("antonio_ribeiro01@hotmail.com");
+            mail.To.Add("antonio_ribeiro01@hotmail.com"); //antonio_ribeiro01@hotmail.com
             mail.Subject = "Atualizações de subscrições";
             mail.Body = "Aqui irão estar as ultimas atualizações das instituições subscritas!! :)";
 

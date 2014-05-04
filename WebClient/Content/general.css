@@ -2,6 +2,7 @@
 	font-family: Arial, sans-serif;
     font-size: 16px;
     background-color: #F3EEE0;
+    position: rel
 }
 
 p {
@@ -16,6 +17,7 @@ p {
 
 .body-content {
 	margin-bottom: 4.4em;
+	height: 100%;
 }
 
 /******/

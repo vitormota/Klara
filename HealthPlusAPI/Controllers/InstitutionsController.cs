@@ -14,6 +14,7 @@ using System.Web.Http.OData.Routing;
 using System.Web.Http.OData.Builder;
 using HealthPlusAPI.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace HealthPlusAPI.Controllers
 {
@@ -46,7 +47,7 @@ namespace HealthPlusAPI.Controllers
         }
 
         [HttpPost]
-        public string SearchInstitution([FromODataUri] int key, ODataActionParameters parameters)
+        public string SearchInstitution(ODataActionParameters parameters)
         {
             string result = null;
 
@@ -147,14 +148,43 @@ namespace HealthPlusAPI.Controllers
                 }
 
                 listFinalSearch.Reverse(); // necessario inverter a ordem para primeiro mostrar aqueles que estao mais de acordo com o input
-                result = JsonConvert.SerializeObject(listFinalSearch);
+
+                List<JObject> listFinalWithGroups = new List<JObject>(); // Lista que vai ter o nome do grupo no qual a instituição esta associada
+                for (int i = 0; i < listFinalSearch.Count; i++)
+                {
+                    string name_group = null;
+
+                    if(listFinalSearch[i].group_id != null)
+                    {
+                        Inst_Group group = db.Inst_Group.Where(gr => gr.id == listFinalSearch[i].group_id).First();
+                        name_group = group.name;
+                    }
+                        
+                    JObject instWithGroup = new JObject(
+                        new JProperty("id", listFinalSearch[i].id),
+                        new JProperty("group_id",listFinalSearch[i].group_id),
+                        new JProperty("name_group", name_group),
+                        new JProperty("name", listFinalSearch[i].name),
+                        new JProperty("website", listFinalSearch[i].website),
+                        new JProperty("phone_number",listFinalSearch[i].phone_number),
+                        new JProperty("address",listFinalSearch[i].address),
+                        new JProperty("city", listFinalSearch[i].city),
+                        new JProperty("email", listFinalSearch[i].email),
+                        new JProperty("fax", listFinalSearch[i].fax),
+                        new JProperty("latitude", listFinalSearch[i].latitude),
+                        new JProperty("longitude", listFinalSearch[i].longitude));
+
+                    listFinalWithGroups.Add(instWithGroup);
+                   
+                }
+                    result = JsonConvert.SerializeObject(listFinalWithGroups);
             }
 
             return result;
         }
 
         [HttpPost]
-        public string NearestInstitutions([FromODataUri] int key, ODataActionParameters parameters)
+        public string NearestInstitutions(ODataActionParameters parameters)
         {
             string result = null;
 
@@ -193,7 +223,36 @@ namespace HealthPlusAPI.Controllers
                     listFinalSearch.Add(institution.Key);
                 }
 
-                result = JsonConvert.SerializeObject(listFinalSearch);
+                List<JObject> listFinalWithGroups = new List<JObject>(); // Lista que vai ter o nome do grupo no qual a instituição esta associada
+                for (int i = 0; i < listFinalSearch.Count; i++)
+                {
+                    string name_group = null;
+
+                    if (listFinalSearch[i].group_id != null)
+                    {
+                        Inst_Group group = db.Inst_Group.Where(gr => gr.id == listFinalSearch[i].group_id).First();
+                        name_group = group.name;
+                    }
+
+                    JObject instWithGroup = new JObject(
+                        new JProperty("id", listFinalSearch[i].id),
+                        new JProperty("group_id", listFinalSearch[i].group_id),
+                        new JProperty("name_group", name_group),
+                        new JProperty("name", listFinalSearch[i].name),
+                        new JProperty("website", listFinalSearch[i].website),
+                        new JProperty("phone_number", listFinalSearch[i].phone_number),
+                        new JProperty("address", listFinalSearch[i].address),
+                        new JProperty("city", listFinalSearch[i].city),
+                        new JProperty("email", listFinalSearch[i].email),
+                        new JProperty("fax", listFinalSearch[i].fax),
+                        new JProperty("latitude", listFinalSearch[i].latitude),
+                        new JProperty("longitude", listFinalSearch[i].longitude));
+
+                    listFinalWithGroups.Add(instWithGroup);
+
+                }
+
+                result = JsonConvert.SerializeObject(listFinalWithGroups);
             }
 
             return result;
@@ -221,7 +280,38 @@ namespace HealthPlusAPI.Controllers
                         where map.manager_id == managerId
                         select ins;
 
-                    result = JsonConvert.SerializeObject(institutions.ToList());
+                    List<Institution> list_institutions = institutions.ToList(); // Passar o resultado das instituicoes para uma lista para nao haver problemas no ciclo for
+
+                    List<JObject> listFinalWithGroups = new List<JObject>(); // Lista que vai ter o nome do grupo no qual a instituição esta associada
+                    for (int i = 0; i < list_institutions.Count; i++)
+                    {
+                        string name_group = null;
+
+                        if (list_institutions[i].group_id != null)
+                        {
+                            Inst_Group group = db.Inst_Group.Where(gr => gr.id == list_institutions[i].group_id).First();
+                            name_group = group.name;
+                        }
+
+                        JObject instWithGroup = new JObject(
+                            new JProperty("id", list_institutions[i].id),
+                            new JProperty("group_id", list_institutions[i].group_id),
+                            new JProperty("name_group", name_group),
+                            new JProperty("name", list_institutions[i].name),
+                            new JProperty("website", list_institutions[i].website),
+                            new JProperty("phone_number", list_institutions[i].phone_number),
+                            new JProperty("address", list_institutions[i].address),
+                            new JProperty("city", list_institutions[i].city),
+                            new JProperty("email", list_institutions[i].email),
+                            new JProperty("fax", list_institutions[i].fax),
+                            new JProperty("latitude", list_institutions[i].latitude),
+                            new JProperty("longitude", list_institutions[i].longitude));
+
+                        listFinalWithGroups.Add(instWithGroup);
+
+                    }
+
+                    result = JsonConvert.SerializeObject(listFinalWithGroups);
 
                     if (institutions == null)
                     {

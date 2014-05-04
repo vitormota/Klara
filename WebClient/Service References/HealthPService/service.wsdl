@@ -109,6 +109,30 @@
   <wsdl:message name="IHPService_SeeCuponsActive_OutputMessage">
     <wsdl:part name="parameters" element="tns:SeeCuponsActiveResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_SubscribeAd_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeAd" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_SubscribeAd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeAdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_UnsubscribeAd_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeAd" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_UnsubscribeAd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeAdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_AdsSubscribe_InputMessage">
+    <wsdl:part name="parameters" element="tns:AdsSubscribe" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_AdsSubscribe_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AdsSubscribeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_IsSubscribeUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsSubscribeUser" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_IsSubscribeUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsSubscribeUserResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_EditInstitutionDetails_InputMessage">
     <wsdl:part name="parameters" element="tns:EditInstitutionDetails" />
   </wsdl:message>
@@ -195,6 +219,22 @@
     <wsdl:operation name="SeeCuponsActive">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SeeCuponsActive" message="tns:IHPService_SeeCuponsActive_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SeeCuponsActiveResponse" message="tns:IHPService_SeeCuponsActive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeAd">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SubscribeAd" message="tns:IHPService_SubscribeAd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SubscribeAdResponse" message="tns:IHPService_SubscribeAd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeAd">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/UnsubscribeAd" message="tns:IHPService_UnsubscribeAd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/UnsubscribeAdResponse" message="tns:IHPService_UnsubscribeAd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AdsSubscribe">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/AdsSubscribe" message="tns:IHPService_AdsSubscribe_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/AdsSubscribeResponse" message="tns:IHPService_AdsSubscribe_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsSubscribeUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/IsSubscribeUser" message="tns:IHPService_IsSubscribeUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/IsSubscribeUserResponse" message="tns:IHPService_IsSubscribeUser_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EditInstitutionDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetails" message="tns:IHPService_EditInstitutionDetails_InputMessage" />
@@ -357,6 +397,42 @@
     </wsdl:operation>
     <wsdl:operation name="SeeCuponsActive">
       <soap:operation soapAction="http://tempuri.org/IHPService/SeeCuponsActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeAd">
+      <soap:operation soapAction="http://tempuri.org/IHPService/SubscribeAd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeAd">
+      <soap:operation soapAction="http://tempuri.org/IHPService/UnsubscribeAd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdsSubscribe">
+      <soap:operation soapAction="http://tempuri.org/IHPService/AdsSubscribe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsSubscribeUser">
+      <soap:operation soapAction="http://tempuri.org/IHPService/IsSubscribeUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
