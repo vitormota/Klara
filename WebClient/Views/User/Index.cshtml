@@ -8,15 +8,11 @@
 
 <div class="row user-desc">
     <div class="col-xs-2 col-md-1">
-        <img class="img-rounded" src="@Session["profile_picture_url"].ToString()" alt="Foto do Utilizador" />
+        <img class="img-rounded" src="@(((WebClient_.Models.UserSession)(Session["user"])).profile_picture_url)" alt="Foto do Utilizador" />
     </div>
     <div class="col-xs-8 col-md-4">
         <h4>@Html.DisplayFor(m => m.name)</h4>
         <h4> @Html.DisplayFor(m => m.email)</h4>
-        @Html.LabelFor(m => m.city)
-        @Html.DisplayFor(m=> m.city)
-        @Html.LabelFor(m => m.address)
-        @Html.DisplayFor(m => m.address)
         <hr class="user-separator desc" />
     </div>
 </div>
@@ -38,7 +34,13 @@
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    Body
+                                    @Html.DisplayFor(m => m.nif)
+                                    <br />
+                                    @Html.DisplayFor(m => m.phone_number)
+                                    <br />
+                                    @Html.DisplayFor(m => m.address)
+                                    <br />
+                                    @Html.DisplayFor(m => m.city)
                                 </div>
                             </div>
                         </div>
@@ -71,7 +73,26 @@
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    Body
+                                    @foreach (var ad in Model.ads_subscriptions)
+                                    {
+                                        @Html.DisplayFor(a => ad.ad_id)
+                                        <br />
+                                        @Html.DisplayFor(a => ad.desc)
+                                        <br />
+                                        @Html.DisplayFor(a => ad.end)
+                                        <br />
+                                        @Html.DisplayFor(a => ad.name)
+                                        <br />
+                                        @Html.DisplayFor(a => ad.price)
+                                        <br />
+                                        @Html.DisplayFor(a => ad.remaining)
+                                        <br />
+                                        @Html.DisplayFor(a => ad.service)
+                                        <br />
+                                        @Html.DisplayFor(a => ad.specialty)
+                                        <br />
+                                        @Html.DisplayFor(a => ad.inst)
+                                    }
                                 </div>
                             </div>
                         </div>

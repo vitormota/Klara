@@ -24,9 +24,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/">Home</a></li>
-                    @if (Session["name"] != null)
+                    @if (Session["user"] != null)
                     {
-                        <li><a href="/User/">@Session["name"].ToString()</a></li>
+                        <li><a href="/User/">@(((WebClient_.Models.UserSession)Session["user"]).name)</a></li>
                     }
                     else
                     {

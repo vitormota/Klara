@@ -108,6 +108,12 @@ namespace WebClient_.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/UpdateClientDetails", ReplyAction="http://tempuri.org/IHPService/UpdateClientDetailsResponse")]
         System.Threading.Tasks.Task<string> UpdateClientDetailsAsync(int id, string client_jobj);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdSubscriptions", ReplyAction="http://tempuri.org/IHPService/GetAdSubscriptionsResponse")]
+        string GetAdSubscriptions(int client_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdSubscriptions", ReplyAction="http://tempuri.org/IHPService/GetAdSubscriptionsResponse")]
+        System.Threading.Tasks.Task<string> GetAdSubscriptionsAsync(int client_id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/RegisterUser", ReplyAction="http://tempuri.org/IHPService/RegisterUserResponse")]
         string RegisterUser(string access_token, int provider);
         
@@ -125,6 +131,12 @@ namespace WebClient_.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchInstitution", ReplyAction="http://tempuri.org/IHPService/SearchInstitutionResponse")]
         System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/FetchInstitutions", ReplyAction="http://tempuri.org/IHPService/FetchInstitutionsResponse")]
+        string FetchInstitutions(string manager_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/FetchInstitutions", ReplyAction="http://tempuri.org/IHPService/FetchInstitutionsResponse")]
+        System.Threading.Tasks.Task<string> FetchInstitutionsAsync(string manager_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchAd", ReplyAction="http://tempuri.org/IHPService/SearchAdResponse")]
         string SearchAd(string textSearch);
@@ -254,6 +266,14 @@ namespace WebClient_.HealthPService {
             return base.Channel.UpdateClientDetailsAsync(id, client_jobj);
         }
         
+        public string GetAdSubscriptions(int client_id) {
+            return base.Channel.GetAdSubscriptions(client_id);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetAdSubscriptionsAsync(int client_id) {
+            return base.Channel.GetAdSubscriptionsAsync(client_id);
+        }
+        
         public string RegisterUser(string access_token, int provider) {
             return base.Channel.RegisterUser(access_token, provider);
         }
@@ -276,6 +296,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch) {
             return base.Channel.SearchInstitutionAsync(textSearch);
+        }
+        
+        public string FetchInstitutions(string manager_id) {
+            return base.Channel.FetchInstitutions(manager_id);
+        }
+        
+        public System.Threading.Tasks.Task<string> FetchInstitutionsAsync(string manager_id) {
+            return base.Channel.FetchInstitutionsAsync(manager_id);
         }
         
         public string SearchAd(string textSearch) {

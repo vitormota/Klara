@@ -37,6 +37,12 @@
   <wsdl:message name="IHPService_UpdateClientDetails_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateClientDetailsResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_GetAdSubscriptions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdSubscriptions" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetAdSubscriptions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdSubscriptionsResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_RegisterUser_InputMessage">
     <wsdl:part name="parameters" element="tns:RegisterUser" />
   </wsdl:message>
@@ -54,6 +60,12 @@
   </wsdl:message>
   <wsdl:message name="IHPService_SearchInstitution_OutputMessage">
     <wsdl:part name="parameters" element="tns:SearchInstitutionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_FetchInstitutions_InputMessage">
+    <wsdl:part name="parameters" element="tns:FetchInstitutions" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_FetchInstitutions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FetchInstitutionsResponse" />
   </wsdl:message>
   <wsdl:message name="IHPService_SearchAd_InputMessage">
     <wsdl:part name="parameters" element="tns:SearchAd" />
@@ -136,6 +148,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/UpdateClientDetails" message="tns:IHPService_UpdateClientDetails_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/UpdateClientDetailsResponse" message="tns:IHPService_UpdateClientDetails_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetAdSubscriptions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetAdSubscriptions" message="tns:IHPService_GetAdSubscriptions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetAdSubscriptionsResponse" message="tns:IHPService_GetAdSubscriptions_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RegisterUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/RegisterUser" message="tns:IHPService_RegisterUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/RegisterUserResponse" message="tns:IHPService_RegisterUser_OutputMessage" />
@@ -147,6 +163,10 @@
     <wsdl:operation name="SearchInstitution">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SearchInstitution" message="tns:IHPService_SearchInstitution_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/SearchInstitutionResponse" message="tns:IHPService_SearchInstitution_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchInstitutions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/FetchInstitutions" message="tns:IHPService_FetchInstitutions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/FetchInstitutionsResponse" message="tns:IHPService_FetchInstitutions_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SearchAd">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/SearchAd" message="tns:IHPService_SearchAd_InputMessage" />
@@ -236,6 +256,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAdSubscriptions">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetAdSubscriptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RegisterUser">
       <soap:operation soapAction="http://tempuri.org/IHPService/RegisterUser" style="document" />
       <wsdl:input>
@@ -256,6 +285,15 @@
     </wsdl:operation>
     <wsdl:operation name="SearchInstitution">
       <soap:operation soapAction="http://tempuri.org/IHPService/SearchInstitution" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchInstitutions">
+      <soap:operation soapAction="http://tempuri.org/IHPService/FetchInstitutions" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -31,6 +31,9 @@ namespace HpREST_Bridge
         string UpdateClientDetails(int id, string client_jobj);
 
         [OperationContract]
+        string GetAdSubscriptions(int client_id);
+
+        [OperationContract]
         string RegisterUser(string access_token, int provider);
 
         [OperationContract]

@@ -33,9 +33,11 @@ namespace HpREST_Bridge
         private const string managers_controller = "odata/Managers";
         private const string cupons_controller = "odata/Cupon";
         /// <summary>
-        /// Controllers internal actions defines
+        /// Controllers internal actions definitions
         /// </summary> 
         private const string action_get_purchases = "GetPurchases";
+        private const string action_get_accounts_details = "OptionsFlags";
+        private const string action_get_ad_subs = "Cupons";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -148,12 +150,23 @@ namespace HpREST_Bridge
 
         public string GetClientDetails(int id)
         {
-            return RestUtility.HttpGet(base_url+clients_controller + "(" + id + ")");
+            dynamic account = RestUtility.HttpGet(base_url + accounts_controller + "(" + id + ")/"+action_get_accounts_details);
+            account = account.Substring(0, account.Length - 1);
+            string client = RestUtility.HttpGet(base_url+clients_controller + "(" + id + ")");
+            client = client.Substring(3);
+            string res = account + "," + client;
+            return res;
         }
 
         public string UpdateClientDetails(int id, string client_jobj)
         {
             return RestUtility.HttpPutJSON(base_url + clients_controller + "(" + id + ")", client_jobj);
+        }
+
+        public string GetAdSubscriptions(int client_id)
+        {
+            dynamic subscriptions = RestUtility.HttpGet(base_url+subscriptions_controller+"("+client_id+")/"+action_get_ad_subs);
+            return subscriptions;
         }
 
         //---------------------------------------------------------------------
