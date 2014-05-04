@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebClient_.HealthPService;
+using WebClient_.Models.RequestDatabase;
 
 
 namespace WebClient_.Controllers
@@ -12,17 +13,13 @@ namespace WebClient_.Controllers
     public class SearchController : Controller
     {
         private HealthPService.IHPService mService = new HPServiceClient();
-        //
-        // GET: /Search/
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         [HttpGet]
-        public string Search(string textSearch) 
+        public ActionResult Search(string textSearch) 
         {
-            return textSearch; // Para testar se esta a funcionar bem
+            List<Dictionary<string, string>> list_ads = AdModel.SearchAd(textSearch);
+            ViewBag.ListAds = list_ads;
+            return View();
         }
 	}
 }
