@@ -23,9 +23,24 @@ namespace HealthPlusAPI.Controllers.Support
         /// <param name="client_id"></param>
         /// <returns></returns>
         [Route("odata/Cupon({client_id:int})/Purchases")]
-        public IEnumerable<Cupon> getClientPurchases(int client_id)
+        public IEnumerable<dynamic> getClientPurchases(int client_id)
         {
-            return db.Cupon.Where(cupon => cupon.client_id == client_id);
+            IQueryable<dynamic> query = (from cupon in db.Cupon
+                                         join ad in db.Ad
+                                         on cupon.ad_id equals ad.id
+                                         where cupon.client_id == client_id
+                                         select new
+                                         {
+                                             service = ad.service,
+                                             name = ad.name,
+                                             speciality = ad.specialty,
+                                             state = cupon.state,
+                                             end_time = cupon.end_time,
+                                             purchase_time = cupon.purchase_time
+
+                                         }).AsQueryable();
+
+            return query;
         }
 
         /// <summary>
@@ -55,7 +70,7 @@ namespace HealthPlusAPI.Controllers.Support
             //    })
             //    .Where(account => account.id == client_id));
         }
-    
+
         /// <summary>
         /// Retrieve client's cupon subscriptions
         /// </summary>
@@ -65,25 +80,31 @@ namespace HealthPlusAPI.Controllers.Support
         public dynamic getClientCuponSubs(int client_id)
         {
             IQueryable<dynamic> query = (from client in db.Client
-                         join sub in db.Subscription
-                         on new { id = client.id } equals new { id = sub.client_id }
-                         join s in db.Subscribable
-                         on new { subid = sub.subscribable_id } equals new { subid = s.id }
-                         join ad in db.Ad
-                         on new { adid = sub.subscribable_id } equals new { adid = ad.id }
-                         select new { 
-                            ad_id = ad.id,
-                            name = ad.name,
-                            inst = ad.institution_id,
-                            price = ad.price,
-                            desc = ad.description,
-                            end = ad.end_time,
-                            service = ad.service,
-                            speciality = ad.specialty,
-                            remaining = ad.remaining_cupons
-                         }
+                                         join sub in db.Subscription
+                                         on new { id = client.id } equals new { id = sub.client_id }
+                                         join s in db.Subscribable
+                                         on new { subid = sub.subscribable_id } equals new { subid = s.id }
+                                         join ad in db.Ad
+                                         on new { adid = sub.subscribable_id } equals new { adid = ad.id }
+                                         select new
+                                         {
+                                             ad_id = ad.id,
+                                             name = ad.name,
+                                             inst = ad.institution_id,
+                                             price = ad.price,
+                                             desc = ad.description,
+                                             end = ad.end_time,
+                                             service = ad.service,
+                                             speciality = ad.specialty,
+                                             remaining = ad.remaining_cupons
+                                         }
                          ).AsQueryable();
             return query;
         }
+
+
     }
+
+
+
 }

@@ -21,7 +21,7 @@ namespace WebClient_.Controllers
         {
             UserSession us = (UserSession)Session["user"];
 
-            if (us == null) return View(); /*return RedirectToAction("Index","Auth");*/
+            if (us == null) return RedirectToAction("Index","Auth");
 
             int id = us.internal_id;
 
@@ -30,6 +30,7 @@ namespace WebClient_.Controllers
             UserInfo ui = UserInfo.jsonToModel(userjson);
 
             ui.ads_subscriptions = JsonConvert.DeserializeObject<List<AdSubscripted>>(mService.GetAdSubscriptions(id));
+            ui.cupons = JsonConvert.DeserializeObject<List<CuponPurchase>>(mService.GetClientPurchases(id));
 
             return View(ui);
         }

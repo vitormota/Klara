@@ -196,6 +196,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdSubscripted.cs" />
+    <Compile Include="Models\CuponPurchase.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\RequestDatabase\AdModel.cs" />
     <Compile Include="Models\UserInfo.cs" />

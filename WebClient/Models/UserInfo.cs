@@ -27,6 +27,8 @@ namespace WebClient_.Models
 
         public List<AdSubscripted> ads_subscriptions { get; set; }
 
+        public List<CuponPurchase> cupons { get; set; }
+
         public static UserInfo jsonToModel(JObject json)
         {
             UserInfo ui = new UserInfo();

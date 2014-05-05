@@ -4,6 +4,8 @@
     ViewBag.Title = "User Page";
 }
 
+
+
 @Styles.Render("~/Content/user.css")
 
 <div class="row user-desc">
@@ -124,7 +126,21 @@
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    Body
+                                    @foreach (var cup in Model.cupons)
+                                    {
+                                        @Html.DisplayFor(a => cup.name)
+                                        <br />
+                                        @Html.DisplayFor(a => cup.service)
+                                        <br />
+                                        @Html.DisplayFor(a => cup.speciality)
+                                        <br />
+                                        @Html.DisplayFor(a => cup.purchase_time)
+                                        <br />
+                                        @Html.DisplayFor(a => cup.end_time)
+                                        <br />
+                                        @Html.DisplayFor(a => cup.state)
+                                        
+                                    }
                                 </div>
                             </div>
                         </div>

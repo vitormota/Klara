@@ -35,7 +35,7 @@ namespace HpREST_Bridge
         /// <summary>
         /// Controllers internal actions definitions
         /// </summary> 
-        private const string action_get_purchases = "GetPurchases";
+        private const string action_get_purchases = "Purchases";
         private const string action_get_accounts_details = "OptionsFlags";
         private const string action_get_ad_subs = "Cupons";
 
@@ -153,7 +153,7 @@ namespace HpREST_Bridge
         /// <returns></returns>
         public string GetClientPurchases(int id)
         {
-            return RestUtility.HttpPostJSON(base_url+ cupons_controller+"("+id+")/"+action_get_purchases,"");
+            return RestUtility.HttpGet(base_url+ cupons_controller+"("+id+")/"+action_get_purchases);
         }
 
         public string GetClientDetails(int id)
@@ -178,7 +178,6 @@ namespace HpREST_Bridge
         }
 
         //---------------------------------------------------------------------
-        // Members - Institution 
         //---------------------------------------------------------------------
 
         public string EditInstitutionDetails(string model_data,int id)
