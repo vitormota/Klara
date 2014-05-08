@@ -78,10 +78,17 @@ namespace HpREST_Bridge
         string GetInstitution(int id);
 
         [OperationContract]
-        string InsertAdPhoto(int ad_id, string photo_guid, string data_stream);
+        string InsertAdPhoto(int ad_id, string photo_guid);
 
         [OperationContract]
         string GetActiveAds(int institution_id);
+
+        // deprecated, saving images locally in virtual folder
+        [OperationContract]
+        string GetAdPhotos(List<int> ad_ids);
+
+        [OperationContract]
+        string DeleteAd(int ad_id);
 
     }
 

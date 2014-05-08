@@ -105,7 +105,8 @@ namespace HealthPlusAPI.Controllers
                        join ph in db.Photo on map.photo_id equals ph.guid
                        into t
                        from tb in t.DefaultIfEmpty()
-                       where ad.institution_id == institution_id
+                       where ad.institution_id == institution_id &&
+                       ad.state != "deleted"
                        select new
                        {
                            ad,
@@ -235,11 +236,11 @@ namespace HealthPlusAPI.Controllers
             {
                 return NotFound();
             }
-
-            db.Ad.Remove(ad);
+            ad.state = "deleted";
+            db.Entry(ad).State = EntityState.Modified;
             db.SaveChanges();
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Updated(ad);
         }
 
         protected override void Dispose(bool disposing)

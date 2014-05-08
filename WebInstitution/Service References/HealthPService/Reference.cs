@@ -130,16 +130,28 @@ namespace WebInstitution.HealthPService {
         System.Threading.Tasks.Task<string> GetInstitutionAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InsertAdPhoto", ReplyAction="http://tempuri.org/IHPService/InsertAdPhotoResponse")]
-        string InsertAdPhoto(int ad_id, string photo_guid, string data_stream);
+        string InsertAdPhoto(int ad_id, string photo_guid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InsertAdPhoto", ReplyAction="http://tempuri.org/IHPService/InsertAdPhotoResponse")]
-        System.Threading.Tasks.Task<string> InsertAdPhotoAsync(int ad_id, string photo_guid, string data_stream);
+        System.Threading.Tasks.Task<string> InsertAdPhotoAsync(int ad_id, string photo_guid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetActiveAds", ReplyAction="http://tempuri.org/IHPService/GetActiveAdsResponse")]
         string GetActiveAds(int institution_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetActiveAds", ReplyAction="http://tempuri.org/IHPService/GetActiveAdsResponse")]
         System.Threading.Tasks.Task<string> GetActiveAdsAsync(int institution_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdPhotos", ReplyAction="http://tempuri.org/IHPService/GetAdPhotosResponse")]
+        string GetAdPhotos(int[] ad_ids);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdPhotos", ReplyAction="http://tempuri.org/IHPService/GetAdPhotosResponse")]
+        System.Threading.Tasks.Task<string> GetAdPhotosAsync(int[] ad_ids);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/DeleteAd", ReplyAction="http://tempuri.org/IHPService/DeleteAdResponse")]
+        string DeleteAd(int ad_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/DeleteAd", ReplyAction="http://tempuri.org/IHPService/DeleteAdResponse")]
+        System.Threading.Tasks.Task<string> DeleteAdAsync(int ad_id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -321,12 +333,12 @@ namespace WebInstitution.HealthPService {
             return base.Channel.GetInstitutionAsync(id);
         }
         
-        public string InsertAdPhoto(int ad_id, string photo_guid, string data_stream) {
-            return base.Channel.InsertAdPhoto(ad_id, photo_guid, data_stream);
+        public string InsertAdPhoto(int ad_id, string photo_guid) {
+            return base.Channel.InsertAdPhoto(ad_id, photo_guid);
         }
         
-        public System.Threading.Tasks.Task<string> InsertAdPhotoAsync(int ad_id, string photo_guid, string data_stream) {
-            return base.Channel.InsertAdPhotoAsync(ad_id, photo_guid, data_stream);
+        public System.Threading.Tasks.Task<string> InsertAdPhotoAsync(int ad_id, string photo_guid) {
+            return base.Channel.InsertAdPhotoAsync(ad_id, photo_guid);
         }
         
         public string GetActiveAds(int institution_id) {
@@ -335,6 +347,22 @@ namespace WebInstitution.HealthPService {
         
         public System.Threading.Tasks.Task<string> GetActiveAdsAsync(int institution_id) {
             return base.Channel.GetActiveAdsAsync(institution_id);
+        }
+        
+        public string GetAdPhotos(int[] ad_ids) {
+            return base.Channel.GetAdPhotos(ad_ids);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetAdPhotosAsync(int[] ad_ids) {
+            return base.Channel.GetAdPhotosAsync(ad_ids);
+        }
+        
+        public string DeleteAd(int ad_id) {
+            return base.Channel.DeleteAd(ad_id);
+        }
+        
+        public System.Threading.Tasks.Task<string> DeleteAdAsync(int ad_id) {
+            return base.Channel.DeleteAdAsync(ad_id);
         }
     }
 }

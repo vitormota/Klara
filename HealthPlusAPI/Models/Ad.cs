@@ -26,5 +26,6 @@ namespace HealthPlusAPI.Models
         public System.DateTime end_time { get; set; }
         public int remaining_cupons { get; set; }
         public int buyed_cupons { get; set; }
+        public string state { get; set; }
     }
 }

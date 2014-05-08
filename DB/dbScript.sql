@@ -104,6 +104,7 @@ create table Ad (
 	end_time datetime not null,
 	remaining_cupons int not null,
 	buyed_cupons int not null,
+	state enum('deleted', 'active', 'pending') default 'pending',
 	foreign key (id) references Subscribable(id) on delete cascade,
 	foreign key (institution_id) references Institution(id) on delete cascade
 );

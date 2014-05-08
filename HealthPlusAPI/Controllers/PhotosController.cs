@@ -45,7 +45,8 @@ namespace HealthPlusAPI.Controllers
             string result = null;
             int ad_id = Convert.ToInt32((string)parameters["ad_id"]);
             string photo_guid = (string)parameters["photo_guid"];
-            string data_stream = (string)parameters["data_stream"];
+            // deprecated
+            //string data_stream = (string)parameters["data_stream"];
 
             // Add new photo entry
             Photo photo = new Photo { guid = photo_guid };
@@ -68,24 +69,25 @@ namespace HealthPlusAPI.Controllers
             }
 
             // Add mapping to Ad
-            Ad_Photo_maps apm = new Ad_Photo_maps { ad_id = ad_id, photo_id = photo_guid };
+            Ad_Photo_maps apm = new Ad_Photo_maps { ad_id = ad_id, photo_id = photo_guid + ".png" };
             db.Ad_Photo_maps.Add(apm);
             db.SaveChanges();
 
+            // deprecated
             // Save photo in local folder
-            byte[] imageBytes = Convert.FromBase64String(data_stream);
-
+            //byte[] imageBytes = Convert.FromBase64String(data_stream);
+            /*
             using (var ms = new MemoryStream(imageBytes, 0,imageBytes.Length))
             {
                 // Convert byte[] to Image
                 ms.Write(imageBytes, 0, imageBytes.Length);
                 Image image = Image.FromStream(ms, true);
 
-                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/Ad_Photos"), photo_guid);
+                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/Ad_Photos"), photo_guid + ".png");
 
                 image.Save(path, System.Drawing.Imaging.ImageFormat.Png);
             }
-
+            */
             return "added";
         }
 
@@ -95,32 +97,26 @@ namespace HealthPlusAPI.Controllers
             string ad_str = (string)parameters["ad_ids"];
 
             List<int> ad_ids = JsonConvert.DeserializeObject<List<int>>(ad_str);
-            List<string> photos = new List<string>();
 
-            List<string> guids = (from map in db.Ad_Photo_maps
+            List<Ad_Photo_maps> guids = (from map in db.Ad_Photo_maps
                                 where ad_ids.Contains(map.ad_id)
-                                select map.photo_id).ToList();
+                                select map).ToList();
 
-            foreach (string guid in guids)
+            Dictionary<int, List<string>> mapping = new Dictionary<int, List<string>>();
+
+            // create all indexes
+            foreach (int ad_id in ad_ids)
             {
-                try
-                {
-                    string path = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/Ad_Photos"), guid);
-                    Image img = Image.FromFile(path);
-
-                    MemoryStream stream = new MemoryStream();
-                    img.Save(stream, img.RawFormat);
-
-                    photos.Add(Convert.ToBase64String(stream.ToArray()));
-                }
-                catch
-                {
-                    photos.Add("");
-                }
-
+                mapping.Add(ad_id, new List<string>());
             }
 
-            return "dummy";
+            // map photos with ads
+            foreach (Ad_Photo_maps apm in guids)
+            {
+                mapping[apm.ad_id].Add(apm.photo_id);
+            }
+
+            return JsonConvert.SerializeObject(mapping).ToString();
         }
 
         // GET odata/Photo(5)

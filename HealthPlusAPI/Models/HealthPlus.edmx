@@ -32,6 +32,7 @@
           <Property Name="end_time" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="remaining_cupons" Type="int" Nullable="false" />
           <Property Name="buyed_cupons" Type="int" Nullable="false" />
+          <Property Name="state" Type="enum" Nullable="false" />
         </EntityType>
         <EntityType Name="Ad_Photo_maps">
           <Key>
@@ -179,6 +180,7 @@
           <Property Name="end_time" Type="DateTime" Nullable="false" />
           <Property Name="remaining_cupons" Type="Int32" Nullable="false" />
           <Property Name="buyed_cupons" Type="Int32" Nullable="false" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -316,6 +318,7 @@
           <EntitySetMapping Name="Ad">
             <EntityTypeMapping TypeName="robinfoo_lgpModel.Ad">
               <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="institution_id" ColumnName="institution_id" />
                 <ScalarProperty Name="service" ColumnName="service" />

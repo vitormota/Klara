@@ -32,8 +32,7 @@ namespace WebInstitution.Controllers
 
             List<AdDisplayModel> adList = JsonConvert.DeserializeObject<List<AdDisplayModel>>(ads);
 
-            // fetch photos for each ad
-
+            // save all ad's ids in list
             List<int> adIds = new List<int>();
 
             foreach (AdDisplayModel adm in adList)
@@ -41,7 +40,28 @@ namespace WebInstitution.Controllers
                 adIds.Add(adm.id);
             }
 
+            // get each ad's guid(s)
+            string guids_str = mService.GetAdPhotos(adIds.ToArray());
 
+            Dictionary<int, List<string>> guids = JsonConvert.DeserializeObject<Dictionary<int, List<string>>>(guids_str);
+
+            foreach (AdDisplayModel adm in adList)
+            {
+                List<string> ad_guids = guids[adm.id];
+
+                if (ad_guids.Any())
+                {
+                    adm.guids = ad_guids;
+                }
+                else
+                {
+                    // add defalut ad image
+                }
+            }
+
+            //List<String> photo_paths = JsonConvert.DeserializeObject<List<string>>(photos);
+
+            ViewBag.Ads = adList;
 
             return View();
         }
@@ -82,7 +102,8 @@ namespace WebInstitution.Controllers
                     new JProperty("price", ad.price.ToString()), // decimals must have quotes !!
                     new JProperty("discount", Math.Round(100 * ((ad.previous_price - ad.price) / ad.previous_price)).ToString()),
                     new JProperty("remaining_cupons", ad.total_cupons),
-                    new JProperty("buyed_cupons", ad.total_cupons)
+                    new JProperty("buyed_cupons", ad.total_cupons),
+                    new JProperty("state", "pending")
                     );
 
                 string response = mService.CreateAd(send_data.ToString());
@@ -91,16 +112,21 @@ namespace WebInstitution.Controllers
 
                 if (photo.ContentLength > 0)
                 {
-                    var path = Path.Combine(Path.GetTempFileName());
+                    var path = Path.Combine(Server.MapPath("~/Resources/Ad_Photos"), guid + ".png");
                     photo.SaveAs(path);
 
                     System.Drawing.Image img = System.Drawing.Image.FromStream(photo.InputStream);
 
-                    MemoryStream stream = new MemoryStream();
-                    img.Save(stream, img.RawFormat);
+                    // save image locally
+                    img.Save(path, System.Drawing.Imaging.ImageFormat.Png);
 
-                    // upload image to API
-                    mService.InsertAdPhoto(adm.id, guid, Convert.ToBase64String(stream.ToArray()));
+                    //create image ref in DB
+                    mService.InsertAdPhoto(adm.id, guid);
+
+                    // upload image to API - deprecated
+                    //MemoryStream stream = new MemoryStream();
+                    //img.Save(stream, img.RawFormat);
+                    //mService.InsertAdPhoto(adm.id, guid, Convert.ToBase64String(stream.ToArray()));
                 }
                 else
                 {
@@ -143,6 +169,7 @@ namespace WebInstitution.Controllers
         // GET: /Ad/Delete/5
         public ActionResult Delete(int id)
         {
+
             return View();
         }
 
