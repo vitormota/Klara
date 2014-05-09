@@ -55,14 +55,16 @@ namespace WebClient_.Controllers
 
         private void saveSession(JObject json,string access_token,int provider_id)
         {
-            Session["internal_id"] = json["id"].ToString();
-            Session["name"] = json["name"].ToString();
-            Session["access_token"] = access_token;
-            Session["provider_id"] = provider_id;
-            //If it is a returning user this value will be null
-            //and must be fecthed async
-            //if the user just registered picture picture_url will be availiable
-            Session["profile_picture_url"] = json["picture"];
+
+            UserSession us = new UserSession();
+
+            us.internal_id = Convert.ToInt32(json["id"].ToString());
+            us.name = json["name"].ToString();
+            us.access_token = access_token;
+            us.provider_id = provider_id;
+            us.profile_picture_url = json["picture"].ToString();
+
+            Session["user"] = us;
         }
     }
 }

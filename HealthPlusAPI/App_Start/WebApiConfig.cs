@@ -36,29 +36,44 @@ namespace HealthPlusAPI
 
 
             // Adicionar a action para retornar um id de um cliente que esta associado a um id do facebook
-            ActionConfiguration getClientIdFacebook = builder.Entity<Client>().Action("GetClientIDFacebook");
+            ActionConfiguration getClientIdFacebook = builder.Entity<Client>().Collection.Action("GetClientIDFacebook");
             getClientIdFacebook.Parameter<string>("client_id_by_session");
             getClientIdFacebook.Returns<string>();
 
            
-
-            // Adicionar a action para retornar todas as subscricoes feitas pelo utilizador
-            ActionConfiguration institutionsSubscribe = builder.Entity<Subscription>().Action("InstitutionsSubscribe");
+            // Adicionar a action para retornar todas as subscricoes de instituicoes feitas pelo utilizador
+            ActionConfiguration institutionsSubscribe = builder.Entity<Subscription>().Collection.Action("InstitutionsSubscribe");
             institutionsSubscribe.Parameter<string>("client_id");
             institutionsSubscribe.Returns<string>();
 
+            // Adicionar a action para retornar todas as subscricoes de anuncios feitas pelo utilizador
+            ActionConfiguration adsSubscribe = builder.Entity<Subscription>().Collection.Action("AdsSubscribe");
+            adsSubscribe.Parameter<string>("client_id");
+            adsSubscribe.Returns<string>();
+
             // Adicionar a action para eliminar uma subscricao anteriormente feita
-            ActionConfiguration deleteSubscription = builder.Entity<Subscription>().Action("DeleteSubscription");
+            ActionConfiguration deleteSubscription = builder.Entity<Subscription>().Collection.Action("DeleteSubscription");
             deleteSubscription.Parameter<string>("client_id");
-            deleteSubscription.Parameter<string>("institution_id");
+            deleteSubscription.Parameter<string>("subscribable_id");
             deleteSubscription.Returns<string>();
 
-           
+            // Action para ver se o user tem alguma subscricao relacionada com aquele subscribable
+            ActionConfiguration isSubscribeUser = builder.Entity<Subscription>().Collection.Action("IsSubscribeUser");
+            isSubscribeUser.Parameter<string>("client_id");
+            isSubscribeUser.Parameter<string>("subscribable_id");
+            isSubscribeUser.Returns<string>();
+
+     
 
             // Adicionar a action para procurar instituicoes
-            ActionConfiguration searchInstitution = builder.Entity<Institution>().Action("SearchInstitution");
+            ActionConfiguration searchInstitution = builder.Entity<Institution>().Collection.Action("SearchInstitution");
             searchInstitution.Parameter<string>("textSearch");
             searchInstitution.Returns<string>();
+
+            // Action que vai permitir a pesquisa de anuncios
+            ActionConfiguration searchAd = builder.Entity<Ad>().Collection.Action("SearchAd");
+            searchAd.Parameter<string>("textSearch");
+            searchAd.Returns<string>();
 
             
             // Adicionar a action para gerir login's
@@ -90,11 +105,17 @@ namespace HealthPlusAPI
             activeAds.Returns<string>();
 
 
-            ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Action("NearestInstitutions");
+            ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Collection.Action("NearestInstitutions");
             nearestInstitutions.Parameter<string>("latitude");
             nearestInstitutions.Parameter<string>("longitude");
             nearestInstitutions.Parameter<string>("distance");
             nearestInstitutions.Returns<string>();
+
+
+            ActionConfiguration contactSupport = builder.Entity<Client>().Action("ContactSupport");
+            contactSupport.Parameter<string>("email");
+            contactSupport.Parameter<string>("msg");
+            contactSupport.Returns<string>();
 
             config.Routes.MapODataRoute("odata", "odata", builder.GetEdmModel());
         }

@@ -31,6 +31,9 @@ namespace HpREST_Bridge
         string UpdateClientDetails(int id, string client_jobj);
 
         [OperationContract]
+        string GetAdSubscriptions(int client_id);
+
+        [OperationContract]
         string RegisterUser(string access_token, int provider);
 
         [OperationContract]
@@ -62,6 +65,18 @@ namespace HpREST_Bridge
 
         [OperationContract]
         string SeeCuponsActive(int client_id);
+
+        [OperationContract]
+        string SubscribeAd(int client_id, int ad_id);
+
+        [OperationContract]
+        string UnsubscribeAd(int client_id, int ad_id);
+
+        [OperationContract]
+        string AdsSubscribe(int client_id);
+
+        [OperationContract]
+        string IsSubscribeUser(int client_id, int subscribable_id);
 
         /// <summary>
         /// Change institution details

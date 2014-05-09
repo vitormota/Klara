@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,18 @@ namespace WebClient_.Controllers
         // GET: /User/
         public ActionResult Index()
         {
-            int id = Convert.ToInt32(Session["internal_id"]);
+            UserSession us = (UserSession)Session["user"];
+
+            if (us == null) return RedirectToAction("Index","Auth");
+
+            int id = us.internal_id;
 
             JObject userjson = JObject.Parse(mService.GetClientDetails(id));
 
             UserInfo ui = UserInfo.jsonToModel(userjson);
 
+            ui.ads_subscriptions = JsonConvert.DeserializeObject<List<AdSubscripted>>(mService.GetAdSubscriptions(id));
+            ui.cupons = JsonConvert.DeserializeObject<List<CuponPurchase>>(mService.GetClientPurchases(id));
 
             return View(ui);
         }

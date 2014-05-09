@@ -34,9 +34,11 @@ namespace HpREST_Bridge
         private const string cupons_controller = "odata/Cupon";
         private const string photos_controller = "odata/Photos";
         /// <summary>
-        /// Controllers internal actions defines
+        /// Controllers internal actions definitions
         /// </summary> 
-        private const string action_get_purchases = "GetPurchases";
+        private const string action_get_purchases = "Purchases";
+        private const string action_get_accounts_details = "OptionsFlags";
+        private const string action_get_ad_subs = "Cupons";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -129,8 +131,16 @@ namespace HpREST_Bridge
 
         public string SearchAd(string textSearch)
         {
-            string responce = RestUtility.HttpGet(base_url + ads_controller + "('" + textSearch + "')");
-            return responce;
+            string return_str = null;
+
+            Dictionary<string, string> json_dict = new Dictionary<string, string>();
+            json_dict.Add("textSearch", textSearch);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + ads_controller + "/SearchAd", JsonConvert.SerializeObject(json_dict));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDict["value"].ToString();
+            return return_str;
         }
 
         //---------------------------------------------------------------------
@@ -144,12 +154,17 @@ namespace HpREST_Bridge
         /// <returns></returns>
         public string GetClientPurchases(int id)
         {
-            return RestUtility.HttpPostJSON(base_url+ cupons_controller+"("+id+")/"+action_get_purchases,"");
+            return RestUtility.HttpGet(base_url+ cupons_controller+"("+id+")/"+action_get_purchases);
         }
 
         public string GetClientDetails(int id)
         {
-            return RestUtility.HttpGet(base_url+clients_controller + "(" + id + ")");
+            dynamic account = RestUtility.HttpGet(base_url + accounts_controller + "(" + id + ")/"+action_get_accounts_details);
+            account = account.Substring(0, account.Length - 1);
+            string client = RestUtility.HttpGet(base_url+clients_controller + "(" + id + ")");
+            client = client.Substring(3);
+            string res = account + "," + client;
+            return res;
         }
 
         public string UpdateClientDetails(int id, string client_jobj)
@@ -157,8 +172,13 @@ namespace HpREST_Bridge
             return RestUtility.HttpPutJSON(base_url + clients_controller + "(" + id + ")", client_jobj);
         }
 
+        public string GetAdSubscriptions(int client_id)
+        {
+            dynamic subscriptions = RestUtility.HttpGet(base_url+subscriptions_controller+"("+client_id+")/"+action_get_ad_subs);
+            return subscriptions;
+        }
+
         //---------------------------------------------------------------------
-        // Members - Institution 
         //---------------------------------------------------------------------
 
         public string EditInstitutionDetails(string model_data,int id)
@@ -193,7 +213,7 @@ namespace HpREST_Bridge
             Dictionary<string, string> json_str = new Dictionary<string, string>();
             json_str.Add("textSearch", textSearch);
 
-            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/SearchInstitution", JsonConvert.SerializeObject(json_str));
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "/SearchInstitution", JsonConvert.SerializeObject(json_str));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
@@ -231,7 +251,7 @@ namespace HpREST_Bridge
             string client_id_str = client_id.ToString();
             json_str_int.Add("client_id", client_id_str);
 
-            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "(0)/InstitutionsSubscribe", JsonConvert.SerializeObject(json_str_int));
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/InstitutionsSubscribe", JsonConvert.SerializeObject(json_str_int));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
@@ -258,10 +278,10 @@ namespace HpREST_Bridge
             string return_str = null;
 
             Dictionary<string, string> json_dict = new Dictionary<string, string>();
-            json_dict.Add("institution_id", institution_id.ToString());
+            json_dict.Add("subscribable_id", institution_id.ToString());
             json_dict.Add("client_id", client_id.ToString());
             
-            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "(0)/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
                 
             Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
             return_str = resultDict["value"];
@@ -278,7 +298,7 @@ namespace HpREST_Bridge
             json_str_double.Add("longitude", longitude.ToString());
             json_str_double.Add("distance", distance.ToString());
 
-            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "(0)/NearestInstitutions", JsonConvert.SerializeObject(json_str_double));
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "/NearestInstitutions", JsonConvert.SerializeObject(json_str_double));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
 
             return_str = resultDict["value"].ToString();
@@ -333,7 +353,7 @@ namespace HpREST_Bridge
             string postJSON = RestUtility.HttpPostJSON(base_url + photos_controller + "/GetAdPhotos", JsonConvert.SerializeObject(json_str_double));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
             return_str = resultDict["value"].ToString();
-
+            
             return return_str;
         }
 
@@ -343,6 +363,61 @@ namespace HpREST_Bridge
             return result;
         }
 
+        public string SubscribeAd(int client_id, int ad_id)
+        {
+            string return_str = null;
         
+            JObject subscription = new JObject(
+                new JProperty("subscribable_id", ad_id),
+                new JProperty("client_id", client_id));
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller, subscription);
+            Dictionary<string, Object> resultDictSubs = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDictSubs["value"].ToString();
+            return return_str;
+        }
+
+        public string UnsubscribeAd(int client_id, int ad_id)
+        {
+            string return_str = null;
+
+            Dictionary<string, string> dictJSON = new Dictionary<string, string>();
+            dictJSON.Add("subscribable_id", ad_id.ToString());
+            dictJSON.Add("client_id", client_id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/DeleteSubscription", JsonConvert.SerializeObject(dictJSON));
+
+            Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
+            return_str = resultDict["value"];
+
+            return return_str;
+        }
+
+        public string AdsSubscribe(int client_id)
+        {
+            Dictionary<string, string> json_str_int = new Dictionary<string, string>();
+            string client_id_str = client_id.ToString();
+            json_str_int.Add("client_id", client_id_str);
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/AdsSubscribe", JsonConvert.SerializeObject(json_str_int));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            string returnJSON = resultDict["value"].ToString(); // serve para ajudar na obtencao da lista de instituicoes/erros
+            return returnJSON;
+        }
+
+        public string IsSubscribeUser(int client_id, int subscribable_id)
+        {
+            Dictionary<string, string> json_dict = new Dictionary<string, string>();
+            json_dict.Add("client_id", client_id.ToString());
+            json_dict.Add("subscribable_id", subscribable_id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/IsSubscribeUser", JsonConvert.SerializeObject(json_dict));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            string returnJSON = resultDict["value"].ToString();
+            return returnJSON;
+        }
     }
 }

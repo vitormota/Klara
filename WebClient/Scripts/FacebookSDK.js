@@ -5,7 +5,7 @@
 //please dont change this
 var FACEBOOK_CODE = 0;
 
-window.fbAsyncInit = function () {
+function login() {
     FB.init({
         appId: 234060146782596,
         status: true,
@@ -37,8 +37,42 @@ window.fbAsyncInit = function () {
 
         }
     });
+}
+
+//window.fbAsyncInit = function () {
+//    FB.init({
+//        appId: 234060146782596,
+//        status: true,
+//        cookie: true, // enable cookies to allow the server to access the session
+//        xfbml: true  // parse XFBML
+//    });
+//    FB.login(function (response) {
+//        if (response.authResponse) {
+//            // user sucessfully logged in
+//            var accessToken = response.authResponse.accessToken;
+//        }
+//    }, { scope: 'email,publish_stream,email,read_stream,user_birthday' });
+//    FB.Event.subscribe('auth.authResponseChange', function (response) {
+//        // Here we specify what we do with the response anytime this event occurs.
+//        if (response.status === 'connected') {
+//            // The response object is returned with a status field that lets the app know the current
+//            // login status of the person. In this case, we're handling the situation where they
+//            // have logged in to the app.
+//            var uid = response.authResponse.userID;
+//            var accessToken = response.authResponse.accessToken;
+//            getData();
+//            //window.location.href = "/User";
+//        } else if (response.status === 'not_authorized') {
+//            // the user is logged in to Facebook, 
+//            // but has not authenticated your app
+
+//        } else {
+//            // the user isn't logged in to Facebook.
+
+//        }
+//    });
     
-};
+//};
 
 
 
@@ -52,7 +86,7 @@ function getData() {
             var img_link = "http://graph.facebook.com/" + response.id + "/picture?type=large";
             setTimeout(function () {
                 window.location.pathname = "/Home";
-            }, 200);
+            }, 50);
         });
     });
 }
