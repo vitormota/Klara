@@ -339,13 +339,8 @@ namespace HpREST_Bridge
 
         public string DeleteAd(int ad_id)
         {
-            string return_str = null;
-
-            string postJSON = RestUtility.HttpDelete(base_url + ads_controller + "(" + ad_id + ")");
-            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
-            return_str = resultDict["value"].ToString();
-
-            return return_str;
+            string result = RestUtility.HttpDelete(base_url + ads_controller + "(" + ad_id + ")");
+            return result;
         }
 
         

@@ -147,29 +147,19 @@ namespace HpREST_Bridge
         {
             HttpWebRequest req = WebRequest.Create(url) as HttpWebRequest;
             req.Method = "DELETE";
-            string result = null;
             //TODO: remove try catch clause
             //this is a workaround bacause API when queryied if a user exists on DB (and it doesn't)
             //the api_response will be a 404, causing an WebException
             try
             {
-                using (HttpWebResponse resp = req.GetResponse() as HttpWebResponse)
-                {
-                    StreamReader reader = new StreamReader(resp.GetResponseStream());
-                    result = reader.ReadToEnd();
-                }
+                req.GetResponse();
             }
             catch (WebException ex)
             {
-                if (ex.Status == WebExceptionStatus.ProtocolError)
-                {
-                    exception = ex;
-                    System.Diagnostics.Debug.WriteLine("Status Code : {0}", ((HttpWebResponse)ex.Response).StatusCode);
-                    System.Diagnostics.Debug.WriteLine("Status Description : {0}", ((HttpWebResponse)ex.Response).StatusDescription);
-                }
+                return "error";
             }
 
-            return result;
+            return "ok";
         }
     }
 }
