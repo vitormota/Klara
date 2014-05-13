@@ -71,8 +71,8 @@
     }
 
     <div class="col-md-2 col-md-offset-3 searched-ad">
-        <span class="latitude-ad"> @ViewBag.ListAds[i]["latitude_institution"] </span>
-        <span class="longitude-ad"> @ViewBag.ListAds[i]["longitude_institution"] </span>
+        <span class="latitude-ad" style="display:none"> @ViewBag.ListAds[i]["latitude_institution"] </span>
+        <span class="longitude-ad" style="display:none"> @ViewBag.ListAds[i]["longitude_institution"] </span>
         <a href="/Ad?id=@ViewBag.ListAds[i]["id"]">
             <div class="img-details">
                 <div class="img"></div>
