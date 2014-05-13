@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+@Styles.Render("~/Content/dashboard.css")
+
+
+<ul id="slider" class="clearfix">
+    <li id="localization" class="first">
+        <a data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#partial" href="/Dashboard/Localization">
+            <img src="~/Content/Images/pictogramas-02.png" />
+            <span class="img-name">Localização</span>
+        </a>
+    </li>
+    <li id="add-cupon" class="second">
+        <a data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#partial" href="/Dashboard/Add">
+            <img src="~/Content/Images/pictogramas-08.png" />
+            <span class="img-name">Adicionar Cupão</span>
+        </a>
+    </li>
+    <li id="settings" class="third current">
+        <a data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#partial" href="/Dashboard/Settings">
+            <img src="~/Content/Images/pictogramas-03.png" />
+            <span class="img-name">Instituição</span>
+        </a>
+    </li>
+    <li id="edit-cupons" class="fourth">
+        <a data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#partial" href="/Dashboard/Edit">
+            <img src="~/Content/Images/pictogramas-05.png" />
+            <span class="img-name">Editar Cupões</span>
+        </a>
+    </li>
+    <li id="stats" class="fifth">
+        <a data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#partial" href="/Dashboard/Stats">
+            <img src="~/Content/Images/pictogramas-07.png" />
+            <span class="img-name">Estatísticas</span>
+        </a>
+    </li>
+</ul>
+</div>
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+        <div id="partial" class="row">
+            @Html.Partial("_Settings")
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/local/dashboard.js")
