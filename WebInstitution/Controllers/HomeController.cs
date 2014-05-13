@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebInstitution.HealthPService;
+using WebInstitution.Models;
 
 namespace WebInstitution.Controllers
 {
@@ -10,7 +12,12 @@ namespace WebInstitution.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            SessionModel session = (SessionModel)Session["manager"];
+
+            if (session == null)
+                return View();
+            else
+                return RedirectToAction("Account", "Home");
         }
 
         public ActionResult About()
