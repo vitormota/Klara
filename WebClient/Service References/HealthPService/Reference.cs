@@ -90,6 +90,12 @@ namespace WebClient_.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IHPService/GetDataUsingDataContractResponse")]
         System.Threading.Tasks.Task<WebClient_.HealthPService.CompositeType> GetDataUsingDataContractAsync(WebClient_.HealthPService.CompositeType composite);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetUserDetails", ReplyAction="http://tempuri.org/IHPService/GetUserDetailsResponse")]
+        string GetUserDetails(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetUserDetails", ReplyAction="http://tempuri.org/IHPService/GetUserDetailsResponse")]
+        System.Threading.Tasks.Task<string> GetUserDetailsAsync(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetClientDetails", ReplyAction="http://tempuri.org/IHPService/GetClientDetailsResponse")]
         string GetClientDetails(int id);
         
@@ -306,6 +312,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<WebClient_.HealthPService.CompositeType> GetDataUsingDataContractAsync(WebClient_.HealthPService.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
+        }
+        
+        public string GetUserDetails(int id) {
+            return base.Channel.GetUserDetails(id);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetUserDetailsAsync(int id) {
+            return base.Channel.GetUserDetailsAsync(id);
         }
         
         public string GetClientDetails(int id) {
