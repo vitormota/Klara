@@ -114,6 +114,12 @@ namespace WebClient_.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/BuyCupon", ReplyAction="http://tempuri.org/IHPService/BuyCuponResponse")]
         System.Threading.Tasks.Task<string> BuyCuponAsync(string cupon_str);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/BuyMultipleCupons", ReplyAction="http://tempuri.org/IHPService/BuyMultipleCuponsResponse")]
+        string BuyMultipleCupons(string cupon_list);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/BuyMultipleCupons", ReplyAction="http://tempuri.org/IHPService/BuyMultipleCuponsResponse")]
+        System.Threading.Tasks.Task<string> BuyMultipleCuponsAsync(string cupon_list);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdSubscriptions", ReplyAction="http://tempuri.org/IHPService/GetAdSubscriptionsResponse")]
         string GetAdSubscriptions(int client_id);
         
@@ -332,6 +338,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> BuyCuponAsync(string cupon_str) {
             return base.Channel.BuyCuponAsync(cupon_str);
+        }
+        
+        public string BuyMultipleCupons(string cupon_list) {
+            return base.Channel.BuyMultipleCupons(cupon_list);
+        }
+        
+        public System.Threading.Tasks.Task<string> BuyMultipleCuponsAsync(string cupon_list) {
+            return base.Channel.BuyMultipleCuponsAsync(cupon_list);
         }
         
         public string GetAdSubscriptions(int client_id) {

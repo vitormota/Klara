@@ -44,6 +44,12 @@
   <wsdl:message name="IHPService_BuyCupon_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuyCuponResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_BuyMultipleCupons_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyMultipleCupons" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_BuyMultipleCupons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyMultipleCuponsResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_GetAdSubscriptions_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAdSubscriptions" />
   </wsdl:message>
@@ -213,6 +219,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/BuyCupon" message="tns:IHPService_BuyCupon_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/BuyCuponResponse" message="tns:IHPService_BuyCupon_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="BuyMultipleCupons">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/BuyMultipleCupons" message="tns:IHPService_BuyMultipleCupons_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/BuyMultipleCuponsResponse" message="tns:IHPService_BuyMultipleCupons_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAdSubscriptions">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetAdSubscriptions" message="tns:IHPService_GetAdSubscriptions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetAdSubscriptionsResponse" message="tns:IHPService_GetAdSubscriptions_OutputMessage" />
@@ -359,6 +369,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuyCupon">
       <soap:operation soapAction="http://tempuri.org/IHPService/BuyCupon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyMultipleCupons">
+      <soap:operation soapAction="http://tempuri.org/IHPService/BuyMultipleCupons" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

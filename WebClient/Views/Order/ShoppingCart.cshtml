@@ -44,7 +44,10 @@
             @Html.LabelFor(ad => item.end_time)
             @Html.ValueFor(ad => item.end_time)
         }
-        <button class="btn btn-success">Buy</button>
+        
+        <form method="post" action="/Order/ShowPaymentDetails">
+            <input class="btn btn-success" type="submit" value="Buy Ads" />
+        </form>
     }
         
     </div>

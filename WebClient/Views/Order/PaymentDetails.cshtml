@@ -1,0 +1,22 @@
+﻿@model WebClient_.Models.ShoppingCart
+
+@{
+    ViewBag.Title = "PaymentDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PaymentDetails</h2>
+
+
+
+<h4>Subtotal @Model.getSubTotal()</h4>
+
+@if (!Model.isFastCheckout())
+{
+    <h4>Quantity: @Model.getCount()</h4>
+}
+
+<form method="post" action="/Order/FinalizePurchase">
+
+    <input type="submit" value="Pay" />
+</form>

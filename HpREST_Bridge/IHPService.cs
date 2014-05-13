@@ -34,6 +34,9 @@ namespace HpREST_Bridge
         string BuyCupon(string cupon_str);
 
         [OperationContract]
+        string BuyMultipleCupons(string cupon_list);
+
+        [OperationContract]
         string GetAdSubscriptions(int client_id);
 
         [OperationContract]

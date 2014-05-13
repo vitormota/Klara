@@ -26,6 +26,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/">Home</a></li>
+                    @if (Session["shopping_cart"] == null)
+                    {
+                        <li><a href="/Order/ShoppingCart">Cart 0</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Order/ShoppingCart">Cart @(((WebClient_.Models.ShoppingCart)Session["shopping_cart"]).getCount())</a></li>
+                    }
+                    
                     @if (Session["user"] != null)
                     {
                         <li><a href="/User/">@(((WebClient_.Models.UserSession)Session["user"]).name)</a></li>

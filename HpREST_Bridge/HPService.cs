@@ -198,6 +198,25 @@ namespace HpREST_Bridge
             return RestUtility.HttpPostJSON(base_url + cupons_controller, cupon);
         }
 
+        public string BuyMultipleCupons(string cupon_list)
+        {
+            JArray json = JArray.Parse(cupon_list);
+            JArray cupons = new JArray();
+            foreach (JObject obj in json)
+            {
+                cupons.Add(
+                    new JObject(
+                        new JProperty("state", 0),
+                        new JProperty("ad_id", obj["id"]),
+                        new JProperty("start_time", obj["start_time"]),
+                        new JProperty("end_time", obj["end_time"])
+                    )
+                );
+            }
+
+            return RestUtility.HttpPostJSON(base_url+cupons_controller,cupons);
+        }
+
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
 

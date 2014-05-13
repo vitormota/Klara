@@ -65,7 +65,7 @@
             22.4€
         </p>
         @*Client requirement for a fast purchase*@
-        <a href="#"><img id="buy-btn" @*onclick="addCuponToCart('@Url.Action("addToCart","User", Model)')"*@ class="left" src="/Content/images/pictogramas-07.png" alt="Fast Checkout" /></a>
+        <a href="/Order/ShowPaymentDetails?id=@Model.id"><img id="buy-btn" @*onclick="addCuponToCart('@Url.Action("addToCart","User", Model)')"*@ class="left" src="/Content/images/pictogramas-07.png" alt="Fast Checkout" /></a>
         @*TODO: Redirect to finalize order page*@
         <a href="#"><img id="buy-btn" onclick="addCuponToCart('@Url.Action("addToCart","Order", Model)')" class="left" src="~/Content/images/carrinho.png" alt="Add to cart" /></a>
 

@@ -11,7 +11,7 @@ namespace WebClient_.Models
     /// </summary>
     public class ShoppingCart
     {
-
+        private int fcheckout_ad = 0;
         private List<Ad> ads;
 
         public ShoppingCart()
@@ -19,7 +19,18 @@ namespace WebClient_.Models
             ads = new List<Ad>();
         }
 
-        public void addCupon(Ad cupon){
+        public bool isFastCheckout()
+        {
+            return fcheckout_ad != 0 ? true : false;
+        }
+
+        public void unsetFastCheckout()
+        {
+            fcheckout_ad = 0;
+        }
+
+        public void addCupon(Ad cupon, bool fast_checkout = false){
+            if (fast_checkout) fcheckout_ad = cupon.id;
             ads.Add(cupon);
         }
 
@@ -30,8 +41,28 @@ namespace WebClient_.Models
                 if (ad.id == cupon_id)
                 {
                     ads.Remove(ad);
+                    return;
                 }
             }
+        }
+
+        public decimal getSubTotal()
+        {
+            if (isFastCheckout())
+            {
+                return getAdById(fcheckout_ad).price;
+            }
+            decimal result = 0;
+            foreach (Ad a in ads)
+            {
+                result += a.price;
+            }
+            return result;
+        }
+
+        public int getCount()
+        {
+            return ads.Count();
         }
 
         public IReadOnlyCollection<Ad> getAds()
@@ -49,6 +80,18 @@ namespace WebClient_.Models
                 }
             }
             return null;
+        }
+
+        public Ad getFCheckoutAd()
+        {
+            if (!isFastCheckout()) return null;
+            return getAdById(fcheckout_ad);
+        }
+
+        public void clean()
+        {
+            unsetFastCheckout();
+            ads.Clear();
         }
     }
 }
