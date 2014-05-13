@@ -174,6 +174,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,8 +195,18 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dashboard.css" />
     <Content Include="Content\general.css" />
     <Content Include="Content\Images\header.png" />
+    <Content Include="Content\Images\pictogramas-02.png" />
+    <Content Include="Content\Images\pictogramas-03.png" />
+    <Content Include="Content\Images\pictogramas-05.png" />
+    <Content Include="Content\Images\pictogramas-07.png" />
+    <Content Include="Content\Images\pictogramas-08.png" />
+    <Content Include="Content\Images\pictogramas-13.png" />
+    <Content Include="Content\Images\pictogramas-22.png" />
+    <Content Include="Content\Images\pictogramas-23.png" />
+    <Content Include="Content\Images\pictogramas-24.png" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -272,10 +283,13 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\local\dashboard.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -320,6 +334,12 @@
     <Content Include="Views\Account\InstitutionPageEdit.cshtml" />
     <Content Include="Views\Ad\Index.cshtml" />
     <Content Include="Views\Ad\Details.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\_Settings.cshtml" />
+    <Content Include="Views\Dashboard\_Add.cshtml" />
+    <Content Include="Views\Dashboard\_Edit.cshtml" />
+    <Content Include="Views\Dashboard\_Localization.cshtml" />
+    <Content Include="Views\Dashboard\_Stats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

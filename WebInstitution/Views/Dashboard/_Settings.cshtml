@@ -1,0 +1,102 @@
+﻿@model WebInstitution.Models.InstitutionModel
+
+<div class="col-md-12 col-xs-12 clearfix">
+    <div id="inst">
+        <img src="~/Content/Images/pictogramas-03.png" />
+    </div>
+    <div id="settings-inputs" class="row">
+        @using (Html.BeginForm("SubmitDetails", "Account", Model)) {
+            @Html.AntiForgeryToken()
+
+            <div class="col-md-6">
+                @Html.ValidationSummary(true)
+                <div class="form-group clearfix">
+                    @Html.Label("Group", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.group_id)
+                        @Html.ValidationMessageFor(model => model.group_id)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    @Html.Label("Name", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.name)
+                        @Html.ValidationMessageFor(model => model.name)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    @Html.Label("Address", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.address)
+                        @Html.ValidationMessageFor(model => model.address)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    @Html.Label("City", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.city)
+                        @Html.ValidationMessageFor(model => model.city)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    @Html.Label("Latitude", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.latitude)
+                        @Html.ValidationMessageFor(model => model.latitude)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    @Html.Label("Longitude", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.longitude)
+                        @Html.ValidationMessageFor(model => model.longitude)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    @Html.Label("Email", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.email)
+                        @Html.ValidationMessageFor(model => model.email)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group clearfix">
+                    @Html.Label("Website", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.website)
+                        @Html.ValidationMessageFor(model => model.website)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    @Html.Label("Phone", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.phone_number)
+                        @Html.ValidationMessageFor(model => model.phone_number)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    @Html.Label("Fax", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fax)
+                        @Html.ValidationMessageFor(model => model.fax)
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-md-offset-7 col-md-5">
+                        <input type="submit" value="Save" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

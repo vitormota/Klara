@@ -6818,3 +6818,15 @@ td.visible-print {
 body {
   font-family: 'Open Sans', sans-serif !important;
 }
+
+@media (max-width: 937px) {
+  #inst {
+    width: 4em !important;
+    height: 3em !important;
+  }
+
+  #inst img {
+    float: left !important;
+    margin-left: 1em !important;
+  }
+}

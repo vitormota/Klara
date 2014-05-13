@@ -1,0 +1,159 @@
+#slider {
+	list-style: none;
+	width: 100%;
+	-webkit-margin-before: 2em;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0;
+	-webkit-margin-end: 0;
+	-webkit-padding-start: 0;
+	position: relative;
+} 
+
+#slider li {
+	display: block;
+	width: 7%;
+	height: auto;
+	position: absolute;
+	top: 0;
+} 
+
+
+#slider li:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+#slider li a {
+	text-decoration: none;
+}
+
+#slider li.current {
+	opacity: 0.5;
+} 
+
+#slider li img {
+	width: 100%;
+	height: auto;
+} 
+
+#slider li .img-name {
+	margin-top: 0.5em;
+	display: block;
+	width: 100%;
+	text-transform: uppercase;
+	font-size: 0.8em;
+	text-align: center;
+	color: #D86A62;
+}
+
+#slider .first {
+	position: relative;
+	float: left;
+	margin-left: 5%;
+	margin-top: 1em;
+}
+
+#slider .second {
+	left: 30%;
+	margin-left: -2.5%;
+	margin-top: 0.5em;
+}
+
+#slider .third {
+	left: 50%;
+	margin-left: -2.5%;
+}
+
+#slider .fourth {
+	right: 30%;
+	margin-right: -2.5%;
+	margin-top: 0.5em;
+}
+
+#slider .fifth {
+	right: 5%;
+	margin-top: 1em;
+}
+
+/******/
+
+#content-wrapper {
+	background-color: #D86A62;
+	min-height: 400px;
+	padding: 3em;
+}
+
+
+/**** Settings *****/
+
+#inst {
+	float: left;
+	width: 3em;
+	height: 4em;
+	background-color: #F1E9CE;
+}
+
+#inst img {
+	width: 2em;
+	height: 2em;
+	float: right;
+	margin-top: 1em;
+}
+
+#settings-inputs {
+	margin-left: 0;
+	padding: 1em;
+	float: left;
+	width: 96%;
+	background-color: #F1E9CE;
+}
+
+#settings-inputs .form-group input{
+	width: 100%;
+}
+
+#settings-inputs .form-group label{
+	font-weight: 400;
+}
+
+#settings-inputs .form-group input[type="submit"]{
+	text-align: center;
+	background-color: #f79983;
+	border: 0;
+	color: white;
+	text-transform: uppercase;
+	padding: 0.5em;
+}
+
+#settings-inputs .form-group input[type="submit"]:hover {
+	background-color: #D86A62;
+}
+
+
+/*******************/
+
+
+/**** Add *****/
+
+
+
+/*******************/
+
+
+/**** Edit *****/
+
+
+
+/*******************/
+
+/**** Stats *****/
+
+
+
+/*******************/
+
+/**** Localization *****/
+
+
+
+/*******************/
