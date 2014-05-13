@@ -78,17 +78,18 @@ namespace WebInstitution.Controllers
             return RedirectToAction("Details", new { id = model.id});
         }
 
-        public ActionResult ManagerLogin(string username, string password)
+        public ActionResult ManagerLogin(LoginFormModel form)
         {
-            string result_str = mService.ManagerLogin(username, password);
+
+            string result_str = mService.ManagerLogin(form.username, form.password);
 
             if (Session["manager"] != null)
             {
-                result_str = "already logged";
+                TempData["msg"] = "already logged";
             }
             else if (result_str == "invalid user" || result_str == "invalid password")
             {
-                //result_str = "error";
+                TempData["msg"] = "invalid user/pass";
             }
             else
             {
@@ -99,11 +100,13 @@ namespace WebInstitution.Controllers
                 var institutions = JsonConvert.DeserializeObject<List<InstitutionModel>>(result_str);
 
                 Session["manager"] = new SessionModel { manager_id = manager_id, institutions = institutions, currentInstitution = institutions[0] };
+
+                ViewData["login"] = result_str;
+
+                return View("Index");
             }
 
-            ViewData["login"] = result_str;
-
-            return View("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -121,9 +124,9 @@ namespace WebInstitution.Controllers
                 response = "logout done";
             }
 
-            ViewData["login"] = response;
+            TempData["msg"] = response;
 
-            return View("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult SwitchInstitution(int institution)

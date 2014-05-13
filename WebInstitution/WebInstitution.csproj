@@ -181,6 +181,7 @@
     <Compile Include="Models\AdDisplayModel.cs" />
     <Compile Include="Models\AdFormModel.cs" />
     <Compile Include="Models\InstitutionModel.cs" />
+    <Compile Include="Models\LoginFormModel.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\HealthPService\Reference.cs">

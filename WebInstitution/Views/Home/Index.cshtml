@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WebInstitution.Models.LoginFormModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -12,15 +14,24 @@
         <div class="row">
             <div class="col-md-offset-4 col-md-4">
                 <h3>LOGIN</h3>
-                <form method="get" action="">
+                
+                <!-- Error div -->
+                @if (TempData["msg"] != null)
+                {
+                    <div>
+                        @TempData["msg"]
+                    </div>
+                }
+
+                <form method="post" action="../Account/ManagerLogin">
                     <span><img src="~/Content/Images/pictogramas-23.png" /><span class="vertical-hr"></span></span>
-                    <input type="text" id="username" name="username" placeholder="USERNAME" />
+                    @Html.TextBoxFor(model => model.username, new { id = "username", placeholder = "USERNAME" })
                     <span><img src="~/Content/Images/pictogramas-22.png" /><span class="vertical-hr"></span></span>
-                    <input type="password" id="password" name="password" placeholder="PASSWORD" />
+                    @Html.PasswordFor(model => model.password, new { id = "password", placeholder = "PASSWORD" })
                     <hr />
-                    <input type="checkbox" name="save-password" />
-                    <label for="save-password">Guardar password</label>
-                    <input type="submit" value="LOGIN"/>
+                    @Html.CheckBoxFor(model => model.remember)
+                    <label for="remember">Manter-me autenticado</label>
+                    <input type="submit" value="LOGIN" />
                 </form>
             </div>
         </div>
