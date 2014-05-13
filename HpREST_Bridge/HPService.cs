@@ -143,6 +143,16 @@ namespace HpREST_Bridge
             return return_str;
         }
 
+        public string GetUserDetails(int id)
+        {
+            //dynamic account = RestUtility.HttpGet(base_url + accounts_controller + "(" + id + ")/" + action_get_accounts_details);
+            //account = account.Substring(0, account.Length - 1);
+            string client = RestUtility.HttpGet(base_url + clients_controller + "(" + id + ")");
+            //client = client.Substring(3);
+            string res =client;
+            return res;
+        }
+
         //---------------------------------------------------------------------
         // Members - Client
         //---------------------------------------------------------------------

@@ -22,6 +22,9 @@ namespace HpREST_Bridge
         // TODO: Add your service operations here
 
         [OperationContract]
+        string GetUserDetails(int id);
+
+        [OperationContract]
         string GetClientDetails(int id);
 
         [OperationContract]

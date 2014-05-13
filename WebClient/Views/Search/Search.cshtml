@@ -17,11 +17,11 @@
 
         <div class="options">
             @Html.RadioButton("region", "50", true)
-            <label>> 50 km</label>
+            <label onclick="regionFilter(1)">> 50 km</label>
             @Html.RadioButton("region", "50-100", false)
-            <label>> 50 km - < 100 km</label>
+            <label onclick="regionFilter(2)">> 50 km - < 100 km</label>
             @Html.RadioButton("region", "100", false)
-            <label>> 100 km</label>
+            <label onclick="regionFilter(3)">> 100 km</label>
         </div>
     </div>
 
@@ -70,7 +70,9 @@
     @:<div class="row grid-line">
     }
 
-    <div class="col-md-2 col-md-offset-3">
+    <div class="col-md-2 col-md-offset-3 searched-ad">
+        <span class="latitude-ad"> @ViewBag.ListAds[i]["latitude_institution"] </span>
+        <span class="longitude-ad"> @ViewBag.ListAds[i]["longitude_institution"] </span>
         <a href="/Ad?id=@ViewBag.ListAds[i]["id"]">
             <div class="img-details">
                 <div class="img"></div>
@@ -94,3 +96,4 @@
 
 
 @Scripts.Render("~/Scripts/local/search.js")
+@Scripts.Render("~/Scripts/local/general.js")

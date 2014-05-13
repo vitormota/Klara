@@ -216,6 +216,8 @@ namespace HealthPlusAPI.Controllers
                 for (int i = 0; i < listFinalSearch.Count; i++)
                 {
                     string name_institution = "no institution";
+                    float latitude_institution = 0.0f;
+                    float longitude_institution = 0.0f;
 
                     Ad aux_ad = listFinalSearch[i]; // Serve para nao dar erro na query que se segue
                     List<Institution> inst = db.Institution.Where(ins => ins.id == aux_ad.institution_id).ToList();
@@ -223,6 +225,8 @@ namespace HealthPlusAPI.Controllers
                     if(inst.Count != 0)
                     {
                         name_institution = inst.First().name;
+                        latitude_institution = (float)inst.First().latitude;
+                        longitude_institution = (float)inst.First().longitude;
                     }
 
                     JObject adWithInst = new JObject(
@@ -238,7 +242,9 @@ namespace HealthPlusAPI.Controllers
                         new JProperty("end_time", listFinalSearch[i].end_time),
                         new JProperty("buyed_cupons", listFinalSearch[i].buyed_cupons),
                         new JProperty("description", listFinalSearch[i].description),
-                        new JProperty("discount", listFinalSearch[i].discount));
+                        new JProperty("discount", listFinalSearch[i].discount),
+                        new JProperty("latitude_institution",latitude_institution),
+                        new JProperty("longitude_institution",longitude_institution));
 
                     listFinalWithInsts.Add(adWithInst);
 

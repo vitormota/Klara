@@ -20,6 +20,12 @@
   <wsdl:message name="IHPService_GetDataUsingDataContract_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_GetUserDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserDetails" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetUserDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserDetailsResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_GetClientDetails_InputMessage">
     <wsdl:part name="parameters" element="tns:GetClientDetails" />
   </wsdl:message>
@@ -197,6 +203,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetDataUsingDataContract" message="tns:IHPService_GetDataUsingDataContract_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetDataUsingDataContractResponse" message="tns:IHPService_GetDataUsingDataContract_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetUserDetails" message="tns:IHPService_GetUserDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetUserDetailsResponse" message="tns:IHPService_GetUserDetails_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetClientDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetClientDetails" message="tns:IHPService_GetClientDetails_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetClientDetailsResponse" message="tns:IHPService_GetClientDetails_OutputMessage" />
@@ -323,6 +333,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDataUsingDataContract">
       <soap:operation soapAction="http://tempuri.org/IHPService/GetDataUsingDataContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDetails">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetUserDetails" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
