@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WebClient_.Models.Ad
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,47 +14,61 @@
 <div class="row col-xs-12 col-md-12">
 
     @*<form method="post" action="../Ad/SearchAd">
-        <input type="text" name="textSearch" />
-        <input type="submit" value="Procurar" />
-    </form>*@
+            <input type="text" name="textSearch" />
+            <input type="submit" value="Procurar" />
+        </form>*@
 
     <div class="col-xs-2 col-md-4">
-        <img id="cupn-img"class="img-responsive" src="~/Content/images/cupon.png" alt="Imagem cupao" />
+        <img id="cupn-img" class="img-responsive" src="~/Content/images/cupon.png" alt="Imagem cupao" />
     </div>
     <div class="col-xs-8 col-md-6">
         <h4 id="cupn-title">Titulo cupão</h4>
         <hr class="separator-title" />
         <h5>Descrição</h5>
         <p>
-            Ola eu sou um cupao, vivo no hospital onde podes curar isso que te doi<br />
-            A um preço fantastico!
+            @Html.ValueFor(ad => ad.description)
+            @Html.LabelFor(ad => ad.description)
         </p>
         <hr class="separator-details" />
         <h5>Data</h5>
         <p>
-            02.11.1014
+
+            @Html.LabelFor(ad => ad.end_time)
+            @Html.ValueFor(ad => ad.end_time)
         </p>
         <hr class="separator-details" />
         <h5>Instituição</h5>
         <p>
+            @Html.LabelFor(ad => ad.institution_id)
+            @Html.ValueFor(ad => ad.institution_id)
             Hospital de S. Sebastião
         </p>
         <hr class="separator-details" />
         <h5>Desconto</h5>
         <p>
+            @Html.LabelFor(ad => ad.discount)
+            @Html.ValueFor(ad => ad.discount)
             50%
         </p>
         <hr class="separator-details" />
         <h5>Localização</h5>
         <p>
+            @Html.LabelFor(ad => ad.local)
+            @Html.ValueFor(ad => ad.local)
             Santa Maria da Feira
         </p>
         <hr class="separator-details" />
         <h5>Preço</h5>
         <p>
+            @Html.LabelFor(ad => ad.price)
+            @Html.ValueFor(ad => ad.price)
             22.4€
         </p>
-        <a href="#"><img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" /></a>
+        @*Client requirement for a fast purchase*@
+        <a href="#"><img id="buy-btn" @*onclick="addCuponToCart('@Url.Action("addToCart","User", Model)')"*@ class="left" src="/Content/images/pictogramas-07.png" alt="Fast Checkout" /></a>
+        @*TODO: Redirect to finalize order page*@
+        <a href="#"><img id="buy-btn" onclick="addCuponToCart('@Url.Action("addToCart","Order", Model)')" class="left" src="~/Content/images/carrinho.png" alt="Add to cart" /></a>
+
 
         <form method="post" action="../Ad/SubscribeAd">
             <input type="submit" value="Subscrever Anuncio" />
@@ -72,4 +88,6 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript" src="/Scripts/adPage.js"></script>
 

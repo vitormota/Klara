@@ -25,9 +25,9 @@ namespace WebClient_.Models
         public string email { get; set; }
         public string city { get; set; }
 
-        public List<AdSubscripted> ads_subscriptions { get; set; }
+        public List<Ad> ads_subscriptions { get; set; }
 
-        public List<CuponPurchase> cupons { get; set; }
+        public List<Ad> cupons { get; set; }
 
         public static UserInfo jsonToModel(JObject json)
         {

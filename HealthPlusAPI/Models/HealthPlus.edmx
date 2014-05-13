@@ -59,12 +59,12 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" />
           <Property Name="ad_id" Type="int" Nullable="false" />
           <Property Name="state" Type="int" Nullable="false" />
           <Property Name="start_time" Type="date" Nullable="false" />
           <Property Name="end_time" Type="date" Nullable="false" />
-          <Property Name="purchase_time" Type="date" Nullable="false" />
+          <Property Name="purchase_time" Type="date" />
         </EntityType>
         <EntityType Name="Inst_Group">
           <Key>
@@ -204,7 +204,7 @@
           <Property Name="state" Type="Int32" Nullable="false" />
           <Property Name="start_time" Type="DateTime" Nullable="false" />
           <Property Name="end_time" Type="DateTime" Nullable="false" />
-          <Property Name="purchase_time" Type="DateTime" Nullable="false" />
+          <Property Name="purchase_time" Type="DateTime" Nullable="true" />
         </EntityType>
         <EntityType Name="Inst_Group">
           <Key>

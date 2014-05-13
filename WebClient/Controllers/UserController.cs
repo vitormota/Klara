@@ -29,10 +29,11 @@ namespace WebClient_.Controllers
 
             UserInfo ui = UserInfo.jsonToModel(userjson);
 
-            ui.ads_subscriptions = JsonConvert.DeserializeObject<List<AdSubscripted>>(mService.GetAdSubscriptions(id));
-            ui.cupons = JsonConvert.DeserializeObject<List<CuponPurchase>>(mService.GetClientPurchases(id));
+            ui.ads_subscriptions = JsonConvert.DeserializeObject<List<Ad>>(mService.GetAdSubscriptions(id));
+            ui.cupons = JsonConvert.DeserializeObject<List<Ad>>(mService.GetClientPurchases(id));
 
             return View(ui);
         }
+
 	}
 }

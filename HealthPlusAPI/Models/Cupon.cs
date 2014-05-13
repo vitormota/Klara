@@ -20,6 +20,6 @@ namespace HealthPlusAPI.Models
         public int state { get; set; }
         public System.DateTime start_time { get; set; }
         public System.DateTime end_time { get; set; }
-        public System.DateTime purchase_time { get; set; }
+        public Nullable<System.DateTime> purchase_time { get; set; }
     }
 }

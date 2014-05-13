@@ -1,0 +1,53 @@
+﻿@model WebClient_.Models.ShoppingCart
+
+@{
+    ViewBag.Title = "ShoppingCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShoppingCart</h2>
+
+<div class="container">
+    <h4>ShoppingCart</h4>
+    <hr />
+    <div class="row">
+    @if (Model == null)
+    {
+        @*User is requesting an empty cart*@
+        <h6>Your shopping cart is empty =(</h6>
+    }
+    else
+    {
+        foreach (var item in Model.getAds())
+        {
+            @Html.LabelFor(ad => item.id)
+            @Html.ValueFor(ad => item.id)
+            <br />
+            @Html.LabelFor(ad => item.institution_id)
+            @Html.ValueFor(ad => item.institution_id)
+            <br />
+            @Html.LabelFor(ad => item.name)
+            @Html.ValueFor(ad => item.name)
+            <br />
+            @Html.LabelFor(ad => item.price)
+            @Html.ValueFor(ad => item.price)
+            <br />
+            @Html.LabelFor(ad => item.discount)
+            @Html.ValueFor(ad => item.discount)
+            <br />
+            @Html.LabelFor(ad => item.service)
+            @Html.ValueFor(ad => item.service)
+            <br />
+            @Html.LabelFor(ad => item.specialty)
+            @Html.ValueFor(ad => item.specialty)
+            <br />
+            @Html.LabelFor(ad => item.end_time)
+            @Html.ValueFor(ad => item.end_time)
+        }
+        <button class="btn btn-success">Buy</button>
+    }
+        
+    </div>
+
+    
+</div>

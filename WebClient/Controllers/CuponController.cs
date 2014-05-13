@@ -113,7 +113,7 @@ namespace WebClient_.Controllers
             ProcessStartInfo sInfo = new ProcessStartInfo(path);
             Process.Start(sInfo);
 
-            return "LOOOL";
+            return "";
         }
 
         [HttpPost]

@@ -16,6 +16,5 @@ namespace WebClient_.Models
         public string access_token { get; set; }
         public int provider_id { get; set; }
         public string profile_picture_url { get; set; }
-
     }
 }

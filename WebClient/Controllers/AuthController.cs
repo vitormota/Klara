@@ -57,7 +57,6 @@ namespace WebClient_.Controllers
         {
 
             UserSession us = new UserSession();
-
             us.internal_id = Convert.ToInt32(json["id"].ToString());
             us.name = json["name"].ToString();
             us.access_token = access_token;

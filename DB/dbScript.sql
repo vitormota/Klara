@@ -111,7 +111,7 @@ create table Ad (
 
 create table Cupon (
 	id int not null auto_increment primary key,
-	client_id int not null,
+	client_id int,
 	ad_id int not null,
 	state int not null,
 	--start_time datetime not null,
@@ -119,7 +119,7 @@ create table Cupon (
 	--end_time datetime not null,
 	end_time date not null,
 	--purchase_time datetime not null,
-	purchase_time date not null,
+	purchase_time date,
 	foreign key (ad_id) references Ad(id) on delete cascade,
 	foreign key (client_id) references Client(id) on delete cascade
 );

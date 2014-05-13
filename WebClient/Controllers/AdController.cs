@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebClient_.HealthPService;
+using WebClient_.Models;
 
 namespace WebClient_.Controllers
 {
@@ -14,9 +16,17 @@ namespace WebClient_.Controllers
 
         //
         // GET: /Ad/
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View();
+            if (!id.HasValue)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            string json_ad = mService.GetAdById((int)id);
+            Ad ad = JsonConvert.DeserializeObject<Ad>(json_ad);
+
+            return View(ad);
         }
 
         [HttpPost]

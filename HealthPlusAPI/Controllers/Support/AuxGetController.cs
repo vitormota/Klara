@@ -102,7 +102,17 @@ namespace HealthPlusAPI.Controllers.Support
             return query;
         }
 
-
+        /// <summary>
+        /// Get ad details by its id
+        /// NOTE: Moved here because someone rewritten default action on ads controller
+        /// </summary>
+        /// <param name="ad_id">The ad id</param>
+        /// <returns></returns>
+        [Route("odata/Ads({ad_id})")]
+        public dynamic getAdDetails(int ad_id)
+        {
+            return (db.Ad.Where(Ad => Ad.id == ad_id).Single());
+        }
     }
 
 

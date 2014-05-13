@@ -77,23 +77,23 @@
                                 <div class="panel-body">
                                     @foreach (var ad in Model.ads_subscriptions)
                                     {
-                                        @Html.DisplayFor(a => ad.ad_id)
+                                        @Html.DisplayFor(a => ad.id)
                                         <br />
-                                        @Html.DisplayFor(a => ad.desc)
+                                        @Html.DisplayFor(a => ad.description)
                                         <br />
-                                        @Html.DisplayFor(a => ad.end)
+                                        @Html.DisplayFor(a => ad.end_time)
                                         <br />
                                         @Html.DisplayFor(a => ad.name)
                                         <br />
                                         @Html.DisplayFor(a => ad.price)
                                         <br />
-                                        @Html.DisplayFor(a => ad.remaining)
+                                        @Html.DisplayFor(a => ad.remaining_cupons)
                                         <br />
                                         @Html.DisplayFor(a => ad.service)
                                         <br />
                                         @Html.DisplayFor(a => ad.specialty)
                                         <br />
-                                        @Html.DisplayFor(a => ad.inst)
+                                        @Html.DisplayFor(a => ad.institution_id)
                                     }
                                 </div>
                             </div>

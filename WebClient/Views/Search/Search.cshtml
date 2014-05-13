@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Pesquisa";
     var columns = 4;
 }
@@ -60,32 +59,34 @@
 </div>
 
 @for (int i = 0; i < ViewBag.ListAds.Count; i++)
-{ 
-    if(i == 0)
+{
+    if (i == 0)
     {
         @:<div class="row grid-line">
     }
-    else if(Convert.ToDouble(i % columns) == 0)
+    else if (Convert.ToDouble(i % columns) == 0)
     {
         @:</div>
-        @:<div class="row grid-line">
+    @:<div class="row grid-line">
     }
 
     <div class="col-md-2 col-md-offset-3">
-        <div class="img-details">
-            <div class="img"></div>
-            <div class="hidden-details">
-                <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
-                <hr />
-                <span>Desconto @ViewBag.ListAds[i]["discount"]%</span>
+        <a href="/Ad?id=@ViewBag.ListAds[i]["id"]">
+            <div class="img-details">
+                <div class="img"></div>
+                <div class="hidden-details">
+                    <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
+                    <hr />
+                    <span>Desconto @ViewBag.ListAds[i]["discount"]%</span>
+                </div>
             </div>
-        </div>
+        </a>
         <span class="cupn-service">@ViewBag.ListAds[i]["name"]</span>
         <span>@ViewBag.ListAds[i]["name_institution"]</span>
         <span>@ViewBag.ListAds[i]["price"] €</span>
     </div>
 
-    if((i+1) == ViewBag.ListAds.Count)
+    if ((i + 1) == ViewBag.ListAds.Count)
     {
         @:</div>
     }

@@ -178,6 +178,26 @@ namespace HpREST_Bridge
             return subscriptions;
         }
 
+        public string BuyCupon(string cupon_str)
+        {
+            JObject json = JObject.Parse(cupon_str);
+
+            ///Please follow HealthPlusAPI Cupon model to define this JSON
+            JObject cupon = new JObject(
+                new JProperty("state", 0),
+                new JProperty("ad_id", json["id"]),
+                new JProperty("start_time", json["start_time"]),
+                new JProperty("end_time", json["end_time"])
+                );
+
+            if ((int)json["client_id"] != 0)
+            {
+                cupon.Add("client_id", json["client_id"]);
+            }
+
+            return RestUtility.HttpPostJSON(base_url + cupons_controller, cupon);
+        }
+
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
 
@@ -189,6 +209,16 @@ namespace HpREST_Bridge
             //
             return response;
         }
+
+        //---------------------------------------------------------------------
+        // Members - Ad
+        //---------------------------------------------------------------------
+
+        public string GetAdById(int id)
+        {
+            return RestUtility.HttpGet(base_url + ads_controller + "(" + id + ")");
+        }
+
         public string CreateAd(string model_data)
         {
             JObject data = JObject.Parse(model_data);
@@ -419,5 +449,8 @@ namespace HpREST_Bridge
             string returnJSON = resultDict["value"].ToString();
             return returnJSON;
         }
+
+
+        
     }
 }
