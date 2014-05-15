@@ -4,6 +4,8 @@ using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Text;
+using System.IO;
 
 namespace HpREST_Bridge
 {
@@ -39,6 +41,7 @@ namespace HpREST_Bridge
         private const string action_get_purchases = "Purchases";
         private const string action_get_accounts_details = "OptionsFlags";
         private const string action_get_ad_subs = "Cupons";
+        private const string action_buy_multiple = "MultipleCupons";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -69,7 +72,7 @@ namespace HpREST_Bridge
         public string RegisterUser(string access_token, int provider)
         {
 
-            Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token,(Utility.LoginProvider) provider);
+            Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token, (Utility.LoginProvider)provider);
 
             ilp.addFieldRequest(REQUEST.EMAIL, REQUEST.HOMETWON, REQUEST.PROF_PIC, REQUEST.USERNAME);
             JObject face_response = JObject.Parse(ilp.makeRequest().ToString());
@@ -89,7 +92,7 @@ namespace HpREST_Bridge
                 new JProperty("email", face_response["email"])
                 );
 
-            api_response = JObject.Parse(RestUtility.HttpPostJSON(base_url + clients_controller,client));
+            api_response = JObject.Parse(RestUtility.HttpPostJSON(base_url + clients_controller, client));
             api_response.Add(new JProperty("picture", face_response["picture"]["data"]["url"]));
 
             return api_response.ToString();
@@ -98,7 +101,7 @@ namespace HpREST_Bridge
         public string UserLogin(string access_token, int provider)
         {
             Auth.ILoginProvider ilp = LoginProviderFactory.createInstance(access_token, (Utility.LoginProvider)provider);
-            
+
             //Grab the user id
             ilp.addFieldRequest(REQUEST.PROF_PIC);
             JObject json = JObject.Parse(ilp.makeRequest().ToString());
@@ -110,7 +113,8 @@ namespace HpREST_Bridge
             //until proper solution is found, this is the implemented workaround
 
             get_result = RestUtility.HttpGet(base_url + accounts_controller + "(" + json["id"] + "L)");
-            if(get_result==null && ((HttpWebResponse)RestUtility.exception.Response).StatusCode==HttpStatusCode.NotFound){
+            if (get_result == null && ((HttpWebResponse)RestUtility.exception.Response).StatusCode == HttpStatusCode.NotFound)
+            {
                 //If API responded with a 404 the exception was caught and stored
                 //
                 //TODO: Fix API, so a proper api_response is made, and the service won't crash...
@@ -123,7 +127,7 @@ namespace HpREST_Bridge
             if (provider_id == null)
             {
                 //not registered
-                return RegisterUser(access_token,provider);
+                return RegisterUser(access_token, provider);
             }
 
             return response.ToString();
@@ -149,7 +153,7 @@ namespace HpREST_Bridge
             //account = account.Substring(0, account.Length - 1);
             string client = RestUtility.HttpGet(base_url + clients_controller + "(" + id + ")");
             //client = client.Substring(3);
-            string res =client;
+            string res = client;
             return res;
         }
 
@@ -164,14 +168,14 @@ namespace HpREST_Bridge
         /// <returns></returns>
         public string GetClientPurchases(int id)
         {
-            return RestUtility.HttpGet(base_url+ cupons_controller+"("+id+")/"+action_get_purchases);
+            return RestUtility.HttpGet(base_url + cupons_controller + "(" + id + ")/" + action_get_purchases);
         }
 
         public string GetClientDetails(int id)
         {
-            dynamic account = RestUtility.HttpGet(base_url + accounts_controller + "(" + id + ")/"+action_get_accounts_details);
+            dynamic account = RestUtility.HttpGet(base_url + accounts_controller + "(" + id + ")/" + action_get_accounts_details);
             account = account.Substring(0, account.Length - 1);
-            string client = RestUtility.HttpGet(base_url+clients_controller + "(" + id + ")");
+            string client = RestUtility.HttpGet(base_url + clients_controller + "(" + id + ")");
             client = client.Substring(3);
             string res = account + "," + client;
             return res;
@@ -184,7 +188,7 @@ namespace HpREST_Bridge
 
         public string GetAdSubscriptions(int client_id)
         {
-            dynamic subscriptions = RestUtility.HttpGet(base_url+subscriptions_controller+"("+client_id+")/"+action_get_ad_subs);
+            dynamic subscriptions = RestUtility.HttpGet(base_url + subscriptions_controller + "(" + client_id + ")/" + action_get_ad_subs);
             return subscriptions;
         }
 
@@ -210,30 +214,52 @@ namespace HpREST_Bridge
 
         public string BuyMultipleCupons(string cupon_list)
         {
+
             JArray json = JArray.Parse(cupon_list);
-            JArray cupons = new JArray();
-            foreach (JObject obj in json)
+
+            StringBuilder sb = new StringBuilder();
+            StringWriter sw = new StringWriter(sb);
+
+            using (JsonWriter writer = new JsonTextWriter(sw))
             {
-                cupons.Add(
-                    new JObject(
-                        new JProperty("state", 0),
-                        new JProperty("ad_id", obj["id"]),
-                        new JProperty("start_time", obj["start_time"]),
-                        new JProperty("end_time", obj["end_time"])
-                    )
-                );
+                writer.Formatting = Formatting.Indented;
+                writer.WriteStartObject();
+                writer.WritePropertyName("Cupons");
+                writer.WriteStartArray();
+
+                foreach (JObject obj in json)
+                {
+                    JObject tmp =
+                        new JObject(
+                            new JProperty("state", 0),
+                            new JProperty("ad_id", obj["id"]),
+                            new JProperty("start_time", obj["start_time"]),
+                            new JProperty("end_time", obj["end_time"])
+                        );
+
+                    if ((int)obj["client_id"] != 0)
+                    {
+                        tmp.Add("client_id", obj["client_id"]);
+                    }
+
+                    writer.WriteValue(tmp.ToString());
+                }
+                writer.WriteEnd();
+                writer.WriteEndObject();
+
             }
 
-            return RestUtility.HttpPostJSON(base_url+cupons_controller,cupons);
+
+            return RestUtility.HttpPostJSON(base_url + cupons_controller + "/" + action_buy_multiple, sb);
         }
 
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
 
-        public string EditInstitutionDetails(string model_data,int id)
+        public string EditInstitutionDetails(string model_data, int id)
         {
             JObject data = JObject.Parse(model_data);
-            string response = RestUtility.HttpPutJSON(base_url + institutions_controller+"("+id+")", data);
+            string response = RestUtility.HttpPutJSON(base_url + institutions_controller + "(" + id + ")", data);
             //Strip response from sensitive information?
             //
             return response;
@@ -264,7 +290,7 @@ namespace HpREST_Bridge
         /// <returns></returns>
         public string GetInstitution(int id)
         {
-            return RestUtility.HttpGet(base_url + institutions_controller + "("+id+")");
+            return RestUtility.HttpGet(base_url + institutions_controller + "(" + id + ")");
         }
 
         public string SearchInstitution(string textSearch)
@@ -339,12 +365,12 @@ namespace HpREST_Bridge
             Dictionary<string, string> json_dict = new Dictionary<string, string>();
             json_dict.Add("subscribable_id", institution_id.ToString());
             json_dict.Add("client_id", client_id.ToString());
-            
+
             string postJSON = RestUtility.HttpPostJSON(base_url + subscriptions_controller + "/DeleteSubscription", JsonConvert.SerializeObject(json_dict));
-                
+
             Dictionary<string, string> resultDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(postJSON);
             return_str = resultDict["value"];
-            
+
             return return_str;
         }
 
@@ -412,7 +438,7 @@ namespace HpREST_Bridge
             string postJSON = RestUtility.HttpPostJSON(base_url + photos_controller + "/GetAdPhotos", JsonConvert.SerializeObject(json_str_double));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
             return_str = resultDict["value"].ToString();
-            
+
             return return_str;
         }
 
@@ -425,7 +451,7 @@ namespace HpREST_Bridge
         public string SubscribeAd(int client_id, int ad_id)
         {
             string return_str = null;
-        
+
             JObject subscription = new JObject(
                 new JProperty("subscribable_id", ad_id),
                 new JProperty("client_id", client_id));
@@ -480,6 +506,6 @@ namespace HpREST_Bridge
         }
 
 
-        
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.OData.Builder;
 using HealthPlusAPI.Models;
+using System.Threading.Tasks;
 
 
 namespace HealthPlusAPI
@@ -30,6 +31,11 @@ namespace HealthPlusAPI
             ActionConfiguration getClientPurchases = builder.Entity<Cupon>().Action("GetPurchases");
             getClientPurchases.Returns<string>();
 
+            ActionConfiguration multipleCupons = builder.Entity<Cupon>().Collection.Action("MultipleCupons");
+            multipleCupons.CollectionParameter<string>("Cupons");
+            multipleCupons.Returns<Task<IHttpActionResult>>();
+            
+
             // Ver quais os cupoes que estao ativos (que estao dentro da data de validade e que ainda nao foram usados)
             ActionConfiguration seeCuponsActive = builder.Entity<Cupon>().Action("SeeCuponsActive");
             seeCuponsActive.Returns<string>();
@@ -40,7 +46,7 @@ namespace HealthPlusAPI
             getClientIdFacebook.Parameter<string>("client_id_by_session");
             getClientIdFacebook.Returns<string>();
 
-           
+
             // Adicionar a action para retornar todas as subscricoes de instituicoes feitas pelo utilizador
             ActionConfiguration institutionsSubscribe = builder.Entity<Subscription>().Collection.Action("InstitutionsSubscribe");
             institutionsSubscribe.Parameter<string>("client_id");
@@ -70,7 +76,7 @@ namespace HealthPlusAPI
             isSubscribeUser.Parameter<string>("subscribable_id");
             isSubscribeUser.Returns<string>();
 
-     
+
 
             // Adicionar a action para procurar instituicoes
             ActionConfiguration searchInstitution = builder.Entity<Institution>().Collection.Action("SearchInstitution");
@@ -82,7 +88,7 @@ namespace HealthPlusAPI
             searchAd.Parameter<string>("textSearch");
             searchAd.Returns<string>();
 
-            
+
             // Adicionar a action para gerir login's
             ActionConfiguration managerLogin = builder.Entity<Manager>().Action("ManagerLogin");
             managerLogin.Parameter<string>("username");

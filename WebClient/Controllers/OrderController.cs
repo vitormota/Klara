@@ -42,6 +42,11 @@ namespace WebClient_.Controllers
         {
             ShoppingCart cart = (ShoppingCart)Session["shopping_cart"];
             if (cart == null) return RedirectToAction("Index", "Home");
+            if (Session["user"] != null)
+            {
+                int internal_id = ((UserSession)Session["user"]).internal_id;
+                cart.appendClientId(internal_id);
+            }
             if (cart.isFastCheckout())
             {
                 //A fast checkout
@@ -57,6 +62,7 @@ namespace WebClient_.Controllers
             }
             else
             {
+                
                 //Bulk insert on table Cupon
                 string response = mService.BuyMultipleCupons(JsonConvert.SerializeObject(cart.getAds()));
                 cart.clean();
