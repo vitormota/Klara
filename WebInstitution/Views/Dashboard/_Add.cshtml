@@ -1,1 +1,141 @@
-﻿add
+﻿<div class="col-md-12 col-xs-12 clearfix">
+    <div id="add">
+        <img src="~/Content/Images/pictogramas-08.png" />
+    </div>
+    <div id="add-inputs" class="row">
+        <div class="col-md-6">
+            <ul id="last-cupons">
+                <li>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img"></div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="details">
+                                <span>Consulta Ortopédica</span>
+                                <span>Hospital 44</span>
+                                <span>Porto</span>
+                                <span>15-05-2014</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="price">
+                                <span>35€</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr />
+                        </div>
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-md-2">
+                        <div class="img"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="details">
+                            <span>Consulta Ortopédica</span>
+                            <span>Hospital 44</span>
+                            <span>Porto</span>
+                            <span>15-05-2014</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="price">
+                            <span>35€</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            @using (Html.BeginForm("Create", "Ad", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="service">Service</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name=" service" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="specialty">Specialty</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="specialty" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="name" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="description" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="price">Price</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="price" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="previous_price">Previous price</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="previous_price" type="text" />
+                    </div>
+                </div>
+
+
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="total_cupons">Coupons</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="total_cupons" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="start_date">Start</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="start_date" type="date" />
+                    </div>
+                </div>
+
+                <div class="form-group clearfix row">
+                    <div class="col-md-2">
+                        <label for="photo">Ad image</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="photo" type="file" />
+                    </div>
+                </div>
+
+                <input type="submit" value="Create" />
+            }
+        </div>
+    </div>
+</div>

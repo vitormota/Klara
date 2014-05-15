@@ -76,6 +76,34 @@ namespace HealthPlusAPI.Controllers
             return Updated(Account);
         }
 
+
+        [HttpPost]
+        public string AccountExistDatabase(ODataActionParameters parameters)
+        {
+            string return_str = null;
+            long facebook_id = Convert.ToInt64((string)parameters["facebook_id"]);
+
+            if (!ModelState.IsValid)
+            {
+                return_str = "error";
+            }
+            else
+            {
+                List<Account> list_accounts = db.Account.Where(account => account.fb_id == facebook_id).ToList();
+
+                if (list_accounts.Count > 0)
+                {
+                    return_str = "true";
+                }
+                else if (list_accounts.Count == 0)
+                {
+                    return_str = "false";
+                }
+            }
+
+            return return_str;
+        }
+
         // POST odata/Accounts
         public async Task<IHttpActionResult> Post(Account Account)
         {

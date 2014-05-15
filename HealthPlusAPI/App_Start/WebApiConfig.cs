@@ -52,6 +52,13 @@ namespace HealthPlusAPI
             institutionsSubscribe.Parameter<string>("client_id");
             institutionsSubscribe.Returns<string>();
 
+
+            // Adicionar a action para verificar se existe alguma conta com aquele facebook_id
+            ActionConfiguration accountExistDatabase = builder.Entity<Account>().Collection.Action("AccountExistDatabase");
+            accountExistDatabase.Parameter<string>("facebook_id");
+            accountExistDatabase.Returns<string>();
+
+            
             // Adicionar a action para retornar todas as subscricoes de anuncios feitas pelo utilizador
             ActionConfiguration adsSubscribe = builder.Entity<Subscription>().Collection.Action("AdsSubscribe");
             adsSubscribe.Parameter<string>("client_id");
