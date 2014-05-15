@@ -1,4 +1,9 @@
+.ContentFlow {
+	margin-top: 2em;
+}
+
 #slider {
+	display: none;
 	list-style: none;
 	width: 100%;
 	-webkit-margin-before: 2em;
