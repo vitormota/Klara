@@ -6820,12 +6820,12 @@ body {
 }
 
 @media (max-width: 937px) {
-  #inst {
+  #inst, #add {
     width: 4em !important;
     height: 3em !important;
   }
 
-  #inst img {
+  #inst img, #add img {
     float: left !important;
     margin-left: 1em !important;
   }

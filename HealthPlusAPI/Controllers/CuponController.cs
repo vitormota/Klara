@@ -67,7 +67,7 @@ namespace HealthPlusAPI.Controllers
         }
 
         ///// <summary>
-        ///// Get purchased cupons from client id
+        ///// Get purchased cupons_str from client id
         ///// </summary>
         ///// <param name="key">User's internal id</param>
         ///// <returns></returns>
@@ -126,6 +126,29 @@ namespace HealthPlusAPI.Controllers
             await db.SaveChangesAsync();
 
             return Created(cupon);
+        }
+
+        [HttpPost]
+        public async Task<IHttpActionResult> MultipleCupons(ODataActionParameters parameters)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            List<string> cupons_str = parameters["Cupons"] as List<string>;
+            //List<Cupon> cupons = new List<Cupon>();
+
+            cupons_str.ForEach(delegate(string value)
+            {
+                //cupons.Add(JsonConvert.DeserializeObject<Cupon>(value));
+                db.Cupon.Add(JsonConvert.DeserializeObject<Cupon>(value));
+            });
+
+            //db.Cupon.AddRange(cupons);
+            await db.SaveChangesAsync();
+
+            return Ok();
         }
 
         // PATCH odata/Cupon(5)

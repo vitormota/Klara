@@ -93,5 +93,13 @@ namespace WebClient_.Models
             unsetFastCheckout();
             ads.Clear();
         }
+
+        public void appendClientId(int id)
+        {
+            ads.ForEach(delegate(Ad cupon)
+            {
+                cupon.client_id = id;
+            });
+        }
     }
 }

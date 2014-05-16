@@ -3,7 +3,18 @@
 }
 
 @Styles.Render("~/Content/dashboard.css")
+@Styles.Render("~/Content/contentflow_src.css")
 
+<div class="ContentFlow">
+    <div class="loadIndicator"><div class="indicator"></div></div>
+    <div class="flow">
+        <img class="item" src="~/Content/Images/pictogramas-02.png" />
+        <img class="item" src="~/Content/Images/pictogramas-05.png" />
+        <img class="item" src="~/Content/Images/pictogramas-03.png" />
+        <img class="item" src="~/Content/Images/pictogramas-07.png" />
+        <img class="item" src="~/Content/Images/pictogramas-08.png" />
+    </div>
+</div>
 
 <ul id="slider" class="clearfix">
     <li id="localization" class="first">
@@ -40,11 +51,13 @@
 </div>
 
 <div id="content-wrapper">
-    <div class="container-fluid">
+    <div class="container">
         <div id="partial" class="row">
             @Html.Partial("_Settings")
         </div>
     </div>
 </div>
 
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 @Scripts.Render("~/Scripts/local/dashboard.js")
+@Scripts.Render("~/Scripts/contentflow_src.js")
