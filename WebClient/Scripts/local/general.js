@@ -4,8 +4,25 @@ var currentLongitude = 0;
 
 var currentSelected = 1;
 
-function regionFilter(id) {
+function setCurrentLocation() {
     
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(setPosition);
+        
+    }
+    
+    
+}
+
+function setPosition(position) {
+    currentLatitude = position.coords.latitude;
+    currentLongitude = position.coords.longitude;
+    //console.log('position: ' + currentLatitude + "; " + currentLongitude);
+}
+
+function regionFilter(id) {
+    setCurrentLocation();
+
     var ads = $('.searched-ad');
 
     ads.each(function () {
@@ -43,4 +60,22 @@ function distanceInKm(lat1, lon1, lat2, lon2) {
     else if (d <= 1) return Math.round(d * 1000);
     return d;
 }
+
+function updatePriceFilter() {
+    console.log('min: ' + $('#slider-range-wrapper').children('#min-price').html());
+    var min_price = parseInt($('#slider-range-wrapper').children('#min-price').html());
+    var max_price = parseInt($('#slider-range-wrapper').children('#max-price').html());
+    var ads = $('.searched-ad');
+
+    ads.each(function () {
+        var ad_price = parseInt($(this).children('.add-price').html());
+        console.log("min_price: "+min_price+"; max_price: "+max_price+"; ad_price: "+ad_price);
+        if (ad_price >= min_price && ad_price <= max_price) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+}
+
 
