@@ -32,7 +32,7 @@
             <span class="minus-btn"></span>
         </header>
 
-        <div id="slider-range-wrapper">
+        <div id="slider-range-wrapper" onmouseup="updatePriceFilter()">
             <div id="slider-range"></div>
             <span id="min-price"></span>
             <span id="max-price"></span>
@@ -85,7 +85,7 @@
         </a>
         <span class="cupn-service">@ViewBag.ListAds[i]["name"]</span>
         <span>@ViewBag.ListAds[i]["name_institution"]</span>
-        <span>@ViewBag.ListAds[i]["price"] €</span>
+        <span class="add-price">@ViewBag.ListAds[i]["price"] €</span>
     </div>
 
     if ((i + 1) == ViewBag.ListAds.Count)
