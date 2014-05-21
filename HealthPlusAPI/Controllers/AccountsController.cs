@@ -93,7 +93,7 @@ namespace HealthPlusAPI.Controllers
 
                 if (list_accounts.Count > 0)
                 {
-                    return_str = "true";
+                    return_str = list_accounts[0].id.ToString();
                 }
                 else if (list_accounts.Count == 0)
                 {
