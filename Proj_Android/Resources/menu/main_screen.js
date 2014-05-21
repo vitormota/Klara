@@ -4,6 +4,9 @@ Titanium.include("/components/lateral_bar.js");
 // Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
 Titanium.include("/components/header_bar.js");
 
+// Incluir o ficheiro que permite chamar os cupoes
+Titanium.include("/cupon/show_cupon.js");
+
 function MainScreen()
 {
 	// Variaveis
@@ -65,6 +68,15 @@ function MainScreen()
 				height: '180dp',
 				top: top_value + 'dp'
 			}); 
+			
+			ad_view.addEventListener('click', function()
+			{
+				var cupon = new CuponScreen();
+				cupon.constructorScreen(i);
+				
+				cupon.putEventListenersCuponScreen();
+				cupon.showWindow();
+			});
 				
 			// Colocar imagem do anuncio
 			var ad_image_view = Titanium.UI.createImageView({
