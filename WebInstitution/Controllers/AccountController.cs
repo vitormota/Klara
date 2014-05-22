@@ -103,7 +103,7 @@ namespace WebInstitution.Controllers
 
                 ViewData["login"] = result_str;
 
-                return View("Index");
+                return RedirectToAction("Index", "Dashboard");
             }
 
             return RedirectToAction("Index", "Home");

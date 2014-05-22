@@ -1,9 +1,17 @@
-﻿<div class="col-md-12 col-xs-12 clearfix">
+﻿@model WebInstitution.Models.AdDisplayModel
+
+@{
+    var ads = (List<WebInstitution.Models.AdDisplayModel>) ViewData["active_ads"];
+    var session = (WebInstitution.Models.SessionModel)Session["manager"];
+    var inst = (WebInstitution.Models.InstitutionModel)session.currentInstitution;
+}
+
+<div class="col-md-12 col-xs-12 clearfix">
     <div class="row">
         <div class="col-md-12 col-xs-12 clearfix">
             <div id="details">
-                <span id="inst-name">Hospital 44</span>
-                <span id="inst-local">Porto</span>
+                <span id="inst-name">@inst.name</span>
+                <span id="inst-local">@inst.city</span>
                 <hr />
                 <span>Editar cupões</span>
             </div>
@@ -14,100 +22,32 @@
         <div class="col-md-12 col-xs-12 clearfix">
             <div id="cupons-list-wrapper">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="cupon-wrapper">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="img"></div>
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="details">
-                                        <span>Consulta Ortopédica</span>
-                                        <span>Hospital 44</span>
-                                        <span>Porto</span>
-                                        <span>15-05-2014</span>
+                    @foreach (var ad in ads)
+                    {
+                        <div class="col-md-6">
+                            <div class="cupon-wrapper" data-id="@ad.id">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="img"></div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="price">
-                                        <span>35€</span>
+                                    <div class="col-md-7">
+                                        <div class="details">
+                                            <span>@ad.name</span>
+                                            <span>@ad.service</span>
+                                            <span>@ad.specialty</span>
+                                            <span>@ad.end_time.ToShortDateString()</span>
+                                        </div>
                                     </div>
-                                    <a href="#"><img src="~/Content/Images/pictogramas-24.png" /></a>
+                                    <div class="col-md-3">
+                                        <div class="price">
+                                            <span>@ad.price €</span>
+                                        </div>
+                                        <a id="deleteAd" href="#"><img src="~/Content/Images/pictogramas-24.png" /></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="cupon-wrapper">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="img"></div>
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="details">
-                                        <span>Consulta Ortopédica</span>
-                                        <span>Hospital 44</span>
-                                        <span>Porto</span>
-                                        <span>15-05-2014</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="price">
-                                        <span>35€</span>
-                                    </div>
-                                    <a href="#"><img src="~/Content/Images/pictogramas-24.png" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="cupon-wrapper">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="img"></div>
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="details">
-                                        <span>Consulta Ortopédica</span>
-                                        <span>Hospital 44</span>
-                                        <span>Porto</span>
-                                        <span>15-05-2014</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="price">
-                                        <span>35€</span>
-                                    </div>
-                                    <a href="#"><img src="~/Content/Images/pictogramas-24.png" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="cupon-wrapper">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="img"></div>
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="details">
-                                        <span>Consulta Ortopédica</span>
-                                        <span>Hospital 44</span>
-                                        <span>Porto</span>
-                                        <span>15-05-2014</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="price">
-                                        <span>35€</span>
-                                    </div>
-                                    <a href="#"><img src="~/Content/Images/pictogramas-24.png" /></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

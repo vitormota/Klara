@@ -176,18 +176,10 @@ namespace WebInstitution.Controllers
         //
         // POST: /Ad/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public Boolean Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            mService.DeleteAd(id);
+            return true;
         }
 
         private Boolean IsFileAnImage(string strFileName)

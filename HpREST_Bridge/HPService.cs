@@ -420,8 +420,8 @@ namespace HpREST_Bridge
         public string GetActiveAds(int institution_id)
         {
             string return_str = null;
-
-            string postJSON = RestUtility.HttpGet(base_url + ads_controller + "?$filter=institution_id eq " + institution_id);
+            string filter = "?$filter=institution_id eq " + institution_id + " and state ne 'deleted'";
+            string postJSON = RestUtility.HttpGet(base_url + ads_controller + filter);
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
             return_str = resultDict["value"].ToString();
 
