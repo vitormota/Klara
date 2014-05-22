@@ -9,9 +9,9 @@ namespace HealthPlusAPI.Controllers
 {
     public class ReferenceBankController : ApiController
     {
-        public IEnumerable<Int32> getReference()
+        public IHttpActionResult getReference()
         {
-            return Models.ReferenceBank.Reference.NewReference();
+            return Ok(Models.ReferenceBank.Reference.NewReference());
         }
     }
 }

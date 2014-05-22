@@ -74,6 +74,15 @@ namespace WebClient_.Controllers
 
         public ActionResult ShowPaymentDetails(int? id)
         {
+            //Workaround
+            //TODO: API should return proper json
+            string pay_details = mService.GetBankReference().TrimStart('[').TrimEnd(']');
+            //List<Int32> payment_details = JsonConvert.DeserializeObject<List<Int32>>(mService.GetBankReference());
+            int reference = int.Parse(pay_details.Split(',')[0]);
+            int entity = int.Parse(pay_details.Split(',')[1]);
+            ViewBag.reference = reference;
+            ViewBag.entity = entity;
+            //END
             ShoppingCart cart = ((ShoppingCart)Session["shopping_cart"]);
             if (cart == null)
             {
