@@ -28,15 +28,29 @@ $(document).on("click", "#deleteAd", function (e) {
         var ad = $(this).closest(".cupon-wrapper");
         var id = ad.attr("data-id");
 
-        $.ajax({
-            url: "/Ad/Delete",
-            type: "POST",
-            data: { id: id },
-            success: function () {
-                alert("deleted");
-                ad.remove();
-            }
-        });
+        $.post(
+            '/Ad/Delete',
+            { id: id },
+            function (data) {
+                $("#partial").html(data);
+            });
     }
+
+});
+
+$(document).on("click", "#saveSettings", function (e) {
+    e.preventDefault();
+
+    var formData = $(this).closest("form").serializeArray();
+
+    console.log(formData);
+
+    alert("form");
+    $.post(
+        '/Account/SubmitDetails',
+        formData,
+        function (data) {
+            $("#partial").html(data);
+        });
 
 });

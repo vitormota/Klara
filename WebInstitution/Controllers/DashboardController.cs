@@ -16,7 +16,16 @@ namespace WebInstitution.Controllers
         // GET: /Dashboard/
         public ActionResult Index()
         {
-            return View();
+            SessionModel session = (SessionModel)Session["manager"];
+
+            if (session == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }            
         }
 
         public ActionResult Localization() {
@@ -27,8 +36,11 @@ namespace WebInstitution.Controllers
             return PartialView("_Add");
         }
 
-        public ActionResult Settings() {
-            return PartialView("_Settings");
+        public ActionResult Settings()
+        {
+            SessionModel session = (SessionModel)Session["manager"];
+
+            return PartialView("_Settings", session.currentInstitution);
         }
 
         /// <summary>

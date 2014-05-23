@@ -64,18 +64,23 @@ namespace WebInstitution.Controllers
 
         public ActionResult SubmitDetails(Models.InstitutionModel model)
         {
-            if (Session["inst_id"] == null || Convert.ToInt32(Session["inst_id"]) != model.id)
+            SessionModel session = (SessionModel)Session["manager"];
+
+            if (session == null)
             {
                 //Cannot edit details if not logged in,
                 //or not own details
                 return RedirectToAction("Index", "Home");
             }
 
+            // set institution ID to fix javascript call
+            model.id = session.currentInstitution.id;
+
             JObject send_data = Models.InstitutionModel.modelToJSON(model);
 
-            string response = mService.EditInstitutionDetails(send_data.ToString(),model.id);
+            string response = mService.EditInstitutionDetails(send_data.ToString(),session.currentInstitution.id);
 
-            return RedirectToAction("Details", new { id = model.id});
+            return RedirectToAction("Settings", "Dashboard");
         }
 
         public ActionResult ManagerLogin(LoginFormModel form)

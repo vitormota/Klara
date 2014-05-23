@@ -4,6 +4,7 @@
     var ads = (List<WebInstitution.Models.AdDisplayModel>) ViewData["active_ads"];
     var session = (WebInstitution.Models.SessionModel)Session["manager"];
     var inst = (WebInstitution.Models.InstitutionModel)session.currentInstitution;
+    int i = -1;
 }
 
 <div class="col-md-12 col-xs-12 clearfix">
@@ -21,34 +22,42 @@
     <div class="row">
         <div class="col-md-12 col-xs-12 clearfix">
             <div id="cupons-list-wrapper">
-                <div class="row">
-                    @foreach (var ad in ads)
-                    {
-                        <div class="col-md-6">
-                            <div class="cupon-wrapper" data-id="@ad.id">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="img"></div>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <div class="details">
-                                            <span>@ad.name</span>
-                                            <span>@ad.service</span>
-                                            <span>@ad.specialty</span>
-                                            <span>@ad.end_time.ToShortDateString()</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="price">
-                                            <span>@ad.price €</span>
-                                        </div>
-                                        <a id="deleteAd" href="#"><img src="~/Content/Images/pictogramas-24.png" /></a>
-                                    </div>
+            @foreach (var ad in ads)
+            {
+                i++;
+
+                if (i % 2 == 0)
+                {
+                    @:<div class="row">
+                }
+                <div class="col-md-6">
+                    <div class="cupon-wrapper" data-id="@ad.id">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="img"></div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="details">
+                                    <span>@ad.name</span>
+                                    <span>@ad.service</span>
+                                    <span>@ad.specialty</span>
+                                    <span>@ad.end_time.ToShortDateString()</span>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="price">
+                                    <span>@ad.price €</span>
+                                </div>
+                                <a id="deleteAd" href="#"><img src="~/Content/Images/pictogramas-24.png" /></a>
+                            </div>
                         </div>
-                    }
+                    </div>
                 </div>
+                if (i % 2 == 1)
+                {
+                    @:</div>                       
+                }
+            }
             </div>
         </div>
     </div>

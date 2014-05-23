@@ -133,7 +133,7 @@ namespace WebInstitution.Controllers
                     return View();
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Dashboard");
             }
             catch
             {
@@ -176,10 +176,10 @@ namespace WebInstitution.Controllers
         //
         // POST: /Ad/Delete/5
         [HttpPost]
-        public Boolean Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             mService.DeleteAd(id);
-            return true;
+            return RedirectToAction("Edit", "Dashboard");
         }
 
         private Boolean IsFileAnImage(string strFileName)
