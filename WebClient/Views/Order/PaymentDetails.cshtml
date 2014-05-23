@@ -16,6 +16,13 @@
     <h4>Quantity: @Model.getCount()</h4>
 }
 
+<h3>Payment details </h3>
+
+<h5>Entity: @ViewBag.entity</h5>
+<h5>Reference: @ViewBag.reference</h5>
+
+
+
 <form method="post" action="/Order/FinalizePurchase">
 
     <input type="submit" value="Pay" />

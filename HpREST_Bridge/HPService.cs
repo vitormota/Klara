@@ -42,6 +42,7 @@ namespace HpREST_Bridge
         private const string action_get_accounts_details = "OptionsFlags";
         private const string action_get_ad_subs = "Cupons";
         private const string action_buy_multiple = "MultipleCupons";
+        private const string action_get_bref = "api/ReferenceBank/getReference";
 
         //---------------------------------------------------------------------
         // Members - GET
@@ -505,7 +506,14 @@ namespace HpREST_Bridge
             return returnJSON;
         }
 
-
+        /// <summary>
+        /// Get a bank reference for payment process
+        /// </summary>
+        /// <returns></returns>
+        public string GetBankReference()
+        {
+            return RestUtility.HttpGet(base_url + action_get_bref);
+        }
 
     }
 }

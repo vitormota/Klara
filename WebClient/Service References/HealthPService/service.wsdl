@@ -200,6 +200,12 @@
   <wsdl:message name="IHPService_DeleteAd_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteAdResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_GetBankReference_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBankReference" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetBankReference_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBankReferenceResponse" />
+  </wsdl:message>
   <wsdl:portType name="IHPService">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetData" message="tns:IHPService_GetData_InputMessage" />
@@ -328,6 +334,10 @@
     <wsdl:operation name="DeleteAd">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/DeleteAd" message="tns:IHPService_DeleteAd_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/DeleteAdResponse" message="tns:IHPService_DeleteAd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankReference">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetBankReference" message="tns:IHPService_GetBankReference_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetBankReferenceResponse" message="tns:IHPService_GetBankReference_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IHPService" type="tns:IHPService">
@@ -613,6 +623,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteAd">
       <soap:operation soapAction="http://tempuri.org/IHPService/DeleteAd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankReference">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetBankReference" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -117,6 +117,9 @@ namespace HpREST_Bridge
         [OperationContract]
         string DeleteAd(int ad_id);
 
+        [OperationContract]
+        string GetBankReference();
+
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

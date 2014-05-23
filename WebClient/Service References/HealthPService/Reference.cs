@@ -269,6 +269,12 @@ namespace WebClient_.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/DeleteAd", ReplyAction="http://tempuri.org/IHPService/DeleteAdResponse")]
         System.Threading.Tasks.Task<string> DeleteAdAsync(int ad_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetBankReference", ReplyAction="http://tempuri.org/IHPService/GetBankReferenceResponse")]
+        string GetBankReference();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetBankReference", ReplyAction="http://tempuri.org/IHPService/GetBankReferenceResponse")]
+        System.Threading.Tasks.Task<string> GetBankReferenceAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -552,6 +558,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> DeleteAdAsync(int ad_id) {
             return base.Channel.DeleteAdAsync(ad_id);
+        }
+        
+        public string GetBankReference() {
+            return base.Channel.GetBankReference();
+        }
+        
+        public System.Threading.Tasks.Task<string> GetBankReferenceAsync() {
+            return base.Channel.GetBankReferenceAsync();
         }
     }
 }
