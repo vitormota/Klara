@@ -60,6 +60,7 @@ function EventsLateralBar()
 			var string_verify = "no_connection";
 			var method = 'GET';
 			var url = "http://192.168.1.67:52144/odata/Clients(" + user_id.toString() + ")";
+			//var url = "http://172.30.57.248:52144/odata/Clients(" + user_id.toString() + ")";
 			
 			// Criar clientes para ir buscar dados à api
 			var client = Titanium.Network.createHTTPClient({

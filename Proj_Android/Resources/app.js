@@ -84,6 +84,7 @@ function existUserInDatabase()
 	var string_verify = "no_connection";
 	var method = 'POST';
 	var url = "http://192.168.1.67:52144/odata/Accounts/AccountExistDatabase";
+	//var url = "http://172.30.57.248:52144/odata/Accounts/AccountExistDatabase";
 	
 	// Argumentos para irem no pedido
 	var args = {};
@@ -135,6 +136,7 @@ function registerAccount()
 	var string_verify = "no_connection";
 	var method = 'POST';
 	var url = "http://192.168.1.67:52144/odata/Accounts";
+	//var url = "http://172.30.57.248:52144/odata/Accounts";
 	
 	// Argumentos para irem no pedido
 	var args = {};
@@ -171,6 +173,7 @@ function registerClient()
 	var string_verify = "no_connection";
 	var method = 'POST';
 	var url = "http://192.168.1.67:52144/odata/Clients";
+	//var url = "http://172.30.57.248:52144/odata/Clients";
 	
 	// Argumentos para irem no pedido
 	var args = {};
@@ -219,6 +222,7 @@ function loginUser()
 	var string_verify = "no_connection";
 	var method = 'GET';
 	var url = "http://192.168.1.67:52144/odata/Accounts(" + user_facebook_id.toString() + "L)";
+	//var url = "http://172.30.57.248:52144/odata/Accounts(" + user_facebook_id.toString() + "L)";
 	
 	// Criar clientes para ir buscar dados à api
 	var client = Titanium.Network.createHTTPClient({
