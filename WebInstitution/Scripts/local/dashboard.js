@@ -43,11 +43,22 @@ $(document).on("click", "#saveSettings", function (e) {
 
     var formData = $(this).closest("form").serializeArray();
 
-    console.log(formData);
-
-    alert("form");
     $.post(
         '/Account/SubmitDetails',
+        formData,
+        function (data) {
+            $("#partial").html(data);
+        });
+
+});
+
+$(document).on("click", "#createAd", function (e) {
+    e.preventDefault();
+
+    var formData = $(this).closest("form").serializeArray();
+
+    $.post(
+        '/Ad/Create',
         formData,
         function (data) {
             $("#partial").html(data);

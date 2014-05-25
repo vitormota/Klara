@@ -7,10 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using WebInstitution.HealthPService;
 using WebInstitution.Models;
+using Resources;
 
 namespace WebInstitution.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
 
         private HealthPService.IHPService mService = new HPServiceClient();
@@ -90,11 +91,11 @@ namespace WebInstitution.Controllers
 
             if (Session["manager"] != null)
             {
-                TempData["msg"] = "already logged";
+                TempData["msg"] = Resources.Resources.ManagerLoginErrorAlreadyLogged;
             }
             else if (result_str == "invalid user" || result_str == "invalid password")
             {
-                TempData["msg"] = "invalid user/pass";
+                TempData["msg"] = Resources.Resources.ManagerLoginErrorInvalid;
             }
             else
             {
@@ -121,12 +122,12 @@ namespace WebInstitution.Controllers
 
             if (Session["manager"] == null)
             {
-                response = "not logged yet";
+                response = Resources.Resources.ManagerLogoutError;
             }
             else
             {
                 Session.Remove("manager");
-                response = "logout done";
+                response = Resources.Resources.ManagerLogoutMsg;
             }
 
             TempData["msg"] = response;

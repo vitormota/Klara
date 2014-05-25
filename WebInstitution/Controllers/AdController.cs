@@ -11,7 +11,7 @@ using System.IO;
 
 namespace WebInstitution.Controllers
 {
-    public class AdController : Controller
+    public class AdController : BaseController
     {
         private HealthPService.IHPService mService = new HPServiceClient();
         

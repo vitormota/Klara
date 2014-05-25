@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-offset-4 col-md-4">
-                <h3>LOGIN</h3>
+                <h3>@Resources.ManagerLoginHeaderName</h3>
                 
                 <!-- Error div -->
                 @if (TempData["msg"] != null)
@@ -25,13 +25,15 @@
 
                 <form method="post" action="../Account/ManagerLogin">
                     <span><img src="~/Content/Images/pictogramas-23.png" /><span class="vertical-hr"></span></span>
-                    @Html.TextBoxFor(model => model.username, new { id = "username", placeholder = "USERNAME" })
+                    @Html.TextBoxFor(model => model.username, new { id = "username", placeholder = Resources.ManagerLoginUserPlaceholder })
+                    @Html.ValidationMessageFor(model => model.username)
                     <span><img src="~/Content/Images/pictogramas-22.png" /><span class="vertical-hr"></span></span>
-                    @Html.PasswordFor(model => model.password, new { id = "password", placeholder = "PASSWORD" })
+                    @Html.PasswordFor(model => model.password, new { id = "password", placeholder = Resources.ManagerLoginPasswordPaceholder })
+                    @Html.ValidationMessageFor(model => model.password)
                     <hr />
                     @Html.CheckBoxFor(model => model.remember)
-                    <label for="remember">Manter-me autenticado</label>
-                    <input type="submit" value="LOGIN" />
+                    <label for="remember">@Resources.ManagerLoginKeepLoggedName</label>
+                    <input type="submit" value="@Resources.ManagerLoginButtonName" />
                 </form>
             </div>
         </div>

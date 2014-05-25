@@ -174,11 +174,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AdDisplayModel.cs" />
     <Compile Include="Models\AdFormModel.cs" />
     <Compile Include="Models\InstitutionModel.cs" />
@@ -346,6 +348,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Binders\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -361,6 +364,10 @@
     <ProjectReference Include="..\HpREST_Bridge\HpREST_Bridge.csproj">
       <Project>{0087976e-b2f1-4163-8574-c070ee07d51c}</Project>
       <Name>HpREST_Bridge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{0360639b-ee14-47de-98bb-6408d89c4b1a}</Project>
+      <Name>Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

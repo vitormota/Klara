@@ -34,7 +34,12 @@
                     <div class="cupon-wrapper" data-id="@ad.id">
                         <div class="row">
                             <div class="col-md-2">
-                                <div class="img"></div>
+                                <div class="img">
+                                    @if (ad.guids != null)
+                                    {
+                                        <img id="ad-photo" src="@Url.Content("~/Resources/Ad_Photos/" + ad.guids[0])" />
+                                    }
+                                </div>
                             </div>
                             <div class="col-md-7">
                                 <div class="details">
