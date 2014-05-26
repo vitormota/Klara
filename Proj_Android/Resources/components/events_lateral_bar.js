@@ -6,6 +6,11 @@ Titanium.include("/user/profile_screen.js");
 Titanium.include("/institutions/show_institutions.js");
 Titanium.include("/menu/main_screen.js");
 
+// Só para teste
+Titanium.include("/test_functionalities/teste.js");
+
+var url_ip = "192.168.1.67";
+
 function EventsLateralBar()
 {
 	this.putListenersEventsLateralBar = function(lateral_bar)
@@ -29,7 +34,8 @@ function EventsLateralBar()
 		// Botao Subscricao
 		lateral_bar.lateral_subscription_view.addEventListener('click', function()
 		{
-			alert("Subscrição!");
+			//alert("Subscrição!");	
+			testeDatas();
 		});
 		
 		// Botao Definicao
@@ -59,7 +65,7 @@ function EventsLateralBar()
 		{
 			var string_verify = "no_connection";
 			var method = 'GET';
-			var url = "http://192.168.1.67:52144/odata/Clients(" + user_id.toString() + ")";
+			var url = "http://" + url_ip + ":52144/odata/Clients(" + user_id.toString() + ")";
 			//var url = "http://172.30.57.248:52144/odata/Clients(" + user_id.toString() + ")";
 			
 			// Criar clientes para ir buscar dados à api
