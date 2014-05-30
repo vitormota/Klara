@@ -120,6 +120,9 @@ namespace HpREST_Bridge
         [OperationContract]
         string GetBankReference();
 
+        [OperationContract]
+        string GetAdsByRule(int offset, int limit, string order_by);
+
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
