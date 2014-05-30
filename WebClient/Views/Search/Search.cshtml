@@ -32,7 +32,7 @@
             <span class="minus-btn"></span>
         </header>
 
-        <div id="slider-range-wrapper" onmouseup="updatePriceFilter()">
+        <div id="slider-range-wrapper" onmouseup="updatePriceFilter()" onmouseout="updatePriceFilter()">
             <div id="slider-range"></div>
             <span id="min-price"></span>
             <span id="max-price"></span>
@@ -58,18 +58,12 @@
 
 </div>
 
+<!-- ADs-->
+
+<div class="row grid-line">
 @for (int i = 0; i < ViewBag.ListAds.Count; i++)
 {
-    if (i == 0)
-    {
-        @:<div class="row grid-line">
-    }
-    else if (Convert.ToDouble(i % columns) == 0)
-    {
-        @:</div>
-    @:<div class="row grid-line">
-    }
-
+    
     <div class="col-md-2 col-md-offset-3 searched-ad">
         <span class="latitude-ad" style="display:none"> @ViewBag.ListAds[i]["latitude_institution"] </span>
         <span class="longitude-ad" style="display:none"> @ViewBag.ListAds[i]["longitude_institution"] </span>
@@ -87,12 +81,36 @@
         <span>@ViewBag.ListAds[i]["name_institution"]</span>
         <span class="add-price">@ViewBag.ListAds[i]["price"] €</span>
     </div>
-
-    if ((i + 1) == ViewBag.ListAds.Count)
-    {
-        @:</div>
-    }
+    
 }
+</div>
+
+<!-- INSTITUTIONs-->
+
+<div class="row grid-line">
+    @for (int i = 0; i < ViewBag.ListInstitution.Count; i++)
+    {
+
+        <div class="col-md-2 col-md-offset-3 searched-institution">
+            <span class="latitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["latitude"] </span>
+            <span class="longitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["longitude"] </span>
+            <a href="/Ad?id=@ViewBag.ListInstitution[i]["id"]">
+                <div class="img-details">
+                    <div class="img"></div>
+                    <div class="hidden-details">
+                        <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
+                        <hr />
+                        <span>Website @ViewBag.ListInstitution[i]["website"]%</span>
+                    </div>
+                </div>
+            </a>
+            <span class="cupn-service">@ViewBag.ListInstitution[i]["name"]</span>
+            <span>@ViewBag.ListInstitution[i]["address"]</span>
+            <span>@ViewBag.ListInstitution[i]["city"]</span>
+        </div>
+
+    }
+</div>
 
 
 @Scripts.Render("~/Scripts/local/search.js")
