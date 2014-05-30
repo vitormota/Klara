@@ -19,6 +19,7 @@ namespace WebClient_.Controllers
         {
             List<Dictionary<string, string>> list_ads = AdModel.SearchAd(textSearch);
             ViewBag.ListAds = list_ads;
+            ViewBag.ListInstitution = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(mService.SearchInstitution(textSearch));
             return View();
         }
 	}
