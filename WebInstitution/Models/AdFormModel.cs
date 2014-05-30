@@ -52,5 +52,7 @@ namespace WebInstitution.Models
         [Required(ErrorMessageResourceType = typeof(Resources.Resources), ErrorMessageResourceName = "AdTotalCuponsNameRequired")]
         [Range(1, Int32.MaxValue)]
         public int total_cupons { get; set; }
+
+        public HttpPostedFileBase photo { get; set; }
     }
 }

@@ -181,6 +181,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CultureHelper.cs" />
+    <Compile Include="Helpers\ImgurUpload.cs" />
     <Compile Include="Models\AdDisplayModel.cs" />
     <Compile Include="Models\AdFormModel.cs" />
     <Compile Include="Models\InstitutionModel.cs" />
