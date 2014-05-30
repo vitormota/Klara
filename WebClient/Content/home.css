@@ -52,8 +52,8 @@
 }
 
 .slider-nav__item {
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
   float: left;
   clear: none;
   display: block;
@@ -84,7 +84,7 @@
 
 .slides li .service-image {
   width: 205px;
-  height: 230px;
+  height: 120px;
   background-color: #d96b64;
   border-radius: 4px;
 }
@@ -102,8 +102,8 @@
 }
 
 .slides {
-  padding-top: 3.125em;
-  padding-bottom: 3.125em;
+  padding-top: 2em;
+  padding-bottom: 2em;
   -webkit-margin-before: 0em;
   -webkit-margin-after: 0em;
   -webkit-margin-start: -20px;

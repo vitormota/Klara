@@ -22,6 +22,12 @@ p {
 
 /******/
 
+header .navbar-header a{
+	position: relative;
+	display: block;
+	z-index: 1000;
+}
+
 header.navbar {
 	background-color: #D86A62;
 	padding: 4.4em 0 2.1em 0;
@@ -47,6 +53,7 @@ header.navbar .navbar-nav > li > a:hover {
 
 header .navbar-collapse {
 	position: relative;
+	z-index: 1;
 }
 
 header.navbar .navbar-right {
@@ -123,4 +130,8 @@ footer p {
 }
 .search-box #textbox:-ms-input-placeholder { /* Internet Explorer 10+ */
     text-align: center;
+}
+
+.pull-top {
+	margin-top: 4.4em;
 }

@@ -25,6 +25,10 @@ h5 {
 }
 
 #buy-btn {
+	margin-left: 1em;
+}
+
+#buy-btn, #subscribe-btn {
 	max-width: 64px;
 	height: auto;
 	float: right;

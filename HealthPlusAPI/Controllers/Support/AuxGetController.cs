@@ -109,9 +109,12 @@ namespace HealthPlusAPI.Controllers.Support
         /// <param name="ad_id">The ad id</param>
         /// <returns></returns>
         [Route("odata/Ads({ad_id})")]
-        public dynamic getAdDetails(int ad_id)
+        public KeyValuePair<Ad, Institution> getAdDetails(int ad_id)
         {
-            return (db.Ad.Where(Ad => Ad.id == ad_id).Single());
+            Ad ad = db.Ad.Where(Ad => Ad.id == ad_id).Single();
+            Institution ins = db.Institution.Where(Institution => Institution.id.Equals( ad.institution_id)).Single();
+
+            return new KeyValuePair<Ad,Institution>(ad, ins);
         }
     }
 

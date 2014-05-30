@@ -1,4 +1,12 @@
-﻿$(document).ready(function () {
+﻿var lowerLimit = 0;
+
+function addResultsContent() {
+    $.get("Home/Ad" + lowerLimit, function (data) {
+
+    });
+}
+
+$(document).ready(function () {
     $('.slider').glide({
         autoplay: 5000,
         arrows: 'true',

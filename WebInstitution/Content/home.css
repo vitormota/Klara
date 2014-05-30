@@ -76,35 +76,35 @@ form span .vertical-hr {
 }
 
 form #username::-webkit-input-placeholder {
-   color: white;
+   color: #D86A62;
 }
 
 form #username:-moz-placeholder { /* Firefox 18- */
-   color: white;  
+   color: #D86A62;  
 }
 
 form #username::-moz-placeholder {  /* Firefox 19+ */
-   color: white;  
+   color: #D86A62; 
 }
 
 form #username:-ms-input-placeholder {  
-   color: white;  
+   color: #D86A62;
 }
 
 form #password::-webkit-input-placeholder {
-   color: white;
+   color: #D86A62;
 }
 
 form #password:-moz-placeholder { /* Firefox 18- */
-   color: white;  
+   color: #D86A62;  
 }
 
 form #password::-moz-placeholder {  /* Firefox 19+ */
-   color: white;  
+  color: #D86A62;
 }
 
 form #password:-ms-input-placeholder {  
-   color: white;  
+   color: #D86A62;
 }
 
 form input[type="checkbox"] {
@@ -134,4 +134,16 @@ form input[type="submit"]:hover {
 	background-color: #D86A62;
 }
 
+
+form span.field-validation-valid {
+	margin-left: 10%;
+	margin-top: 0.5em;
+	width: 80%;
+	background-color: #ABA9A4;
+	height: 2.1em;
+	display: block;
+	border: 1px solid #d98673;
+	border-right: 0;
+	height: 1.5em;
+}
 

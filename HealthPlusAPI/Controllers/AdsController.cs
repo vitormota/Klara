@@ -43,7 +43,7 @@ namespace HealthPlusAPI.Controllers
 
         // GET odata/Ads(5)
         [Queryable]
-        public IQueryable<Ad> GetAd([FromODataUri] string key)
+        public KeyValuePair<IQueryable<Ad>,Institution> GetAd([FromODataUri] string key)
         {
             int Distance = int.MaxValue/3;
 
@@ -70,10 +70,12 @@ namespace HealthPlusAPI.Controllers
             List<Ad> searchedAds01L = searchedAds01.ToList<Ad>();
             IQueryable<Ad> searchedAds = null;
             double[] myLatLong = getMyLat_Long();
+
+            Institution ins = new Institution();
             
             foreach(Ad ad in searchedAds01L)
             {
-                Institution ins = db.Institution.Where(Institution => Institution.id.Equals( ad.institution_id)).ToList<Institution>()[0];
+                ins = db.Institution.Where(Institution => Institution.id.Equals( ad.institution_id)).ToList<Institution>()[0];
                 
                 double dist = CalculateDistanceGPSCoordinates(Convert.ToDouble(ins.latitude), Convert.ToDouble(ins.longitude), myLatLong[0], myLatLong[1]);
                 if (Distance >= dist)
@@ -89,10 +91,11 @@ namespace HealthPlusAPI.Controllers
                 }
             }
             
-            if (searchedAds == null)
-                return db.Ad.Where(Ad => Ad.id.Equals(-1));
-            
-            return searchedAds;
+            if (searchedAds == null) {
+                return new KeyValuePair<IQueryable<Ad>,Institution>(db.Ad.Where(Ad => Ad.id.Equals(-1)), ins);
+            }
+
+            return new KeyValuePair<IQueryable<Ad>, Institution>(searchedAds, ins);
 
             /*
             return db.Ad.Where(Ad => Ad.name.Contains(key)).Concat( 

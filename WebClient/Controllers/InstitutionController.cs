@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Device.Location;
 using WebClient_.HealthPService;
 using System.Net.Mail;
+using WebClient_.Models;
 
 namespace WebClient_.Controllers
 {
@@ -15,9 +16,12 @@ namespace WebClient_.Controllers
         private HealthPService.IHPService mService = new HPServiceClient();
         //
         // GET: /Institution/
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View();
+            string json_inst = mService.GetInstitution(id);
+            InstitutionModel institution = JsonConvert.DeserializeObject<InstitutionModel>(json_inst);
+
+            return View(institution);
         }
 
         [HttpPost]

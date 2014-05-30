@@ -24,7 +24,11 @@ namespace WebClient_.Controllers
             }
 
             string json_ad = mService.GetAdById((int)id);
-            Ad ad = JsonConvert.DeserializeObject<Ad>(json_ad);
+            KeyValuePair<Ad, InstitutionModel> adResult = JsonConvert.DeserializeObject<KeyValuePair<Ad, InstitutionModel>>(json_ad);
+
+            Ad ad = adResult.Key;
+            ad.institution_name = adResult.Value.name;
+            ad.local = adResult.Value.city;
 
             return View(ad);
         }

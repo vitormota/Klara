@@ -7,3 +7,11 @@
             alert("ERROR: Adding to cart failed.")
         });
 }
+
+$(document).ready(function () {
+    $("#subscribe-btn").click(function () {
+        $.post("../Ad/SubscribeAd", function (data) {
+            alert(data);
+        });
+    });
+});
