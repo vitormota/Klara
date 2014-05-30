@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -103,10 +105,10 @@ namespace HealthPlusAPI.Controllers.Support
         }
 
         /// <summary>
-        /// Get ad details by its id
+        /// Get ads details by its id
         /// NOTE: Moved here because someone rewritten default action on ads controller
         /// </summary>
-        /// <param name="ad_id">The ad id</param>
+        /// <param name="ad_id">The ads id</param>
         /// <returns></returns>
         [Route("odata/Ads({ad_id})")]
         public KeyValuePair<Ad, Institution> getAdDetails(int ad_id)
@@ -115,6 +117,36 @@ namespace HealthPlusAPI.Controllers.Support
             Institution ins = db.Institution.Where(Institution => Institution.id.Equals( ad.institution_id)).Single();
 
             return new KeyValuePair<Ad,Institution>(ad, ins);
+        }
+
+        /// <summary>
+        /// Dynamic get for adds, retrieved portions of ads table, specifing what to retrieve
+        /// by limit, offset and order by column
+        /// </summary>
+        /// <param name="lower_bound">Meaning Sql offset from the result set</param>
+        /// <param name="upper_bound">Meaning Sql limit of the result set</param>
+        /// <param name="on">Column name in which data should be ordered specifying also type of order (DESC/ASC)
+        /// using the following model "name-otype" e.g. "id-desc", defaults to desc</param>
+        /// <returns></returns>
+        [Route("odata/Ads/{lower_bound:int}/{upper_bound:int}/{on}")]
+        public dynamic getAdsByRule(int lower_bound, int upper_bound,string on)
+        {
+            DbSet<Ad> ads = db.Ad;
+            DbSet<Institution> institutions = db.Institution;
+            string[] criteria = on.Split('-');
+            string order_column = criteria[0];
+            string order_criteria = "DESC";
+            if (criteria.Length > 1)
+            {
+                order_criteria = criteria[1];
+            }
+            var res = ads.SqlQuery("SELECT * FROM Ad" +
+                " INNER JOIN Institution AS inst" +
+                " ON Ad.institution_id = inst.id" +
+                " ORDER BY Ad." + order_column + " "+ order_criteria +
+                " LIMIT " + lower_bound + "," + upper_bound).AsQueryable();
+
+            return res;
         }
     }
 

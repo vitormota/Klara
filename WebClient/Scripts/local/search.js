@@ -22,7 +22,7 @@ $(document).ready(function () {
       range: true,
       min: 0,
       max: 500,
-      values: [ 75, 300 ],
+      values: [ 0, 500 ],
       slide: function( event, ui ) {
         $( "#min-price" ).html(ui.values[ 0 ]);
         $( "#max-price" ).html(ui.values[ 1 ]);
