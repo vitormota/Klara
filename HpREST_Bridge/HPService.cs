@@ -284,6 +284,11 @@ namespace HpREST_Bridge
             return response;
         }
 
+        public string GetAdsByRule(int offset, int limit, string order_by)
+        {
+            return RestUtility.HttpGet(base_url + ads_controller + "/"+offset+"/"+limit+"/"+order_by);
+        }
+
         /// <summary>
         /// Get institution by id
         /// </summary>
