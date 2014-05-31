@@ -228,6 +228,9 @@
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReferenceBank\Reference.cs" />
+    <Compile Include="Models\searchable_ad.cs">
+      <DependentUpon>HealthPlus.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Subscribable.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>

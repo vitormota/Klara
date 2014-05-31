@@ -134,7 +134,7 @@
                         @Html.Label(Resources.AdImageName)
                     </div>
                     <div class="col-md-8">
-                        <input name="photo" type="file" />
+                        @Html.TextBoxFor(model => model.photo, new { type = "file"})
                     </div>
                 </div>
 

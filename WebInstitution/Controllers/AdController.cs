@@ -81,9 +81,6 @@ namespace WebInstitution.Controllers
 
             SessionModel session = (SessionModel)Session["manager"];
 
-            HttpPostedFileBase photo = Request.Files["photo"];
-            string guid = System.Guid.NewGuid().ToString();
-
             if (session == null)
             {
                 return View();
@@ -110,18 +107,21 @@ namespace WebInstitution.Controllers
 
                 AdDisplayModel adm = JsonConvert.DeserializeObject<AdDisplayModel>(response);
 
-                if (photo.ContentLength > 0)
+                if (ad.photo.ContentLength > 0)
                 {
-                    var path = Path.Combine(Server.MapPath("~/Resources/Ad_Photos"), guid + ".png");
-                    photo.SaveAs(path);
 
-                    System.Drawing.Image img = System.Drawing.Image.FromStream(photo.InputStream);
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(ad.photo.InputStream);
+                    string url = Helpers.ImgurUpload.UploadImage(img);
+
+                    //var path = Path.Combine(Server.MapPath("~/Resources/Ad_Photos"), guid + ".png");
+                    //photo.SaveAs(path);
+
 
                     // save image locally
-                    img.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+                    //img.Save(path, System.Drawing.Imaging.ImageFormat.Png);
 
                     //create image ref in DB
-                    mService.InsertAdPhoto(adm.id, guid);
+                    mService.InsertAdPhoto(adm.id, url);
 
                     // upload image to API - deprecated
                     //MemoryStream stream = new MemoryStream();

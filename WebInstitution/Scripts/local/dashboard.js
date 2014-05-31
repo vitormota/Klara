@@ -54,15 +54,18 @@ $(document).on("click", "#saveSettings", function (e) {
 
 $(document).on("click", "#createAd", function (e) {
     e.preventDefault();
+    alert("here");
 
-    var formData = $(this).closest("form").serializeArray();
+    $(this).closest("form").submit();
+
+   /* var formData = $(this).closest("form").serializeArray();
 
     $.post(
         '/Ad/Create',
         formData,
         function (data) {
             $("#partial").html(data);
-        });
+        });*/
 
 });
 
