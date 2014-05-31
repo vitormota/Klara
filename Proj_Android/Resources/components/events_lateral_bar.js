@@ -5,6 +5,8 @@ Titanium.include("lateral_bar.js");
 Titanium.include("/user/profile_screen.js");
 Titanium.include("/institutions/show_institutions.js");
 Titanium.include("/menu/main_screen.js");
+Titanium.include("/search/search.js");
+Titanium.include("/facebook/init_facebook.js");
 
 // Só para teste
 Titanium.include("/test_functionalities/teste.js");
@@ -28,20 +30,10 @@ function EventsLateralBar()
 		// Botao Pesquisa
 		lateral_bar.lateral_search_view.addEventListener('click', function()
 		{
-			alert("Pesquisa!");
-		});
-		
-		// Botao Subscricao
-		lateral_bar.lateral_subscription_view.addEventListener('click', function()
-		{
-			//alert("Subscrição!");	
-			testeDatas();
-		});
-		
-		// Botao Definicao
-		lateral_bar.lateral_definition_view.addEventListener('click', function()
-		{
-			alert("Definição!");
+			var search_screen = new SearchScreen();
+			search_screen.constructorScreen();
+			
+			search_screen.showWindow();
 		});
 		
 		// Botao Instituicao
@@ -54,51 +46,68 @@ function EventsLateralBar()
 			institutions_screen.putEventListenersInstitutionsScreen();
 		});
 		
-		// Botao Registar
-		lateral_bar.lateral_register_view.addEventListener('click', function()
+		if(fb.loggedIn)
 		{
-			alert("Registar!");
-		});
-		
-		// Botao Perfil
-		lateral_bar.lateral_perfil_view.addEventListener('click', function()
-		{
-			var string_verify = "no_connection";
-			var method = 'GET';
-			var url = "http://" + url_ip + ":52144/odata/Clients(" + user_id.toString() + ")";
-			//var url = "http://172.30.57.248:52144/odata/Clients(" + user_id.toString() + ")";
-			
-			// Criar clientes para ir buscar dados à api
-			var client = Titanium.Network.createHTTPClient({
-				onload: function()
-				{
-					while(string_verify == "no_connection")
-					{
-						string_verify = JSON.parse(this.responseText);
-					}
-					
-					var profile_screen = new ProfileScreen(string_verify);
-					profile_screen.constructorScreen();
-			
-					profile_screen.showWindow();
-					profile_screen.putEventListenersProfileScreen();
-				},
-				onerror: function()
-				{
-					var current_activity = Titanium.Android.currentActivity;
-		     		current_activity.finish(); 
-				},
-				timeout: 10000 // Tempo para fazer pedido
+			// Botao Subscricao
+			lateral_bar.lateral_subscription_view.addEventListener('click', function()
+			{
+				//alert("Subscrição!");	
+				testeDatas();
 			});
-			
-			client.open(method, url, false);
-			client.send();
-		});
+		
+			// Botao Perfil
+			lateral_bar.lateral_perfil_view.addEventListener('click', function()
+			{
+				var string_verify = "no_connection";
+				var method = 'GET';
+				var url = "http://" + url_ip + ":52144/odata/Clients(" + user_id.toString() + ")";
+				
+				// Criar clientes para ir buscar dados à api
+				var client = Titanium.Network.createHTTPClient({
+					onload: function()
+					{
+						while(string_verify == "no_connection")
+						{
+							string_verify = JSON.parse(this.responseText);
+						}
+						
+						var profile_screen = new ProfileScreen(string_verify);
+						profile_screen.constructorScreen();
+				
+						profile_screen.showWindow();
+						profile_screen.putEventListenersProfileScreen();
+					},
+					onerror: function()
+					{
+						var current_activity = Titanium.Android.currentActivity;
+			     		current_activity.finish(); 
+					},
+					timeout: 10000 // Tempo para fazer pedido
+				});
+				
+				client.open(method, url, false);
+				client.send();
+			});
+		}
 		
 		// Botao Qr-code
 		lateral_bar.lateral_qr_code_view.addEventListener('click', function()
 		{
 			alert("Qr-Code!");
+		});
+		
+		// Botao Logout
+		lateral_bar.lateral_logout_view.addEventListener('click', function()
+		{
+			if(fb.loggedIn)
+			{
+				fb.logout();
+			}
+			else
+			{
+				var current_activity = Titanium.Android.currentActivity;
+	     		current_activity.finish(); 
+			}
 		});
 	};
 }
