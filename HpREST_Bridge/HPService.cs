@@ -34,7 +34,6 @@ namespace HpREST_Bridge
         private const string subscriptions_controller = "odata/Subscriptions";
         private const string managers_controller = "odata/Managers";
         private const string cupons_controller = "odata/Cupon";
-        private const string photos_controller = "odata/Photos";
         /// <summary>
         /// Controllers internal actions definitions
         /// </summary> 
@@ -422,21 +421,6 @@ namespace HpREST_Bridge
             return return_str;
         }
 
-        public string InsertAdPhoto(int ad_id, string photo_guid)
-        {
-            string return_str = null;
-
-            Dictionary<string, string> json_str_double = new Dictionary<string, string>();
-            json_str_double.Add("ad_id", ad_id.ToString());
-            json_str_double.Add("photo_guid", photo_guid);
-
-            string postJSON = RestUtility.HttpPostJSON(base_url + photos_controller + "(" + 0 + ")/InsertAdPhoto", JsonConvert.SerializeObject(json_str_double));
-            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
-            return_str = resultDict["value"].ToString();
-
-            return return_str;
-        }
-
         public string GetActiveAds(int institution_id)
         {
             string return_str = null;
@@ -473,20 +457,6 @@ namespace HpREST_Bridge
             data.Add("ad_id", ad_id.ToString());
 
             string postJSON = RestUtility.HttpPostJSON(base_url + ads_controller + "/DeleteAd", JsonConvert.SerializeObject(data));
-            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
-            return_str = resultDict["value"].ToString();
-
-            return return_str;
-        }
-
-        public string GetAdPhotos(List<int> ad_ids)
-        {
-            string return_str = null;
-
-            Dictionary<string, string> json_str_double = new Dictionary<string, string>();
-            json_str_double.Add("ad_ids", JsonConvert.SerializeObject(ad_ids).ToString());
-
-            string postJSON = RestUtility.HttpPostJSON(base_url + photos_controller + "/GetAdPhotos", JsonConvert.SerializeObject(json_str_double));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
             return_str = resultDict["value"].ToString();
 

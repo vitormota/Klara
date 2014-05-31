@@ -33,14 +33,7 @@
           <Property Name="remaining_cupons" Type="int" Nullable="false" />
           <Property Name="buyed_cupons" Type="int" Nullable="false" />
           <Property Name="state" Type="enum" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Ad_Photo_maps">
-          <Key>
-            <PropertyRef Name="ad_id" />
-            <PropertyRef Name="photo_id" />
-          </Key>
-          <Property Name="ad_id" Type="int" Nullable="false" />
-          <Property Name="photo_id" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="img_url" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -90,14 +83,7 @@
           <Property Name="phone_number" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fax" Type="varchar" MaxLength="50" />
           <Property Name="advertise" Type="bool" />
-        </EntityType>
-        <EntityType Name="Institution_Photo_maps">
-          <Key>
-            <PropertyRef Name="institution_id" />
-            <PropertyRef Name="photo_id" />
-          </Key>
-          <Property Name="institution_id" Type="int" Nullable="false" />
-          <Property Name="photo_id" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="img_url" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -114,12 +100,6 @@
           </Key>
           <Property Name="manager_id" Type="int" Nullable="false" />
           <Property Name="institution_id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Photo">
-          <Key>
-            <PropertyRef Name="guid" />
-          </Key>
-          <Property Name="guid" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="Subscribable">
           <Key>
@@ -161,15 +141,12 @@ warning 6002: The table/view 'def.robinfoo_lgp.searchable_ad' does not have a pr
         <EntityContainer Name="robinfoo_lgpModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Ad" EntityType="Self.Ad" Schema="robinfoo_lgp" store:Type="Tables" />
-          <EntitySet Name="Ad_Photo_maps" EntityType="Self.Ad_Photo_maps" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Cupon" EntityType="Self.Cupon" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Inst_Group" EntityType="Self.Inst_Group" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Institution" EntityType="Self.Institution" Schema="robinfoo_lgp" store:Type="Tables" />
-          <EntitySet Name="Institution_Photo_maps" EntityType="Self.Institution_Photo_maps" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Manager" EntityType="Self.Manager" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Manager_Institution_maps" EntityType="Self.Manager_Institution_maps" Schema="robinfoo_lgp" store:Type="Tables" />
-          <EntitySet Name="Photo" EntityType="Self.Photo" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Subscribable" EntityType="Self.Subscribable" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="searchable_ad" EntityType="Self.searchable_ad" store:Type="Views" store:Schema="robinfoo_lgp">
@@ -218,6 +195,7 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           <Property Name="remaining_cupons" Type="Int32" Nullable="false" />
           <Property Name="buyed_cupons" Type="Int32" Nullable="false" />
           <Property Name="state" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="img_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -267,6 +245,7 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="advertise" Type="Boolean" />
+          <Property Name="img_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -309,33 +288,8 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           <EntitySet Name="Manager_Institution_maps" EntityType="Self.Manager_Institution_maps" />
           <EntitySet Name="Subscribable" EntityType="Self.Subscribable" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" />
-          <EntitySet Name="Ad_Photo_maps" EntityType="robinfoo_lgpModel.Ad_Photo_maps" />
-          <EntitySet Name="Institution_Photo_maps" EntityType="robinfoo_lgpModel.Institution_Photo_maps" />
-          <EntitySet Name="Photo" EntityType="robinfoo_lgpModel.Photo" />
           <EntitySet Name="searchable_ad" EntityType="robinfoo_lgpModel.searchable_ad" />
         </EntityContainer>
-        <EntityType Name="Ad_Photo_maps">
-          <Key>
-            <PropertyRef Name="ad_id" />
-            <PropertyRef Name="photo_id" />
-          </Key>
-          <Property Name="ad_id" Type="Int32" Nullable="false" />
-          <Property Name="photo_id" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Institution_Photo_maps">
-          <Key>
-            <PropertyRef Name="institution_id" />
-            <PropertyRef Name="photo_id" />
-          </Key>
-          <Property Name="institution_id" Type="Int32" Nullable="false" />
-          <Property Name="photo_id" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Photo">
-          <Key>
-            <PropertyRef Name="guid" />
-          </Key>
-          <Property Name="guid" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="searchable_ad">
           <Key>
             <PropertyRef Name="name" />
@@ -378,6 +332,7 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           <EntitySetMapping Name="Ad">
             <EntityTypeMapping TypeName="robinfoo_lgpModel.Ad">
               <MappingFragment StoreEntitySet="Ad">
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="institution_id" ColumnName="institution_id" />
@@ -432,6 +387,7 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           <EntitySetMapping Name="Institution">
             <EntityTypeMapping TypeName="robinfoo_lgpModel.Institution">
               <MappingFragment StoreEntitySet="Institution">
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
                 <ScalarProperty Name="advertise" ColumnName="advertise" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
@@ -476,29 +432,6 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
               <MappingFragment StoreEntitySet="Subscription">
                 <ScalarProperty Name="subscribable_id" ColumnName="subscribable_id" />
                 <ScalarProperty Name="client_id" ColumnName="client_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Ad_Photo_maps">
-            <EntityTypeMapping TypeName="robinfoo_lgpModel.Ad_Photo_maps">
-              <MappingFragment StoreEntitySet="Ad_Photo_maps">
-                <ScalarProperty Name="photo_id" ColumnName="photo_id" />
-                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Institution_Photo_maps">
-            <EntityTypeMapping TypeName="robinfoo_lgpModel.Institution_Photo_maps">
-              <MappingFragment StoreEntitySet="Institution_Photo_maps">
-                <ScalarProperty Name="photo_id" ColumnName="photo_id" />
-                <ScalarProperty Name="institution_id" ColumnName="institution_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Photo">
-            <EntityTypeMapping TypeName="robinfoo_lgpModel.Photo">
-              <MappingFragment StoreEntitySet="Photo">
-                <ScalarProperty Name="guid" ColumnName="guid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

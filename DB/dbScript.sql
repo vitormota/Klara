@@ -80,6 +80,7 @@ create table Institution (
 	phone_number varchar(50) not null,
 	fax varchar(50),
 	advertise boolean DEFAULT 0,
+	img_url varchar(255) not null,
 	foreign key (id) references Subscribable(id) on delete cascade,
 	foreign key (group_id) references Inst_Group(id) on delete cascade
 );
@@ -106,6 +107,7 @@ create table Ad (
 	remaining_cupons int not null,
 	buyed_cupons int not null,
 	state enum('deleted', 'active', 'pending') default 'pending',
+	img_url varchar(255) not null,
 	foreign key (id) references Subscribable(id) on delete cascade,
 	foreign key (institution_id) references Institution(id) on delete cascade
 );
@@ -131,25 +133,4 @@ create table Subscription (
 	foreign key (subscribable_id) references Subscribable(id) on delete cascade,
 	foreign key (client_id) references Client(id) on delete cascade,
 	primary key (subscribable_id, client_id)
-);
-
-
-create table Photo (
-	guid varchar(255) primary key
-);
-
-create table Ad_Photo_maps (
-	ad_id int,
-	photo_id varchar(255),
-	foreign key (ad_id) references Ad(id) on delete cascade,
-	foreign key (photo_id) references Photo(id) on delete cascade,
-	primary key (ad_id, photo_id)
-);
-
-create table Institution_Photo_maps (
-	institution_id int,
-	photo_id varchar(255),
-	foreign key (institution_id) references Institution(id) on delete cascade,
-	foreign key (photo_id) references Photo(id) on delete cascade,
-	primary key (institution_id, photo_id)
 );

@@ -86,4 +86,5 @@ $(document).on("click", "#importAd", function (e) {
     adForm.find("#price").val(price);
     adForm.find("#previous_price").val(Math.round(prevPrice));
     adForm.find("#description").val(template.find("#ad_description").val());
+    adForm.find("#img_url").val(template.find("#ad_img_url").val());
 });

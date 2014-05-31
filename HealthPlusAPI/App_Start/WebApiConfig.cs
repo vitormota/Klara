@@ -33,7 +33,6 @@ namespace HealthPlusAPI
             builder.EntitySet<Subscription>("Subscriptions");
             builder.EntitySet<Institution>("Institutions");
             builder.EntitySet<Manager>("Managers");
-            builder.EntitySet<Photo>("Photos");
 
             ActionConfiguration getClientPurchases = builder.Entity<Cupon>().Action("GetPurchases");
             getClientPurchases.Returns<string>();
@@ -111,18 +110,6 @@ namespace HealthPlusAPI
             ActionConfiguration advertiseInstitution = builder.Entity<Institution>().Collection.Action("Advertise");
             advertiseInstitution.Parameter<string>("institution_id");
             advertiseInstitution.Returns<string>();
-
-            // Inserir fotografia para anúncio
-            ActionConfiguration insertAdPhoto = builder.Entity<Photo>().Action("InsertAdPhoto");
-            insertAdPhoto.Parameter<string>("ad_id");
-            insertAdPhoto.Parameter<string>("photo_guid");
-            insertAdPhoto.Parameter<string>("data_stream");
-            insertAdPhoto.Returns<string>();
-
-            // Obter fotografias de anúncios
-            ActionConfiguration getAdPhotos = builder.Entity<Photo>().Collection.Action("GetAdPhotos");
-            getAdPhotos.Parameter<string>("ad_ids");
-            getAdPhotos.Returns<string>();
 
             // Obter anúncios ativos
             ActionConfiguration activeAds = builder.Entity<Ad>().Collection.Action("GetActiveAds");

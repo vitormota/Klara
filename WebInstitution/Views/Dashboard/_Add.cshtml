@@ -16,7 +16,9 @@
                 <li>
                     <div class="row">
                         <div class="col-md-2">
-                            <div class="img"></div>
+                            <div class="img">
+                                <img id="ad-photo" src="@ad.img_url" width="60" />
+                            </div>
                         </div>
                         <div class="col-md-7">
                             <div class="details">
@@ -26,6 +28,7 @@
                                 @Html.HiddenFor(model => ad.price)
                                 @Html.HiddenFor(model => ad.discount)
                                 @Html.HiddenFor(model => ad.description)
+                                @Html.HiddenFor(model => ad.img_url)
                                 <span>@ad.name</span>
                                 <span>@ad.service</span>
                                 <span>@ad.buyed_cupons</span>
@@ -56,6 +59,9 @@
 
         <div class="col-md-7">
             @using (Html.BeginForm("Create", "Ad", FormMethod.Post, new { enctype = "multipart/form-data", id = "newAdForm" })) {
+                
+                @Html.HiddenFor(model => model.img_url)
+                
                 <div class="form-group clearfix row">
                     <div class="col-md-4">
                         @Html.LabelFor(model => model.service)

@@ -300,9 +300,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <None Include="Service References\HealthPService\Arrays.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\HealthPService\configuration91.svcinfo" />
     <None Include="Service References\HealthPService\configuration.svcinfo" />
     <None Include="Service References\HealthPService\Reference.svcmap">

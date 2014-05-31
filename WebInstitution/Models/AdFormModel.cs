@@ -53,6 +53,8 @@ namespace WebInstitution.Models
         [Range(1, Int32.MaxValue)]
         public int total_cupons { get; set; }
 
+        public string img_url { get; set; }
+
         public HttpPostedFileBase photo { get; set; }
     }
 }
