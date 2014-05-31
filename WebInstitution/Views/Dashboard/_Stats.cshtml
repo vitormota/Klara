@@ -1,1 +1,22 @@
-﻿stats
+﻿@{
+    ViewBag.Title = "Index";
+    var session = (WebInstitution.Models.SessionModel)Session["manager"];
+}
+
+<div>
+    <select id="culture">
+        <option value="en-US">EN-US</option>
+        <option value="pt">PT</option>
+    </select>
+
+    <button id="changeLang">change</button>
+</div>
+
+<div>
+    @Html.DropDownList("institutions", session.getInstitutionsList())
+    <button id="switchInstitution">switch</button>       
+</div>
+
+<div>
+    @Html.ActionLink("logout", "ManagerLogout", "Account")
+</div>

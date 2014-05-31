@@ -13,12 +13,39 @@ function initialize() {
 }
 
 
-$(document).on("click","a[data-ajax='true']", function(e){
+$(document).on("click", "a[data-ajax='true']", function (e) {
     e.preventDefault();
-    $($(this).attr("data-ajax-update")).load(this.href, function() {
-    	initialize();
+    $($(this).attr("data-ajax-update")).load(this.href, function () {
+        initialize();
     });
-    
+
+});
+
+
+$(document).on("click", "#changeLang", function (e) {
+    e.preventDefault();
+
+    var cult = $("#culture :selected").val();
+
+    $.post(
+        '/Home/SetCulture',
+        { culture: cult },
+        function (data) {
+            location.reload();
+        });
+});
+
+$(document).on("click", "#switchInstitution", function (e) {
+    e.preventDefault();
+
+    var inst = $("#institutions :selected").val();
+
+    $.post(
+        '/Account/SwitchInstitution',
+        { institution: inst },
+        function (data) {
+            location.reload();
+        });
 });
 
 $(document).on("click", "#deleteAd", function (e) {
