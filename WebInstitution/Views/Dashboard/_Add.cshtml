@@ -1,5 +1,9 @@
 ﻿@model WebInstitution.Models.AdFormModel
 
+@{
+    var prevAds = (List<WebInstitution.Models.AdDisplayModel>)ViewData["prev_ads"];
+}
+
 <div class="col-md-12 col-xs-12 clearfix">
     <div id="add">
         <img src="~/Content/Images/pictogramas-08.png" />
@@ -7,6 +11,8 @@
     <div id="add-inputs" class="row">
         <div class="col-md-5">
             <ul id="last-cupons">
+                @foreach (var ad in prevAds)
+                {
                 <li>
                     <div class="row">
                         <div class="col-md-2">
@@ -14,46 +20,42 @@
                         </div>
                         <div class="col-md-7">
                             <div class="details">
-                                <span>Consulta Ortopédica</span>
-                                <span>Porto</span>
-                                <span>Porto</span>
-                                <span>15-05-2014</span>
+                                @Html.HiddenFor(model => ad.name)
+                                @Html.HiddenFor(model => ad.service)
+                                @Html.HiddenFor(model => ad.specialty)
+                                @Html.HiddenFor(model => ad.price)
+                                @Html.HiddenFor(model => ad.discount)
+                                @Html.HiddenFor(model => ad.description)
+                                <span>@ad.name</span>
+                                <span>@ad.service</span>
+                                <span>@ad.buyed_cupons</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="price">
-                                <span>35€</span>
+                                <span>@ad.price €</span>
+                            </div>
+                            <button id="importAd">Import</button>
+                        </div>
+                    </div>
+
+                    @if (!ad.Equals(prevAds.Last()))
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr />
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <hr />
-                        </div>
-                    </div>
+                    }
+                    
                 </li>
-                <li class="row">
-                    <div class="col-md-2">
-                        <div class="img"></div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="details">
-                            <span>Consulta Ortopédica</span>
-                            <span>Hospital 44</span>
-                            <span>Porto</span>
-                            <span>15-05-2014</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="price">
-                            <span>35€</span>
-                        </div>
-                    </div>
-                </li>
+                }
+                
             </ul>
         </div>
+
         <div class="col-md-7">
-            @using (Html.BeginForm("Create", "Ad", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            @using (Html.BeginForm("Create", "Ad", FormMethod.Post, new { enctype = "multipart/form-data", id = "newAdForm" })) {
                 <div class="form-group clearfix row">
                     <div class="col-md-4">
                         @Html.LabelFor(model => model.service)

@@ -19,7 +19,7 @@ namespace WebInstitution.Controllers
         // GET: /Ad/
         public ActionResult Index()
         {
-            return View();
+            return View(); 
         }
 
         //
@@ -102,7 +102,7 @@ namespace WebInstitution.Controllers
                     new JProperty("price", ad.price.ToString()), // decimals must have quotes !!
                     new JProperty("discount", Math.Round(100 * ((ad.previous_price - ad.price) / ad.previous_price)).ToString()),
                     new JProperty("remaining_cupons", ad.total_cupons),
-                    new JProperty("buyed_cupons", ad.total_cupons),
+                    new JProperty("buyed_cupons", 0),
                     new JProperty("state", "pending")
                     );
 

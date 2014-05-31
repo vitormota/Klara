@@ -28,8 +28,8 @@
           <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="price" Type="decimal" Precision="6" Scale="2" Nullable="false" />
           <Property Name="discount" Type="float" />
-          <Property Name="start_time" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="end_time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="start_time" Type="date" Nullable="false" />
+          <Property Name="end_time" Type="date" Nullable="false" />
           <Property Name="remaining_cupons" Type="int" Nullable="false" />
           <Property Name="buyed_cupons" Type="int" Nullable="false" />
           <Property Name="state" Type="enum" Nullable="false" />
@@ -89,6 +89,7 @@
           <Property Name="website" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="phone_number" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fax" Type="varchar" MaxLength="50" />
+          <Property Name="advertise" Type="bool" />
         </EntityType>
         <EntityType Name="Institution_Photo_maps">
           <Key>
@@ -229,6 +230,7 @@
           <Property Name="website" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="advertise" Type="Boolean" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -372,6 +374,7 @@
           <EntitySetMapping Name="Institution">
             <EntityTypeMapping TypeName="robinfoo_lgpModel.Institution">
               <MappingFragment StoreEntitySet="Institution">
+                <ScalarProperty Name="advertise" ColumnName="advertise" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
                 <ScalarProperty Name="name" ColumnName="name" />

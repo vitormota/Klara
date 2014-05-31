@@ -268,6 +268,195 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string InstitutionAddressName {
+            get {
+                return ResourceManager.GetString("InstitutionAddressName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address must be under 250 characters.
+        /// </summary>
+        public static string InstitutionAddressNameLength {
+            get {
+                return ResourceManager.GetString("InstitutionAddressNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address is required.
+        /// </summary>
+        public static string InstitutionAddressNameRequired {
+            get {
+                return ResourceManager.GetString("InstitutionAddressNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advertise.
+        /// </summary>
+        public static string InstitutionAdvertiseName {
+            get {
+                return ResourceManager.GetString("InstitutionAdvertiseName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string InstitutionCityName {
+            get {
+                return ResourceManager.GetString("InstitutionCityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City must be under 50 characters.
+        /// </summary>
+        public static string InstitutionCityNameLength {
+            get {
+                return ResourceManager.GetString("InstitutionCityNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City is required.
+        /// </summary>
+        public static string InstitutionCityNameRequired {
+            get {
+                return ResourceManager.GetString("InstitutionCityNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string InstitutionEmailName {
+            get {
+                return ResourceManager.GetString("InstitutionEmailName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is required.
+        /// </summary>
+        public static string InstitutionEmailNameRequired {
+            get {
+                return ResourceManager.GetString("InstitutionEmailNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fax.
+        /// </summary>
+        public static string InstitutionFaxName {
+            get {
+                return ResourceManager.GetString("InstitutionFaxName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string InstitutionLabelName {
+            get {
+                return ResourceManager.GetString("InstitutionLabelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Institution name must be less than 50 characters.
+        /// </summary>
+        public static string InstitutionLabelNameLength {
+            get {
+                return ResourceManager.GetString("InstitutionLabelNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Institution name is required.
+        /// </summary>
+        public static string InstitutionLabelNameRequired {
+            get {
+                return ResourceManager.GetString("InstitutionLabelNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number is required.
+        /// </summary>
+        public static string InstitutionLabelPhoneRequired {
+            get {
+                return ResourceManager.GetString("InstitutionLabelPhoneRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude.
+        /// </summary>
+        public static string InstitutionLatitudeName {
+            get {
+                return ResourceManager.GetString("InstitutionLatitudeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude is required.
+        /// </summary>
+        public static string InstitutionLatitudeNameRequired {
+            get {
+                return ResourceManager.GetString("InstitutionLatitudeNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logintude.
+        /// </summary>
+        public static string InstitutionLongitudeName {
+            get {
+                return ResourceManager.GetString("InstitutionLongitudeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logintude is required.
+        /// </summary>
+        public static string InstitutionLongitudeNameRequired {
+            get {
+                return ResourceManager.GetString("InstitutionLongitudeNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string InstitutionPhoneName {
+            get {
+                return ResourceManager.GetString("InstitutionPhoneName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website.
+        /// </summary>
+        public static string InstitutionWebsiteName {
+            get {
+                return ResourceManager.GetString("InstitutionWebsiteName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website is required.
+        /// </summary>
+        public static string InstitutionWebsiteNameRequired {
+            get {
+                return ResourceManager.GetString("InstitutionWebsiteNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOGIN.
         /// </summary>
         public static string ManagerLoginButtonName {

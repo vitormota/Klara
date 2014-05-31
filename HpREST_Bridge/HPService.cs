@@ -391,6 +391,20 @@ namespace HpREST_Bridge
             return return_str;
         }
 
+        public string AdvertiseInstitution(int id)
+        {
+            string return_str = null;
+
+            Dictionary<string, string> json_str_double = new Dictionary<string, string>();
+            json_str_double.Add("institution_id", id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "/Advertise", JsonConvert.SerializeObject(json_str_double));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+
+            return_str = resultDict["value"].ToString();
+            return return_str;
+        }
+
         public string SeeCuponsActive(int client_id)
         {
             string return_str = null;
@@ -421,8 +435,39 @@ namespace HpREST_Bridge
         public string GetActiveAds(int institution_id)
         {
             string return_str = null;
-            string filter = "?$filter=institution_id eq " + institution_id + " and state ne 'deleted'";
-            string postJSON = RestUtility.HttpGet(base_url + ads_controller + filter);
+
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("institution_id", institution_id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + ads_controller + "/GetActiveAds", JsonConvert.SerializeObject(data));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+            return_str = resultDict["value"].ToString();
+
+            return return_str;
+        }
+
+        public string GetInactiveBestAds(int institution_id)
+        {
+            string return_str = null;
+
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("institution_id", institution_id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + ads_controller + "/GetInactiveBestAds", JsonConvert.SerializeObject(data));
+            Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
+            return_str = resultDict["value"].ToString();
+
+            return return_str;
+        }
+
+        public string DeleteAd(int ad_id)
+        {
+            string return_str = null;
+
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("ad_id", ad_id.ToString());
+
+            string postJSON = RestUtility.HttpPostJSON(base_url + ads_controller + "/DeleteAd", JsonConvert.SerializeObject(data));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
             return_str = resultDict["value"].ToString();
 
@@ -441,12 +486,6 @@ namespace HpREST_Bridge
             return_str = resultDict["value"].ToString();
 
             return return_str;
-        }
-
-        public string DeleteAd(int ad_id)
-        {
-            string result = RestUtility.HttpDelete(base_url + ads_controller + "(" + ad_id + ")");
-            return result;
         }
 
         public string SubscribeAd(int client_id, int ad_id)

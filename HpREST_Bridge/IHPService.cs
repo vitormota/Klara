@@ -99,6 +99,9 @@ namespace HpREST_Bridge
         string EditInstitutionDetails(string model_data, int id);
 
         [OperationContract]
+        string AdvertiseInstitution(int id);
+
+        [OperationContract]
         string CreateAd(string model_data);
 
         [OperationContract]
@@ -109,6 +112,9 @@ namespace HpREST_Bridge
 
         [OperationContract]
         string GetActiveAds(int institution_id);
+
+        [OperationContract]
+        string GetInactiveBestAds(int institution_id);
 
         // deprecated, saving images locally in virtual folder
         [OperationContract]

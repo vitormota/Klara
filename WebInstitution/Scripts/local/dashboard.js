@@ -65,3 +65,22 @@ $(document).on("click", "#createAd", function (e) {
         });
 
 });
+
+$(document).on("click", "#importAd", function (e) {
+    e.preventDefault();
+
+    var adForm = $("#newAdForm");
+    var template = $(this).closest("li").find(".details");
+
+    var price = template.find("#ad_price").val();
+    var discount = template.find("#ad_discount").val();
+
+    var prevPrice = -1 * (100 * price / (discount - 100));
+
+    adForm.find("#service").val(template.find("#ad_service").val());
+    adForm.find("#specialty").val(template.find("#ad_specialty").val());
+    adForm.find("#name").val(template.find("#ad_name").val());
+    adForm.find("#price").val(price);
+    adForm.find("#previous_price").val(Math.round(prevPrice));
+    adForm.find("#description").val(template.find("#ad_description").val());
+});

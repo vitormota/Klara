@@ -107,6 +107,11 @@ namespace HealthPlusAPI
             fetchInstitutions.Parameter<string>("manager_id");
             fetchInstitutions.Returns<string>();
 
+            // Ativar publicidade para uma instituição
+            ActionConfiguration advertiseInstitution = builder.Entity<Institution>().Collection.Action("Advertise");
+            advertiseInstitution.Parameter<string>("institution_id");
+            advertiseInstitution.Returns<string>();
+
             // Inserir fotografia para anúncio
             ActionConfiguration insertAdPhoto = builder.Entity<Photo>().Action("InsertAdPhoto");
             insertAdPhoto.Parameter<string>("ad_id");
@@ -123,6 +128,16 @@ namespace HealthPlusAPI
             ActionConfiguration activeAds = builder.Entity<Ad>().Collection.Action("GetActiveAds");
             activeAds.Parameter<string>("institution_id");
             activeAds.Returns<string>();
+
+            // Obter anúncios passados mais vendidos
+            ActionConfiguration inactiveBestAds = builder.Entity<Ad>().Collection.Action("GetInactiveBestAds");
+            inactiveBestAds.Parameter<string>("institution_id");
+            inactiveBestAds.Returns<string>();
+
+            // Alterar estado do anúncio para apagado
+            ActionConfiguration deleteAd = builder.Entity<Ad>().Collection.Action("DeleteAd");
+            deleteAd.Parameter<string>("ad_id");
+            deleteAd.Returns<string>();
 
 
             ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Collection.Action("NearestInstitutions");

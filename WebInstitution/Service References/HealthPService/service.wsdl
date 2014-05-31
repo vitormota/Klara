@@ -164,6 +164,12 @@
   <wsdl:message name="IHPService_EditInstitutionDetails_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditInstitutionDetailsResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_AdvertiseInstitution_InputMessage">
+    <wsdl:part name="parameters" element="tns:AdvertiseInstitution" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_AdvertiseInstitution_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AdvertiseInstitutionResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_CreateAd_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateAd" />
   </wsdl:message>
@@ -188,6 +194,12 @@
   <wsdl:message name="IHPService_GetActiveAds_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetActiveAdsResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_GetInactiveBestAds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInactiveBestAds" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetInactiveBestAds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInactiveBestAdsResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_GetAdPhotos_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAdPhotos" />
   </wsdl:message>
@@ -199,6 +211,12 @@
   </wsdl:message>
   <wsdl:message name="IHPService_DeleteAd_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteAdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetBankReference_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBankReference" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetBankReference_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBankReferenceResponse" />
   </wsdl:message>
   <wsdl:portType name="IHPService">
     <wsdl:operation name="GetData">
@@ -305,6 +323,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetails" message="tns:IHPService_EditInstitutionDetails_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetailsResponse" message="tns:IHPService_EditInstitutionDetails_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AdvertiseInstitution">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/AdvertiseInstitution" message="tns:IHPService_AdvertiseInstitution_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/AdvertiseInstitutionResponse" message="tns:IHPService_AdvertiseInstitution_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CreateAd">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/CreateAd" message="tns:IHPService_CreateAd_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/CreateAdResponse" message="tns:IHPService_CreateAd_OutputMessage" />
@@ -321,6 +343,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetActiveAds" message="tns:IHPService_GetActiveAds_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetActiveAdsResponse" message="tns:IHPService_GetActiveAds_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetInactiveBestAds">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetInactiveBestAds" message="tns:IHPService_GetInactiveBestAds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetInactiveBestAdsResponse" message="tns:IHPService_GetInactiveBestAds_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAdPhotos">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetAdPhotos" message="tns:IHPService_GetAdPhotos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetAdPhotosResponse" message="tns:IHPService_GetAdPhotos_OutputMessage" />
@@ -328,6 +354,10 @@
     <wsdl:operation name="DeleteAd">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/DeleteAd" message="tns:IHPService_DeleteAd_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/DeleteAdResponse" message="tns:IHPService_DeleteAd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankReference">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetBankReference" message="tns:IHPService_GetBankReference_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetBankReferenceResponse" message="tns:IHPService_GetBankReference_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IHPService" type="tns:IHPService">
@@ -566,6 +596,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AdvertiseInstitution">
+      <soap:operation soapAction="http://tempuri.org/IHPService/AdvertiseInstitution" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateAd">
       <soap:operation soapAction="http://tempuri.org/IHPService/CreateAd" style="document" />
       <wsdl:input>
@@ -602,6 +641,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetInactiveBestAds">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetInactiveBestAds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAdPhotos">
       <soap:operation soapAction="http://tempuri.org/IHPService/GetAdPhotos" style="document" />
       <wsdl:input>
@@ -613,6 +661,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteAd">
       <soap:operation soapAction="http://tempuri.org/IHPService/DeleteAd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankReference">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetBankReference" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

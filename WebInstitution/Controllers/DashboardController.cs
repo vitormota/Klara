@@ -33,6 +33,14 @@ namespace WebInstitution.Controllers
         }
 
         public ActionResult Add() {
+            SessionModel session = (SessionModel)Session["manager"];
+
+            string prevAdsStr = mService.GetInactiveBestAds(session.currentInstitution.id);
+
+            List<AdDisplayModel> prevAds = JsonConvert.DeserializeObject<List<AdDisplayModel>>(prevAdsStr);
+
+            ViewData["prev_ads"] = prevAds;
+
             return PartialView("_Add");
         }
 

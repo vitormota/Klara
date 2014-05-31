@@ -79,6 +79,7 @@ create table Institution (
 	website varchar(255) not null,
 	phone_number varchar(50) not null,
 	fax varchar(50),
+	advertise boolean DEFAULT 0,
 	foreign key (id) references Subscribable(id) on delete cascade,
 	foreign key (group_id) references Inst_Group(id) on delete cascade
 );
