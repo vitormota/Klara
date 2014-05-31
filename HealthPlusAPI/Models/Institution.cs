@@ -26,5 +26,6 @@ namespace HealthPlusAPI.Models
         public string phone_number { get; set; }
         public string fax { get; set; }
         public Nullable<bool> advertise { get; set; }
+        public string img_url { get; set; }
     }
 }

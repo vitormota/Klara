@@ -186,6 +186,69 @@
   <data name="AdTotalCuponsNameRequired" xml:space="preserve">
     <value>Number of cupons is required</value>
   </data>
+  <data name="InstitutionAddressName" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="InstitutionAddressNameLength" xml:space="preserve">
+    <value>Address must be under 250 characters</value>
+  </data>
+  <data name="InstitutionAddressNameRequired" xml:space="preserve">
+    <value>Address is required</value>
+  </data>
+  <data name="InstitutionAdvertiseName" xml:space="preserve">
+    <value>Advertise</value>
+  </data>
+  <data name="InstitutionCityName" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="InstitutionCityNameLength" xml:space="preserve">
+    <value>City must be under 50 characters</value>
+  </data>
+  <data name="InstitutionCityNameRequired" xml:space="preserve">
+    <value>City is required</value>
+  </data>
+  <data name="InstitutionEmailName" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="InstitutionEmailNameRequired" xml:space="preserve">
+    <value>Email is required</value>
+  </data>
+  <data name="InstitutionFaxName" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="InstitutionLabelName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="InstitutionLabelNameLength" xml:space="preserve">
+    <value>Institution name must be less than 50 characters</value>
+  </data>
+  <data name="InstitutionLabelNameRequired" xml:space="preserve">
+    <value>Institution name is required</value>
+  </data>
+  <data name="InstitutionLabelPhoneRequired" xml:space="preserve">
+    <value>Phone number is required</value>
+  </data>
+  <data name="InstitutionLatitudeName" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="InstitutionLatitudeNameRequired" xml:space="preserve">
+    <value>Latitude is required</value>
+  </data>
+  <data name="InstitutionLongitudeName" xml:space="preserve">
+    <value>Logintude</value>
+  </data>
+  <data name="InstitutionLongitudeNameRequired" xml:space="preserve">
+    <value>Logintude is required</value>
+  </data>
+  <data name="InstitutionPhoneName" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="InstitutionWebsiteName" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="InstitutionWebsiteNameRequired" xml:space="preserve">
+    <value>Website is required</value>
+  </data>
   <data name="ManagerLoginButtonName" xml:space="preserve">
     <value>LOGIN</value>
   </data>

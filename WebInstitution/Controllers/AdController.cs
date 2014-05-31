@@ -19,7 +19,7 @@ namespace WebInstitution.Controllers
         // GET: /Ad/
         public ActionResult Index()
         {
-            return View();
+            return View(); 
         }
 
         //
@@ -31,35 +31,6 @@ namespace WebInstitution.Controllers
             string ads = mService.GetActiveAds(session.currentInstitution.id);
 
             List<AdDisplayModel> adList = JsonConvert.DeserializeObject<List<AdDisplayModel>>(ads);
-
-            // save all ad's ids in list
-            List<int> adIds = new List<int>();
-
-            foreach (AdDisplayModel adm in adList)
-            {
-                adIds.Add(adm.id);
-            }
-
-            // get each ad's guid(s)
-            string guids_str = mService.GetAdPhotos(adIds.ToArray());
-
-            Dictionary<int, List<string>> guids = JsonConvert.DeserializeObject<Dictionary<int, List<string>>>(guids_str);
-
-            foreach (AdDisplayModel adm in adList)
-            {
-                List<string> ad_guids = guids[adm.id];
-
-                if (ad_guids.Any())
-                {
-                    adm.guids = ad_guids;
-                }
-                else
-                {
-                    // add defalut ad image
-                }
-            }
-
-            //List<String> photo_paths = JsonConvert.DeserializeObject<List<string>>(photos);
 
             ViewBag.Ads = adList;
 
@@ -88,6 +59,26 @@ namespace WebInstitution.Controllers
 
             try
             {
+                string url;
+
+                if (ad.photo.ContentLength > 0)
+                {
+                    // upload selected image
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(ad.photo.InputStream);
+                    url = Helpers.ImgurUpload.UploadImage(img);
+                }
+                else if(ad.img_url != null)
+                {
+                    // use template image
+                    url = ad.img_url;
+                }
+                else
+                {
+                    // use healthPlus standard image
+                    url = "http://i.imgur.com/eNO1So9.png";
+                }
+
+
                 JObject send_data = new JObject(
                     new JProperty("institution_id", session.currentInstitution.id),
                     new JProperty("service", ad.service),
@@ -99,41 +90,14 @@ namespace WebInstitution.Controllers
                     new JProperty("price", ad.price.ToString()), // decimals must have quotes !!
                     new JProperty("discount", Math.Round(100 * ((ad.previous_price - ad.price) / ad.previous_price)).ToString()),
                     new JProperty("remaining_cupons", ad.total_cupons),
-                    new JProperty("buyed_cupons", ad.total_cupons),
-                    new JProperty("state", "pending")
+                    new JProperty("buyed_cupons", 0),
+                    new JProperty("state", "active"),
+                    new JProperty("img_url", url)
                     );
 
                 string response = mService.CreateAd(send_data.ToString());
-
-                AdDisplayModel adm = JsonConvert.DeserializeObject<AdDisplayModel>(response);
-
-                if (ad.photo.ContentLength > 0)
-                {
-
-                    System.Drawing.Image img = System.Drawing.Image.FromStream(ad.photo.InputStream);
-                    string url = Helpers.ImgurUpload.UploadImage(img);
-
-                    //var path = Path.Combine(Server.MapPath("~/Resources/Ad_Photos"), guid + ".png");
-                    //photo.SaveAs(path);
-
-
-                    // save image locally
-                    //img.Save(path, System.Drawing.Imaging.ImageFormat.Png);
-
-                    //create image ref in DB
-                    mService.InsertAdPhoto(adm.id, url);
-
-                    // upload image to API - deprecated
-                    //MemoryStream stream = new MemoryStream();
-                    //img.Save(stream, img.RawFormat);
-                    //mService.InsertAdPhoto(adm.id, guid, Convert.ToBase64String(stream.ToArray()));
-                }
-                else
-                {
-                    return View();
-                }
-
                 return RedirectToAction("Edit", "Dashboard");
+                
             }
             catch
             {
