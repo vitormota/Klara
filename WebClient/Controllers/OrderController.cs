@@ -93,6 +93,13 @@ namespace WebClient_.Controllers
             {
                 //fast
                 Ad cupon = JsonConvert.DeserializeObject<Ad>(mService.GetAdById((int)id));
+                if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) < 0 || cupon.end_time.CompareTo(DateTime.Now) > 0))
+                {
+                    //cannot buy cupon
+                    ViewBag.error = "The cupon you are trying to buy is not valid and may be expired, we are sorry for the inconvenience.";
+                    return View("PaymentDetails", cart);
+
+                }
                 cart.addCupon(cupon,true);
                 
             }
@@ -102,6 +109,12 @@ namespace WebClient_.Controllers
 
         public bool addToCart(Ad cupon)
         {
+            if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) < 0 || cupon.end_time.CompareTo(DateTime.Now) > 0))
+            {
+                //cannot buy cupon
+                return false;
+
+            }
             ShoppingCart cart = (ShoppingCart)Session["shopping_cart"];
             if (cart == null)
             {

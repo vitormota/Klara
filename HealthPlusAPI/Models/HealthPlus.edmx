@@ -28,8 +28,8 @@
           <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="price" Type="decimal" Precision="6" Scale="2" Nullable="false" />
           <Property Name="discount" Type="float" />
-          <Property Name="start_time" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="end_time" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="start_time" Type="date" Nullable="false" />
+          <Property Name="end_time" Type="date" Nullable="false" />
           <Property Name="remaining_cupons" Type="int" Nullable="false" />
           <Property Name="buyed_cupons" Type="int" Nullable="false" />
           <Property Name="state" Type="enum" Nullable="false" />
@@ -89,6 +89,7 @@
           <Property Name="website" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="phone_number" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fax" Type="varchar" MaxLength="50" />
+          <Property Name="advertise" Type="bool" />
         </EntityType>
         <EntityType Name="Institution_Photo_maps">
           <Key>
@@ -134,6 +135,29 @@
           <Property Name="subscribable_id" Type="int" Nullable="false" />
           <Property Name="client_id" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.robinfoo_lgp.searchable_ad' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="searchable_ad">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="inst_name" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="latitude" />
+            <PropertyRef Name="longitude" />
+            <PropertyRef Name="specialty" />
+            <PropertyRef Name="service" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="inst_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="discount" Type="float" />
+          <Property Name="latitude" Type="decimal" Precision="10" Scale="8" Nullable="false" />
+          <Property Name="longitude" Type="decimal" Precision="11" Scale="8" Nullable="false" />
+          <Property Name="specialty" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="service" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="robinfoo_lgpModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Ad" EntityType="Self.Ad" Schema="robinfoo_lgp" store:Type="Tables" />
@@ -148,6 +172,19 @@
           <EntitySet Name="Photo" EntityType="Self.Photo" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Subscribable" EntityType="Self.Subscribable" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="searchable_ad" EntityType="Self.searchable_ad" store:Type="Views" store:Schema="robinfoo_lgp">
+            <DefiningQuery>SELECT
+`searchable_ad`.`id`, 
+`searchable_ad`.`name`, 
+`searchable_ad`.`inst_name`, 
+`searchable_ad`.`price`, 
+`searchable_ad`.`discount`, 
+`searchable_ad`.`latitude`, 
+`searchable_ad`.`longitude`, 
+`searchable_ad`.`specialty`, 
+`searchable_ad`.`service`
+FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -229,6 +266,7 @@
           <Property Name="website" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="advertise" Type="Boolean" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -274,6 +312,7 @@
           <EntitySet Name="Ad_Photo_maps" EntityType="robinfoo_lgpModel.Ad_Photo_maps" />
           <EntitySet Name="Institution_Photo_maps" EntityType="robinfoo_lgpModel.Institution_Photo_maps" />
           <EntitySet Name="Photo" EntityType="robinfoo_lgpModel.Photo" />
+          <EntitySet Name="searchable_ad" EntityType="robinfoo_lgpModel.searchable_ad" />
         </EntityContainer>
         <EntityType Name="Ad_Photo_maps">
           <Key>
@@ -296,6 +335,27 @@
             <PropertyRef Name="guid" />
           </Key>
           <Property Name="guid" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="searchable_ad">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="inst_name" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="latitude" />
+            <PropertyRef Name="longitude" />
+            <PropertyRef Name="specialty" />
+            <PropertyRef Name="service" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="inst_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" />
+          <Property Name="discount" Type="Single" />
+          <Property Name="latitude" Type="Decimal" Nullable="false" />
+          <Property Name="longitude" Type="Decimal" Nullable="false" />
+          <Property Name="specialty" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="service" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -372,6 +432,7 @@
           <EntitySetMapping Name="Institution">
             <EntityTypeMapping TypeName="robinfoo_lgpModel.Institution">
               <MappingFragment StoreEntitySet="Institution">
+                <ScalarProperty Name="advertise" ColumnName="advertise" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -438,6 +499,21 @@
             <EntityTypeMapping TypeName="robinfoo_lgpModel.Photo">
               <MappingFragment StoreEntitySet="Photo">
                 <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="searchable_ad">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.searchable_ad">
+              <MappingFragment StoreEntitySet="searchable_ad">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="service" ColumnName="service" />
+                <ScalarProperty Name="specialty" ColumnName="specialty" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="inst_name" ColumnName="inst_name" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

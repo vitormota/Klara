@@ -7,7 +7,10 @@
 
 <h2>PaymentDetails</h2>
 
-
+@if (ViewBag.error != null)
+{
+    <h2>@ViewBag.error</h2>
+}
 
 <h4>Subtotal @Model.getSubTotal()</h4>
 
