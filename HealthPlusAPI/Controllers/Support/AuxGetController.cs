@@ -128,8 +128,8 @@ namespace HealthPlusAPI.Controllers.Support
         [Route("odata/Ads/{lower_bound:int}/{upper_bound:int}/{on}")]
         public dynamic getAdsByRule(int lower_bound, int upper_bound,string on)
         {
-            DbSet<Ad> ads = db.Ad;
-            DbSet<Institution> institutions = db.Institution;
+            //DbSet<Ad> ads = db.Ad;
+            //DbSet<Institution> institutions = db.Institution;
             string[] criteria = on.Split('-');
             string order_column = criteria[0];
             string order_criteria = "DESC";
@@ -137,11 +137,10 @@ namespace HealthPlusAPI.Controllers.Support
             {
                 order_criteria = criteria[1];
             }
-            var res = ads.SqlQuery("SELECT * FROM Ad" +
-                " INNER JOIN Institution AS inst" +
-                " ON Ad.institution_id = inst.id" +
-                " ORDER BY Ad." + order_column + " "+ order_criteria +
-                " LIMIT " + lower_bound + "," + upper_bound).AsQueryable();
+            string command = "SELECT * FROM robinfoo_lgp.searchable_ad" + 
+                " ORDER BY " + order_column + " " + order_criteria +
+                " LIMIT " + lower_bound + "," + upper_bound;
+            var res = db.Database.SqlQuery<searchable_ad>(command);
 
             return res;
         }
