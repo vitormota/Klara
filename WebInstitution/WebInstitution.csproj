@@ -277,7 +277,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Resources\Ad_Photos\443aa770-a9d7-4652-9152-7c61f6ae9780.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\HpREST_Bridge.CompositeType.datasource" />
