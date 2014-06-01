@@ -114,17 +114,17 @@ function SearchBar()
 			image: "/healthplus/healthplus_search.png",
 			height: '53.27%',
 			width: '8.55%',
-			left: '6.07%',
+			left: '3.14%',
 			top: '22.46%',
 			opacity: 1,
 			zIndex: 1
 		});
 		
 		var search_bar_textbox = Titanium.UI.createTextField({
-			width: '67.90%',
-			height: '52.12%',
-			left: '17.61%',
-			top: '23.62%',
+			width: '81.49%',
+			height: '74.51%',
+			left: '14.96%',
+			top: '14.18%',
 			autocorrect: false,
 			backgroundColor: "white",
 			color: "black",
@@ -143,7 +143,7 @@ function SearchBar()
 		});
 		
 		search_bar_textbox.font = {
-			fontSize: '7%'
+			fontSize: '11dp'
 		};
 		
 		this.search_bar.add(search_bar_icon);
