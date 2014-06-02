@@ -33,7 +33,6 @@ namespace HealthPlusAPI
             builder.EntitySet<Subscription>("Subscriptions");
             builder.EntitySet<Institution>("Institutions");
             builder.EntitySet<Manager>("Managers");
-            builder.EntitySet<Photo>("Photos");
 
             ActionConfiguration getClientPurchases = builder.Entity<Cupon>().Action("GetPurchases");
             getClientPurchases.Returns<string>();
@@ -107,22 +106,25 @@ namespace HealthPlusAPI
             fetchInstitutions.Parameter<string>("manager_id");
             fetchInstitutions.Returns<string>();
 
-            // Inserir fotografia para anúncio
-            ActionConfiguration insertAdPhoto = builder.Entity<Photo>().Action("InsertAdPhoto");
-            insertAdPhoto.Parameter<string>("ad_id");
-            insertAdPhoto.Parameter<string>("photo_guid");
-            insertAdPhoto.Parameter<string>("data_stream");
-            insertAdPhoto.Returns<string>();
-
-            // Obter fotografias de anúncios
-            ActionConfiguration getAdPhotos = builder.Entity<Photo>().Collection.Action("GetAdPhotos");
-            getAdPhotos.Parameter<string>("ad_ids");
-            getAdPhotos.Returns<string>();
+            // Ativar publicidade para uma instituição
+            ActionConfiguration advertiseInstitution = builder.Entity<Institution>().Collection.Action("Advertise");
+            advertiseInstitution.Parameter<string>("institution_id");
+            advertiseInstitution.Returns<string>();
 
             // Obter anúncios ativos
             ActionConfiguration activeAds = builder.Entity<Ad>().Collection.Action("GetActiveAds");
             activeAds.Parameter<string>("institution_id");
             activeAds.Returns<string>();
+
+            // Obter anúncios passados mais vendidos
+            ActionConfiguration inactiveBestAds = builder.Entity<Ad>().Collection.Action("GetInactiveBestAds");
+            inactiveBestAds.Parameter<string>("institution_id");
+            inactiveBestAds.Returns<string>();
+
+            // Alterar estado do anúncio para apagado
+            ActionConfiguration deleteAd = builder.Entity<Ad>().Collection.Action("DeleteAd");
+            deleteAd.Parameter<string>("ad_id");
+            deleteAd.Returns<string>();
 
 
             ActionConfiguration nearestInstitutions = builder.Entity<Institution>().Collection.Action("NearestInstitutions");

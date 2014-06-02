@@ -5,7 +5,6 @@
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/HpREST_Bridge" />
-      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IHPService_GetData_InputMessage">
@@ -164,6 +163,12 @@
   <wsdl:message name="IHPService_EditInstitutionDetails_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditInstitutionDetailsResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_AdvertiseInstitution_InputMessage">
+    <wsdl:part name="parameters" element="tns:AdvertiseInstitution" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_AdvertiseInstitution_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AdvertiseInstitutionResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_CreateAd_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateAd" />
   </wsdl:message>
@@ -176,23 +181,17 @@
   <wsdl:message name="IHPService_GetInstitution_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetInstitutionResponse" />
   </wsdl:message>
-  <wsdl:message name="IHPService_InsertAdPhoto_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertAdPhoto" />
-  </wsdl:message>
-  <wsdl:message name="IHPService_InsertAdPhoto_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertAdPhotoResponse" />
-  </wsdl:message>
   <wsdl:message name="IHPService_GetActiveAds_InputMessage">
     <wsdl:part name="parameters" element="tns:GetActiveAds" />
   </wsdl:message>
   <wsdl:message name="IHPService_GetActiveAds_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetActiveAdsResponse" />
   </wsdl:message>
-  <wsdl:message name="IHPService_GetAdPhotos_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAdPhotos" />
+  <wsdl:message name="IHPService_GetInactiveBestAds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInactiveBestAds" />
   </wsdl:message>
-  <wsdl:message name="IHPService_GetAdPhotos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAdPhotosResponse" />
+  <wsdl:message name="IHPService_GetInactiveBestAds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInactiveBestAdsResponse" />
   </wsdl:message>
   <wsdl:message name="IHPService_DeleteAd_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteAd" />
@@ -317,6 +316,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetails" message="tns:IHPService_EditInstitutionDetails_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/EditInstitutionDetailsResponse" message="tns:IHPService_EditInstitutionDetails_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AdvertiseInstitution">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/AdvertiseInstitution" message="tns:IHPService_AdvertiseInstitution_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/AdvertiseInstitutionResponse" message="tns:IHPService_AdvertiseInstitution_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CreateAd">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/CreateAd" message="tns:IHPService_CreateAd_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/CreateAdResponse" message="tns:IHPService_CreateAd_OutputMessage" />
@@ -325,17 +328,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetInstitution" message="tns:IHPService_GetInstitution_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetInstitutionResponse" message="tns:IHPService_GetInstitution_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="InsertAdPhoto">
-      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/InsertAdPhoto" message="tns:IHPService_InsertAdPhoto_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/InsertAdPhotoResponse" message="tns:IHPService_InsertAdPhoto_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetActiveAds">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetActiveAds" message="tns:IHPService_GetActiveAds_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetActiveAdsResponse" message="tns:IHPService_GetActiveAds_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetAdPhotos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetAdPhotos" message="tns:IHPService_GetAdPhotos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetAdPhotosResponse" message="tns:IHPService_GetAdPhotos_OutputMessage" />
+    <wsdl:operation name="GetInactiveBestAds">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetInactiveBestAds" message="tns:IHPService_GetInactiveBestAds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetInactiveBestAdsResponse" message="tns:IHPService_GetInactiveBestAds_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DeleteAd">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/DeleteAd" message="tns:IHPService_DeleteAd_InputMessage" />
@@ -586,6 +585,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AdvertiseInstitution">
+      <soap:operation soapAction="http://tempuri.org/IHPService/AdvertiseInstitution" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateAd">
       <soap:operation soapAction="http://tempuri.org/IHPService/CreateAd" style="document" />
       <wsdl:input>
@@ -604,15 +612,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertAdPhoto">
-      <soap:operation soapAction="http://tempuri.org/IHPService/InsertAdPhoto" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetActiveAds">
       <soap:operation soapAction="http://tempuri.org/IHPService/GetActiveAds" style="document" />
       <wsdl:input>
@@ -622,8 +621,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAdPhotos">
-      <soap:operation soapAction="http://tempuri.org/IHPService/GetAdPhotos" style="document" />
+    <wsdl:operation name="GetInactiveBestAds">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetInactiveBestAds" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

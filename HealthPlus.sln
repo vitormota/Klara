@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInstitution", "WebInstitution\WebInstitution.csproj", "{2F55F10D-C61B-4876-A1A5-1A1B2F857E4E}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -41,6 +41,7 @@ Global
 		{2F55F10D-C61B-4876-A1A5-1A1B2F857E4E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F8A5B296-5847-482B-8151-FD45C1516B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8A5B296-5847-482B-8151-FD45C1516B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8A5B296-5847-482B-8151-FD45C1516B0C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{F8A5B296-5847-482B-8151-FD45C1516B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8A5B296-5847-482B-8151-FD45C1516B0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0414D5A9-FA2C-4ED8-A2EA-B66A9DEAEEA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
