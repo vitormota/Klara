@@ -7,6 +7,8 @@ Titanium.include("/components/header_bar.js");
 // Include facebook
 Titanium.include("/facebook/init_facebook.js");
 
+var MapModule = require('ti.map');
+
 function CuponScreen()
 {
 	var cupon_window = null;
@@ -246,13 +248,26 @@ function CuponScreen()
 		
 		cupon_info_text.add(cupon_localization_title);
 		
-		var cupon_localization_image = Titanium.UI.createImageView({
-			image: "/healthplus/healthplus_test.jpg",
+		var hospital = MapModule.createAnnotation({
+            latitude: -33.87365,
+            longitude: 151.20689,
+            draggable: false,
+            pincolor: MapModule.ANNOTATION_AZURE,   
+            title: 'Hospital S.João',
+            subtitle: 'Avenida da Circunvalação'
+        });
+		
+		var cupon_localization_image = MapModule.createView({
+			userLocation: false,
+            mapType: MapModule.NORMAL_TYPE,
+            animate: false,
+            region: {latitude: -33.87365, longitude: 151.20689, latitudeDelta: 0.1, longitudeDelta: 0.1 },
 			top: "53.61%",
 			left: '0%',
 			height: '27.45%'
 		});
 		
+		cupon_localization_image.addAnnotation(hospital);
 		cupon_info_text.add(cupon_localization_image);
 		
 		var cupon_image_buy = Titanium.UI.createImageView({

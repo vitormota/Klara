@@ -7,6 +7,7 @@ Titanium.include("/institutions/show_institutions.js");
 Titanium.include("/menu/main_screen.js");
 Titanium.include("/search/search.js");
 Titanium.include("/facebook/init_facebook.js");
+Titanium.include("/qr_code/look_qr_code.js");
 
 // Só para teste
 Titanium.include("/test_functionalities/teste.js");
@@ -33,6 +34,7 @@ function EventsLateralBar()
 			var search_screen = new SearchScreen();
 			search_screen.constructorScreen();
 			
+			search_screen.putEventListenersSearchScreen();
 			search_screen.showWindow();
 		});
 		
@@ -93,7 +95,8 @@ function EventsLateralBar()
 		// Botao Qr-code
 		lateral_bar.lateral_qr_code_view.addEventListener('click', function()
 		{
-			alert("Qr-Code!");
+			var qrcode = new SeeQrCode();
+			qrcode.initializeScanner();
 		});
 		
 		// Botao Logout

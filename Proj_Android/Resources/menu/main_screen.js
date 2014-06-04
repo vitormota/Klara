@@ -8,7 +8,7 @@ Titanium.include("/components/header_bar.js");
 Titanium.include("/cupon/show_cupon.js");
 
 // Incluir facebook
-Titanium.include("facebook/init_facebook.js");
+Titanium.include("/facebook/init_facebook.js");
 
 function MainScreen()
 {
