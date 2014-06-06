@@ -4,6 +4,10 @@ Titanium.include("/components/lateral_bar.js");
 // Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
 Titanium.include("/components/header_bar.js");
 
+// Include facebook
+Titanium.include("/facebook/init_facebook.js");
+
+var url_ip = "192.168.1.67";
 
 function InstitutionsScreen()
 {
@@ -12,15 +16,21 @@ function InstitutionsScreen()
 	
 	// Objecto barra lateral
 	var lateral_bar_object = new LateralBarWithoutSearch();
+	var lateral_bar = null;
 	
 	var header_view_object = new HeaderViewText();
 	var search_bar_object = new SearchBar();
 	
-	this.constructorScreen = function ()
+	var run_constructor_fb_bool = null;
+	
+	this.constructorScreen = function (array_institutions)
 	{
+		// Verificar se existe login
+		run_constructor_fb_bool = fb.loggedIn;
+		
 		// Construir barra lateral
 		lateral_bar_object.constructorLateralBar();
-		var lateral_bar = lateral_bar_object.lateral_bar;
+		lateral_bar = lateral_bar_object.lateral_bar;
 		
 		// Construir header
 		header_view_object.constructorHeaderView("INSTITUIÇÕES");
@@ -41,7 +51,7 @@ function InstitutionsScreen()
 		institution_window.add(background_view);
 		
 		/** Colocar as varias instituições em forma de scroll **/
-		var number_institutions = 6;
+		var number_institutions = array_institutions.length;
 		
 		institution_scroll_view = Titanium.UI.createScrollView({
 			top: '11.79%',
@@ -74,7 +84,7 @@ function InstitutionsScreen()
 			});
 			
 			var text_institution = Titanium.UI.createLabel({
-				text: "HOSPITAL PRIVADO\nPorto",
+				text: (array_institutions[i].name).toUpperCase() + "\n" + array_institutions[i].city,
 				left: '19.03%',
 				top: '20.03%',
 				color: 'black',
@@ -114,11 +124,13 @@ function InstitutionsScreen()
 		// Colocar events listeners barra lateral
 		var eventListernerLateralBar = new EventsLateralBar();
 		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+		
+		// Verificar se esta logado
+		changeLateralBar();
 	};
 	
 	this.putEventListenersInstitutionsScreen = function ()
 	{
-		var lateral_bar_listener = lateral_bar_object.lateral_bar;
 		var institution_scroll = institution_scroll_view;
 		
 		institution_window.addEventListener('swipe', function(e)
@@ -126,18 +138,18 @@ function InstitutionsScreen()
 			// Fazer swipe para a esquerda para desaparecer window
 			if(e.direction == 'left')
 			{
-				if(lateral_bar_listener.getVisible() == true)
+				if(lateral_bar.getVisible() == true)
 				{
-					lateral_bar_listener.setVisible(false);
+					lateral_bar.setVisible(false);
 					institution_scroll.left = '0%';
 				}
 			}
 			else if(e.direction == 'right') // Fazer swipe para a direita para desaparecer window
 			{
-				if(lateral_bar_listener.getVisible() == false)
+				if(lateral_bar.getVisible() == false)
 				{
 					institution_scroll.left = '76.44%';
-					lateral_bar_listener.setVisible(true);
+					lateral_bar.setVisible(true);
 				}
 			}
 		});
@@ -145,17 +157,42 @@ function InstitutionsScreen()
 		// Carregar no botao de menu
 		header_view_object.menu_header_view.addEventListener('click', function()
 		{
-			if(lateral_bar_listener.getVisible() == true)
+			if(lateral_bar.getVisible() == true)
 			{
-				lateral_bar_listener.setVisible(false);
+				lateral_bar.setVisible(false);
 				institution_scroll.left = '0%';
 			}
 			else
 			{
 				institution_scroll.left = '76.44%';
-				lateral_bar_listener.setVisible(true);
+				lateral_bar.setVisible(true);
 			}
 		});
+	};
+	
+	function changeLateralBar()
+	{
+		setInterval(function()
+		{
+			if(run_constructor_fb_bool != fb.loggedIn)
+			{
+				lateral_bar.setVisible(false);
+				institution_window.remove(lateral_bar);
+				institution_scroll_view.left = '0%';
+				
+				lateral_bar_object = new LateralBarWithoutSearch();
+				lateral_bar_object.constructorLateralBar();
+				lateral_bar = lateral_bar_object.lateral_bar;
+				
+				lateral_bar.setVisible(false);
+				institution_window.add(lateral_bar);
+		
+				eventListernerLateralBar = new EventsLateralBar();
+				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+				
+				run_constructor_fb_bool = fb.loggedIn;				
+			}
+		}, 150);
 	};
 	
 	this.showWindow = function()

@@ -75,11 +75,28 @@ namespace WebInstitution.Controllers
             }
 
             // set institution ID to fix javascript call
-            model.id = session.currentInstitution.id;
+           // model.id = session.currentInstitution.id;
 
             JObject send_data = Models.InstitutionModel.modelToJSON(model);
 
             string response = mService.EditInstitutionDetails(send_data.ToString(),session.currentInstitution.id);
+
+            // get updated institutions
+            string result_str = mService.FetchInstitutions(session.manager_id.ToString());
+            var institutions = JsonConvert.DeserializeObject<List<InstitutionModel>>(result_str);
+
+            int curInstitution = session.currentInstitution.id;
+
+            foreach (InstitutionModel i in institutions)
+            {
+                if (i.id == curInstitution)
+                {
+                    session.currentInstitution = i;
+                    break;
+                }
+            }
+
+            session.institutions = institutions;
 
             return RedirectToAction("Settings", "Dashboard");
         }
@@ -105,7 +122,7 @@ namespace WebInstitution.Controllers
                 result_str = mService.FetchInstitutions( manager_id.ToString() );
                 var institutions = JsonConvert.DeserializeObject<List<InstitutionModel>>(result_str);
 
-                Session["manager"] = new SessionModel { manager_id = manager_id, institutions = institutions, currentInstitution = institutions[0] };
+                Session["manager"] = new SessionModel { manager_id = manager_id, institutions = institutions, currentInstitution =  institutions[0] };
 
                 ViewData["login"] = result_str;
 

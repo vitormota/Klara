@@ -19,6 +19,6 @@ namespace WebInstitution.Models
         public DateTime end_time { get; set; }
         public int remaining_cupons { get; set; }
         public int buyed_cupons { get; set; }
-        public List<string> guids { get; set; }
+        public string img_url { get; set; }
     }
 }

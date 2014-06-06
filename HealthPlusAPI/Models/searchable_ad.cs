@@ -12,9 +12,16 @@ namespace HealthPlusAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Institution_Photo_maps
+    public partial class searchable_ad
     {
-        public int institution_id { get; set; }
-        public string photo_id { get; set; }
+        public string name { get; set; }
+        public string inst_name { get; set; }
+        public decimal price { get; set; }
+        public Nullable<float> discount { get; set; }
+        public decimal latitude { get; set; }
+        public decimal longitude { get; set; }
+        public string specialty { get; set; }
+        public string service { get; set; }
+        public int id { get; set; }
     }
 }

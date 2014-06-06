@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -103,15 +105,44 @@ namespace HealthPlusAPI.Controllers.Support
         }
 
         /// <summary>
-        /// Get ad details by its id
+        /// Get ads details by its id
         /// NOTE: Moved here because someone rewritten default action on ads controller
         /// </summary>
-        /// <param name="ad_id">The ad id</param>
+        /// <param name="ad_id">The ads id</param>
         /// <returns></returns>
         [Route("odata/Ads({ad_id})")]
         public dynamic getAdDetails(int ad_id)
         {
             return (db.Ad.Where(Ad => Ad.id == ad_id).Single());
+        }
+
+        /// <summary>
+        /// Dynamic get for adds, retrieved portions of ads table, specifing what to retrieve
+        /// by limit, offset and order by column
+        /// </summary>
+        /// <param name="lower_bound">Meaning Sql offset from the result set</param>
+        /// <param name="upper_bound">Meaning Sql limit of the result set</param>
+        /// <param name="on">Column name in which data should be ordered specifying also type of order (DESC/ASC)
+        /// using the following model "name-otype" e.g. "id-desc", defaults to desc</param>
+        /// <returns></returns>
+        [Route("odata/Ads/{lower_bound:int}/{upper_bound:int}/{on}")]
+        public dynamic getAdsByRule(int lower_bound, int upper_bound,string on)
+        {
+            //DbSet<Ad> ads = db.Ad;
+            //DbSet<Institution> institutions = db.Institution;
+            string[] criteria = on.Split('-');
+            string order_column = criteria[0];
+            string order_criteria = "DESC";
+            if (criteria.Length > 1)
+            {
+                order_criteria = criteria[1];
+            }
+            string command = "SELECT * FROM robinfoo_lgp.searchable_ad" + 
+                " ORDER BY " + order_column + " " + order_criteria +
+                " LIMIT " + lower_bound + "," + upper_bound;
+            var res = db.Database.SqlQuery<searchable_ad>(command);
+
+            return res;
         }
     }
 

@@ -99,26 +99,28 @@ namespace HpREST_Bridge
         string EditInstitutionDetails(string model_data, int id);
 
         [OperationContract]
+        string AdvertiseInstitution(int id);
+
+        [OperationContract]
         string CreateAd(string model_data);
 
         [OperationContract]
         string GetInstitution(int id);
 
         [OperationContract]
-        string InsertAdPhoto(int ad_id, string photo_guid);
-
-        [OperationContract]
         string GetActiveAds(int institution_id);
 
-        // deprecated, saving images locally in virtual folder
         [OperationContract]
-        string GetAdPhotos(List<int> ad_ids);
+        string GetInactiveBestAds(int institution_id);
 
         [OperationContract]
         string DeleteAd(int ad_id);
 
         [OperationContract]
         string GetBankReference();
+
+        [OperationContract]
+        string GetAdsByRule(int offset, int limit, string order_by);
 
     }
 

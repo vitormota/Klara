@@ -277,7 +277,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Resources\Ad_Photos\443aa770-a9d7-4652-9152-7c61f6ae9780.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\HpREST_Bridge.CompositeType.datasource" />
@@ -300,9 +299,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <None Include="Service References\HealthPService\Arrays.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\HealthPService\configuration91.svcinfo" />
     <None Include="Service References\HealthPService\configuration.svcinfo" />
     <None Include="Service References\HealthPService\Reference.svcmap">

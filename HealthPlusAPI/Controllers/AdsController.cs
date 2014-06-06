@@ -255,31 +255,80 @@ namespace HealthPlusAPI.Controllers
 
             return result;
         }
-
-
         
         [HttpPost]
         public string GetActiveAds(ODataActionParameters parameters)
         {
-            // deprecated !!!!!!!
             int institution_id = Convert.ToInt32( (string)parameters["institution_id"] );
 
+            if (institution_id == 0)
+            {
+                var ads = (from ad in db.Ad
+                           from institution in db.Institution
+                           where ad.state != "deleted" &&
+                           ad.institution_id.Equals(institution.id) &&
+                           ad.start_time.CompareTo(DateTime.Now) < 0 &&
+                           ad.end_time.CompareTo(DateTime.Now) > 0
+                           orderby ad.end_time descending
+                           select new {ad, institution});
+
+                var l = ads.ToList();
+
+                return JsonConvert.SerializeObject(ads);
+            }
+            else if (institution_id != 0)
+            {
+                var ads = (from ad in db.Ad
+                           where ad.institution_id == institution_id &&
+                           ad.state != "deleted" &&
+                           ad.start_time.CompareTo(DateTime.Now) < 0 &&
+                           ad.end_time.CompareTo(DateTime.Now) > 0
+                           orderby ad.end_time descending
+                           select ad);
+
+                var l = ads.ToList();
+
+                return JsonConvert.SerializeObject(ads);
+            }
+
+            return null;
+        }
+
+        [HttpPost]
+        public string GetInactiveBestAds(ODataActionParameters parameters)
+        {
+            int institution_id = Convert.ToInt32((string)parameters["institution_id"]);
+
             var ads = (from ad in db.Ad
-                       join map in db.Ad_Photo_maps on ad.id equals map.ad_id
-                       join ph in db.Photo on map.photo_id equals ph.guid
-                       into t
-                       from tb in t.DefaultIfEmpty()
                        where ad.institution_id == institution_id &&
-                       ad.state != "deleted"
-                       select new
-                       {
-                           ad,
-                           tb.guid
-                       });
+                       ad.state == "deleted" ||
+                       ad.end_time.CompareTo(DateTime.Now) < 0
+                       orderby ad.buyed_cupons descending
+                       select ad).Take(5);
 
             var l = ads.ToList();
 
             return JsonConvert.SerializeObject(ads); ;
+        }
+
+        [HttpPost]
+        public string DeleteAd(ODataActionParameters parameters)
+        {
+            int ad_id = Convert.ToInt32((string)parameters["ad_id"]);
+
+            Ad ad = db.Ad.Find(ad_id);
+            if (ad == null)
+            {
+                return "ad not found";
+            }
+            else
+            {
+                ad.state = "deleted";
+                db.Entry(ad).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return "deleted";
         }
 
         // PUT odata/Ads(5)

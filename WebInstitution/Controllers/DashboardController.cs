@@ -33,6 +33,14 @@ namespace WebInstitution.Controllers
         }
 
         public ActionResult Add() {
+            SessionModel session = (SessionModel)Session["manager"];
+
+            string prevAdsStr = mService.GetInactiveBestAds(session.currentInstitution.id);
+
+            List<AdDisplayModel> prevAds = JsonConvert.DeserializeObject<List<AdDisplayModel>>(prevAdsStr);
+
+            ViewData["prev_ads"] = prevAds;
+
             return PartialView("_Add");
         }
 
@@ -51,34 +59,6 @@ namespace WebInstitution.Controllers
             SessionModel session = (SessionModel)Session["manager"];
 
             List<AdDisplayModel> ads = JsonConvert.DeserializeObject<List<AdDisplayModel>>(mService.GetActiveAds(session.currentInstitution.id));
-            
-            // save all ad's ids in list
-            List<int> adIds = new List<int>();
-
-            foreach (AdDisplayModel adm in ads)
-            {
-                adIds.Add(adm.id);
-            }
-
-            // get each ad's guid(s)
-            string guids_str = mService.GetAdPhotos(adIds.ToArray());
-
-            Dictionary<int, List<string>> guids = JsonConvert.DeserializeObject<Dictionary<int, List<string>>>(guids_str);
-
-            foreach (AdDisplayModel adm in ads)
-            {
-                List<string> ad_guids = guids[adm.id];
-
-                if (ad_guids.Any())
-                {
-                    adm.guids = ad_guids;
-                }
-                else
-                {
-                    // add defalut ad image
-                }
-            }
-
 
             ViewData["active_ads"] = ads;
 
