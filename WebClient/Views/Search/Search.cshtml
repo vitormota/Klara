@@ -47,12 +47,15 @@
         </header>
 
         <div class="options">
-            @Html.RadioButton("region", "cancro1", true)
-            <label> ESPECIALIDADE CANCRO 1 </label>
-            @Html.RadioButton("region", "cancro2", false)
-            <label> ESPECIALIDADE CANCRO 2 </label>
-            @Html.RadioButton("region", "cancro3", false)
-            <label> ESPECIALIDADE CANCRO 3 </label>
+            
+            @Html.RadioButton("region", "Todos", true)
+            <label onclick="updateSpecialtyFilter('Todos')">Todos</label>  
+
+            @for (int i = 0; i < ViewBag.ListSpecialty.Count; i++)
+            { 
+                @Html.RadioButton("region", "@ViewBag.ListSpecialty[i]", false)
+                <label onclick="updateSpecialtyFilter('@ViewBag.ListSpecialty[i]')">@ViewBag.ListSpecialty[i]</label>    
+            }
         </div>
     </div>
 
@@ -67,6 +70,7 @@
     <div class="col-md-2 col-md-offset-3 searched-ad">
         <span class="latitude-ad" style="display:none"> @ViewBag.ListAds[i]["latitude_institution"] </span>
         <span class="longitude-ad" style="display:none"> @ViewBag.ListAds[i]["longitude_institution"] </span>
+        <span class="specialty-ad" style="display:none">@ViewBag.ListAds[i]["specialty"]</span>
         <a href="/Ad?id=@ViewBag.ListAds[i]["id"]">
             <div class="img-details">
                 <div class="img">
