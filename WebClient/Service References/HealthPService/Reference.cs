@@ -275,6 +275,12 @@ namespace WebClient_.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetBankReference", ReplyAction="http://tempuri.org/IHPService/GetBankReferenceResponse")]
         System.Threading.Tasks.Task<string> GetBankReferenceAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdsByRule", ReplyAction="http://tempuri.org/IHPService/GetAdsByRuleResponse")]
+        string GetAdsByRule(int offset, int limit, string order_by);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdsByRule", ReplyAction="http://tempuri.org/IHPService/GetAdsByRuleResponse")]
+        System.Threading.Tasks.Task<string> GetAdsByRuleAsync(int offset, int limit, string order_by);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -566,6 +572,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> GetBankReferenceAsync() {
             return base.Channel.GetBankReferenceAsync();
+        }
+        
+        public string GetAdsByRule(int offset, int limit, string order_by) {
+            return base.Channel.GetAdsByRule(offset, limit, order_by);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetAdsByRuleAsync(int offset, int limit, string order_by) {
+            return base.Channel.GetAdsByRuleAsync(offset, limit, order_by);
         }
     }
 }

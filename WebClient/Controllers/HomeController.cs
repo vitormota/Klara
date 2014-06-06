@@ -11,9 +11,15 @@ namespace WebClient_.Controllers
         public ActionResult Index()
         {
             
-
-            
             return View();
+        }
+
+        public ActionResult Ad(int lowerLimit) {
+
+
+          //  string result = mService.GetAdsByRule();
+
+            return null;
         }
 
         public ActionResult About()

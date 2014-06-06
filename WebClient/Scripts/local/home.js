@@ -2,7 +2,7 @@
 
 function addResultsContent() {
     $.get("Home/Ad" + lowerLimit, function (data) {
-
+        
     });
 }
 
