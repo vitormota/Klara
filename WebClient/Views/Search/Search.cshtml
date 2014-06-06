@@ -69,7 +69,9 @@
         <span class="longitude-ad" style="display:none"> @ViewBag.ListAds[i]["longitude_institution"] </span>
         <a href="/Ad?id=@ViewBag.ListAds[i]["id"]">
             <div class="img-details">
-                <div class="img"></div>
+                <div class="img">
+                    <img src="@ViewBag.ListAds[i]["img_link"]" />
+                </div>
                 <div class="hidden-details">
                     <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
                     <hr />
@@ -92,15 +94,16 @@
     {
 
         <div class="col-md-2 col-md-offset-3 searched-institution">
+            
             <span class="latitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["latitude"] </span>
             <span class="longitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["longitude"] </span>
-            <a href="/Ad?id=@ViewBag.ListInstitution[i]["id"]">
+            <a href="#">
                 <div class="img-details">
                     <div class="img"></div>
                     <div class="hidden-details">
-                        <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
+                        <img id="buy-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="Subscrever" />
                         <hr />
-                        <span>Website @ViewBag.ListInstitution[i]["website"]%</span>
+                        <span>Subscrever</span>
                     </div>
                 </div>
             </a>

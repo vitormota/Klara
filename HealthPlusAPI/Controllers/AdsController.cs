@@ -244,7 +244,8 @@ namespace HealthPlusAPI.Controllers
                         new JProperty("description", listFinalSearch[i].description),
                         new JProperty("discount", listFinalSearch[i].discount),
                         new JProperty("latitude_institution",latitude_institution),
-                        new JProperty("longitude_institution",longitude_institution));
+                        new JProperty("longitude_institution",longitude_institution),
+                        new JProperty("img_link",listFinalSearch[i].img_url));
 
                     listFinalWithInsts.Add(adWithInst);
 
