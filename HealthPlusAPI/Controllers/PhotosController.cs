@@ -69,7 +69,7 @@ namespace HealthPlusAPI.Controllers
             }
 
             // Add mapping to Ad
-            Ad_Photo_maps apm = new Ad_Photo_maps { ad_id = ad_id, photo_id = photo_guid + ".png" };
+            Ad_Photo_maps apm = new Ad_Photo_maps { ad_id = ad_id, photo_id = photo_guid };
             db.Ad_Photo_maps.Add(apm);
             db.SaveChanges();
 
