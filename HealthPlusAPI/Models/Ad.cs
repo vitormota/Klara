@@ -27,5 +27,6 @@ namespace HealthPlusAPI.Models
         public int remaining_cupons { get; set; }
         public int buyed_cupons { get; set; }
         public string state { get; set; }
+        public string img_url { get; set; }
     }
 }

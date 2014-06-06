@@ -34,9 +34,9 @@ namespace HealthPlusAPI.Controllers
 
         // GET odata/Institutions
         [Queryable]
-        public IQueryable<Institution> GetInstitutions()
+        public string GetInstitutions()
         {
-            return db.Institution;
+            return JsonConvert.SerializeObject(db.Institution.ToList());
         }
 
         // GET odata/Institutions(5)
@@ -258,6 +258,25 @@ namespace HealthPlusAPI.Controllers
             return result;
         }
 
+        [HttpPost]
+        public string Advertise(ODataActionParameters parameters)
+        {
+            int institutionId = Convert.ToInt32((string)parameters["institution_id"]);
+
+            Institution ins = db.Institution.Find(institutionId);
+
+            if (ins == null)
+            {
+                return "not found";
+            }
+            else
+            {
+                ins.advertise = true;
+                db.Entry(ins).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return "success";
+        }
         
         [HttpPost]
         public string FetchInstitutions([FromODataUri] int key, ODataActionParameters parameters)
@@ -305,7 +324,8 @@ namespace HealthPlusAPI.Controllers
                             new JProperty("email", list_institutions[i].email),
                             new JProperty("fax", list_institutions[i].fax),
                             new JProperty("latitude", list_institutions[i].latitude),
-                            new JProperty("longitude", list_institutions[i].longitude));
+                            new JProperty("longitude", list_institutions[i].longitude),
+                            new JProperty("advertise", list_institutions[i].advertise));
 
                         listFinalWithGroups.Add(instWithGroup);
 

@@ -18,7 +18,7 @@ namespace WebInstitution.Controllers
             if (session == null)
                 return View();
             else
-                return RedirectToAction("Account", "Home");
+                return RedirectToAction("Index", "Dashboard");
         }
 
         public ActionResult About()

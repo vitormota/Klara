@@ -4,6 +4,11 @@ Titanium.include("/components/lateral_bar.js");
 // Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
 Titanium.include("/components/header_bar.js");
 
+// Include facebook
+Titanium.include("/facebook/init_facebook.js");
+
+var MapModule = require('ti.map');
+
 function CuponScreen()
 {
 	var cupon_window = null;
@@ -11,16 +16,22 @@ function CuponScreen()
 	
 	// Objecto barra lateral
 	var lateral_bar_object = new LateralBarWithoutSearch();
+	var lateral_bar = null;
 	
 	var header_view_object = new HeaderViewImage();
 	var search_bar_object = new SearchBar();
 	
+	var run_constructor_fb_bool = null;
+	
 	
 	this.constructorScreen = function(number_cupon)
 	{
+		// Verificar se existe login
+		run_constructor_fb_bool = fb.loggedIn;
+		
 		// Construir barra lateral
 		lateral_bar_object.constructorLateralBar();
-		var lateral_bar = lateral_bar_object.lateral_bar;
+		lateral_bar = lateral_bar_object.lateral_bar;
 		
 		// Construir header
 		header_view_object.constructorHeaderView();
@@ -237,20 +248,47 @@ function CuponScreen()
 		
 		cupon_info_text.add(cupon_localization_title);
 		
-		var cupon_localization_image = Titanium.UI.createImageView({
-			image: "/healthplus/healthplus_test.jpg",
+		/*var hospital = MapModule.createAnnotation({
+            latitude: -33.87365,
+            longitude: 151.20689,
+            draggable: false,
+            pincolor: MapModule.ANNOTATION_AZURE,   
+            title: 'Hospital S.João',
+            subtitle: 'Avenida da Circunvalação'
+        });
+		
+		var cupon_localization_image = MapModule.createView({
+			userLocation: false,
+            mapType: MapModule.NORMAL_TYPE,
+            animate: false,
+            region: {latitude: -33.87365, longitude: 151.20689, latitudeDelta: 0.1, longitudeDelta: 0.1 },
 			top: "53.61%",
 			left: '0%',
 			height: '27.45%'
 		});
 		
-		cupon_info_text.add(cupon_localization_image);
+		cupon_localization_image.addAnnotation(hospital);
+		cupon_info_text.add(cupon_localization_image);*/
+		
+		var cupon_localization_image = Titanium.UI.createImageView({
+            image: "/healthplus/healthplus_google_maps.jpg",
+            top: "53.61%",
+            left: '0%',
+            height: '27.45%'
+        });
+        
+        cupon_info_text.add(cupon_localization_image);
 		
 		var cupon_image_buy = Titanium.UI.createImageView({
 			image: "/healthplus/healthplus_buy.png",
 			bottom: '5.77%',
 			height: '6.66%',
 			width: '19.44%'
+		});
+		
+		cupon_image_buy.addEventListener('click', function()
+		{
+			InitFacebook();
 		});
 		
 		cupon_info_text.add(cupon_image_buy);
@@ -273,11 +311,14 @@ function CuponScreen()
 		// Colocar events listeners barra lateral
 		var eventListernerLateralBar = new EventsLateralBar();
 		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+		
+		// Verificar se esta logado
+		changeLateralBar();
 	};
 	
 	this.putEventListenersCuponScreen = function ()
 	{
-		var lateral_bar_listener = lateral_bar_object.lateral_bar;
+		//var lateral_bar_listener = lateral_bar_object.lateral_bar;
 		var cupon_scroll = cupon_scroll_view;
 		
 		cupon_window.addEventListener('swipe', function(e)
@@ -285,18 +326,18 @@ function CuponScreen()
 			// Fazer swipe para a esquerda para desaparecer window
 			if(e.direction == 'left')
 			{
-				if(lateral_bar_listener.getVisible() == true)
+				if(lateral_bar.getVisible() == true)
 				{
-					lateral_bar_listener.setVisible(false);
+					lateral_bar.setVisible(false);
 					cupon_scroll.left = '0%';
 				}
 			}
 			else if(e.direction == 'right') // Fazer swipe para a direita para desaparecer window
 			{
-				if(lateral_bar_listener.getVisible() == false)
+				if(lateral_bar.getVisible() == false)
 				{
 					cupon_scroll.left = '76.44%';
-					lateral_bar_listener.setVisible(true);
+					lateral_bar.setVisible(true);
 				}
 			}
 		});
@@ -304,17 +345,42 @@ function CuponScreen()
 		// Carregar no botao de menu
 		header_view_object.menu_header_view.addEventListener('click', function()
 		{
-			if(lateral_bar_listener.getVisible() == true)
+			if(lateral_bar.getVisible() == true)
 			{
-				lateral_bar_listener.setVisible(false);
+				lateral_bar.setVisible(false);
 				cupon_scroll.left = '0%';
 			}
 			else
 			{
 				cupon_scroll.left = '76.44%';
-				lateral_bar_listener.setVisible(true);
+				lateral_bar.setVisible(true);
 			}
 		});
+	};
+	
+	function changeLateralBar()
+	{
+		setInterval(function()
+		{
+			if(run_constructor_fb_bool != fb.loggedIn)
+			{
+				lateral_bar.setVisible(false);
+				cupon_window.remove(lateral_bar);
+				cupon_scroll_view.left = '0%';
+				
+				lateral_bar_object = new LateralBarWithoutSearch();
+				lateral_bar_object.constructorLateralBar();
+				lateral_bar = lateral_bar_object.lateral_bar;
+				
+				lateral_bar.setVisible(false);
+				cupon_window.add(lateral_bar);
+		
+				eventListernerLateralBar = new EventsLateralBar();
+				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+				
+				run_constructor_fb_bool = fb.loggedIn;				
+			}
+		}, 250);
 	};
 	
 	this.showWindow = function()

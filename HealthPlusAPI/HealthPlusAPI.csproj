@@ -166,7 +166,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstitutionsController.cs" />
     <Compile Include="Controllers\ManagersController.cs" />
-    <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\ReferenceBankController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Controllers\Support\AuxGetController.cs" />
@@ -177,9 +176,6 @@
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ad.cs">
-      <DependentUpon>HealthPlus.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Ad_Photo_maps.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AuxiliarClass\AuxiliarFunctions.cs" />
@@ -212,9 +208,6 @@
     <Compile Include="Models\Institution.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Institution_Photo_maps.cs">
-      <DependentUpon>HealthPlus.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Inst_Group.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
@@ -224,10 +217,10 @@
     <Compile Include="Models\Manager_Institution_maps.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Photo.cs">
+    <Compile Include="Models\ReferenceBank\Reference.cs" />
+    <Compile Include="Models\searchable_ad.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReferenceBank\Reference.cs" />
     <Compile Include="Models\Subscribable.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>

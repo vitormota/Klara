@@ -7,10 +7,19 @@ Titanium.include("/components/header_bar.js");
 // Incluir ficheiro com variaveis de sessao
 Titanium.include("/user/session_user.js");
 
+// Incluir facebook
+Titanium.include("/facebook/init_facebook.js");
+
+// Incluir ficheiro para pag. principal
+Titanium.include("/menu/main_screen.js");
+
 function ProfileScreen(infoDatabase)
 {
 	var header_view_object = new HeaderViewText();
+	
 	var lateral_bar_object = new LateralBarWithoutSearch();
+	var lateral_bar = null;
+	
 	var search_bar_object = new SearchBar();
 	
 	var window_perfil = null;
@@ -30,6 +39,8 @@ function ProfileScreen(infoDatabase)
 	var line4 = null;
 	
 	var edit = false;
+	
+	var run_constructor_fb_bool = null;
 	
 	// Info sobre os clientes
 	if(infoDatabase.phone_number == null)
@@ -87,9 +98,12 @@ function ProfileScreen(infoDatabase)
 	
 	this.constructorScreen = function()
 	{
+		// Verificar se existe login
+		run_constructor_fb_bool = fb.loggedIn;
+		
 		// Construir barra lateral
 		lateral_bar_object.constructorLateralBar();
-		var lateral_bar = lateral_bar_object.lateral_bar;
+		lateral_bar = lateral_bar_object.lateral_bar;
 		
 		// Construir header
 		header_view_object.constructorHeaderView("PERFIL");
@@ -453,11 +467,13 @@ function ProfileScreen(infoDatabase)
 		// Colocar events listeners barra lateral
 		var eventListernerLateralBar = new EventsLateralBar();
 		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+		
+		// Verificar se esta logado
+		changeLateralBar();
 	};
 	
 	this.putEventListenersProfileScreen = function ()
 	{
-		var lateral_bar_listener = lateral_bar_object.lateral_bar;
 		var scroll_profile = scroll_view;
 		
 		window_perfil.addEventListener('swipe', function(e)
@@ -465,18 +481,18 @@ function ProfileScreen(infoDatabase)
 			// Fazer swipe para a esquerda para desaparecer window
 			if(e.direction == 'left')
 			{
-				if(lateral_bar_listener.getVisible() == true)
+				if(lateral_bar.getVisible() == true)
 				{
-					lateral_bar_listener.setVisible(false);
+					lateral_bar.setVisible(false);
 					scroll_profile.left = '0%';
 				}
 			}
 			else if(e.direction == 'right') // Fazer swipe para a direita para desaparecer window
 			{
-				if(lateral_bar_listener.getVisible() == false)
+				if(lateral_bar.getVisible() == false)
 				{
 					scroll_profile.left = '76.44%';
-					lateral_bar_listener.setVisible(true);
+					lateral_bar.setVisible(true);
 				}
 			}
 		});
@@ -484,15 +500,15 @@ function ProfileScreen(infoDatabase)
 		// Carregar no botao de menu
 		header_view_object.menu_header_view.addEventListener('click', function()
 		{
-			if(lateral_bar_listener.getVisible() == true)
+			if(lateral_bar.getVisible() == true)
 			{
-				lateral_bar_listener.setVisible(false);
+				lateral_bar.setVisible(false);
 				scroll_profile.left = '0%';
 			}
 			else
 			{
 				scroll_profile.left = '76.44%';
-				lateral_bar_listener.setVisible(true);
+				lateral_bar.setVisible(true);
 			}
 		});
 		
@@ -717,6 +733,24 @@ function ProfileScreen(infoDatabase)
 				edit = false;
 			});
 		});
+	};
+	
+	function changeLateralBar()
+	{
+		setInterval(function()
+		{
+			if(run_constructor_fb_bool != fb.loggedIn)
+			{
+				// Voltar à pag. principal
+				var main_screen = new MainScreen();
+				main_screen.constructorScreen();
+			
+				main_screen.putEventListenersMainScreen();
+				main_screen.showWindow();
+				
+				run_constructor_fb_bool = fb.loggedIn;				
+			}
+		}, 50);
 	};
 	
 	this.showWindow = function()
