@@ -50,8 +50,8 @@ function existUserInDatabase()
 	var args = {};
 	args.facebook_id = user_facebook_id.toString();
 	
-	// Criar clientes para ir buscar dados à api
-	var client = Titanium.Network.createHTTPClient({
+	// Buscar dados a API
+    var connection_api = Titanium.Network.createHTTPClient({
 		onload: function()
 		{
 			// Ciclo while que
@@ -83,10 +83,10 @@ function existUserInDatabase()
 		timeout: 10000 // Tempo para fazer pedido
 	});
 	
-	client.open(method, url, false);
-	client.setRequestHeader("Content-Type", "application/json; charset=utf-8"); // Adaptar o tipo de header para o que é pedido
+	connection_api.open(method, url, false);
+	connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8"); // Adaptar o tipo de header para o que é pedido
 	
-	client.send(JSON.stringify(args));
+	connection_api.send(JSON.stringify(args));
 }
 
 function registerAccount()
@@ -100,8 +100,8 @@ function registerAccount()
 	var args = {};
 	args.fb_id = user_facebook_id.toString();
 	
-	// Criar clientes para ir buscar dados à api
-	var client = Titanium.Network.createHTTPClient({
+	// Buscar dados a API
+    var connection_api = Titanium.Network.createHTTPClient({
 		onload: function()
 		{
 			while(string_verify == "no_connection")
@@ -119,10 +119,10 @@ function registerAccount()
 		timeout: 10000 // Tempo para fazer pedido
 	});
 	
-	client.open(method, url, false);
-	client.setRequestHeader("Content-Type", "application/json; charset=utf-8"); // Adaptar o tipo de header para o que é pedido
+	connection_api.open(method, url, false);
+	connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8"); // Adaptar o tipo de header para o que é pedido
 	
-	client.send(JSON.stringify(args));
+	connection_api.send(JSON.stringify(args));
 }
 
 function registerClient()
@@ -139,8 +139,8 @@ function registerClient()
 	args.city = user_city;
 	args.email = user_email;
 	
-	// Criar clientes para ir buscar dados à api
-	var client = Titanium.Network.createHTTPClient({
+	// Buscar dados a API
+    var connection_api = Titanium.Network.createHTTPClient({
 		onload: function()
 		{
 			while(string_verify == "no_connection")
@@ -164,10 +164,10 @@ function registerClient()
 		timeout: 10000 // Tempo para fazer pedido
 	});
 	
-	client.open(method, url, false);
-	client.setRequestHeader("Content-Type", "application/json; charset=utf-8"); // Adaptar o tipo de header para o que é pedido
+	connection_api.open(method, url, false);
+	connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8"); // Adaptar o tipo de header para o que é pedido
 	
-	client.send(JSON.stringify(args));
+	connection_api.send(JSON.stringify(args));
 }
 
 function loginUser()
@@ -177,8 +177,8 @@ function loginUser()
 	var url = "http://" + url_ip + ":52144/odata/Accounts(" + user_facebook_id.toString() + "L)";
 	//var url = "http://172.30.57.248:52144/odata/Accounts(" + user_facebook_id.toString() + "L)";
 	
-	// Criar clientes para ir buscar dados à api
-	var client = Titanium.Network.createHTTPClient({
+	// Buscar dados a API
+    var connection_api = Titanium.Network.createHTTPClient({
 		onload: function()
 		{
 			while(string_verify == "no_connection")
@@ -202,6 +202,6 @@ function loginUser()
 		timeout: 10000 // Tempo para fazer pedido
 	});
 	
-	client.open(method, url, false);
-	client.send();
+	connection_api.open(method, url, false);
+	connection_api.send();
 }

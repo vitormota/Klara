@@ -261,17 +261,37 @@ namespace HealthPlusAPI.Controllers
         {
             int institution_id = Convert.ToInt32( (string)parameters["institution_id"] );
 
-            var ads = (from ad in db.Ad
-                       where ad.institution_id == institution_id &&
-                       ad.state != "deleted" &&
-                       ad.start_time.CompareTo(DateTime.Now) < 0 &&
-                       ad.end_time.CompareTo(DateTime.Now) > 0
-                       orderby ad.end_time descending
-                       select ad);
+            if (institution_id == 0)
+            {
+                var ads = (from ad in db.Ad
+                           from institution in db.Institution
+                           where ad.state != "deleted" &&
+                           ad.institution_id.Equals(institution.id) &&
+                           ad.start_time.CompareTo(DateTime.Now) < 0 &&
+                           ad.end_time.CompareTo(DateTime.Now) > 0
+                           orderby ad.end_time descending
+                           select new {ad, institution});
 
-            var l = ads.ToList();
+                var l = ads.ToList();
 
-            return JsonConvert.SerializeObject(ads); ;
+                return JsonConvert.SerializeObject(ads);
+            }
+            else if (institution_id != 0)
+            {
+                var ads = (from ad in db.Ad
+                           where ad.institution_id == institution_id &&
+                           ad.state != "deleted" &&
+                           ad.start_time.CompareTo(DateTime.Now) < 0 &&
+                           ad.end_time.CompareTo(DateTime.Now) > 0
+                           orderby ad.end_time descending
+                           select ad);
+
+                var l = ads.ToList();
+
+                return JsonConvert.SerializeObject(ads);
+            }
+
+            return null;
         }
 
         [HttpPost]

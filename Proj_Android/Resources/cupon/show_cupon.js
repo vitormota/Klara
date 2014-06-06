@@ -248,7 +248,7 @@ function CuponScreen()
 		
 		cupon_info_text.add(cupon_localization_title);
 		
-		var hospital = MapModule.createAnnotation({
+		/*var hospital = MapModule.createAnnotation({
             latitude: -33.87365,
             longitude: 151.20689,
             draggable: false,
@@ -268,7 +268,16 @@ function CuponScreen()
 		});
 		
 		cupon_localization_image.addAnnotation(hospital);
-		cupon_info_text.add(cupon_localization_image);
+		cupon_info_text.add(cupon_localization_image);*/
+		
+		var cupon_localization_image = Titanium.UI.createImageView({
+            image: "/healthplus/healthplus_google_maps.jpg",
+            top: "53.61%",
+            left: '0%',
+            height: '27.45%'
+        });
+        
+        cupon_info_text.add(cupon_localization_image);
 		
 		var cupon_image_buy = Titanium.UI.createImageView({
 			image: "/healthplus/healthplus_buy.png",

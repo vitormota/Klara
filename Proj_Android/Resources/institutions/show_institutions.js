@@ -7,6 +7,7 @@ Titanium.include("/components/header_bar.js");
 // Include facebook
 Titanium.include("/facebook/init_facebook.js");
 
+var url_ip = "192.168.1.67";
 
 function InstitutionsScreen()
 {
@@ -22,7 +23,7 @@ function InstitutionsScreen()
 	
 	var run_constructor_fb_bool = null;
 	
-	this.constructorScreen = function ()
+	this.constructorScreen = function (array_institutions)
 	{
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
@@ -50,7 +51,7 @@ function InstitutionsScreen()
 		institution_window.add(background_view);
 		
 		/** Colocar as varias instituições em forma de scroll **/
-		var number_institutions = 6;
+		var number_institutions = array_institutions.length;
 		
 		institution_scroll_view = Titanium.UI.createScrollView({
 			top: '11.79%',
@@ -83,7 +84,7 @@ function InstitutionsScreen()
 			});
 			
 			var text_institution = Titanium.UI.createLabel({
-				text: "HOSPITAL PRIVADO\nPorto",
+				text: (array_institutions[i].name).toUpperCase() + "\n" + array_institutions[i].city,
 				left: '19.03%',
 				top: '20.03%',
 				color: 'black',

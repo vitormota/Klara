@@ -34,9 +34,9 @@ namespace HealthPlusAPI.Controllers
 
         // GET odata/Institutions
         [Queryable]
-        public IQueryable<Institution> GetInstitutions()
+        public string GetInstitutions()
         {
-            return db.Institution;
+            return JsonConvert.SerializeObject(db.Institution.ToList());
         }
 
         // GET odata/Institutions(5)

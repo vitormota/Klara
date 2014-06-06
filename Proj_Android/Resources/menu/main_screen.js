@@ -25,7 +25,7 @@ function MainScreen()
 	
 	var run_constructor_fb_bool = null;
 	
-	this.constructorScreen = function()
+	this.constructorScreen = function(array_ads)
 	{
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
@@ -56,7 +56,7 @@ function MainScreen()
 		
 		
 		// ---------------------------------------- Fazer scrollList com os anuncios --------------------------------------------
-		var number_of_views = 10;
+		var number_of_views = array_ads.length;
 		
 		ad_scroll_view = Titanium.UI.createScrollView({
 			overScrollMode: Titanium.UI.Android.OVER_SCROLL_ALWAYS,

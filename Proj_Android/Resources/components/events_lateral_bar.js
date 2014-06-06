@@ -41,11 +41,36 @@ function EventsLateralBar()
 		// Botao Instituicao
 		lateral_bar.lateral_institution_view.addEventListener('click', function()
 		{
-			var institutions_screen = new InstitutionsScreen();
-			institutions_screen.constructorScreen();
-			
-			institutions_screen.showWindow();
-			institutions_screen.putEventListenersInstitutionsScreen();
+		    var string_verify = "no_connection";
+            var method = 'GET';
+            var url = "http://" + url_ip + ":52144/odata/Institutions";
+            
+            // Buscar dados a API
+            var connection_api= Titanium.Network.createHTTPClient({
+                onload: function()
+                {
+                    while(string_verify == "no_connection")
+                    {
+                        string_verify = JSON.parse(this.responseText);
+                    }
+                    
+                    var array_institutions = JSON.parse(string_verify.value);
+                       
+                    var institutions_screen = new InstitutionsScreen();
+                    institutions_screen.constructorScreen(array_institutions);
+                    
+                    institutions_screen.showWindow();
+                    institutions_screen.putEventListenersInstitutionsScreen();
+                },
+                onerror: function()
+                {
+                    alert("Erro na obtenção de instituições!");
+                },
+                timeout: 10000 // Tempo para fazer pedido
+            });
+            
+            connection_api.open(method, url, false);
+            connection_api.send();
 		});
 		
 		if(fb.loggedIn)
@@ -64,8 +89,8 @@ function EventsLateralBar()
 				var method = 'GET';
 				var url = "http://" + url_ip + ":52144/odata/Clients(" + user_id.toString() + ")";
 				
-				// Criar clientes para ir buscar dados à api
-				var client = Titanium.Network.createHTTPClient({
+				// Buscar dados a API
+				var connection_api = Titanium.Network.createHTTPClient({
 					onload: function()
 					{
 						while(string_verify == "no_connection")
@@ -87,8 +112,8 @@ function EventsLateralBar()
 					timeout: 10000 // Tempo para fazer pedido
 				});
 				
-				client.open(method, url, false);
-				client.send();
+				connection_api.open(method, url, false);
+				connection_api.send();
 			});
 		}
 		
