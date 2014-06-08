@@ -36,7 +36,7 @@
         <hr class="separator-details" />
         <h5>Instituição</h5>
         <p>
-            @Html.ActionLink(Model.institution_name, "/Institution", new { id = Model.institution_id })
+            @Html.ActionLink(Model.institution_name, "../Institution", new { id = Model.institution_id }, new { @class = "inst-link"})
             
         </p>
         <hr class="separator-details" />

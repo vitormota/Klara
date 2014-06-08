@@ -2,170 +2,44 @@
     ViewBag.Title = "Home Page";
 }
 
-@Styles.Render("~/Content/home.css")
+@model List<List<WebClient_.Models.SearchAdModel>>
 
+@Styles.Render("~/Content/search.css")
+@Styles.Render("~/Content/home.css")
 @Html.Partial("_SearchBar")
 
 <div class="slider-wrapper">
     <div class="slider container">
         <ul class="slides">
-            <li class="slide">
-                <div class="row">
-                    <div class="col-md-3">
+            @foreach (var ad in Model[0].Select((value, i) => new { i, value })) {
+                if (ad.i % 4 == 0) {
+                    @Html.Raw("<li class=\"slide\"><div class=\"row\">")
+                }
+
+                <div class="col-md-3">
+                    <a href="/Ad?id=@ad.value.id">
                         <div class="service-image">
+                            <img src="@ad.value.img_url" />
                         </div>
-                        <span class="service">CONSULTA PEDIATRIA</span>
-                        <span class="service-local">CUF - PORTO</span>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
+                    </a>
+                    <span class="service">@ad.value.name</span>
+                    <span class="service-local">@ad.value.inst_name - @ad.value.city</span>
                 </div>
-            </li>
-            <li class="slide">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="service-image">
-                        </div>
-                        <span class="service">CONSULTA PEDIATRIA</span>
-                        <span class="service-local">CUF - PORTO</span>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="slide">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="service-image">
-                        </div>
-                        <span class="service">CONSULTA PEDIATRIA</span>
-                        <span class="service-local">CUF - PORTO</span>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="slide">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="service-image">
-                        </div>
-                        <span class="service">CONSULTA PEDIATRIA</span>
-                        <span class="service-local">CUF - PORTO</span>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="col-md-3">
-                            <div class="service-image">
-                            </div>
-                            <span class="service">CONSULTA PEDIATRIA</span>
-                            <span class="service-local">CUF - PORTO</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
+
+            }
         </ul>
     </div>
 </div>
 <div class="slider-navigation-controls">
 </div>
 
+<div class="section-title">
+    <h4>CUPÕES</h4>
+    <hr />
+</div>
+
 <div class="home-results">
-    <div class="row">
-        <div class="col-md-2">A</div>
-        <div class="col-md-2">B</div>
-        <div class="col-md-2">C</div>
-        <div class="col-md-2">D</div>
-        <div class="col-md-2">F</div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">A</div>
-        <div class="col-md-2">B</div>
-        <div class="col-md-2">C</div>
-        <div class="col-md-2">D</div>
-        <div class="col-md-2">F</div>
-    </div>
+    @Html.Partial("_AdResult", Model[0])
 </div>
 
 @Scripts.Render("~/Scripts/jquery.glide.min.js")

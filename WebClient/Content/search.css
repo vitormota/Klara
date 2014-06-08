@@ -11,6 +11,15 @@
     height: 100%;
 }
 
+.img-details .cupon-thumb {
+	-webkit-transition: opacity 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.5s;
+}
+
+.img-details:hover .cupon-thumb {
+	opacity: 0.2;
+}
+
 .img-details .hidden-details {
 	position: absolute;
 	width: 100%;
@@ -236,7 +245,19 @@
 	background-color: green;
 }
 
-.searched-ad
-{
-    height: 300px;
+.ad-details {
+	background-color: #D86A62;
+    margin-bottom: 2em;
+    padding: 0.5em;
+}
+
+.searched-ad span{
+	color: white;
+    display: block;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.searched-ad span:last-child{
+	text-align: right;
 }

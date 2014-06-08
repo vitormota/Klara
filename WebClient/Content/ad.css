@@ -29,8 +29,16 @@ h5 {
 }
 
 #buy-btn, #subscribe-btn {
-	max-width: 64px;
+	max-width: 48px;
 	height: auto;
 	float: right;
 	margin-top: 1.563em;
+}
+
+.inst-link {
+	color: #D86A62;
+}
+
+.inst-link:hover {
+	color: #FF695E;
 }

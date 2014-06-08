@@ -127,6 +127,8 @@ warning 6002: The table/view 'def.robinfoo_lgp.searchable_ad' does not have a pr
             <PropertyRef Name="longitude" />
             <PropertyRef Name="specialty" />
             <PropertyRef Name="service" />
+            <PropertyRef Name="buyed_cupons" />
+            <PropertyRef Name="city" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
@@ -137,6 +139,9 @@ warning 6002: The table/view 'def.robinfoo_lgp.searchable_ad' does not have a pr
           <Property Name="longitude" Type="decimal" Precision="11" Scale="8" Nullable="false" />
           <Property Name="specialty" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="service" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="img_url" Type="varchar" MaxLength="255" />
+          <Property Name="buyed_cupons" Type="int" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="robinfoo_lgpModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="robinfoo_lgp" store:Type="Tables" />
@@ -159,7 +164,10 @@ warning 6002: The table/view 'def.robinfoo_lgp.searchable_ad' does not have a pr
 `searchable_ad`.`latitude`, 
 `searchable_ad`.`longitude`, 
 `searchable_ad`.`specialty`, 
-`searchable_ad`.`service`
+`searchable_ad`.`service`, 
+`searchable_ad`.`img_url`, 
+`searchable_ad`.`buyed_cupons`, 
+`searchable_ad`.`city`
 FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -300,16 +308,21 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
             <PropertyRef Name="specialty" />
             <PropertyRef Name="service" />
             <PropertyRef Name="id" />
+            <PropertyRef Name="buyed_cupons" />
+            <PropertyRef Name="city" />
           </Key>
           <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="inst_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="price" Type="Decimal" Nullable="false" />
-          <Property Name="discount" Type="Single" />
+          <Property Name="discount" Type="Single" Nullable="false" />
           <Property Name="latitude" Type="Decimal" Nullable="false" />
           <Property Name="longitude" Type="Decimal" Nullable="false" />
           <Property Name="specialty" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="service" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="img_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="buyed_cupons" Type="Int32" Nullable="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -438,6 +451,9 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           <EntitySetMapping Name="searchable_ad">
             <EntityTypeMapping TypeName="robinfoo_lgpModel.searchable_ad">
               <MappingFragment StoreEntitySet="searchable_ad">
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="buyed_cupons" ColumnName="buyed_cupons" />
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="service" ColumnName="service" />
                 <ScalarProperty Name="specialty" ColumnName="specialty" />

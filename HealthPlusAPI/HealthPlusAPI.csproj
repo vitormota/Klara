@@ -195,11 +195,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HealthPlus.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HealthPlus.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\HealthPlus1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -253,18 +248,18 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HealthPlus1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Models\HealthPlus.edmx.diagram">
+      <DependentUpon>HealthPlus.edmx</DependentUpon>
+    </Content>
     <Content Include="Models\HealthPlus.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HealthPlus.edmx</DependentUpon>
       <LastGenOutput>HealthPlus.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\HealthPlus.edmx.diagram">
       <DependentUpon>HealthPlus.edmx</DependentUpon>
     </Content>
     <Content Include="Models\HealthPlus.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HealthPlus.edmx</DependentUpon>
       <LastGenOutput>HealthPlus.cs</LastGenOutput>
+      <DependentUpon>HealthPlus.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -135,3 +135,12 @@ footer p {
 .pull-top {
 	margin-top: 4.4em;
 }
+
+
+.section-title {
+	color: #D86A62;
+}
+
+.section-title hr {
+	border-color: #FF8B8A;
+}

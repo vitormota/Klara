@@ -44,3 +44,7 @@ a.panel-title:hover {
 	height: auto;
 	max-height: 4em;
 }
+
+.subscribed-ad {
+    margin-bottom: 1em;
+}
