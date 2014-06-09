@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Pesquisa";
-    var columns = 4;
 }
 
 @Styles.Render("~/Content/themes/base/jquery-ui.css")
@@ -8,11 +7,21 @@
 
 <div id="search-filters-wrapper">
     @Html.Partial("_SearchBar")
+
+    <div id="type-filter" class="clearfix">
+        <h5>RESULTADOS</h5>
+        <hr />
+        <button id="cp-btn" class="current">CUPÃO</button>
+        <button id="inst-btn">INSTITUIÇÃO</button>
+    </div>
+
+    
+
     <div id="region-filter" class="filter clearfix">
         <img src="~/Content/Images/pictogramas-02.png" />
         <header>
             <h6>REGIÃO</h6>
-            <span class="minus-btn"></span>
+            <span class="minus-btn">-</span>
         </header>
 
         <div class="options">
@@ -29,7 +38,7 @@
         <img src="~/Content/Images/pictogramas-07.png" />
         <header>
             <h6>PREÇO</h6>
-            <span class="minus-btn"></span>
+            <span class="minus-btn">-</span>
         </header>
 
         <div id="slider-range-wrapper" onmouseup="updatePriceFilter()" onmouseout="updatePriceFilter()">
@@ -43,7 +52,7 @@
         <img src="~/Content/Images/pictogramas-08.png" />
         <header>
             <h6>ESPECIALIDADE</h6>
-            <span class="minus-btn"></span>
+            <span class="minus-btn">-</span>
         </header>
 
         <div class="options">
@@ -60,13 +69,13 @@
 
 </div>
 
-<div class="search-wrapper pull-top">
+<div id="search-wrapper" class="pull-top">
     <!-- ADs-->
-    <div class="ad-search-wrapper">
+    <div id="ad-search-wrapper">
         <div class="row">
             <div class="col-md-9 col-md-offset-3">
                 @for (int i = 0; i < ViewBag.ListAds.Count; i++) {
-                    <div class="col-md-3 searched-ad">
+                    <div class="col-md-3 col-xs-6 searched-ad">
                         <span class="latitude-ad" style="display:none"> @ViewBag.ListAds[i]["latitude_institution"] </span>
                         <span class="longitude-ad" style="display:none"> @ViewBag.ListAds[i]["longitude_institution"] </span>
                         <span class="specialty-ad" style="display:none">@ViewBag.ListAds[i]["specialty"]</span>
@@ -93,7 +102,7 @@
 
     <!-- INSTITUTIONs-->
 
-    <div class="inst-search-wrapper">
+    <div id="inst-search-wrapper">
         <div class="row">
             <div class="col-md-9 col-md-offset-3">
                 @for (int i = 0; i < ViewBag.ListInstitution.Count; i++) {

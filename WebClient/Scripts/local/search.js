@@ -13,7 +13,6 @@ $(document).ready(function () {
 
      });
 
-
 	$('#search-filters-wrapper .options label').click(function () {
 		$(this).prev().prop("checked", true);
 	});
@@ -33,7 +32,26 @@ $(document).ready(function () {
 
 
      $(".minus-btn").click(function () {
-     	$(this).next($(this).parent().next().slideToggle());
-     	$(this).removeClass("minus-btn").addClass("plus-btn");
+         $(this).next($(this).parent().next().slideToggle());
+         if ($(this).html() == "+")
+             $(this).html("-");
+         else
+             $(this).html("+");  	
+     });
+
+     $("#cp-btn").click(function () {
+         $("#type-filter .current").removeClass("current");
+         $(this).addClass("current");
+         $("#inst-search-wrapper").fadeOut(500, function () {
+             $("#ad-search-wrapper").fadeIn(500);
+         });
+     });
+
+     $("#inst-btn").click(function () {
+         $("#type-filter .current").removeClass("current");
+         $(this).addClass("current");
+         $("#ad-search-wrapper").fadeOut(500, function () {
+             $("#inst-search-wrapper").fadeIn(500);
+         });
      });
 });
