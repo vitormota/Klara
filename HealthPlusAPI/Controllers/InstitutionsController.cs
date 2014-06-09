@@ -87,6 +87,34 @@ namespace HealthPlusAPI.Controllers
                     
                     foreach(Institution institution in db.Institution)
                     {
+                        string[] nameSplit = auxFunctions.RemoverAcentos(institution.name).ToLower().Split(' ');
+                        string[] citySplit = auxFunctions.RemoverAcentos(institution.city).ToLower().Split(' ');
+
+                        foreach (string s in nameSplit)
+                        {
+                            if (s.StartsWith(searchTextFor))
+                            {
+                                if (!auxList.Contains(institution))
+                                {
+                                    auxList.Add(institution);
+                                    break;
+                                }
+                            }
+                        }
+
+                        foreach (string s in citySplit)
+                        {
+                            if (s.StartsWith(searchTextFor))
+                            {
+                                if (!auxList.Contains(institution))
+                                {
+                                    auxList.Add(institution);
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        /*
                         if(auxFunctions.RemoverAcentos(institution.name).ToLower().Contains(searchTextFor))
                         {
                             if(!auxList.Contains(institution))
@@ -101,6 +129,7 @@ namespace HealthPlusAPI.Controllers
                                 auxList.Add(institution);
                             }
                         }
+                        */
                     }
 
                     listInstitution.Add(auxList);

@@ -146,6 +146,44 @@ namespace HealthPlusAPI.Controllers
 
                     foreach (Ad ad in db.Ad)
                     {
+                        string[] nameSplit = auxFunctions.RemoverAcentos(ad.name).ToLower().Split(' ');
+                        string[] serviceSplit = auxFunctions.RemoverAcentos(ad.service).ToLower().Split(' ');
+                        string[] specialtySplit = auxFunctions.RemoverAcentos(ad.specialty).ToLower().Split(' ');
+
+                        foreach (string s in nameSplit) {
+                            if (s.StartsWith(searchTextFor)) {
+                                if (!auxList.Contains(ad))
+                                {
+                                    auxList.Add(ad);
+                                    break;
+                                }
+                            }
+                        }
+
+                        foreach (string s in serviceSplit)
+                        {
+                            if (s.StartsWith(searchTextFor))
+                            {
+                                if (!auxList.Contains(ad))
+                                {
+                                    auxList.Add(ad);
+                                    break;
+                                }
+                            }
+                        }
+
+                        foreach (string s in specialtySplit)
+                        {
+                            if (s.StartsWith(searchTextFor))
+                            {
+                                if (!auxList.Contains(ad))
+                                {
+                                    auxList.Add(ad);
+                                    break;
+                                }
+                            }
+                        }
+                        /*
                         if (auxFunctions.RemoverAcentos(ad.name).ToLower().Contains(searchTextFor))
                         {
                             if (!auxList.Contains(ad))
@@ -167,6 +205,7 @@ namespace HealthPlusAPI.Controllers
                                 auxList.Add(ad);
                             }
                         }
+                        */
                     }
 
                     listAd.Add(auxList);
