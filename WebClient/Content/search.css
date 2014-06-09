@@ -251,13 +251,18 @@
     padding: 0.5em;
 }
 
-.searched-ad span{
+.home-cupon span{
 	color: white;
     display: block;
     text-transform: uppercase;
     font-size: 14px;
 }
 
-.searched-ad span:last-child{
+.home-cupon span:last-child{
 	text-align: right;
+}
+
+.searched-ad, .searched-institution {
+	overflow: hidden;
+	height: 15em;
 }
