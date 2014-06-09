@@ -82,6 +82,7 @@
 	top: 8.2em;
 	left: 0;
 	background-color: #f0e9ce;
+	z-index: 100;
 }
 
 #search-filters-wrapper img {

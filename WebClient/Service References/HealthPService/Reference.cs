@@ -151,10 +151,10 @@ namespace WebClient_.HealthPService {
         System.Threading.Tasks.Task<string> UserLoginAsync(string access_token, int provider);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchInstitution", ReplyAction="http://tempuri.org/IHPService/SearchInstitutionResponse")]
-        string SearchInstitution(string textSearch);
+        string SearchInstitution(string textSearch, int last_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchInstitution", ReplyAction="http://tempuri.org/IHPService/SearchInstitutionResponse")]
-        System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch);
+        System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch, int last_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/FetchInstitutions", ReplyAction="http://tempuri.org/IHPService/FetchInstitutionsResponse")]
         string FetchInstitutions(string manager_id);
@@ -163,10 +163,10 @@ namespace WebClient_.HealthPService {
         System.Threading.Tasks.Task<string> FetchInstitutionsAsync(string manager_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchAd", ReplyAction="http://tempuri.org/IHPService/SearchAdResponse")]
-        string SearchAd(string textSearch);
+        string SearchAd(string textSearch, int last_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchAd", ReplyAction="http://tempuri.org/IHPService/SearchAdResponse")]
-        System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch);
+        System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch, int last_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InstitutionsSubscribe", ReplyAction="http://tempuri.org/IHPService/InstitutionsSubscribeResponse")]
         string InstitutionsSubscribe(int client_id);
@@ -406,12 +406,12 @@ namespace WebClient_.HealthPService {
             return base.Channel.UserLoginAsync(access_token, provider);
         }
         
-        public string SearchInstitution(string textSearch) {
-            return base.Channel.SearchInstitution(textSearch);
+        public string SearchInstitution(string textSearch, int last_id) {
+            return base.Channel.SearchInstitution(textSearch, last_id);
         }
         
-        public System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch) {
-            return base.Channel.SearchInstitutionAsync(textSearch);
+        public System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch, int last_id) {
+            return base.Channel.SearchInstitutionAsync(textSearch, last_id);
         }
         
         public string FetchInstitutions(string manager_id) {
@@ -422,12 +422,12 @@ namespace WebClient_.HealthPService {
             return base.Channel.FetchInstitutionsAsync(manager_id);
         }
         
-        public string SearchAd(string textSearch) {
-            return base.Channel.SearchAd(textSearch);
+        public string SearchAd(string textSearch, int last_id) {
+            return base.Channel.SearchAd(textSearch, last_id);
         }
         
-        public System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch) {
-            return base.Channel.SearchAdAsync(textSearch);
+        public System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch, int last_id) {
+            return base.Channel.SearchAdAsync(textSearch, last_id);
         }
         
         public string InstitutionsSubscribe(int client_id) {

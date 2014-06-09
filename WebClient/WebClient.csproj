@@ -199,7 +199,6 @@
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InstitutionModel.cs" />
-    <Compile Include="Models\RequestDatabase\AdModel.cs" />
     <Compile Include="Models\SearchAdModel.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\UserEditModel.cs" />
@@ -399,6 +398,8 @@
     <Content Include="Views\Order\ShoppingCart.cshtml" />
     <Content Include="Views\Order\PaymentDetails.cshtml" />
     <Content Include="Views\Home\_AdResult.cshtml" />
+    <Content Include="Views\Search\_AdResult.cshtml" />
+    <Content Include="Views\Search\_InstitutionResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

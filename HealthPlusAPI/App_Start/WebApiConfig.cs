@@ -87,11 +87,13 @@ namespace HealthPlusAPI
             // Adicionar a action para procurar instituicoes
             ActionConfiguration searchInstitution = builder.Entity<Institution>().Collection.Action("SearchInstitution");
             searchInstitution.Parameter<string>("textSearch");
+            searchInstitution.Parameter<string>("last_id");
             searchInstitution.Returns<string>();
 
             // Action que vai permitir a pesquisa de anuncios
             ActionConfiguration searchAd = builder.Entity<Ad>().Collection.Action("SearchAd");
             searchAd.Parameter<string>("textSearch");
+            searchAd.Parameter<string>("last_id");
             searchAd.Returns<string>();
 
 

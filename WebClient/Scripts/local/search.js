@@ -1,18 +1,63 @@
+var params = getUrlVars();
+var textSearch = params['textSearch'];
+
+var last_ad_id = $("#last-ad-id").html();
+$("#last-ad-id").remove();
+
+var last_inst_id = $("#last-inst-id").html();
+$("#last-inst-id").remove();
+
+function getUrlVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+function addAdResultsContent() {
+    $.get("/Search/SearchAd?textSearch=" + textSearch + "&last_ad_id=" + last_ad_id, function (data) {
+        if (data != []) {
+            $("#ad-search-wrapper .col-md-9").append(data);
+            html = $.parseHTML(data);
+
+            $.each(html, function (i, el) {
+                if (html[i].id != "undefined") {
+                    if (html[i].id > last_ad_id) last_ad_id = html[i].id;
+                }
+            });
+        }
+    });
+}
+
+function addInstitutionResultsContent() {
+    $.get("/Search/SearchInstitution?textSearch=" + textSearch + "&last_inst_id=" + last_inst_id, function (data) {
+        if (data != []) {
+            $("#inst-search-wrapper .col-md-9").append(data);
+            html = $.parseHTML(data);
+
+            $.each(html, function (i, el) {
+                if (html[i].id != "undefined") {
+                    if (html[i].id > last_inst_id) last_inst_id = html[i].id;
+                }
+            });
+        }
+    });
+}
+
+$(window).scroll(function () {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        if ($('#ad-search-wrapper').css('display') == 'none')
+            addInstitutionResultsContent();
+        else
+            addAdResultsContent();
+    }
+});
+
 $(document).ready(function () {
-    var el = $('#search-filters-wrapper');
-    elt = el.offset().top;
-	$(window).scroll(function() {
-		scrolloffset = Math.floor($(this).scrollTop() * 6.250) / 100;
-		if(scrolloffset > 8.2) {
-			el.css("position", "fixed");
-    		el.css("top", 0);
-   		 } else {
-   		 	el.css("position", "absolute");
-   		 	el.css("top", 8.2 + "em");
-   		 }
-
-     });
-
 	$('#search-filters-wrapper .options label').click(function () {
 		$(this).prev().prop("checked", true);
 	});
