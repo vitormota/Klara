@@ -73,11 +73,17 @@ namespace HealthPlusAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (key != client.id)
+            /*if (key != client.id)
             {
                 return BadRequest();
-            }
+            }*/
 
+           var current_client = db.Client.Where(x => x.id == key).Single();
+            client.id = current_client.id;
+            client.name = current_client.name;
+            client.email = current_client.email;
+
+            db.Entry(current_client).State = EntityState.Detached;
             db.Entry(client).State = EntityState.Modified;
 
             try
