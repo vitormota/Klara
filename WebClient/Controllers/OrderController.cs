@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using WebClient_.HealthPService;
@@ -67,7 +68,7 @@ namespace WebClient_.Controllers
                 string response = mService.BuyMultipleCupons(JsonConvert.SerializeObject(cart.getAds()));
                 cart.clean();
             }
-
+            ConfirmPurchaseNotif();
             //Send email to user confirming purchase
             return RedirectToAction("Index", "User");
         }
@@ -93,7 +94,7 @@ namespace WebClient_.Controllers
             {
                 //fast
                 Ad cupon = JsonConvert.DeserializeObject<Ad>(mService.GetAdById((int)id));
-                if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) < 0 || cupon.end_time.CompareTo(DateTime.Now) > 0))
+                if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) > 0 || cupon.end_time.CompareTo(DateTime.Now) < 0))
                 {
                     //cannot buy cupon
                     ViewBag.error = "The cupon you are trying to buy is not valid and may be expired, we are sorry for the inconvenience.";
@@ -109,7 +110,7 @@ namespace WebClient_.Controllers
 
         public bool addToCart(Ad cupon)
         {
-            if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) < 0 || cupon.end_time.CompareTo(DateTime.Now) > 0))
+            if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) > 0 || cupon.end_time.CompareTo(DateTime.Now) < 0))
             {
                 //cannot buy cupon
                 return false;
@@ -124,5 +125,43 @@ namespace WebClient_.Controllers
             cart.addCupon(cupon);
             return true;
         }
-	}
+
+
+        public void ConfirmPurchaseNotif()
+        {
+            int internal_id = ((UserSession)Session["user"]).internal_id;
+
+            JObject userjson = JObject.Parse(mService.GetClientDetails(internal_id));
+
+            UserInfo client = UserInfo.jsonToModel(userjson);
+
+            SmtpClient mySmtpClient = new SmtpClient("smtp.sapo.pt");
+
+            // set smtp-client with basicAuthentication
+            mySmtpClient.UseDefaultCredentials = false;
+            System.Net.NetworkCredential basicAuthenticationInfo = new
+            System.Net.NetworkCredential("healthplus_notifications@sapo.pt", "healthplus");
+            mySmtpClient.Credentials = basicAuthenticationInfo;
+
+            // add from,to mail addresses
+            MailAddress from = new MailAddress(client.email, client.name);
+            MailAddress to = new MailAddress(client.email, "HealthPlusSupport");
+            MailMessage myMail = new System.Net.Mail.MailMessage(from, to);
+
+
+            // set subject and encoding
+            myMail.Subject = "Purchase confirmation";
+            myMail.SubjectEncoding = System.Text.Encoding.UTF8;
+
+            // set body-message and encoding
+            myMail.Body = "Test";
+            myMail.BodyEncoding = System.Text.Encoding.UTF8;
+            // text or html
+            myMail.IsBodyHtml = true;
+            mySmtpClient.Port = 25;
+            mySmtpClient.EnableSsl = true;
+
+            mySmtpClient.Send(myMail);
+        }
+    }
 }
