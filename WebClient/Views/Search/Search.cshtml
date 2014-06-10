@@ -9,25 +9,25 @@
     @Html.Partial("_SearchBar")
 
     <div id="type-filter" class="clearfix">
-        <h5>RESULTADOS</h5>
+        <h5>@Resources.Results</h5>
         <hr />
-        <button id="cp-btn" class="current">CUPÃO</button>
-        <button id="inst-btn">INSTITUIÇÃO</button>
+        <button id="cp-btn" class="current">@Resources.Cupon</button>
+        <button id="inst-btn">@Resources.Institution</button>
     </div>
 
     <div id="region-filter" class="filter clearfix">
         <img src="~/Content/Images/pictogramas-02.png" />
         <header>
-            <h6>REGIÃO</h6>
+            <h6>@Resources.Region</h6>
             <span class="minus-btn">-</span>
         </header>
 
         <div class="options">
-            @Html.RadioButton("region", "50", true)
+            @Html.RadioButton(Resources.Region, "50", true)
             <label onclick="regionFilter(1)">> 50 km</label>
-            @Html.RadioButton("region", "50-100", false)
+            @Html.RadioButton(Resources.Region, "50-100", false)
             <label onclick="regionFilter(2)">> 50 km - < 100 km</label>
-            @Html.RadioButton("region", "100", false)
+            @Html.RadioButton(Resources.Region, "100", false)
             <label onclick="regionFilter(3)">> 100 km</label>
         </div>
     </div>
@@ -35,7 +35,7 @@
     <div id="price-filter" class="filter clearfix">
         <img src="~/Content/Images/pictogramas-07.png" />
         <header>
-            <h6>PREÇO</h6>
+            <h6>@Resources.Price</h6>
             <span class="minus-btn">-</span>
         </header>
 
@@ -49,17 +49,17 @@
     <div id="speciality-filter" class="filter clearfix">
         <img src="~/Content/Images/pictogramas-08.png" />
         <header>
-            <h6>ESPECIALIDADE</h6>
+            <h6>@Resources.Specialty</h6>
             <span class="minus-btn">-</span>
         </header>
 
         <div class="options">
 
-            @Html.RadioButton("region", "Todos", true)
+            @Html.RadioButton(Resources.Region, Resources.All, true)
             <label onclick="updateSpecialtyFilter('Todos')">Todos</label>
 
             @for (int i = 0; i < ViewBag.ListSpecialty.Count; i++) {
-                @Html.RadioButton("region", "@ViewBag.ListSpecialty[i]", false)
+                @Html.RadioButton(Resources.Region, "@ViewBag.ListSpecialty[i]", false)
                 <label onclick="updateSpecialtyFilter('@ViewBag.ListSpecialty[i]')">@ViewBag.ListSpecialty[i]</label>
             }
         </div>

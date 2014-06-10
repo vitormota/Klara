@@ -8,13 +8,13 @@
 <h2>ShoppingCart</h2>
 
 <div class="container">
-    <h4>ShoppingCart</h4>
+    <h4>@Resources.ShoppingCart</h4>
     <hr />
     <div class="row">
     @if (Model == null)
     {
         @*User is requesting an empty cart*@
-        <h6>Your shopping cart is empty =(</h6>
+        <h6>@Resources.EmptyCartNotif</h6>
     }
     else
     {
@@ -46,7 +46,7 @@
         }
         
         <form method="post" action="/Order/ShowPaymentDetails">
-            <input class="btn btn-success" type="submit" value="Buy Ads" />
+            <input class="btn btn-success" type="submit" value="@Resources.BuyAds" />
         </form>
     }
         

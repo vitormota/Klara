@@ -13,7 +13,7 @@ namespace WebInstitution.Helpers
         // Include ONLY cultures you are implementing
         private static readonly List<string> _cultures = new List<string> {
         "en-US",  // first culture is the DEFAULT
-        "pt" // Spanish NEUTRAL culture
+        "pt" // Portuguese NEUTRAL culture
         //"ar"  // Arabic NEUTRAL culture
         };
 

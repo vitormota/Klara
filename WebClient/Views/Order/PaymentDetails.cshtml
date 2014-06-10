@@ -1,11 +1,11 @@
 ﻿@model WebClient_.Models.ShoppingCart
 
 @{
-    ViewBag.Title = "PaymentDetails";
+    ViewBag.Title = @Resources.PaymentDetails;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>PaymentDetails</h2>
+<h2>~@Resources.PaymentDetails</h2>
 
 @if (ViewBag.error != null)
 {
@@ -16,17 +16,17 @@
 
 @if (!Model.isFastCheckout())
 {
-    <h4>Quantity: @Model.getCount()</h4>
+    <h4>@Resources.Quantity: @Model.getCount()</h4>
 }
 
-<h3>Payment details </h3>
+<h3>@Resources.PaymentDetails</h3>
 
-<h5>Entity: @ViewBag.entity</h5>
-<h5>Reference: @ViewBag.reference</h5>
+<h5>@Resources.Entity: @ViewBag.entity</h5>
+<h5>@Resources.Reference: @ViewBag.reference</h5>
 
 
 
 <form method="post" action="/Order/FinalizePurchase">
 
-    <input type="submit" value="Pay" />
+    <input type="submit" value="@Resources.Pay" />
 </form>
