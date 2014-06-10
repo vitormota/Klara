@@ -68,7 +68,7 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string SearchAd(string textSearch)
         {
-            string result = mService.SearchAd(textSearch);
+            string result = mService.SearchAd(textSearch, 0);
             List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar os anuncios que recebeu para uma lista, com um dicionario la dentro
             
             return result;

@@ -82,6 +82,7 @@
 	top: 8.2em;
 	left: 0;
 	background-color: #f0e9ce;
+	z-index: 100;
 }
 
 #search-filters-wrapper img {
@@ -95,7 +96,7 @@
 	width: 300px;
 	background-color: none;
 	padding-left: 0;
-	margin-bottom: 1.9em
+	margin-bottom: 1em
 }
 
 .search-box #textbox {
@@ -227,22 +228,13 @@
 }
 
 .minus-btn, .plus-btn {
-	width: 14px;
-	height: 14px;
+	margin-top: 0.2em;
+	color: white;
 	float: right;
-	margin: 10px 0 10px 0;
 }
 
 .minus-btn:hover, .plus-btn:hover {
 	cursor: pointer;
-}
-
-.minus-btn {
-	background-color: red;
-}
-
-.plus-btn {
-	background-color: green;
 }
 
 .ad-details {
@@ -266,3 +258,42 @@
 	overflow: hidden;
 	height: 15em;
 }
+
+#inst-search-wrapper {
+	display: none;
+}
+
+#type-filter {
+	margin: 0 1.5em 2em 1.5em;
+}
+
+#type-filter button{
+    text-align: center;
+    background-color: #f79983;
+    border: 0;
+    color: white;
+    text-transform: uppercase;
+    padding: 0.5em;
+    -webkit-appearance: none;
+    float: left;
+    outline: none;
+    width: 50%;
+    font-size: 14px;
+}
+
+
+#type-filter button.current {
+    background-color: #D86A62;
+}
+
+#type-filter h5 {
+	color: #D86A62;
+	font-weight: 700;
+}
+
+
+#type-filter hr {
+	border-color: #D86A62;
+	margin: 1em 0 1em 0;
+}
+

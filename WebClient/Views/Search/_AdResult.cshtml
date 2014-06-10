@@ -1,0 +1,22 @@
+﻿@for (int i = 0; i < ViewBag.ListAds.Count; i++) {
+    <div id="@ViewBag.ListAds[i]["id"]" class=" col-md-3 col-xs-6 searched-ad">
+        <span class="latitude-ad" style="display:none"> @ViewBag.ListAds[i]["latitude_institution"] </span>
+        <span class="longitude-ad" style="display:none"> @ViewBag.ListAds[i]["longitude_institution"] </span>
+        <span class="specialty-ad" style="display:none">@ViewBag.ListAds[i]["specialty"]</span>
+        <a href="/Ad?id=@ViewBag.ListAds[i]["id"]">
+            <div class="img-details">
+                <div class="img">
+                    <img class="cupon-thumb" src="@ViewBag.ListAds[i]["img_link"]" />
+                </div>
+                <div class="hidden-details">
+                    <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
+                    <hr />
+                    <span>Desconto @ViewBag.ListAds[i]["discount"]%</span>
+                </div>
+            </div>
+        </a>
+        <span class="cupn-service">@ViewBag.ListAds[i]["name"]</span>
+        <span>@ViewBag.ListAds[i]["name_institution"]</span>
+        <span class="add-price">@ViewBag.ListAds[i]["price"] €</span>
+    </div>
+}

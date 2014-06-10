@@ -52,13 +52,13 @@ namespace HpREST_Bridge
         string UserLogin(string access_token, int provider);
 
         [OperationContract]
-        string SearchInstitution(string textSearch);
+        string SearchInstitution(string textSearch, int last_id);
 
         [OperationContract]
         string FetchInstitutions(string manager_id);
 
         [OperationContract]
-        string SearchAd(string textSearch);
+        string SearchAd(string textSearch, int last_id);
 
         [OperationContract]
         string InstitutionsSubscribe(int client_id);

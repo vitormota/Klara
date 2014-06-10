@@ -176,6 +176,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="textSearch" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="last_id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -204,6 +205,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="textSearch" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="last_id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
