@@ -24,35 +24,40 @@ namespace WebClient_.Controllers
             }
 
             string json_ad = mService.GetAdById((int)id);
-            Ad ad = JsonConvert.DeserializeObject<Ad>(json_ad);
+            KeyValuePair<Ad, InstitutionModel> adResult = JsonConvert.DeserializeObject<KeyValuePair<Ad, InstitutionModel>>(json_ad);
+
+            Ad ad = adResult.Key;
+            ad.institution_name = adResult.Value.name;
+            ad.local = adResult.Value.city;
 
             return View(ad);
         }
 
-        [HttpPost]
-        public string SubscribeAd()
+        [HttpGet]
+        public string SubscribeAd(int ad_id)
         {
-            int client_id = 44;
-            int ad_id = 5;
+            UserSession us = (UserSession)Session["user"];
+            int client_id = us.internal_id;
 
             string result = mService.SubscribeAd(client_id, ad_id);
             return result;
         }
 
-        [HttpPost]
-        public string UnsubscribeAd()
+        [HttpGet]
+        public string UnsubscribeAd(int ad_id)
         {
-            int client_id = 44;
-            int ad_id = 5;
+            UserSession us = (UserSession)Session["user"];
+            int client_id = us.internal_id;
 
             string result = mService.UnsubscribeAd(client_id, ad_id);
             return result;
         }
 
-        [HttpPost]
+        [HttpGet]
         public string AdsSubscribe()
         {
-            int client_id = 44;
+            UserSession us = (UserSession)Session["user"];
+            int client_id = us.internal_id;
 
             string result = mService.AdsSubscribe(client_id);
             List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar os anuncios que recebeu para uma lista, com um dicionario la dentro
@@ -63,17 +68,17 @@ namespace WebClient_.Controllers
         [HttpPost]
         public string SearchAd(string textSearch)
         {
-            string result = mService.SearchAd(textSearch);
+            string result = mService.SearchAd(textSearch, 0);
             List<Dictionary<string, string>> resultList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(result); // permite passar os anuncios que recebeu para uma lista, com um dicionario la dentro
             
             return result;
         }
 
-        [HttpPost]
-        public string SubscribeAdUser()
+        [HttpGet]
+        public string SubscribeAdUser(int ad_id)
         {
-            int ad_id = 5;
-            int client_id = 44;
+            UserSession us = (UserSession)Session["user"];
+            int client_id = us.internal_id;
 
             string result = mService.IsSubscribeUser(client_id, ad_id);
             return result;

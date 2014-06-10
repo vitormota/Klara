@@ -1,33 +1,51 @@
-﻿@{
+﻿@model WebClient_.Models.InstitutionModel
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form method="post" action="../Institution/SearchInstitution">
-    <input type="text" name="textSearch" />
-    <input type="submit" value="Procurar" />
-</form>
+@Styles.Render("~/Content/ad.css")
 
-<form method="post" action="../Institution/InstitutionsSubscribe">
-    <input type="submit" value="Ver instituições subscritas" />
-</form>
+<div class="row col-xs-12 col-md-12 pull-top">
+    <div class="col-xs-2 col-md-4">
+        <img id="cupn-img" class="img-responsive" src="~/Content/images/cupon.png" alt="Imagem cupao" />
+    </div>
+    <div class="col-xs-8 col-md-6">
+        <h4 id="cupn-title">@Html.ValueFor(inst => inst.name)</h4>
+        <hr class="separator-title" />
+        <h5>Cidade</h5>
+        <p>
+            @Html.ValueFor(inst => inst.city)
+        </p>
+        <hr class="separator-details" />
+        <h5>Email</h5>
+        <p>
+            <a class="inst-link" href="mailto:@Html.ValueFor(inst => inst.email)">@Html.ValueFor(inst => inst.email)</a>   
+        </p>
+        <hr class="separator-details" />
+        <h5>Website</h5>
+        <p>
+            <a class="inst-link"  href="http://@Html.ValueFor(inst => inst.website)">@Html.ValueFor(inst => inst.website)</a>
+        </p>
+        <hr class="separator-details" />
+        <h5>Endereço</h5>
+        <p>
+           @Html.ValueFor(inst => inst.address)
+        </p>
+        <hr class="separator-details" />
+        <h5>Telefone</h5>
+        <p>
+           @Html.ValueFor(inst => inst.phone_number)
+        </p>
+        <hr class="separator-details" />
+        <h5>Fax</h5>
+        <p>
+           @Html.ValueFor(inst => inst.fax)
+        </p>
+       
+        <a href="#"><img id="subscribe-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="Subscribe" /></a>
+    </div>
+</div>
 
-<form method="post" action="../Institution/SubscribeInstitution">
-    <input type="submit" value="Subscrever instituição" />
-</form>
-
-<form method="post" action="../Institution/UnsubscribeInstitution">
-    <input type="submit" value="Não subscrever instituição" />
-</form>
-
-<form method="post" action="../Institution/NearestInstitutions">
-    <input type="submit" value="Ver instituições mais perto" />
-</form>
-
-<form method="post" action="../Institution/SendEmailAboutInstitutions">
-    <input type="submit" value="Enviar notificações" />
-</form>
-
-<form method="post" action="../Institution/SubscribeInstitutionUser">
-    <input type="submit" value="É subscrito?" />
-</form>
+<script type="text/javascript" src="/Scripts/local/cupon.js"></script>
 

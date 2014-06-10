@@ -10,6 +10,7 @@ namespace WebClient_.Models
     {
         public int id { get; set; }
         public int institution_id { get; set; }
+        public string institution_name { get; set; }
         public string service { get; set; }
         public string specialty { get; set; }
         public string name { get; set; }

@@ -44,3 +44,53 @@ a.panel-title:hover {
 	height: auto;
 	max-height: 4em;
 }
+
+.subscribed-ad {
+    background-color: #D86A62;
+    margin-bottom: 1em;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.subscribed-group .date,  .buyed-group .date {
+    background-color: #F1E9CE;
+    display: block;
+    text-align: center;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+
+#accordion img.profile-btn {
+    float: right;
+    width: 2em;
+    cursor: pointer;
+}
+
+#edit-details input {
+    display: none;
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+
+#edit-details label {
+    text-transform: uppercase;
+    color: #DA776B;
+    font-weight: 400;
+}
+
+#edit-details input[type="submit"]{
+    text-align: center;
+    background-color: #f79983;
+    border: 0;
+    color: white;
+    text-transform: uppercase;
+    padding: 0.5em;
+}
+
+#edit-details input[type="submit"]:hover {
+    background-color: #D86A62;
+}
+
+

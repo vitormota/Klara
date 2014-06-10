@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Pesquisa";
-    var columns = 4;
 }
 
 @Styles.Render("~/Content/themes/base/jquery-ui.css")
@@ -8,11 +7,19 @@
 
 <div id="search-filters-wrapper">
     @Html.Partial("_SearchBar")
+
+    <div id="type-filter" class="clearfix">
+        <h5>RESULTADOS</h5>
+        <hr />
+        <button id="cp-btn" class="current">CUPÃO</button>
+        <button id="inst-btn">INSTITUIÇÃO</button>
+    </div>
+
     <div id="region-filter" class="filter clearfix">
         <img src="~/Content/Images/pictogramas-02.png" />
         <header>
             <h6>REGIÃO</h6>
-            <span class="minus-btn"></span>
+            <span class="minus-btn">-</span>
         </header>
 
         <div class="options">
@@ -29,7 +36,7 @@
         <img src="~/Content/Images/pictogramas-07.png" />
         <header>
             <h6>PREÇO</h6>
-            <span class="minus-btn"></span>
+            <span class="minus-btn">-</span>
         </header>
 
         <div id="slider-range-wrapper" onmouseup="updatePriceFilter()" onmouseout="updatePriceFilter()">
@@ -43,75 +50,45 @@
         <img src="~/Content/Images/pictogramas-08.png" />
         <header>
             <h6>ESPECIALIDADE</h6>
-            <span class="minus-btn"></span>
+            <span class="minus-btn">-</span>
         </header>
 
         <div class="options">
-            @Html.RadioButton("region", "cancro1", true)
-            <label> ESPECIALIDADE CANCRO 1 </label>
-            @Html.RadioButton("region", "cancro2", false)
-            <label> ESPECIALIDADE CANCRO 2 </label>
-            @Html.RadioButton("region", "cancro3", false)
-            <label> ESPECIALIDADE CANCRO 3 </label>
+
+            @Html.RadioButton("region", "Todos", true)
+            <label onclick="updateSpecialtyFilter('Todos')">Todos</label>
+
+            @for (int i = 0; i < ViewBag.ListSpecialty.Count; i++) {
+                @Html.RadioButton("region", "@ViewBag.ListSpecialty[i]", false)
+                <label onclick="updateSpecialtyFilter('@ViewBag.ListSpecialty[i]')">@ViewBag.ListSpecialty[i]</label>
+            }
         </div>
     </div>
 
 </div>
 
-<!-- ADs-->
-
-<div class="row grid-line">
-@for (int i = 0; i < ViewBag.ListAds.Count; i++)
-{
-    
-    <div class="col-md-2 col-md-offset-3 searched-ad">
-        <span class="latitude-ad" style="display:none"> @ViewBag.ListAds[i]["latitude_institution"] </span>
-        <span class="longitude-ad" style="display:none"> @ViewBag.ListAds[i]["longitude_institution"] </span>
-        <a href="/Ad?id=@ViewBag.ListAds[i]["id"]">
-            <div class="img-details">
-                <div class="img"></div>
-                <div class="hidden-details">
-                    <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
-                    <hr />
-                    <span>Desconto @ViewBag.ListAds[i]["discount"]%</span>
-                </div>
+<div id="search-wrapper" class="pull-top">
+    <!-- ADs-->
+    <div id="ad-search-wrapper">
+        <span id="last-ad-id" style="display: none">@ViewBag.last_ad_id</span>
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3">
+                @Html.Partial("_AdResult")
             </div>
-        </a>
-        <span class="cupn-service">@ViewBag.ListAds[i]["name"]</span>
-        <span>@ViewBag.ListAds[i]["name_institution"]</span>
-        <span class="add-price">@ViewBag.ListAds[i]["price"] €</span>
-    </div>
-    
-}
-</div>
-
-<!-- INSTITUTIONs-->
-
-<div class="row grid-line">
-    @for (int i = 0; i < ViewBag.ListInstitution.Count; i++)
-    {
-
-        <div class="col-md-2 col-md-offset-3 searched-institution">
-            <span class="latitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["latitude"] </span>
-            <span class="longitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["longitude"] </span>
-            <a href="/Ad?id=@ViewBag.ListInstitution[i]["id"]">
-                <div class="img-details">
-                    <div class="img"></div>
-                    <div class="hidden-details">
-                        <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
-                        <hr />
-                        <span>Website @ViewBag.ListInstitution[i]["website"]%</span>
-                    </div>
-                </div>
-            </a>
-            <span class="cupn-service">@ViewBag.ListInstitution[i]["name"]</span>
-            <span>@ViewBag.ListInstitution[i]["address"]</span>
-            <span>@ViewBag.ListInstitution[i]["city"]</span>
         </div>
+    </div>
 
-    }
+    <!-- INSTITUTIONs-->
+
+    <div id="inst-search-wrapper">
+        <span id="last-inst-id" style="display: none">@ViewBag.last_inst_id</span>
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3">
+                @Html.Partial("_InstitutionResult")
+            </div>
+        </div>
+    </div>
 </div>
-
 
 @Scripts.Render("~/Scripts/local/search.js")
 @Scripts.Render("~/Scripts/local/general.js")

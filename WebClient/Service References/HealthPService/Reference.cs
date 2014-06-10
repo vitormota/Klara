@@ -151,10 +151,10 @@ namespace WebClient_.HealthPService {
         System.Threading.Tasks.Task<string> UserLoginAsync(string access_token, int provider);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchInstitution", ReplyAction="http://tempuri.org/IHPService/SearchInstitutionResponse")]
-        string SearchInstitution(string textSearch);
+        string SearchInstitution(string textSearch, int last_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchInstitution", ReplyAction="http://tempuri.org/IHPService/SearchInstitutionResponse")]
-        System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch);
+        System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch, int last_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/FetchInstitutions", ReplyAction="http://tempuri.org/IHPService/FetchInstitutionsResponse")]
         string FetchInstitutions(string manager_id);
@@ -163,10 +163,10 @@ namespace WebClient_.HealthPService {
         System.Threading.Tasks.Task<string> FetchInstitutionsAsync(string manager_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchAd", ReplyAction="http://tempuri.org/IHPService/SearchAdResponse")]
-        string SearchAd(string textSearch);
+        string SearchAd(string textSearch, int last_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/SearchAd", ReplyAction="http://tempuri.org/IHPService/SearchAdResponse")]
-        System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch);
+        System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch, int last_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InstitutionsSubscribe", ReplyAction="http://tempuri.org/IHPService/InstitutionsSubscribeResponse")]
         string InstitutionsSubscribe(int client_id);
@@ -234,6 +234,12 @@ namespace WebClient_.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/EditInstitutionDetails", ReplyAction="http://tempuri.org/IHPService/EditInstitutionDetailsResponse")]
         System.Threading.Tasks.Task<string> EditInstitutionDetailsAsync(string model_data, int id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/AdvertiseInstitution", ReplyAction="http://tempuri.org/IHPService/AdvertiseInstitutionResponse")]
+        string AdvertiseInstitution(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/AdvertiseInstitution", ReplyAction="http://tempuri.org/IHPService/AdvertiseInstitutionResponse")]
+        System.Threading.Tasks.Task<string> AdvertiseInstitutionAsync(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/CreateAd", ReplyAction="http://tempuri.org/IHPService/CreateAdResponse")]
         string CreateAd(string model_data);
         
@@ -246,23 +252,17 @@ namespace WebClient_.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInstitution", ReplyAction="http://tempuri.org/IHPService/GetInstitutionResponse")]
         System.Threading.Tasks.Task<string> GetInstitutionAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InsertAdPhoto", ReplyAction="http://tempuri.org/IHPService/InsertAdPhotoResponse")]
-        string InsertAdPhoto(int ad_id, string photo_guid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/InsertAdPhoto", ReplyAction="http://tempuri.org/IHPService/InsertAdPhotoResponse")]
-        System.Threading.Tasks.Task<string> InsertAdPhotoAsync(int ad_id, string photo_guid);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetActiveAds", ReplyAction="http://tempuri.org/IHPService/GetActiveAdsResponse")]
         string GetActiveAds(int institution_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetActiveAds", ReplyAction="http://tempuri.org/IHPService/GetActiveAdsResponse")]
         System.Threading.Tasks.Task<string> GetActiveAdsAsync(int institution_id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdPhotos", ReplyAction="http://tempuri.org/IHPService/GetAdPhotosResponse")]
-        string GetAdPhotos(int[] ad_ids);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInactiveBestAds", ReplyAction="http://tempuri.org/IHPService/GetInactiveBestAdsResponse")]
+        string GetInactiveBestAds(int institution_id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdPhotos", ReplyAction="http://tempuri.org/IHPService/GetAdPhotosResponse")]
-        System.Threading.Tasks.Task<string> GetAdPhotosAsync(int[] ad_ids);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInactiveBestAds", ReplyAction="http://tempuri.org/IHPService/GetInactiveBestAdsResponse")]
+        System.Threading.Tasks.Task<string> GetInactiveBestAdsAsync(int institution_id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/DeleteAd", ReplyAction="http://tempuri.org/IHPService/DeleteAdResponse")]
         string DeleteAd(int ad_id);
@@ -275,6 +275,12 @@ namespace WebClient_.HealthPService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetBankReference", ReplyAction="http://tempuri.org/IHPService/GetBankReferenceResponse")]
         System.Threading.Tasks.Task<string> GetBankReferenceAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdsByRule", ReplyAction="http://tempuri.org/IHPService/GetAdsByRuleResponse")]
+        string GetAdsByRule(int offset, int limit, string order_by);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdsByRule", ReplyAction="http://tempuri.org/IHPService/GetAdsByRuleResponse")]
+        System.Threading.Tasks.Task<string> GetAdsByRuleAsync(int offset, int limit, string order_by);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -400,12 +406,12 @@ namespace WebClient_.HealthPService {
             return base.Channel.UserLoginAsync(access_token, provider);
         }
         
-        public string SearchInstitution(string textSearch) {
-            return base.Channel.SearchInstitution(textSearch);
+        public string SearchInstitution(string textSearch, int last_id) {
+            return base.Channel.SearchInstitution(textSearch, last_id);
         }
         
-        public System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch) {
-            return base.Channel.SearchInstitutionAsync(textSearch);
+        public System.Threading.Tasks.Task<string> SearchInstitutionAsync(string textSearch, int last_id) {
+            return base.Channel.SearchInstitutionAsync(textSearch, last_id);
         }
         
         public string FetchInstitutions(string manager_id) {
@@ -416,12 +422,12 @@ namespace WebClient_.HealthPService {
             return base.Channel.FetchInstitutionsAsync(manager_id);
         }
         
-        public string SearchAd(string textSearch) {
-            return base.Channel.SearchAd(textSearch);
+        public string SearchAd(string textSearch, int last_id) {
+            return base.Channel.SearchAd(textSearch, last_id);
         }
         
-        public System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch) {
-            return base.Channel.SearchAdAsync(textSearch);
+        public System.Threading.Tasks.Task<string> SearchAdAsync(string textSearch, int last_id) {
+            return base.Channel.SearchAdAsync(textSearch, last_id);
         }
         
         public string InstitutionsSubscribe(int client_id) {
@@ -512,6 +518,14 @@ namespace WebClient_.HealthPService {
             return base.Channel.EditInstitutionDetailsAsync(model_data, id);
         }
         
+        public string AdvertiseInstitution(int id) {
+            return base.Channel.AdvertiseInstitution(id);
+        }
+        
+        public System.Threading.Tasks.Task<string> AdvertiseInstitutionAsync(int id) {
+            return base.Channel.AdvertiseInstitutionAsync(id);
+        }
+        
         public string CreateAd(string model_data) {
             return base.Channel.CreateAd(model_data);
         }
@@ -528,14 +542,6 @@ namespace WebClient_.HealthPService {
             return base.Channel.GetInstitutionAsync(id);
         }
         
-        public string InsertAdPhoto(int ad_id, string photo_guid) {
-            return base.Channel.InsertAdPhoto(ad_id, photo_guid);
-        }
-        
-        public System.Threading.Tasks.Task<string> InsertAdPhotoAsync(int ad_id, string photo_guid) {
-            return base.Channel.InsertAdPhotoAsync(ad_id, photo_guid);
-        }
-        
         public string GetActiveAds(int institution_id) {
             return base.Channel.GetActiveAds(institution_id);
         }
@@ -544,12 +550,12 @@ namespace WebClient_.HealthPService {
             return base.Channel.GetActiveAdsAsync(institution_id);
         }
         
-        public string GetAdPhotos(int[] ad_ids) {
-            return base.Channel.GetAdPhotos(ad_ids);
+        public string GetInactiveBestAds(int institution_id) {
+            return base.Channel.GetInactiveBestAds(institution_id);
         }
         
-        public System.Threading.Tasks.Task<string> GetAdPhotosAsync(int[] ad_ids) {
-            return base.Channel.GetAdPhotosAsync(ad_ids);
+        public System.Threading.Tasks.Task<string> GetInactiveBestAdsAsync(int institution_id) {
+            return base.Channel.GetInactiveBestAdsAsync(institution_id);
         }
         
         public string DeleteAd(int ad_id) {
@@ -566,6 +572,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> GetBankReferenceAsync() {
             return base.Channel.GetBankReferenceAsync();
+        }
+        
+        public string GetAdsByRule(int offset, int limit, string order_by) {
+            return base.Channel.GetAdsByRule(offset, limit, order_by);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetAdsByRuleAsync(int offset, int limit, string order_by) {
+            return base.Channel.GetAdsByRuleAsync(offset, limit, order_by);
         }
     }
 }

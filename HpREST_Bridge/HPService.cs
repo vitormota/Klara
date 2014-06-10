@@ -133,12 +133,13 @@ namespace HpREST_Bridge
             return response.ToString();
         }
 
-        public string SearchAd(string textSearch)
+        public string SearchAd(string textSearch, int last_id)
         {
             string return_str = null;
 
             Dictionary<string, string> json_dict = new Dictionary<string, string>();
             json_dict.Add("textSearch", textSearch);
+            json_dict.Add("last_id", Convert.ToString(last_id));
 
             string postJSON = RestUtility.HttpPostJSON(base_url + ads_controller + "/SearchAd", JsonConvert.SerializeObject(json_dict));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);
@@ -298,10 +299,11 @@ namespace HpREST_Bridge
             return RestUtility.HttpGet(base_url + institutions_controller + "(" + id + ")");
         }
 
-        public string SearchInstitution(string textSearch)
+        public string SearchInstitution(string textSearch, int last_id)
         {
             Dictionary<string, string> json_str = new Dictionary<string, string>();
             json_str.Add("textSearch", textSearch);
+            json_str.Add("last_id", Convert.ToString(last_id));
 
             string postJSON = RestUtility.HttpPostJSON(base_url + institutions_controller + "/SearchInstitution", JsonConvert.SerializeObject(json_str));
             Dictionary<string, Object> resultDict = JsonConvert.DeserializeObject<Dictionary<string, Object>>(postJSON);

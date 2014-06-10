@@ -198,8 +198,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\RequestDatabase\AdModel.cs" />
+    <Compile Include="Models\InstitutionModel.cs" />
+    <Compile Include="Models\SearchAdModel.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
+    <Compile Include="Models\UserEditModel.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\UserSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -228,8 +230,10 @@
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\pictogramas-01.png" />
     <Content Include="Content\Images\pictogramas-02.png" />
+    <Content Include="Content\Images\pictogramas-05.png" />
     <Content Include="Content\Images\pictogramas-07.png" />
     <Content Include="Content\Images\pictogramas-08.png" />
+    <Content Include="Content\Images\pictogramas-09.png" />
     <Content Include="Content\search.css" />
     <Content Include="Content\social-buttons-3.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -300,16 +304,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\general.css" />
-    <Content Include="Scripts\adPage.js" />
+    <Content Include="Scripts\local\cupon.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="app.config" />
+    <Content Include="app.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\k.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\FacebookSDK.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.js" />
@@ -343,14 +350,12 @@
     <Content Include="scss\_spinning.scss" />
     <Content Include="scss\_stacked.scss" />
     <Content Include="scss\_variables.scss" />
-    <None Include="Service References\HealthPService\Arrays1.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\HealthPService\configuration91.svcinfo" />
     <None Include="Service References\HealthPService\configuration.svcinfo" />
     <None Include="Service References\HealthPService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -392,6 +397,9 @@
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\Order\ShoppingCart.cshtml" />
     <Content Include="Views\Order\PaymentDetails.cshtml" />
+    <Content Include="Views\Home\_AdResult.cshtml" />
+    <Content Include="Views\Search\_AdResult.cshtml" />
+    <Content Include="Views\Search\_InstitutionResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

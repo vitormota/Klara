@@ -78,4 +78,20 @@ function updatePriceFilter() {
     });
 }
 
+function updateSpecialtyFilter(spx) {
+    
+    var specialty = spx;
+    var ads = $('.searched-ad');
+
+    ads.each(function () {
+        var ad_specialty = $(this).children('.specialty-ad').html();
+        console.log(ad_specialty+" ; "+specialty);
+        if (ad_specialty == specialty || specialty == "Todos") {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+}
+
 

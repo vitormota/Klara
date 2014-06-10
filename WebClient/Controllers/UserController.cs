@@ -35,5 +35,12 @@ namespace WebClient_.Controllers
             return View(ui);
         }
 
+        public JsonResult EditDetails(UserEditModel m) {
+            UserSession us = (UserSession)Session["user"];
+            var json_string = JsonConvert.SerializeObject(m);
+            var lelos = mService.UpdateClientDetails(us.internal_id, json_string);
+            return Json(new { Message = "success" });
+        }
+
 	}
 }

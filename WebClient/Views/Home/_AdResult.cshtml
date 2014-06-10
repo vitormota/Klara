@@ -1,0 +1,30 @@
+﻿@model List<WebClient_.Models.SearchAdModel>
+
+    <div class="row">
+        @foreach(var ad in Model.Select((value,i) => new {i, value})) {
+        if (ad.i % 4 == 0) {
+            @Html.Raw("</div><div class=\"row\">")
+        }
+
+        <div class="col-md-3 home-cupon">
+            <a href="/Ad?id=@ad.value.id">
+                <div class="img-details">
+                    <div class="img">
+                        <img class="cupon-thumb" src="@ad.value.img_url" />
+                    </div>
+                    <div class="hidden-details">
+                        <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
+                        <hr />
+                        <span>Desconto @ad.value.discount%</span>
+                    </div>
+                </div>
+            </a>
+            <div class="ad-details">
+                <span class="cupn-service">@ad.value.service</span>
+                <span>@ad.value.inst_name</span>
+                <span>@ad.value.city</span>
+                <span class="add-price">@ad.value.price €</span>
+            </div>
+        </div>
+    }
+</div>

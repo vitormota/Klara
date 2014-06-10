@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using WebClient_.HealthPService;
 using WebClient_.Models;
 
@@ -10,27 +12,24 @@ namespace WebClient_.Controllers
 
         public ActionResult Index()
         {
-            
+            string json_top_ads = mService.GetAdsByRule(0, 20, "buyed_cupons-DESC");
+            List<SearchAdModel> ads = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_top_ads);
 
-            
-            return View();
+            string json_ad = mService.GetAdsByRule(0, 10, "id-DESC");
+            List<SearchAdModel> ad = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_ad);
+
+            List<List<SearchAdModel>> total_ads = new List<List<SearchAdModel>>();
+            total_ads.Add(ads);
+            total_ads.Add(ad);
+
+            return View(total_ads);
         }
 
-        public ActionResult About()
-        {
-            int client_id = 36; // Id de teste
+        public ActionResult Ad(int lowerLimit) {
+            string json_ad = mService.GetAdsByRule(lowerLimit, 10, "id-DESC");
+            List<SearchAdModel> ad = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_ad);
 
-            ViewBag.Message = "Your application description page.";
-            HealthPService.IHPService client = new HealthPService.HPServiceClient();
-            ViewBag.Message = client.GetClientDetails(client_id);
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return PartialView("_AdResult", ad);
         }
     }
 }

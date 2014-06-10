@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="robinfoo_lgpModel.Manager_Institution_maps" Width="1.5" PointX="8.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="robinfoo_lgpModel.Subscribable" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="robinfoo_lgpModel.Subscription" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="robinfoo_lgpModel.searchable_ad" Width="1.5" PointX="8.375" PointY="5.75" FillColor="255, 255, 192" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.searchable_ad" Width="1.5" PointX="8.375" PointY="5.75" FillColor="255, 255, 192" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

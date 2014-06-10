@@ -1,0 +1,22 @@
+﻿@for (int i = 0; i < ViewBag.ListInstitution.Count; i++) {
+
+    <div id="@ViewBag.ListInstitution[i]["id"]" class="col-md-3 searched-institution">
+
+        <span class="latitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["latitude"] </span>
+        <span class="longitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["longitude"] </span>
+        <a href="#">
+            <div class="img-details">
+                <div class="img"></div>
+                <div class="hidden-details">
+                    <img id="buy-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="Subscrever" />
+                    <hr />
+                    <span>Subscrever</span>
+                </div>
+            </div>
+        </a>
+        <span class="cupn-service">@ViewBag.ListInstitution[i]["name"]</span>
+        <span>@ViewBag.ListInstitution[i]["address"]</span>
+        <span>@ViewBag.ListInstitution[i]["city"]</span>
+    </div>
+
+}

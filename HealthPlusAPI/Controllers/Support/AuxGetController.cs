@@ -88,17 +88,21 @@ namespace HealthPlusAPI.Controllers.Support
                                          on new { subid = sub.subscribable_id } equals new { subid = s.id }
                                          join ad in db.Ad
                                          on new { adid = sub.subscribable_id } equals new { adid = ad.id }
+                                         join inst in db.Institution
+                                         on new { instid = ad.institution_id } equals new { instid = inst.id }
                                          select new
                                          {
-                                             ad_id = ad.id,
+                                             id = ad.id,
                                              name = ad.name,
-                                             inst = ad.institution_id,
+                                             institution_id = ad.institution_id,
                                              price = ad.price,
-                                             desc = ad.description,
-                                             end = ad.end_time,
+                                             description = ad.description,
+                                             end_time = ad.end_time,
                                              service = ad.service,
-                                             speciality = ad.specialty,
-                                             remaining = ad.remaining_cupons
+                                             specialty = ad.specialty,
+                                             remaining_cupons = ad.remaining_cupons,
+                                             local = inst.city,
+                                             institution_name = inst.name    
                                          }
                          ).AsQueryable();
             return query;
@@ -111,9 +115,12 @@ namespace HealthPlusAPI.Controllers.Support
         /// <param name="ad_id">The ads id</param>
         /// <returns></returns>
         [Route("odata/Ads({ad_id})")]
-        public dynamic getAdDetails(int ad_id)
+        public KeyValuePair<Ad, Institution> getAdDetails(int ad_id)
         {
-            return (db.Ad.Where(Ad => Ad.id == ad_id).Single());
+            Ad ad = db.Ad.Where(Ad => Ad.id == ad_id).Single();
+            Institution ins = db.Institution.Where(Institution => Institution.id.Equals( ad.institution_id)).Single();
+
+            return new KeyValuePair<Ad,Institution>(ad, ins);
         }
 
         /// <summary>

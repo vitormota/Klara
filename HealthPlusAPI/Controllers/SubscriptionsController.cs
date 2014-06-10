@@ -221,7 +221,7 @@ namespace HealthPlusAPI.Controllers
             }
             else
             {
-                if (db.Subscription.Count(subs => subs.subscribable_id == subscription.subscribable_id) == 0)
+                if (db.Subscription.Count(subs => subs.subscribable_id == subscription.subscribable_id && subs.client_id == subscription.client_id) == 0)
                 {
                     db.Subscription.Add(subscription);
 
