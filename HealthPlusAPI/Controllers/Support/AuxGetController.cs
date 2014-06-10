@@ -88,17 +88,21 @@ namespace HealthPlusAPI.Controllers.Support
                                          on new { subid = sub.subscribable_id } equals new { subid = s.id }
                                          join ad in db.Ad
                                          on new { adid = sub.subscribable_id } equals new { adid = ad.id }
+                                         join inst in db.Institution
+                                         on new { instid = ad.institution_id } equals new { instid = inst.id }
                                          select new
                                          {
-                                             ad_id = ad.id,
+                                             id = ad.id,
                                              name = ad.name,
-                                             inst = ad.institution_id,
+                                             institution_id = ad.institution_id,
                                              price = ad.price,
-                                             desc = ad.description,
-                                             end = ad.end_time,
+                                             description = ad.description,
+                                             end_time = ad.end_time,
                                              service = ad.service,
-                                             speciality = ad.specialty,
-                                             remaining = ad.remaining_cupons
+                                             specialty = ad.specialty,
+                                             remaining_cupons = ad.remaining_cupons,
+                                             local = inst.city,
+                                             institution_name = inst.name    
                                          }
                          ).AsQueryable();
             return query;

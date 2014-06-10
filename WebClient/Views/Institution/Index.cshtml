@@ -4,20 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<form method="post" action="../Ad/SearchAd">
-        <input type="text" name="textSearch" />
-        <input type="submit" value="Procurar" />
-    </form>*@
-
 @Styles.Render("~/Content/ad.css")
 
 <div class="row col-xs-12 col-md-12 pull-top">
-
-    @*<form method="post" action="../Ad/SearchAd">
-            <input type="text" name="textSearch" />
-            <input type="submit" value="Procurar" />
-        </form>*@
-
     <div class="col-xs-2 col-md-4">
         <img id="cupn-img" class="img-responsive" src="~/Content/images/cupon.png" alt="Imagem cupao" />
     </div>
@@ -31,12 +20,12 @@
         <hr class="separator-details" />
         <h5>Email</h5>
         <p>
-            @Html.ValueFor(inst => inst.email)
+            <a class="inst-link" href="mailto:@Html.ValueFor(inst => inst.email)">@Html.ValueFor(inst => inst.email)</a>   
         </p>
         <hr class="separator-details" />
         <h5>Website</h5>
         <p>
-           @Html.ValueFor(inst => inst.website)
+            <a class="inst-link"  href="http://@Html.ValueFor(inst => inst.website)">@Html.ValueFor(inst => inst.website)</a>
         </p>
         <hr class="separator-details" />
         <h5>Endereço</h5>

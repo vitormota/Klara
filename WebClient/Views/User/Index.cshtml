@@ -36,13 +36,30 @@
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    @Html.DisplayFor(m => m.nif)
-                                    <br />
-                                    @Html.DisplayFor(m => m.phone_number)
-                                    <br />
-                                    @Html.DisplayFor(m => m.address)
-                                    <br />
-                                    @Html.DisplayFor(m => m.city)
+                                    @using (Html.BeginForm("EditDetails", "User", Model, FormMethod.Post, new { @id = "edit-details" })) {
+                                        <div class="details-field">
+                                            @Html.Label("NIF ")
+                                            <span>@Html.DisplayFor(m => m.nif)</span>
+                                            @Html.EditorFor(m => m.nif)
+                                        </div>
+                                        <div class="details-field">
+                                            @Html.Label("Telémovel ")
+                                            <span>@Html.DisplayFor(m => m.phone_number) </span>
+                                            @Html.EditorFor(m => m.phone_number)
+                                        </div>
+                                        <div class="details-field">
+                                            @Html.Label("Endereço ")
+                                            <span>@Html.DisplayFor(m => m.address)</span>
+                                            @Html.EditorFor(m => m.address)
+                                        </div>
+                                        <div class="details-field">
+                                            @Html.Label("Cidade ")
+                                            <span>@Html.DisplayFor(m => m.city)</span>
+                                            @Html.EditorFor(m => m.city)
+                                        </div>
+                                        <input type="submit" value="Submeter" />
+                                    }
+                                    <img class="profile-btn" src="~/Content/images/pictogramas-05.png" alt="Editar" />
                                 </div>
                             </div>
                         </div>
@@ -74,27 +91,61 @@
                                 </a>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
+                                @{ var todaySubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today) == 0);
+                                 var nextWeekSubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == -1 && x.end_time.Date.CompareTo(DateTime.Today) != 0);
+                                 var moreSubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == 1); }
+
                                 <div class="panel-body">
-                                    @foreach (var ad in Model.ads_subscriptions)
-                                    {
-                                        @Html.DisplayFor(a => ad.id)
-                                        <br />
-                                        @Html.DisplayFor(a => ad.description)
-                                        <br />
-                                        @Html.DisplayFor(a => ad.end_time)
-                                        <br />
-                                        @Html.DisplayFor(a => ad.name)
-                                        <br />
-                                        @Html.DisplayFor(a => ad.price)
-                                        <br />
-                                        @Html.DisplayFor(a => ad.remaining_cupons)
-                                        <br />
-                                        @Html.DisplayFor(a => ad.service)
-                                        <br />
-                                        @Html.DisplayFor(a => ad.specialty)
-                                        <br />
-                                        @Html.DisplayFor(a => ad.institution_id)
-                                    }
+                                    <div class="subscribed-group">
+                                        <span class="date">HOJE (@todaySubs.Count())</span>
+                                        @foreach (var ad in todaySubs) {
+                                            <div class="subscribed-ad" style="display: none">
+                                                @Html.DisplayFor(a => ad.name)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.end_time)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.price)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.institution_name)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.local)
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="subscribed-group">
+                                        <span class="date">PRÓXIMA SEMANA (@nextWeekSubs.Count())</span>
+                                        @foreach (var ad in nextWeekSubs) {
+                                            <div class="subscribed-ad" style="display: none">
+                                                @Html.DisplayFor(a => ad.name)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.end_time)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.price)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.institution_name)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.local)
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="subscribed-group">
+                                        <span class="date">MAIS (@moreSubs.Count())</span>
+                                        @foreach (var ad in moreSubs) {
+                                            <div class="subscribed-ad" style="display: none">
+                                                @Html.DisplayFor(a => ad.name)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.end_time)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.price)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.institution_name)
+                                                <br />
+                                                @Html.DisplayFor(a => ad.local)
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -125,22 +176,61 @@
                                 </a>
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse">
+                                @{ var todayBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today) == 0);
+                                   var pastWeekBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == -1 && x.end_time.Date.CompareTo(DateTime.Today) != 0);
+                                   var moreBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == 1); }
+
                                 <div class="panel-body">
-                                    @foreach (var cup in Model.cupons)
-                                    {
-                                        @Html.DisplayFor(a => cup.name)
-                                        <br />
-                                        @Html.DisplayFor(a => cup.service)
-                                        <br />
-                                        @Html.DisplayFor(a => cup.specialty)
-                                        <br />
-                                    
-                                        
-                                        @Html.DisplayFor(a => cup.end_time)
-                                        <br />
-                                        @Html.DisplayFor(a => cup.state)
-                                        
-                                    }
+                                    <div class="buyed-group">
+                                        <span class="date">HOJE (@todayBuyed.Count())</span>
+                                        @foreach (var cup in todayBuyed) {
+                                            <div class="buyed-ad" style="display: none">
+                                                @Html.DisplayFor(c => cup.name)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.end_time)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.price)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.institution_name)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.local)
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="buyed-group">
+                                        <span class="date">SEMANA PASSADA (@pastWeekBuyed.Count())</span>
+                                        @foreach (var cup in pastWeekBuyed) {
+                                            <div class="buyed-ad" style="display: none">
+                                                @Html.DisplayFor(c => cup.name)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.end_time)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.price)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.institution_name)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.local)
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="buyed-group">
+                                        <span class="date">MAIS (@moreBuyed.Count())</span>
+                                        @foreach (var cup in moreBuyed) {
+                                            <div class="buyed-ad" style="display: none">
+                                                @Html.DisplayFor(c => cup.name)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.end_time)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.price)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.institution_name)
+                                                <br />
+                                                @Html.DisplayFor(c => cup.local)
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>

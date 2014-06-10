@@ -11,7 +11,7 @@
 
 @Styles.Render("~/Content/ad.css")
 
-<div class="row col-xs-12 col-md-12 pull-top">
+<div id="@Html.ValueFor(ad => ad.id)" class="row col-xs-12 col-md-12 pull-top">
 
     @*<form method="post" action="../Ad/SearchAd">
             <input type="text" name="textSearch" />
@@ -36,8 +36,8 @@
         <hr class="separator-details" />
         <h5>Instituição</h5>
         <p>
-            @Html.ActionLink(Model.institution_name, "/Institution", new { id = Model.institution_id })
-            
+            @Html.ActionLink(Model.institution_name, "../Institution", new { id = Model.institution_id }, new { @class = "inst-link" })
+
         </p>
         <hr class="separator-details" />
         <h5>Desconto</h5>

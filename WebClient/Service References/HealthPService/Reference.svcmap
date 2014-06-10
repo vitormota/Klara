@@ -26,7 +26,6 @@
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="edb50b45-404d-4853-a7df-1878b5ccb3d8" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="5f10fa87-3f49-4d49-88f4-f57753954cf3" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
     <MetadataFile FileName="HpREST_Bridge.xsd" MetadataType="Schema" ID="3b3ce8ce-0b2a-4e23-9abc-b65d92bc5947" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
-    <MetadataFile FileName="Arrays1.xsd" MetadataType="Schema" ID="c127021b-9408-41e3-a11b-e248aee0d868" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/HpREST_Bridge/HPService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

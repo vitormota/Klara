@@ -1,6 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Mvc;
 using WebClient_.HealthPService;
 using WebClient_.Models;
+using WebInstitution.Helpers;
 
 namespace WebClient_.Controllers
 {
@@ -10,33 +15,42 @@ namespace WebClient_.Controllers
 
         public ActionResult Index()
         {
-            
-            return View();
+            string json_top_ads = mService.GetAdsByRule(0, 20, "buyed_cupons-DESC");
+            List<SearchAdModel> ads = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_top_ads);
+
+            string json_ad = mService.GetAdsByRule(0, 10, "id-DESC");
+            List<SearchAdModel> ad = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_ad);
+
+            List<List<SearchAdModel>> total_ads = new List<List<SearchAdModel>>();
+            total_ads.Add(ads);
+            total_ads.Add(ad);
+
+            return View(total_ads);
         }
 
         public ActionResult Ad(int lowerLimit) {
+            string json_ad = mService.GetAdsByRule(lowerLimit, 10, "id-DESC");
+            List<SearchAdModel> ad = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_ad);
 
-
-          //  string result = mService.GetAdsByRule();
-
-            return null;
+            return PartialView("_AdResult", ad);
         }
 
-        public ActionResult About()
+        public ActionResult SetCulture(string culture)
         {
-            int client_id = 36; // Id de teste
-
-            ViewBag.Message = "Your application description page.";
-            HealthPService.IHPService client = new HealthPService.HPServiceClient();
-            ViewBag.Message = client.GetClientDetails(client_id);
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+            // Validate input
+            culture = CultureHelper.GetImplementedCulture(culture);
+            // Save culture in a cookie
+            HttpCookie cookie = Request.Cookies["_culture"];
+            if (cookie != null)
+                cookie.Value = culture;   // update cookie value
+            else
+            {
+                cookie = new HttpCookie("_culture");
+                cookie.Value = culture;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+            return RedirectToAction("Index");
+        }   
     }
 }

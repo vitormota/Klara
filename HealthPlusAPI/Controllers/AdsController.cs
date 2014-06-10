@@ -108,6 +108,7 @@ namespace HealthPlusAPI.Controllers
         [HttpPost]
         public string SearchAd(ODataActionParameters parameters)
         {
+            int rowN = 1;
             string result = null;
 
             if (!ModelState.IsValid)
@@ -116,6 +117,7 @@ namespace HealthPlusAPI.Controllers
             }
             else
             {
+                int last_id = Convert.ToInt32(parameters["last_id"]);
                 // Substituir muitos espacos introduzidos por apenas um espaco
                 string textSearch = (string)parameters["textSearch"];
                 textSearch.Replace("(,|?|!|&|=|\\(|\\))*\\s+(,|?|!|&|=|\\(|\\))*", " ");
@@ -137,65 +139,102 @@ namespace HealthPlusAPI.Controllers
                     }
                 }
 
-                List<List<Ad>> listAd = new List<List<Ad>>();
-                for (int i = 0; i < listStr.Count; i++)
-                {
-                    List<Ad> auxList = new List<Ad>(); // Lista para auxiliar nos foreach
-                    string searchTextFor = auxFunctions.RemoverAcentos(listStr[i]).ToLower(); // Esta variavel auxiliar teve de ser criada para que possa funcionar na query que esta abaixo
-                    //listInstitution.Add(db.Institution.Where(Institution => auxFunctions.RemoverAcentos(Institution.city).Contains(searchTextFor)).Union(db.Institution.Where(Institution => auxFunctions.RemoverAcentos(Institution.name).Contains(searchTextFor))).ToList());
-
-                    foreach (Ad ad in db.Ad)
-                    {
-                        if (auxFunctions.RemoverAcentos(ad.name).ToLower().Contains(searchTextFor))
-                        {
-                            if (!auxList.Contains(ad))
-                            {
-                                auxList.Add(ad);
-                            }
-                        }
-                        else if (auxFunctions.RemoverAcentos(ad.service).ToLower().Contains(searchTextFor))
-                        {
-                            if (!auxList.Contains(ad))
-                            {
-                                auxList.Add(ad);
-                            }
-                        }
-                        else if (auxFunctions.RemoverAcentos(ad.specialty).ToLower().Contains(searchTextFor))
-                        {
-                            if (!auxList.Contains(ad))
-                            {
-                                auxList.Add(ad);
-                            }
-                        }
-                    }
-
-                    listAd.Add(auxList);
-                }
-
                 // Pedaco de codigo que vai dar a ordem da pesquisa
                 Dictionary<Ad, int> searchResult = new Dictionary<Ad, int>(); // Local onde ficam guardados os registos da pesquisa
+                List<List<Ad>> listAd = new List<List<Ad>>();
 
-                for (int i = 0; i < listAd.Count; i++)
-                {
-                    for (int l = 0; l < listAd[i].Count; l++)
-                    {
-                        int similiar_values = 0; // serve para ver o numero de repeticoes entre listas
+                while (searchResult.Count < rowN) {
+                    if (db.Ad.ToList().Last().id <= last_id)
+                        break;
 
-                        if (!searchResult.ContainsKey(listAd[i][l])) // se a instituicao ja estiver la nao precisa de fazer os ciclos
-                        {
-                            for (int j = 0; j < listAd.Count; j++)
-                            {
-                                for (int k = 0; k < listAd[j].Count; k++)
-                                {
-                                    if (listAd[i][l].id == listAd[j][k].id)
-                                    {
-                                        similiar_values++;
+                    for (int i = 0; i < listStr.Count; i++) {
+                        List<Ad> auxList = new List<Ad>(); // Lista para auxiliar nos foreach
+                        string searchTextFor = auxFunctions.RemoverAcentos(listStr[i]).ToLower(); // Esta variavel auxiliar teve de ser criada para que possa funcionar na query que esta abaixo
+                        //listInstitution.Add(db.Institution.Where(Institution => auxFunctions.RemoverAcentos(Institution.city).Contains(searchTextFor)).Union(db.Institution.Where(Institution => auxFunctions.RemoverAcentos(Institution.name).Contains(searchTextFor))).ToList());
+
+                        IQueryable<Ad> ads = db.Ad.Where(a => a.id > last_id);
+
+                        foreach (Ad ad in ads) {
+                            last_id = ad.id;
+
+                            string[] nameSplit = auxFunctions.RemoverAcentos(ad.name).ToLower().Split(' ');
+                            string[] serviceSplit = auxFunctions.RemoverAcentos(ad.service).ToLower().Split(' ');
+                            string[] specialtySplit = auxFunctions.RemoverAcentos(ad.specialty).ToLower().Split(' ');
+
+                            foreach (string s in nameSplit) {
+                                if (s.StartsWith(searchTextFor)) {
+                                    if (!auxList.Contains(ad)) {
+                                        auxList.Add(ad);
                                         break;
                                     }
                                 }
                             }
 
-                            searchResult.Add(listAd[i][l], similiar_values);
+                            foreach (string s in serviceSplit) {
+                                if (s.StartsWith(searchTextFor)) {
+                                    if (!auxList.Contains(ad)) {
+                                        auxList.Add(ad);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            foreach (string s in specialtySplit) {
+                                if (s.StartsWith(searchTextFor)) {
+                                    if (!auxList.Contains(ad)) {
+                                        auxList.Add(ad);
+                                        break;
+                                    }
+                                }
+                            }
+                            /*
+                            if (auxFunctions.RemoverAcentos(ad.name).ToLower().Contains(searchTextFor))
+                            {
+                                if (!auxList.Contains(ad))
+                                {
+                                    auxList.Add(ad);
+                                }
+                            }
+                            else if (auxFunctions.RemoverAcentos(ad.service).ToLower().Contains(searchTextFor))
+                            {
+                                if (!auxList.Contains(ad))
+                                {
+                                    auxList.Add(ad);
+                                }
+                            }
+                            else if (auxFunctions.RemoverAcentos(ad.specialty).ToLower().Contains(searchTextFor))
+                            {
+                                if (!auxList.Contains(ad))
+                                {
+                                    auxList.Add(ad);
+                                }
+                            }
+                            */
+
+                            if (auxList.Count == (rowN - searchResult.Count))
+                                break;
+                        }
+
+                        listAd.Add(auxList);
+                    }
+
+                    for (int i = 0; i < listAd.Count; i++) {
+                        for (int l = 0; l < listAd[i].Count; l++) {
+                            int similiar_values = 0; // serve para ver o numero de repeticoes entre listas
+
+                            if (!searchResult.ContainsKey(listAd[i][l])) // se a instituicao ja estiver la nao precisa de fazer os ciclos
+                        {
+                                for (int j = 0; j < listAd.Count; j++) {
+                                    for (int k = 0; k < listAd[j].Count; k++) {
+                                        if (listAd[i][l].id == listAd[j][k].id) {
+                                            similiar_values++;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                searchResult.Add(listAd[i][l], similiar_values);
+                            }
                         }
                     }
                 }

@@ -80,6 +80,7 @@
   height: 230px;
   background-color: #d96b64;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .slides li .service-image {
@@ -87,6 +88,15 @@
   height: 120px;
   background-color: #d96b64;
   border-radius: 4px;
+}
+
+.slides li .service-image:hover img{
+  opacity: 0.5;
+}
+
+.slides li .service-image img{
+  -webkit-transition: opacity 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.5s;
 }
 
 .slides li span.service , .slides li span.service-local  {
@@ -108,11 +118,17 @@
   -webkit-margin-after: 0em;
   -webkit-margin-start: -20px;
   -webkit-margin-end: 0px;
+  text-transform: uppercase;
 }
 
 .slider-navigation-controls {
   height: 25px;
   position: relative;
   margin-top: 0.938em;
-  margin-bottom: 6.250em;
+  margin-bottom: 2em;
+}
+
+.search-box {
+  padding: 1em 1.5em 1em 1.5em;
+  margin-bottom: 1.9em;
 }
