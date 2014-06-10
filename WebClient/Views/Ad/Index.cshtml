@@ -24,38 +24,38 @@
     <div class="col-xs-8 col-md-6">
         <h4 id="cupn-title">@Html.ValueFor(ad => ad.name)</h4>
         <hr class="separator-title" />
-        <h5>Descrição</h5>
+        <h5>@Resources.Description</h5>
         <p>
             @Html.ValueFor(ad => ad.description)
         </p>
         <hr class="separator-details" />
-        <h5>Data</h5>
+        <h5>@Resources.Date</h5>
         <p>
             @Html.ValueFor(ad => ad.end_time)
         </p>
         <hr class="separator-details" />
-        <h5>Instituição</h5>
+        <h5>@Resources.Institution</h5>
         <p>
             @Html.ActionLink(Model.institution_name, "../Institution", new { id = Model.institution_id }, new { @class = "inst-link" })
 
         </p>
         <hr class="separator-details" />
-        <h5>Desconto</h5>
+        <h5>@Resources.Discount</h5>
         <p>
             @Html.ValueFor(ad => ad.discount) %
         </p>
         <hr class="separator-details" />
-        <h5>Localização</h5>
+        <h5>@Resources.Location</h5>
         <p>
             @Html.ValueFor(ad => ad.local)
         </p>
         <hr class="separator-details" />
-        <h5>Preço</h5>
+        <h5>@Resources.Price</h5>
         <p>
             @Html.ValueFor(ad => ad.price) €
         </p>
         @*Client requirement for a fast purchase*@
-        <a href="/Order/ShowPaymentDetails?id=@Model.id"><img id="buy-btn" @*onclick="addCuponToCart('@Url.Action("addToCart","User", Model)')"*@ class="left" src="/Content/images/pictogramas-07.png" alt="Fast Checkout" /></a>
+        <a href="/Order/ShowPaymentDetails?id=@Model.id"><img id="buy-btn" @*onclick="addCuponToCart('@Url.Action("addToCart","User", Model)')"*@ class="left" src="/Content/images/pictogramas-07.png" alt="@Resources.FastCheckout" /></a>
         @*TODO: Redirect to finalize order page*@
         <a href="#"><img id="buy-btn" onclick="addCuponToCart('@Url.Action("addToCart","Order", Model)')" class="left" src="~/Content/images/carrinho.png" alt="@Resources.AddToCart" /></a>
         <a href="#"><img id="subscribe-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="@Resources.Subscribe" /></a>
