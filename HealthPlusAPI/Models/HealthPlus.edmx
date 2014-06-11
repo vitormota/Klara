@@ -116,6 +116,44 @@
           <Property Name="client_id" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'def.robinfoo_lgp.purchased_ad' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="purchased_ad">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="specialty" />
+            <PropertyRef Name="service" />
+            <PropertyRef Name="buyed_cupons" />
+            <PropertyRef Name="cid" />
+            <PropertyRef Name="state" />
+            <PropertyRef Name="start_time" />
+            <PropertyRef Name="end_time" />
+            <PropertyRef Name="inst_name" />
+            <PropertyRef Name="address" />
+            <PropertyRef Name="city" />
+            <PropertyRef Name="website" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="discount" Type="float" />
+          <Property Name="specialty" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="service" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="img_url" Type="varchar" MaxLength="255" />
+          <Property Name="buyed_cupons" Type="int" Nullable="false" />
+          <Property Name="cid" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="start_time" Type="date" Nullable="false" />
+          <Property Name="end_time" Type="date" Nullable="false" />
+          <Property Name="purchase_time" Type="date" />
+          <Property Name="inst_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="website" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'def.robinfoo_lgp.searchable_ad' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="searchable_ad">
           <Key>
@@ -154,6 +192,28 @@ warning 6002: The table/view 'def.robinfoo_lgp.searchable_ad' does not have a pr
           <EntitySet Name="Manager_Institution_maps" EntityType="Self.Manager_Institution_maps" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Subscribable" EntityType="Self.Subscribable" Schema="robinfoo_lgp" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="robinfoo_lgp" store:Type="Tables" />
+          <EntitySet Name="purchased_ad" EntityType="Self.purchased_ad" store:Type="Views" store:Schema="robinfoo_lgp">
+            <DefiningQuery>SELECT
+`purchased_ad`.`id`, 
+`purchased_ad`.`name`, 
+`purchased_ad`.`price`, 
+`purchased_ad`.`discount`, 
+`purchased_ad`.`specialty`, 
+`purchased_ad`.`service`, 
+`purchased_ad`.`img_url`, 
+`purchased_ad`.`buyed_cupons`, 
+`purchased_ad`.`cid`, 
+`purchased_ad`.`client_id`, 
+`purchased_ad`.`state`, 
+`purchased_ad`.`start_time`, 
+`purchased_ad`.`end_time`, 
+`purchased_ad`.`purchase_time`, 
+`purchased_ad`.`inst_name`, 
+`purchased_ad`.`address`, 
+`purchased_ad`.`city`, 
+`purchased_ad`.`website`
+FROM `purchased_ad` AS `purchased_ad`</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="searchable_ad" EntityType="Self.searchable_ad" store:Type="Views" store:Schema="robinfoo_lgp">
             <DefiningQuery>SELECT
 `searchable_ad`.`id`, 
@@ -297,6 +357,7 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           <EntitySet Name="Subscribable" EntityType="Self.Subscribable" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" />
           <EntitySet Name="searchable_ad" EntityType="robinfoo_lgpModel.searchable_ad" />
+          <EntitySet Name="purchased_ad" EntityType="robinfoo_lgpModel.purchased_ad" />
         </EntityContainer>
         <EntityType Name="searchable_ad">
           <Key>
@@ -323,6 +384,42 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
           <Property Name="img_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="buyed_cupons" Type="Int32" Nullable="false" />
           <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="purchased_ad">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="specialty" />
+            <PropertyRef Name="service" />
+            <PropertyRef Name="buyed_cupons" />
+            <PropertyRef Name="cid" />
+            <PropertyRef Name="state" />
+            <PropertyRef Name="start_time" />
+            <PropertyRef Name="end_time" />
+            <PropertyRef Name="inst_name" />
+            <PropertyRef Name="address" />
+            <PropertyRef Name="city" />
+            <PropertyRef Name="website" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" />
+          <Property Name="discount" Type="Single" />
+          <Property Name="specialty" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="service" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="img_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="buyed_cupons" Type="Int32" Nullable="false" />
+          <Property Name="cid" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="start_time" Type="DateTime" Nullable="false" />
+          <Property Name="end_time" Type="DateTime" Nullable="false" />
+          <Property Name="purchase_time" Type="DateTime" />
+          <Property Name="inst_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="website" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -463,6 +560,30 @@ FROM `searchable_ad` AS `searchable_ad`</DefiningQuery>
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="inst_name" ColumnName="inst_name" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchased_ad">
+            <EntityTypeMapping TypeName="robinfoo_lgpModel.purchased_ad">
+              <MappingFragment StoreEntitySet="purchased_ad">
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="inst_name" ColumnName="inst_name" />
+                <ScalarProperty Name="purchase_time" ColumnName="purchase_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="buyed_cupons" ColumnName="buyed_cupons" />
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
+                <ScalarProperty Name="service" ColumnName="service" />
+                <ScalarProperty Name="specialty" ColumnName="specialty" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

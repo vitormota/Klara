@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using WebClient_.HealthPService;
 using WebClient_.Models;
+using WebInstitution.Controllers;
 
 
 namespace WebClient_.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
 
         private HealthPService.IHPService mService = new HPServiceClient();
@@ -97,8 +98,8 @@ namespace WebClient_.Controllers
 
                 KeyValuePair<Ad, InstitutionModel> adResult = JsonConvert.DeserializeObject<KeyValuePair<Ad, InstitutionModel>>(json_ad);
                 Ad cupon = adResult.Key;
-                cupon.institution_name = adResult.Value.name;
-                cupon.local = adResult.Value.city;
+                cupon.inst_name = adResult.Value.name;
+                cupon.city = adResult.Value.city;
 
                 if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) > 0 || cupon.end_time.CompareTo(DateTime.Now) < 0)) {
                     //cannot buy cupon

@@ -27,9 +27,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/">@Resources.Home</a></li>
                     @if (Session["shopping_cart"] == null) {
-                    <li><a href="/Order/ShoppingCart">@Resources.ShoppingCart 0</a></li>
+                    <li><a href="/Order/ShoppingCart">@Resources.Cart 0</a></li>
                     } else {
-                    <li><a href="/Order/ShoppingCart">@Resources.ShoppingCart @(((WebClient_.Models.ShoppingCart)Session["shopping_cart"]).getCount())</a></li>
+                    <li><a href="/Order/ShoppingCart">@Resources.Cart @(((WebClient_.Models.ShoppingCart)Session["shopping_cart"]).getCount())</a></li>
                     }
                     @if (Session["user"] != null) {
                         
@@ -50,8 +50,16 @@
     </div>
     <footer>
         <p>Health+ © 2014</p>
-    </footer>
+        <div>
+            <select id="culture">
+                <option value="en-US">EN-US</option>
+                <option value="pt">PT</option>
+            </select>
 
+            <button id="changeLang">change</button>
+        </div>
+    </footer>
+    @Scripts.Render("~/Scripts/local/culture.js")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

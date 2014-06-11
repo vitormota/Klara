@@ -409,7 +409,7 @@
     <value>Search</value>
   </data>
   <data name="ShoppingCart" xml:space="preserve">
-    <value>Cart</value>
+    <value>Shopping Cart</value>
   </data>
   <data name="SignInFacebook" xml:space="preserve">
     <value>| Sign in with Facebook</value>
@@ -467,5 +467,14 @@
   </data>
   <data name="Website" xml:space="preserve">
     <value>Website</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="ExpiresIn" xml:space="preserve">
+    <value>Expires in</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
 </root>

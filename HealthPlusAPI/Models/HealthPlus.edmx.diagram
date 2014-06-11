@@ -16,6 +16,7 @@
         <EntityTypeShape EntityType="robinfoo_lgpModel.Subscribable" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="robinfoo_lgpModel.Subscription" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="robinfoo_lgpModel.searchable_ad" Width="1.5" PointX="8.375" PointY="5.75" FillColor="255, 255, 192" IsExpanded="true" />
+        <EntityTypeShape EntityType="robinfoo_lgpModel.purchased_ad" Width="1.5" PointX="6.5" PointY="5.75" FillColor="255, 255, 192" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

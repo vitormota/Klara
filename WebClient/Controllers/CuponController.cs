@@ -10,10 +10,11 @@ using System.Diagnostics;
 using System.Web.Hosting;
 using iTextSharp.text.pdf.draw;
 using WebClient_.HealthPService;
+using WebInstitution.Controllers;
 
 namespace WebClient_.Controllers
 {
-    public class CuponController : Controller
+    public class CuponController : BaseController
     {
         private HealthPService.IHPService mService = new HPServiceClient();
         //

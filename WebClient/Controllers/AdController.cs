@@ -7,10 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using WebClient_.HealthPService;
 using WebClient_.Models;
+using WebInstitution.Controllers;
 
 namespace WebClient_.Controllers
 {
-    public class AdController : Controller
+    public class AdController : BaseController
     {
         private HealthPService.IHPService mService = new HPServiceClient();
 
@@ -27,8 +28,8 @@ namespace WebClient_.Controllers
             KeyValuePair<Ad, InstitutionModel> adResult = JsonConvert.DeserializeObject<KeyValuePair<Ad, InstitutionModel>>(json_ad);
 
             Ad ad = adResult.Key;
-            ad.institution_name = adResult.Value.name;
-            ad.local = adResult.Value.city;
+            ad.inst_name = adResult.Value.name;
+            ad.city = adResult.Value.city;
 
             return View(ad);
         }

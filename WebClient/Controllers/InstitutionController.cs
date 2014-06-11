@@ -8,10 +8,11 @@ using System.Device.Location;
 using WebClient_.HealthPService;
 using System.Net.Mail;
 using WebClient_.Models;
+using WebInstitution.Controllers;
 
 namespace WebClient_.Controllers
 {
-    public class InstitutionController : Controller
+    public class InstitutionController : BaseController
     {
         private HealthPService.IHPService mService = new HPServiceClient();
         //

@@ -24,19 +24,9 @@ namespace HealthPlusAPI.Controllers.Support {
         /// <returns></returns>
         [Route("odata/Cupon({client_id:int})/Purchases")]
         public IEnumerable<dynamic> getClientPurchases(int client_id) {
-            IQueryable<dynamic> query = (from cupon in db.Cupon
-                                         join ad in db.Ad
-                                         on cupon.ad_id equals ad.id
-                                         where cupon.client_id == client_id
-                                         select new {
-                                             service = ad.service,
-                                             name = ad.name,
-                                             speciality = ad.specialty,
-                                             state = cupon.state,
-                                             end_time = cupon.end_time,
-                                             purchase_time = cupon.purchase_time
-
-                                         }).AsQueryable();
+            IQueryable<dynamic> query = (from purchased_ad in db.purchased_ad
+                                         where purchased_ad.client_id == client_id
+                                         select purchased_ad).AsQueryable();
 
             return query;
         }
@@ -92,8 +82,8 @@ namespace HealthPlusAPI.Controllers.Support {
                                              service = ad.service,
                                              specialty = ad.specialty,
                                              remaining_cupons = ad.remaining_cupons,
-                                             local = inst.city,
-                                             institution_name = inst.name
+                                             city = inst.city,
+                                             inst_name = inst.name
                                          }
                          ).AsQueryable();
             return query;

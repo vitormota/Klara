@@ -327,4 +327,13 @@
   <data name="Website" xml:space="preserve">
     <value>Página Web</value>
   </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Carrinho</value>
+  </data>
+  <data name="ExpiresIn" xml:space="preserve">
+    <value>Expira em</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
 </root>
