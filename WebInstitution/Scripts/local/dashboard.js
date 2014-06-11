@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-	
+    $("#institutions option:nth-child(" + $("#current-inst").attr("value") + ")").attr("selected", "selected");
 });
 
 function initialize() {
@@ -22,7 +22,7 @@ $(document).on("click", "a[data-ajax='true']", function (e) {
 });
 
 
-$(document).on("click", "#changeLang", function (e) {
+$(document).on("change", "#culture", function (e) {
     e.preventDefault();
 
     var cult = $("#culture :selected").val();
@@ -35,7 +35,7 @@ $(document).on("click", "#changeLang", function (e) {
         });
 });
 
-$(document).on("click", "#switchInstitution", function (e) {
+$(document).on("change", "#institutions", function (e) {
     e.preventDefault();
 
     var inst = $("#institutions :selected").val();
