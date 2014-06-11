@@ -38,7 +38,8 @@ namespace HealthPlusAPI.Controllers.Support
                                              speciality = ad.specialty,
                                              state = cupon.state,
                                              end_time = cupon.end_time,
-                                             purchase_time = cupon.purchase_time
+                                             purchase_time = cupon.purchase_time,
+                                             id = ad.id
 
                                          }).AsQueryable();
 
