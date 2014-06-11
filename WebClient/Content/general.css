@@ -2,7 +2,7 @@
 	font-family: Arial, sans-serif;
     font-size: 16px;
     background-color: #F3EEE0;
-    position: rel
+    position: relative;
 }
 
 p {
@@ -36,6 +36,10 @@ header.navbar {
 	border: 0px solid transparent;
 	border-width: 0;
 	border-color: transparent;
+}
+
+header #home-link {
+	float: left;
 }
 
 header.navbar li {

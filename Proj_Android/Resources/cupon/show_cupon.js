@@ -4,6 +4,9 @@ Titanium.include("/components/lateral_bar.js");
 // Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
 Titanium.include("/components/header_bar.js");
 
+// Incluir ficheiro para fazer back
+Titanium.include("/components/back_window.js");
+
 // Include facebook
 Titanium.include("/facebook/init_facebook.js");
 
@@ -23,8 +26,9 @@ function CuponScreen()
 	
 	var run_constructor_fb_bool = null;
 	
+	var cupon_image_subscribe = null;
 	
-	this.constructorScreen = function(number_cupon)
+	this.constructorScreen = function(ad, institution, type_back)
 	{
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
@@ -45,6 +49,11 @@ function CuponScreen()
 			navBarHidden: true
 		});
 		
+		cupon_window.addEventListener('android:back', function(e)
+        {
+            BackWindow(type_back, cupon_window);
+        });
+		
 		var background_view = Titanium.UI.createView({
 			backgroundColor: "#f6f2e2"
 		});
@@ -61,7 +70,7 @@ function CuponScreen()
 		});
 		
 		var cupon_image = Titanium.UI.createImageView({
-			image: "/healthplus/healthplus_test.jpg",
+			image: ad.img_url,
 			top: '0%',
 			height: '177.73dp',
 			width: '84.68%',
@@ -76,16 +85,17 @@ function CuponScreen()
 			width: '84.68%',
 			top: '213.63dp',
 			backgroundColor: '#f1e9ce',
-			height: '621.67dp'
+			height: '675.67dp'
 		});
 		
 		var cupon_info_text = Titanium.UI.createView({
 			left: '10.28%',
-			width: '80.55%'
+			width: '80.55%',
+			height: '100%'
 		});
 		
 		var cupon_title = Titanium.UI.createLabel({
-			text: "CUPÃO XYZ",
+			text: (ad.name).toUpperCase(),
 			color: '#a39795',
 			top: '2.32%',
 			left: '0%',
@@ -119,7 +129,7 @@ function CuponScreen()
 		cupon_info_text.add(cupon_description_title);
 		
 		var cupon_description_text = Titanium.UI.createLabel({
-			text: "Et audaectes quamusam int voluptiorum alit dis rehent rerum nul¬pa volor aut qui am sandeligent alis sitatia tiumquunt, qui berione cerum, sit as volut odi deles reiur aut molorit alisqui rest, omnis do-lorias elent moditati cum fuga. Nam, voluptatur, sediore sectur?",
+			text: ad.description,
 			top: '10.71%',
 			color: '#d96b63',
 			left: '0%',
@@ -131,9 +141,63 @@ function CuponScreen()
 		
 		cupon_info_text.add(cupon_description_text);
 		
-		var cupon_data_title = Titanium.UI.createLabel({
-			text: "Data",
-			top: "25.35%",
+		
+		var cupon_service_title = Titanium.UI.createLabel({
+            text: "Serviço",
+            top: '19.87%',
+            color: '#d96b63',
+            left: '0%',
+            font:
+            {
+                fontSize: '11dp'
+            }
+        });
+
+        cupon_info_text.add(cupon_service_title);
+        
+        var cupon_service_text = Titanium.UI.createLabel({
+            text: ad.service,
+            top: '21.71%',
+            color: '#d96b63',
+            left: '0%',
+            font:
+            {
+                fontSize: '11dp'
+            }
+        });
+        
+        cupon_info_text.add(cupon_service_text);
+        
+        
+        var cupon_specialty_title = Titanium.UI.createLabel({
+            text: "Especialidade",
+            top: '25.34%',
+            color: '#d96b63',
+            left: '0%',
+            font:
+            {
+                fontSize: '11dp'
+            }
+        });
+
+        cupon_info_text.add(cupon_specialty_title);
+        
+        var cupon_specialty_text = Titanium.UI.createLabel({
+            text: ad.specialty,
+            top: '27.18%',
+            color: '#d96b63',
+            left: '0%',
+            font:
+            {
+                fontSize: '11dp'
+            }
+        });
+        
+        cupon_info_text.add(cupon_specialty_text);
+		
+		var cupon_data_init_title = Titanium.UI.createLabel({
+			text: "Data Inicio",
+			top: "30.81%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -142,11 +206,13 @@ function CuponScreen()
 			}
 		});
 		
-		cupon_info_text.add(cupon_data_title);
+		cupon_info_text.add(cupon_data_init_title);
 		
-		var cupon_data_text = Titanium.UI.createLabel({
-			text: "02.11.2014",
-			top: "27.08%",
+		var aux_start_time = ad.start_time.replace("T", "   ");
+		
+		var cupon_data_init_text = Titanium.UI.createLabel({
+			text: aux_start_time,
+			top: "32.65%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -155,11 +221,11 @@ function CuponScreen()
 			}
 		});
 		
-		cupon_info_text.add(cupon_data_text);
+		cupon_info_text.add(cupon_data_init_text);
 		
-		var cupon_hora_title = Titanium.UI.createLabel({
-			text: "Hora",
-			top: "30.82%",
+		var cupon_data_end_title = Titanium.UI.createLabel({
+			text: "Data Fim",
+			top: "36.28%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -168,11 +234,13 @@ function CuponScreen()
 			}
 		});
 		
-		cupon_info_text.add(cupon_hora_title);
+		cupon_info_text.add(cupon_data_end_title);
 		
-		var cupon_hora_text = Titanium.UI.createLabel({
-			text: "17h45",
-			top: "32.64%",
+		var aux_end_time = ad.end_time.replace("T", "   ");
+		
+		var cupon_data_end_text = Titanium.UI.createLabel({
+			text: aux_end_time,
+			top: "38.12%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -181,11 +249,63 @@ function CuponScreen()
 			}
 		});
 		
-		cupon_info_text.add(cupon_hora_text);
+		cupon_info_text.add(cupon_data_end_text);
+		
+		var cupon_buyed_cupons_title = Titanium.UI.createLabel({
+            text: "Número de Cupões Comprados",
+            top: "41.75%",
+            left: '0%',
+            color: '#d96b63',
+            font: 
+            {
+                fontSize: '11dp'
+            }
+        });
+        
+        cupon_info_text.add(cupon_buyed_cupons_title);
+        
+        var cupon_buyed_cupons_text = Titanium.UI.createLabel({
+            text: ad.buyed_cupons,
+            top: "43.59%",
+            left: '0%',
+            color: '#d96b63',
+            font: 
+            {
+                fontSize: '11dp'
+            }
+        });
+		
+		cupon_info_text.add(cupon_buyed_cupons_text);
+		
+		var cupon_remaining_cupons_title = Titanium.UI.createLabel({
+            text: "Número de Cupões que Faltam Vender",
+            top: "47.22%",
+            left: '0%',
+            color: '#d96b63',
+            font: 
+            {
+                fontSize: '11dp'
+            }
+        });
+        
+        cupon_info_text.add(cupon_remaining_cupons_title);
+        
+        var cupon_remaining_cupons_text = Titanium.UI.createLabel({
+            text: ad.remaining_cupons,
+            top: "49.06%",
+            left: '0%',
+            color: '#d96b63',
+            font: 
+            {
+                fontSize: '11dp'
+            }
+        });
+        
+        cupon_info_text.add(cupon_remaining_cupons_text);
 		
 		var cupon_institutions_title = Titanium.UI.createLabel({
 			text: "Instituição",
-			top: "36.38%",
+			top: "52.69%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -197,8 +317,8 @@ function CuponScreen()
 		cupon_info_text.add(cupon_institutions_title);
 		
 		var cupon_institutions_text = Titanium.UI.createLabel({
-			text: "Hospital S.João",
-			top: "38.2%",
+			text: institution.name,
+			top: "54.53%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -211,7 +331,7 @@ function CuponScreen()
 		
 		var cupon_discount_title = Titanium.UI.createLabel({
 			text: "Desconto",
-			top: "41.94%",
+			top: "58.16%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -222,22 +342,40 @@ function CuponScreen()
 		
 		cupon_info_text.add(cupon_discount_title);
 		
-		var cupon_discount_text = Titanium.UI.createLabel({
-			text: "50%",
-			top: "43.76%",
-			left: '0%',
-			color: '#d96b63',
-			font: 
-			{
-				fontSize: '11dp'
-			}
-		});
+		var cupon_discount_text;
+		
+		if(ad.discount == null)
+		{
+    		cupon_discount_text = Titanium.UI.createLabel({
+    			text: "n/d",
+    			top: "60%",
+    			left: '0%',
+    			color: '#d96b63',
+    			font: 
+    			{
+    				fontSize: '11dp'
+    			}
+    		});
+    	}
+    	else
+    	{
+    	    cupon_discount_text = Titanium.UI.createLabel({
+                text: ad.discount + "%",
+                top: "60%",
+                left: '0%',
+                color: '#d96b63',
+                font: 
+                {
+                    fontSize: '11dp'
+                }
+            });
+    	}
 		
 		cupon_info_text.add(cupon_discount_text);
 		
 		var cupon_localization_title = Titanium.UI.createLabel({
 			text: "Localização",
-			top: "47.5%",
+			top: "63.63%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -249,22 +387,22 @@ function CuponScreen()
 		cupon_info_text.add(cupon_localization_title);
 		
 		/*var hospital = MapModule.createAnnotation({
-            latitude: -33.87365,
-            longitude: 151.20689,
+            latitude: institution.latitude,
+            longitude: institution.longitude,
             draggable: false,
             pincolor: MapModule.ANNOTATION_AZURE,   
-            title: 'Hospital S.João',
-            subtitle: 'Avenida da Circunvalação'
+            title: institution.name,
+            subtitle: institution.address
         });
 		
 		var cupon_localization_image = MapModule.createView({
 			userLocation: false,
             mapType: MapModule.NORMAL_TYPE,
             animate: false,
-            region: {latitude: -33.87365, longitude: 151.20689, latitudeDelta: 0.1, longitudeDelta: 0.1 },
-			top: "53.61%",
+            region: {latitude: institution.latitude, longitude: institution.longitude, latitudeDelta: 0.5, longitudeDelta: 0.5 },
+			top: "63.63%",
 			left: '0%',
-			height: '27.45%'
+			height: '29.45%'
 		});
 		
 		cupon_localization_image.addAnnotation(hospital);
@@ -272,24 +410,32 @@ function CuponScreen()
 		
 		var cupon_localization_image = Titanium.UI.createImageView({
             image: "/healthplus/healthplus_google_maps.jpg",
-            top: "53.61%",
+            top: "63.63%",
             left: '0%',
-            height: '27.45%'
+            height: '29.45%'
         });
         
         cupon_info_text.add(cupon_localization_image);
 		
 		var cupon_image_buy = Titanium.UI.createImageView({
 			image: "/healthplus/healthplus_buy.png",
-			bottom: '5.77%',
+			bottom: '2.05%',
 			height: '6.66%',
 			width: '19.44%'
 		});
 		
 		cupon_image_buy.addEventListener('click', function()
 		{
-			InitFacebook();
+		    if(run_constructor_fb_bool == false)
+		    {
+		        InitFacebook();
+		    }
 		});
+		
+		if(run_constructor_fb_bool == true)
+		{
+		    VerifyCuponSubscribe(cupon_info_text, cupon_image_buy, ad.id);
+        }
 		
 		cupon_info_text.add(cupon_image_buy);
 		
@@ -310,10 +456,10 @@ function CuponScreen()
 		
 		// Colocar events listeners barra lateral
 		var eventListernerLateralBar = new EventsLateralBar();
-		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "cupao_" + ad.id, cupon_window);
 		
 		// Verificar se esta logado
-		changeLateralBar();
+		changeLateralBar(type_back, cupon_info_text, cupon_image_buy, ad.id);
 	};
 	
 	this.putEventListenersCuponScreen = function ()
@@ -358,12 +504,15 @@ function CuponScreen()
 		});
 	};
 	
-	function changeLateralBar()
+	function changeLateralBar(type_back, cupon_info_text, cupon_image_buy, cupon_id)
 	{
 		setInterval(function()
 		{
 			if(run_constructor_fb_bool != fb.loggedIn)
 			{
+			    alert('Diferente!!');
+			    
+			    
 				lateral_bar.setVisible(false);
 				cupon_window.remove(lateral_bar);
 				cupon_scroll_view.left = '0%';
@@ -376,15 +525,159 @@ function CuponScreen()
 				cupon_window.add(lateral_bar);
 		
 				eventListernerLateralBar = new EventsLateralBar();
-				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "cupao_" + cupon_id, cupon_window);
+				
+				if(run_constructor_fb_bool == true)
+				{
+				    cupon_image_subscribe.setVisible(false);
+				    cupon_image_buy.left = "40.17%";
+				}
+				else if(run_constructor_fb_bool == false)
+				{
+				    VerifyCuponSubscribe(cupon_info_text, cupon_image_buy, cupon_id);
+				}
 				
 				run_constructor_fb_bool = fb.loggedIn;				
 			}
-		}, 250);
+			
+		}, 100);
 	};
 	
 	this.showWindow = function()
 	{
 		cupon_window.open();
 	};
+	
+	function VerifyCuponSubscribe(cupon_info_text, cupon_image_buy, cupon_id)
+	{
+	    var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Subscriptions/IsSubscribeUser";
+        
+        var args = {};
+        args.client_id = user_id.toString();
+        args.subscribable_id = cupon_id.toString();
+                
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                if(string_verify.value == "false")
+                {
+                    cupon_image_subscribe = Titanium.UI.createImageView({
+                        image: "/healthplus/healthplus_positive.png",
+                        bottom: '2.05%',
+                        height: '6.66%',
+                        width: '19.44%',
+                        left: '27.56%',
+                        type_obj: 'button_subscribe'
+                    });
+                    
+                    cupon_image_buy.left = '53%';
+                    cupon_info_text.add(cupon_image_subscribe);
+                }
+                else if(string_verify.value == "true")
+                {
+                    cupon_image_subscribe = Titanium.UI.createImageView({
+                        image: "/healthplus/healthplus_negative.png",
+                        bottom: '2.05%',
+                        height: '6.66%',
+                        width: '19.44%',
+                        left: '27.56%',
+                        type_obj: 'button_unsubscribe'
+                    });
+                    
+                    cupon_image_buy.left = '53%';
+                    cupon_info_text.add(cupon_image_subscribe);
+                }
+                else
+                {
+                    alert("Algo se passou!");
+                }
+                
+                cupon_image_subscribe.addEventListener('click', function(e)
+                {
+                    if(e.source.type_obj == "button_subscribe")
+                    {
+                        SubscribeAd(true, cupon_id, e.source);
+                    }  
+                    else if(e.source.type_obj == "button_unsubscribe")
+                    {
+                        SubscribeAd(false, cupon_id, e.source);
+                    } 
+                });
+            },
+            onerror: function()
+            {
+                alert("Erro na verificação de subscrições!!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+	}
+	
+	function SubscribeAd(case_subscribe, ad_id, source_click)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url;
+        
+        if(case_subscribe == true)
+        {
+            url = "http://" + url_ip + ":52144/odata/Subscriptions/";
+        }
+        else if(case_subscribe == false)
+        {
+            url = "http://" + url_ip + ":52144/odata/Subscriptions/DeleteSubscription";
+        }
+        
+        var args = {};
+        args.client_id = user_id.toString();
+        args.subscribable_id = ad_id.toString();
+                        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                Ti.API.info('Ação efectuada com sucesso!');
+                
+                if(case_subscribe == true)
+                {
+                    source_click.image = '/healthplus/healthplus_negative.png';
+                    source_click.type_obj = "button_unsubscribe";
+                }
+                else if(case_subscribe == false)
+                {
+                    source_click.image = '/healthplus/healthplus_positive.png';
+                    source_click.type_obj = "button_subscribe";
+                }
+            },
+            onerror: function()
+            {
+                alert("Erro na verificação de subscrições!!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
 }

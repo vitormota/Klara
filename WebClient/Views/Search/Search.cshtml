@@ -5,7 +5,10 @@
 @Styles.Render("~/Content/themes/base/jquery-ui.css")
 @Styles.Render("~/Content/search.css")
 
-<div id="search-filters-wrapper">
+<button id="show-nav">+</button>
+
+<div id="search-filters-wrapper" class="clearfix">
+    <button id="hide-nav">-</button>
     @Html.Partial("_SearchBar")
 
     <div id="type-filter" class="clearfix">

@@ -6,46 +6,46 @@
 
 @Styles.Render("~/Content/ad.css")
 
-<div class="row col-xs-12 col-md-12 pull-top">
+<div id="@Model.id" class="row col-xs-12 col-md-12 pull-top">
     <div class="col-xs-2 col-md-4">
-        <img id="cupn-img" class="img-responsive" src="~/Content/images/cupon.png" alt="Imagem cupao" />
+        <img id="cupn-img" class="img-responsive" src="~/Content/images/cupon.png" alt="@Resources.CuponImage" />
+        @if (Session["user"] != null) {
+            <a href="#"><img id="subscribe-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="@Resources.Subscribe" /></a>
+        }
     </div>
     <div class="col-xs-8 col-md-6">
         <h4 id="cupn-title">@Html.ValueFor(inst => inst.name)</h4>
         <hr class="separator-title" />
-        <h5>Cidade</h5>
+        <h5>@Resources.Town</h5>
         <p>
             @Html.ValueFor(inst => inst.city)
         </p>
         <hr class="separator-details" />
-        <h5>Email</h5>
+        <h5>@Resources.Email</h5>
         <p>
-            <a class="inst-link" href="mailto:@Html.ValueFor(inst => inst.email)">@Html.ValueFor(inst => inst.email)</a>   
+            <a class="inst-link" href="mailto:@Html.ValueFor(inst => inst.email)">@Html.ValueFor(inst => inst.email)</a>
         </p>
         <hr class="separator-details" />
-        <h5>Website</h5>
+        <h5>@Resources.Website</h5>
         <p>
-            <a class="inst-link"  href="http://@Html.ValueFor(inst => inst.website)">@Html.ValueFor(inst => inst.website)</a>
+            <a class="inst-link" href="http://@Html.ValueFor(inst => inst.website)">@Html.ValueFor(inst => inst.website)</a>
         </p>
         <hr class="separator-details" />
-        <h5>Endereço</h5>
+        <h5>@Resources.Address</h5>
         <p>
-           @Html.ValueFor(inst => inst.address)
+            @Html.ValueFor(inst => inst.address)
         </p>
         <hr class="separator-details" />
-        <h5>Telefone</h5>
+        <h5>@Resources.Cellphone</h5>
         <p>
-           @Html.ValueFor(inst => inst.phone_number)
+            @Html.ValueFor(inst => inst.phone_number)
         </p>
         <hr class="separator-details" />
-        <h5>Fax</h5>
+        <h5>@Resources.Fax</h5>
         <p>
-           @Html.ValueFor(inst => inst.fax)
+            @Html.ValueFor(inst => inst.fax)
         </p>
-       
-        <a href="#"><img id="subscribe-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="@Resources.Subscribe" /></a>
     </div>
 </div>
 
-<script type="text/javascript" src="/Scripts/local/cupon.js"></script>
-
+@Scripts.Render("~/Scripts/local/institution.js")

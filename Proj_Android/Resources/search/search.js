@@ -4,6 +4,9 @@ Titanium.include("/components/lateral_bar.js");
 // Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
 Titanium.include("/components/header_bar.js");
 
+// Incluir ficheiro para fazer back
+Titanium.include("/components/back_window.js");
+
 // Incluir facebook
 Titanium.include("/facebook/init_facebook.js");
 
@@ -32,7 +35,7 @@ function SearchScreen()
 	var init_institutions_filter = null;
 	var init_price_filter = null;
 	
-	this.constructorScreen = function()
+	this.constructorScreen = function(type_back)
 	{
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
@@ -50,6 +53,12 @@ function SearchScreen()
 		search_window = Titanium.UI.createWindow({
 			navBarHidden: true
 		}); 
+		
+		search_window.addEventListener('android:back', function(e)
+        {
+            Ti.API.info('Volta atrás!');
+            BackWindow(type_back, search_window);
+        });
 		
 		var background_view = Titanium.UI.createView({
 			backgroundColor: "#f6f2e2"
@@ -249,9 +258,9 @@ function SearchScreen()
 		
 		// Colocar events listeners barra lateral
 		var eventListernerLateralBar = new EventsLateralBar();
-		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "pesquisa", search_window);
 		
-		changeLateralBar();
+		changeLateralBar(type_back);
 	};
 	
 	this.putEventListenersSearchScreen = function ()
@@ -381,7 +390,7 @@ function SearchScreen()
 		});
 	};
 	
-	function changeLateralBar()
+	function changeLateralBar(type_back)
 	{
 		setInterval(function()
 		{
@@ -399,11 +408,11 @@ function SearchScreen()
 				search_window.add(lateral_bar);
 		
 				eventListernerLateralBar = new EventsLateralBar();
-				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "pesquisa", search_window);
 				
 				run_constructor_fb_bool = fb.loggedIn;				
 			}
-		}, 150);
+		}, 100);
 	};
 	
 	this.showWindow = function()

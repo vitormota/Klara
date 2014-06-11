@@ -7,10 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using WebClient_.HealthPService;
 using WebClient_.Models;
+using WebInstitution.Controllers;
 
 namespace WebClient_.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
 
         private HealthPService.IHPService mService = new HPServiceClient();
@@ -30,6 +31,7 @@ namespace WebClient_.Controllers
             UserInfo ui = UserInfo.jsonToModel(userjson);
 
             ui.ads_subscriptions = JsonConvert.DeserializeObject<List<Ad>>(mService.GetAdSubscriptions(id));
+            ui.insts_subscriptions = JsonConvert.DeserializeObject<List<InstitutionModel>>(mService.GetInstitutionSubscriptions(id));
             ui.cupons = JsonConvert.DeserializeObject<List<Ad>>(mService.GetClientPurchases(id));
 
             return View(ui);

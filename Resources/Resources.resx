@@ -225,6 +225,9 @@
   <data name="CuponImage" xml:space="preserve">
     <value>Cupon image</value>
   </data>
+  <data name="Cupons" xml:space="preserve">
+    <value>Cupons</value>
+  </data>
   <data name="CurrentPasswordReq" xml:space="preserve">
     <value>Current password required</value>
   </data>
@@ -232,7 +235,7 @@
     <value>Edit</value>
   </data>
   <data name="EmptyCartNotif" xml:space="preserve">
-    <value>Your shopping cart is empty =(</value>
+    <value>Your shopping cart is empty</value>
   </data>
   <data name="Entity" xml:space="preserve">
     <value>Entity</value>
@@ -406,7 +409,7 @@
     <value>Search</value>
   </data>
   <data name="ShoppingCart" xml:space="preserve">
-    <value>Cart</value>
+    <value>Shopping Cart</value>
   </data>
   <data name="SignInFacebook" xml:space="preserve">
     <value>| Sign in with Facebook</value>
@@ -440,5 +443,38 @@
   </data>
   <data name="UserPicture" xml:space="preserve">
     <value>User picture</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FastCheckout" xml:space="preserve">
+    <value>Fast Checkout</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="ExpiresIn" xml:space="preserve">
+    <value>Expires in</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
 </root>

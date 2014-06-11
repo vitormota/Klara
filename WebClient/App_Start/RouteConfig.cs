@@ -11,14 +11,14 @@ namespace WebClient_ {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "InstitutionRoute",
-                "Institution/{id}", new { controller = "Institution", action = "Index" }
-            );
-
-            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "InstitutionRoute",
+                "Institution/{id}/{action}", new { controller = "Institution", action = "Index" }
             );
             
         }

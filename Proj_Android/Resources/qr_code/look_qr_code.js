@@ -1,15 +1,24 @@
 // load the Scandit SDK module
 var scanditsdk = require("com.mirasense.scanditsdk");
 
+// Incluir ficheiro para fazer back
+Titanium.include("/components/back_window.js");
+
 function SeeQrCode()
 {
-    this.initializeScanner = function ()
+    this.initializeScanner = function (type_back)
     {
         var picker;
         
         // Create a window to add the picker to and display it. 
         var window = Titanium.UI.createWindow({
                 navBarHidden: true
+        });
+        
+        window.addEventListener('android:back', function(e)
+        {
+            Ti.API.info('Volta atrás!');
+            BackWindow(type_back, window);
         });
         
         // Sets up the scanner and starts it in a new window.

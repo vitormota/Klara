@@ -8,10 +8,11 @@ using WebClient_.Models;
 using WebClient_.HealthPService;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WebInstitution.Controllers;
 
 namespace WebClient_.Controllers
 {
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
 
         private HealthPService.IHPService mService = new HPServiceClient();

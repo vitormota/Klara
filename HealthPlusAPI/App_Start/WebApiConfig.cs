@@ -34,7 +34,7 @@ namespace HealthPlusAPI
             builder.EntitySet<Institution>("Institutions");
             builder.EntitySet<Manager>("Managers");
 
-            ActionConfiguration getClientPurchases = builder.Entity<Cupon>().Action("GetPurchases");
+            ActionConfiguration getClientPurchases = builder.Entity<purchased_ad>().Action("GetPurchases");
             getClientPurchases.Returns<string>();
 
             ActionConfiguration multipleCupons = builder.Entity<Cupon>().Collection.Action("MultipleCupons");

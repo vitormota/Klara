@@ -8,10 +8,11 @@ using System.Device.Location;
 using WebClient_.HealthPService;
 using System.Net.Mail;
 using WebClient_.Models;
+using WebInstitution.Controllers;
 
 namespace WebClient_.Controllers
 {
-    public class InstitutionController : Controller
+    public class InstitutionController : BaseController
     {
         private HealthPService.IHPService mService = new HPServiceClient();
         //
@@ -22,6 +23,16 @@ namespace WebClient_.Controllers
             InstitutionModel institution = JsonConvert.DeserializeObject<InstitutionModel>(json_inst);
 
             return View(institution);
+        }
+
+        [HttpGet]
+        public string Subscribe(int id) {
+            UserSession us = (UserSession)Session["user"];
+            int client_id = us.internal_id;
+
+            string result = mService.SubscribeInstitution(id, client_id);
+
+            return result;
         }
 
         [HttpPost]
@@ -43,15 +54,6 @@ namespace WebClient_.Controllers
             return result;
         }
 
-        [HttpPost]
-        public string SubscribeInstitution()
-        {
-            int institution_id = 2;
-            int client_id = 36; // Posteriormente, vai-se buscar o valor da sessao
-
-            string result = mService.SubscribeInstitution(institution_id, client_id);
-            return result;
-        }
 
         [HttpPost]
         public string UnsubscribeInstitution()

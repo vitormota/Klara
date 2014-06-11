@@ -139,6 +139,7 @@
   <ItemGroup>
     <Folder Include="App_Data\Ad_Photos\" />
     <Folder Include="Binders\" />
+    <Folder Include="Views\Purchase\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Controllers\InstitutionsController.cs" />
     <Compile Include="Controllers\InstsGroupController.cs" />
     <Compile Include="Controllers\ManagersController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\ReferenceBankController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Controllers\Support\AuxGetController.cs" />
@@ -211,6 +213,9 @@
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Manager_Institution_maps.cs">
+      <DependentUpon>HealthPlus.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\purchased_ad.cs">
       <DependentUpon>HealthPlus.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReferenceBank\Reference.cs" />

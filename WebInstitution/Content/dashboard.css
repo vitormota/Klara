@@ -116,6 +116,7 @@
 
 #settings-inputs .form-group input{
 	width: 100%;
+	padding: 0.2em;
 }
 
 #settings-inputs .form-group label{
@@ -141,6 +142,10 @@
 
 /**** Add *****/
 
+#last-cupons li {
+	border: 1px solid #D86A62;
+	padding: 1em;
+}
 
 #last-cupons li:not(:first-child) {
 	margin-top: 1em;
@@ -148,7 +153,8 @@
 
 #last-cupons li .img {
 	background-color: #D86A62;
-	height: 3em;
+	width: 100%;
+	height: auto;
 }
 
 #last-cupons li span {
@@ -189,6 +195,7 @@
 
 #add-inputs .form-group input{
 	width: 100%;
+	padding: 0.2em;
 }
 
 #add-inputs .form-group label{
@@ -226,8 +233,9 @@
 }
 
 #cupons-list-wrapper .img {
-	height: 3em;
 	background-color: #f79983;
+	width: 100%;
+	height: auto;
 }
 
 #cupons-list-wrapper .row:not(:first-child) {
@@ -258,7 +266,7 @@
 }
 
 #cupons-list-wrapper .cupon-wrapper #ad-photo {
-	height: 3em;
+	width: 100%;
 }
 
 
@@ -281,3 +289,31 @@
 }
 
 /*******************/
+
+#partial {
+	margin-bottom: 2em;
+}
+
+.price {
+	text-align: right;
+}
+
+#importAd{
+	float: right;
+    text-align: center;
+    background-color: #f79983;
+    border: 0;
+    color: white;
+    text-transform: uppercase;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    margin-top: 0.3em;
+    font-size: 14px;
+}
+
+#importAd:focus {
+	outline-color: #D86A62;
+}
+
+#importAd:hover {
+    background-color: #D86A62;
+}

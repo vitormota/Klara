@@ -6,6 +6,7 @@
 .user-separator.item {
     border-color: #F0E9CE;
     border-width: 8px 0;
+    clear:both;
 }
 
 .hp-panel-user-page-accordion {
@@ -45,11 +46,14 @@ a.panel-title:hover {
 	max-height: 4em;
 }
 
-.subscribed-ad {
-    background-color: #D86A62;
+.subscribed-ad, .buyed-ad, .subscribed-inst {
     margin-bottom: 1em;
     padding: 1em;
-    border-radius: 10px;
+    border: 1px solid #D86A62;
+}
+
+.subscribed-ad label, .buyed-ad label, .subscribed-inst label {
+    color: #DA776B;
 }
 
 .subscribed-group .date,  .buyed-group .date {
@@ -70,7 +74,6 @@ a.panel-title:hover {
 #edit-details input {
     display: none;
     width: 100%;
-    margin-bottom: 1em;
     padding: 0.5em;
 }
 
@@ -93,4 +96,42 @@ a.panel-title:hover {
     background-color: #D86A62;
 }
 
+#collapseOne .details-field {
+    margin-bottom: 1em;
 
+}
+
+#collapseOne .details-field label{
+    display: block;
+}
+
+.region-thumb {
+    float: left;
+}
+
+.region-content {
+    float: left;
+    margin-left: 2em;
+    width: 32%;
+}
+
+
+@media (max-width: 767px) {
+  .region-content {
+    width: 70%;
+    }
+}
+
+@media (max-width: 367px) {
+  .region-thumb {
+        position: relative;
+        left: 50%;
+        margin-left: -32px;
+    }
+
+    .region-content {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 1em;
+    }
+}

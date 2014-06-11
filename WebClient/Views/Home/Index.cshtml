@@ -16,7 +16,7 @@
                     @Html.Raw("<li class=\"slide\"><div class=\"row\">")
                 }
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 col-xs-12" >
                     <a href="/Ad?id=@ad.value.id">
                         <div class="service-image">
                             <img src="@ad.value.img_url" />
@@ -34,7 +34,7 @@
 </div>
 
 <div class="section-title">
-    <h4>CUPÕES</h4>
+    <h4>@Resources.Cupons</h4>
     <hr />
 </div>
 
