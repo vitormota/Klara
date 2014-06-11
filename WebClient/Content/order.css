@@ -1,0 +1,100 @@
+h3 {
+	color: #f5937d;
+}
+
+hr {
+	border-color: #D86A62;
+	margin: 1em 0 1em 0;
+}
+
+.pull-top {
+	margin-top: 1.5em;
+}
+
+#user-details input {
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    font-size: 14px;
+    border: 0;
+}
+
+input[readonly="readonly"], input[readonly]
+{
+    background-color: #F1E9CE;
+}
+
+#user-details label {
+    text-transform: uppercase;
+    color: #DA776B;
+    font-weight: 400;
+}
+
+#user-details input[type="submit"]{
+	display: none;
+    text-align: center;
+    background-color: #f79983;
+    border: 0;
+    color: white;
+    text-transform: uppercase;
+    padding: 0.5em;
+}
+
+#user-details input[type="submit"]:hover {
+    background-color: #D86A62;
+}
+
+#user-details img.profile-btn {
+    float: right;
+    width: 2em;
+    cursor: pointer;
+}
+
+#cart-list {
+	list-style: none;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 0px;
+	margin-bottom: 1em;
+}
+
+#cart-list li {
+	margin-bottom: 0.5em;
+}
+
+#cart-list .ad-name{
+	float: left;
+}
+
+#cart-list .ad-price{
+	float: right;
+}
+
+.subtotal {
+	color: #f79983;
+}
+
+.subtotal span.title {
+	font-weight: 700;
+}
+
+.subtotal span.price {
+	float: right;
+}
+
+#pay{
+	width: 20%;
+	float: right;
+    text-align: center;
+    background-color: #f79983;
+    border: 0;
+    color: white;
+    text-transform: uppercase;
+    padding: 0.5em;
+}
+
+#pay:hover {
+    background-color: #D86A62;
+}

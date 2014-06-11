@@ -15,26 +15,33 @@ namespace WebClient_.Controllers
         [HttpGet]
         public ActionResult Search(string textSearch) 
         {
+            if (textSearch != "") {
+                List<Dictionary<string, string>> ads = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(mService.SearchAd(textSearch, 0));
+                ViewBag.ListAds = ads;
+                List<Dictionary<string, string>> insts = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(mService.SearchInstitution(textSearch, 0));
+                ViewBag.ListInstitution = insts;
 
-            List<Dictionary<string, string>> ads = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(mService.SearchAd(textSearch, 0));
-            ViewBag.ListAds = ads;
-            List<Dictionary<string, string>> insts = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(mService.SearchInstitution(textSearch, 0));
-            ViewBag.ListInstitution = insts;
+                if (ads.Count > 0)
+                    ViewBag.last_ad_id = ads.Aggregate((i1, i2) => Int32.Parse(i1["id"]) > Int32.Parse(i2["id"]) ? i1 : i2)["id"];
+                else
+                    ViewBag.last_ad_id = 0;
 
-            ViewBag.last_ad_id = ads.Aggregate((i1, i2) => Int32.Parse(i1["id"]) > Int32.Parse(i2["id"]) ? i1 : i2)["id"];
-            ViewBag.last_inst_id = insts.Aggregate((i1, i2) => Int32.Parse(i1["id"]) > Int32.Parse(i2["id"]) ? i1 : i2)["id"];
+                if (insts.Count > 0)
+                    ViewBag.last_inst_id = insts.Aggregate((i1, i2) => Int32.Parse(i1["id"]) > Int32.Parse(i2["id"]) ? i1 : i2)["id"];
+                else
+                    ViewBag.last_inst_id = 0;
 
-            ViewBag.ListSpecialty = new List<string>();
+                ViewBag.ListSpecialty = new List<string>();
 
-            for (int i = 0; i < ViewBag.ListAds.Count; i++)
-            {
-                if (!ViewBag.ListSpecialty.Contains(ViewBag.ListAds[i]["specialty"]))
-                {
-                    ViewBag.ListSpecialty.Add(ViewBag.ListAds[i]["specialty"]);
+                for (int i = 0; i < ViewBag.ListAds.Count; i++) {
+                    if (!ViewBag.ListSpecialty.Contains(ViewBag.ListAds[i]["specialty"])) {
+                        ViewBag.ListSpecialty.Add(ViewBag.ListAds[i]["specialty"]);
+                    }
                 }
-            }
-            
-            return View();
+
+                return View();
+            } else
+                return null;
         }
 
         [HttpGet]

@@ -34,12 +34,12 @@ namespace WebClient_.Controllers
         }
 
         [HttpGet]
-        public string SubscribeAd(int ad_id)
+        public string Subscribe(int id)
         {
             UserSession us = (UserSession)Session["user"];
             int client_id = us.internal_id;
 
-            string result = mService.SubscribeAd(client_id, ad_id);
+            string result = mService.SubscribeAd(client_id, id);
             return result;
         }
 

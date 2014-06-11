@@ -12,7 +12,7 @@ namespace WebClient_ {
 
             routes.MapRoute(
                 "InstitutionRoute",
-                "Institution/{id}", new { controller = "Institution", action = "Index" }
+                "Institution/{id}/{action}", new { controller = "Institution", action = "Index" }
             );
 
             routes.MapRoute(

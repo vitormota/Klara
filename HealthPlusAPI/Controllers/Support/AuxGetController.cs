@@ -10,10 +10,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace HealthPlusAPI.Controllers.Support
-{
-    public class AuxGetController : ApiController
-    {
+namespace HealthPlusAPI.Controllers.Support {
+    public class AuxGetController : ApiController {
         /// <summary>
         /// DB access
         /// </summary>
@@ -25,14 +23,12 @@ namespace HealthPlusAPI.Controllers.Support
         /// <param name="client_id"></param>
         /// <returns></returns>
         [Route("odata/Cupon({client_id:int})/Purchases")]
-        public IEnumerable<dynamic> getClientPurchases(int client_id)
-        {
+        public IEnumerable<dynamic> getClientPurchases(int client_id) {
             IQueryable<dynamic> query = (from cupon in db.Cupon
                                          join ad in db.Ad
                                          on cupon.ad_id equals ad.id
                                          where cupon.client_id == client_id
-                                         select new
-                                         {
+                                         select new {
                                              service = ad.service,
                                              name = ad.name,
                                              speciality = ad.specialty,
@@ -51,11 +47,9 @@ namespace HealthPlusAPI.Controllers.Support
         /// <param name="client_id"></param>
         /// <returns>Single result containning the client id and options</returns>
         [Route("odata/Accounts({client_id:int})/OptionsFlags")]
-        public dynamic getClientAccountInfo(int client_id)
-        {
+        public dynamic getClientAccountInfo(int client_id) {
             IQueryable<dynamic> query = db.Account
-                .Select(account => new
-                {
+                .Select(account => new {
                     id = account.id,
                     notifications = account.receive_notification,
                     show_ads = account.show_ads
@@ -79,19 +73,16 @@ namespace HealthPlusAPI.Controllers.Support
         /// <param name="client_id">The client id</param>
         /// <returns></returns>
         [Route("odata/Subscriptions({client_id})/Cupons")]
-        public dynamic getClientCuponSubs(int client_id)
-        {
-            IQueryable<dynamic> query = (from client in db.Client
-                                         join sub in db.Subscription
-                                         on new { id = client.id } equals new { id = sub.client_id }
+        public dynamic getClientCuponSubs(int client_id) {
+            IQueryable<dynamic> query = (from sub in db.Subscription
+                                         where sub.client_id == client_id
                                          join s in db.Subscribable
                                          on new { subid = sub.subscribable_id } equals new { subid = s.id }
                                          join ad in db.Ad
                                          on new { adid = sub.subscribable_id } equals new { adid = ad.id }
                                          join inst in db.Institution
                                          on new { instid = ad.institution_id } equals new { instid = inst.id }
-                                         select new
-                                         {
+                                         select new {
                                              id = ad.id,
                                              name = ad.name,
                                              institution_id = ad.institution_id,
@@ -102,7 +93,7 @@ namespace HealthPlusAPI.Controllers.Support
                                              specialty = ad.specialty,
                                              remaining_cupons = ad.remaining_cupons,
                                              local = inst.city,
-                                             institution_name = inst.name    
+                                             institution_name = inst.name
                                          }
                          ).AsQueryable();
             return query;
@@ -115,12 +106,11 @@ namespace HealthPlusAPI.Controllers.Support
         /// <param name="ad_id">The ads id</param>
         /// <returns></returns>
         [Route("odata/Ads({ad_id})")]
-        public KeyValuePair<Ad, Institution> getAdDetails(int ad_id)
-        {
+        public KeyValuePair<Ad, Institution> getAdDetails(int ad_id) {
             Ad ad = db.Ad.Where(Ad => Ad.id == ad_id).Single();
-            Institution ins = db.Institution.Where(Institution => Institution.id.Equals( ad.institution_id)).Single();
+            Institution ins = db.Institution.Where(Institution => Institution.id.Equals(ad.institution_id)).Single();
 
-            return new KeyValuePair<Ad,Institution>(ad, ins);
+            return new KeyValuePair<Ad, Institution>(ad, ins);
         }
 
         /// <summary>
@@ -133,23 +123,50 @@ namespace HealthPlusAPI.Controllers.Support
         /// using the following model "name-otype" e.g. "id-desc", defaults to desc</param>
         /// <returns></returns>
         [Route("odata/Ads/{lower_bound:int}/{upper_bound:int}/{on}")]
-        public dynamic getAdsByRule(int lower_bound, int upper_bound,string on)
-        {
+        public dynamic getAdsByRule(int lower_bound, int upper_bound, string on) {
             //DbSet<Ad> ads = db.Ad;
             //DbSet<Institution> institutions = db.Institution;
             string[] criteria = on.Split('-');
             string order_column = criteria[0];
             string order_criteria = "DESC";
-            if (criteria.Length > 1)
-            {
+            if (criteria.Length > 1) {
                 order_criteria = criteria[1];
             }
-            string command = "SELECT * FROM robinfoo_lgp.searchable_ad" + 
+            string command = "SELECT * FROM robinfoo_lgp.searchable_ad" +
                 " ORDER BY " + order_column + " " + order_criteria +
                 " LIMIT " + lower_bound + "," + upper_bound;
             var res = db.Database.SqlQuery<searchable_ad>(command);
 
             return res;
+        }
+
+        /// <summary>
+        /// Retrieve client's institutions subscriptions
+        /// </summary>
+        /// <param name="client_id">The client id</param>
+        /// <returns></returns>
+        [Route("odata/Subscriptions({client_id})/Institutions")]
+        public dynamic getClientInstitutionSubs(int client_id) {
+            IQueryable<dynamic> query = (from sub in db.Subscription
+                                         where sub.client_id == client_id
+                                         join s in db.Subscribable
+                                         on new { subid = sub.subscribable_id } equals new { subid = s.id }
+                                         join inst in db.Institution
+                                         on new { instid = sub.subscribable_id } equals new { instid = inst.id }
+                                         select new {
+                                             id = inst.id,
+                                             name = inst.name,
+                                             address = inst.address,
+                                             city = inst.city,
+                                             latitude = inst.latitude,
+                                             longitude = inst.longitude,
+                                             email = inst.email,
+                                             website = inst.website,
+                                             phone_number = inst.phone_number,
+                                             fax = inst.fax
+                                         }
+                         ).AsQueryable();
+            return query;
         }
     }
 

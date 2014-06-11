@@ -9,241 +9,364 @@
 @Styles.Render("~/Content/user.css")
 
 <div class="row user-desc">
-    <div class="col-xs-2 col-md-1">
-        <img class="img-rounded" src="@(((WebClient_.Models.UserSession)(Session["user"])).profile_picture_url)" alt="Foto do Utilizador" />
-    </div>
-    <div class="col-xs-8 col-md-4">
-        <h4>@Html.DisplayFor(m => m.name)</h4>
-        <h4> @Html.DisplayFor(m => m.email)</h4>
-        <hr class="user-separator desc" />
+    <div class="col-xs-12 col-md-12">
+        <div class="region-thumb">
+            <img class="img-rounded" src="@(((WebClient_.Models.UserSession)(Session["user"])).profile_picture_url)" alt="Foto do Utilizador" />
+        </div>
+        <div class="region-content">
+            <h4>@Html.DisplayFor(m => m.name)</h4>
+            <h4> @Html.DisplayFor(m => m.email)</h4>
+            <hr class="user-separator desc" />
+        </div>
     </div>
 </div>
 <div id="accordion">
-    <div class="row">
+    <div class="row clearfix">
         <div class="col-xs-12 col-md-12">
-            <div class="row">
-                <div class="col-xs-2 col-md-1">
-                    <img src="~/Content/images/dados_pessoais.png" alt="Dados Pessoais" />
-                </div>
-                <div class="col-xs-8 col-md-4">
-                    <div class="panel-group" id="accordion">
-                        <div class="hp-panel-user-page-accordion panel panel-default">
-                            <div class="no-background panel-heading" id="div-badge1">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="hp-user-accordion-title panel-title">
-                                    Dados Pessoais
-                                    <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge1"></span></span>
-                                </a>
+            <div class="region-thumb">
+                <img src="~/Content/images/dados_pessoais.png" alt="Dados Pessoais" />
+            </div>
+            <div class="region-content">
+                <div class="panel-group" id="accordion">
+                    <div class="hp-panel-user-page-accordion panel panel-default">
+                        <div class="no-background panel-heading" id="div-badge1">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="hp-user-accordion-title panel-title">
+                                Dados Pessoais
+                                <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge1"></span></span>
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                @using (Html.BeginForm("EditDetails", "User", Model, FormMethod.Post, new { @id = "edit-details" })) {
+                                    <div class="details-field">
+                                        @Html.Label("NIF ")
+                                        <span>@Html.DisplayFor(m => m.nif)</span>
+                                        @Html.EditorFor(m => m.nif)
+                                    </div>
+                                    <div class="details-field">
+                                        @Html.Label("Telémovel ")
+                                        <span>@Html.DisplayFor(m => m.phone_number) </span>
+                                        @Html.EditorFor(m => m.phone_number)
+                                    </div>
+                                    <div class="details-field">
+                                        @Html.Label("Endereço ")
+                                        <span>@Html.DisplayFor(m => m.address)</span>
+                                        @Html.EditorFor(m => m.address)
+                                    </div>
+                                    <div class="details-field">
+                                        @Html.Label("Cidade ")
+                                        <span>@Html.DisplayFor(m => m.city)</span>
+                                        @Html.EditorFor(m => m.city)
+                                    </div>
+                                    <input class="btn btn-success" type="submit" value="Submeter" />
+                                }
+                                <img class="profile-btn" src="~/Content/images/pictogramas-05.png" alt="Editar" />
                             </div>
-                            <div id="collapseOne" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    @using (Html.BeginForm("EditDetails", "User", Model, FormMethod.Post, new { @id = "edit-details" })) {
-                                        <div class="details-field">
-                                            @Html.Label("NIF ")
-                                            <span>@Html.DisplayFor(m => m.nif)</span>
-                                            @Html.EditorFor(m => m.nif)
+                        </div>
+                    </div>
+                </div>
+                <hr class="user-separator item" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-xs-12 col-md-12">
+            <div class="region-thumb">
+                <img src="~/Content/images/cupoes_subscritos.png" alt="Cupões Subscritos" />
+            </div>
+            <div class="region-content">
+                <div class="panel-group" id="accordion">
+                    <div class="hp-panel-user-page-accordion panel panel-default">
+                        <div class="no-background panel-heading " id="div-badge2">
+                            <a data-toggle="collapse" href="#collapseTwo" data-parent="#accordion" class="hp-user-accordion-title panel-title">
+                                Cupões Subscritos
+                                <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge2"></span></span>
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            @{ var todaySubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today) == 0);
+                             var nextWeekSubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == -1 && x.end_time.Date.CompareTo(DateTime.Today) != 0);
+                             var moreSubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == 1); }
+
+                            <div class="panel-body">
+                                <div class="subscribed-group">
+                                    <span class="date">HOJE (@todaySubs.Count())</span>
+                                    @foreach (var ad in todaySubs) {
+                                        <div class="subscribed-ad" style="display: none">
+                                            <div class="data-field">
+                                                @Html.Label("Nome ")
+                                                @Html.DisplayFor(a => ad.name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Expira em ")
+                                                @Html.DisplayFor(a => ad.end_time)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Preço ")
+                                                @Html.DisplayFor(a => ad.price) €
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Instituição ")
+                                                @Html.DisplayFor(a => ad.institution_name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Local")
+                                                @Html.DisplayFor(a => ad.local)
+                                            </div>
                                         </div>
-                                        <div class="details-field">
-                                            @Html.Label("Telémovel ")
-                                            <span>@Html.DisplayFor(m => m.phone_number) </span>
-                                            @Html.EditorFor(m => m.phone_number)
-                                        </div>
-                                        <div class="details-field">
-                                            @Html.Label("Endereço ")
-                                            <span>@Html.DisplayFor(m => m.address)</span>
-                                            @Html.EditorFor(m => m.address)
-                                        </div>
-                                        <div class="details-field">
-                                            @Html.Label("Cidade ")
-                                            <span>@Html.DisplayFor(m => m.city)</span>
-                                            @Html.EditorFor(m => m.city)
-                                        </div>
-                                        <input type="submit" value="Submeter" />
                                     }
-                                    <img class="profile-btn" src="~/Content/images/pictogramas-05.png" alt="Editar" />
+                                </div>
+
+                                <div class="subscribed-group">
+                                    <span class="date">PRÓXIMA SEMANA (@nextWeekSubs.Count())</span>
+                                    @foreach (var ad in nextWeekSubs) {
+                                        <div class="subscribed-ad" style="display: none">
+                                            <div class="data-field">
+                                                @Html.Label("Nome ")
+                                                @Html.DisplayFor(a => ad.name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Expira em ")
+                                                @Html.DisplayFor(a => ad.end_time)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Preço ")
+                                                @Html.DisplayFor(a => ad.price) €
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Instituição ")
+                                                @Html.DisplayFor(a => ad.institution_name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Local")
+                                                @Html.DisplayFor(a => ad.local)
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="subscribed-group">
+                                    <span class="date">MAIS (@moreSubs.Count())</span>
+                                    @foreach (var ad in moreSubs) {
+                                        <div class="subscribed-ad" style="display: none">
+                                            <div class="data-field">
+                                                @Html.Label("Nome ")
+                                                @Html.DisplayFor(a => ad.name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Expira em ")
+                                                @Html.DisplayFor(a => ad.end_time)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Preço ")
+                                                @Html.DisplayFor(a => ad.price) €
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Instituição ")
+                                                @Html.DisplayFor(a => ad.institution_name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Local")
+                                                @Html.DisplayFor(a => ad.local)
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="clearfix visible-xs"></div>
+                <hr class="user-separator item" />
             </div>
-            <div class="row">
-                <div class="col-xs-9 col-md-5">
-                    <hr class="user-separator item" />
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-xs-12 col-md-12">
+            <div class="region-thumb">
+                <img src="~/Content/images/cupoes_adquiridos.png" alt="Cupões adquiridos" />
+            </div>
+            <div class="region-content">
+                <div class="panel-group" id="accordion">
+                    <div class="hp-panel-user-page-accordion panel panel-default">
+                        <div class="no-background panel-heading ">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="hp-user-accordion-title panel-title" id="div-badge3">
+                                Cupões adquiridos
+                                <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge3"></span></span>
+                            </a>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            @{ var todayBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today) == 0);
+                             var pastWeekBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == -1 && x.end_time.Date.CompareTo(DateTime.Today) != 0);
+                             var moreBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == 1); }
+
+                            <div class="panel-body">
+                                <div class="buyed-group">
+                                    <span class="date">HOJE (@todayBuyed.Count())</span>
+                                    @foreach (var cup in todayBuyed) {
+                                        <div class="buyed-ad" style="display: none">
+                                            <div class="data-field">
+                                                @Html.Label("Nome ")
+                                                @Html.DisplayFor(c => cup.name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Expira em ")
+                                                @Html.DisplayFor(c => cup.end_time)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Preço ")
+                                                @Html.DisplayFor(c => cup.price) €
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Instituição ")
+                                                @Html.DisplayFor(c => cup.institution_name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Local")
+                                                @Html.DisplayFor(c => cup.local)
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="buyed-group">
+                                    <span class="date">PRÓXIMA SEMANA (@pastWeekBuyed.Count())</span>
+                                    @foreach (var cup in pastWeekBuyed) {
+                                        <div class="buyed-ad" style="display: none">
+                                            <div class="data-field">
+                                                @Html.Label("Nome ")
+                                                @Html.DisplayFor(c => cup.name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Expira em ")
+                                                @Html.DisplayFor(c => cup.end_time)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Preço ")
+                                                @Html.DisplayFor(c => cup.price) €
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Instituição ")
+                                                @Html.DisplayFor(c => cup.institution_name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Local")
+                                                @Html.DisplayFor(c => cup.local)
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="buyed-group">
+                                    <span class="date">MAIS (@moreBuyed.Count())</span>
+                                    @foreach (var cup in moreBuyed) {
+                                        <div class="buyed-ad" style="display: none">
+                                            <div class="data-field">
+                                                @Html.Label("Nome ")
+                                                @Html.DisplayFor(c => cup.name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Expira em ")
+                                                @Html.DisplayFor(c => cup.end_time)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Preço ")
+                                                @Html.DisplayFor(c => cup.price) €
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Instituição ")
+                                                @Html.DisplayFor(c => cup.institution_name)
+                                            </div>
+
+                                            <div class="data-field">
+                                                @Html.Label("Local")
+                                                @Html.DisplayFor(c => cup.local)
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <hr class="user-separator item" />
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12 col-md-12">
-            <div class="row">
-                <div class="col-xs-2 col-md-1">
-                    <img src="~/Content/images/cupoes_subscritos.png" alt="Cupões Subscritos" />
-                </div>
-                <div class="col-xs-8 col-md-4">
-                    <div class="panel-group" id="accordion">
-                        <div class="hp-panel-user-page-accordion panel panel-default">
-                            <div class="no-background panel-heading " id="div-badge2">
-                                <a data-toggle="collapse" href="#collapseTwo" data-parent="#accordion" class="hp-user-accordion-title panel-title">
-                                    Cupões Subscritos
-                                    <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge2"></span></span>
-                                </a>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse">
-                                @{ var todaySubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today) == 0);
-                                 var nextWeekSubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == -1 && x.end_time.Date.CompareTo(DateTime.Today) != 0);
-                                 var moreSubs = Model.ads_subscriptions.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == 1); }
+            <div class="region-thumb">
+                <img src="~/Content/images/pictogramas-03.png" alt="Instituições Subscritas" />
+            </div>
+            <div class="region-content">
+                <div class="panel-group" id="accordion">
+                    <div class="hp-panel-user-page-accordion panel panel-default">
+                        <div class="no-background panel-heading ">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="hp-user-accordion-title panel-title" id="div-badge4">
+                                Instituições Subscritas
+                                <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge4"></span></span>
+                            </a>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                @foreach (var inst in Model.insts_subscriptions) {
+                                    <div class="subscribed-inst">
+                                        <div class="data-field">
+                                            @Html.Label("Nome ")
+                                            @Html.DisplayFor(i => inst.name)
+                                        </div>
 
-                                <div class="panel-body">
-                                    <div class="subscribed-group">
-                                        <span class="date">HOJE (@todaySubs.Count())</span>
-                                        @foreach (var ad in todaySubs) {
-                                            <div class="subscribed-ad" style="display: none">
-                                                @Html.DisplayFor(a => ad.name)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.end_time)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.price)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.institution_name)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.local)
-                                            </div>
-                                        }
+                                        <div class="data-field">
+                                            @Html.Label("Cidade ")
+                                            @Html.DisplayFor(i => inst.city)
+                                        </div>
+
+                                        <div class="data-field">
+                                            @Html.Label("Email ")
+                                            @Html.DisplayFor(i => inst.email)
+                                        </div>
+
+                                        <div class="data-field">
+                                            @Html.Label("Website ")
+                                            @Html.DisplayFor(i => inst.website)
+                                        </div>
                                     </div>
 
-                                    <div class="subscribed-group">
-                                        <span class="date">PRÓXIMA SEMANA (@nextWeekSubs.Count())</span>
-                                        @foreach (var ad in nextWeekSubs) {
-                                            <div class="subscribed-ad" style="display: none">
-                                                @Html.DisplayFor(a => ad.name)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.end_time)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.price)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.institution_name)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.local)
-                                            </div>
-                                        }
-                                    </div>
-
-                                    <div class="subscribed-group">
-                                        <span class="date">MAIS (@moreSubs.Count())</span>
-                                        @foreach (var ad in moreSubs) {
-                                            <div class="subscribed-ad" style="display: none">
-                                                @Html.DisplayFor(a => ad.name)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.end_time)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.price)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.institution_name)
-                                                <br />
-                                                @Html.DisplayFor(a => ad.local)
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-9 col-md-5">
-                    <hr class="user-separator item" />
-                </div>
+                <hr class="user-separator item" />
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12 col-md-12">
-            <div class="row">
-                <div class="col-xs-2 col-md-1">
-                    <img src="~/Content/images/cupoes_adquiridos.png" alt="Cupões adquiridos" />
-                </div>
-                <div class="col-xs-8 col-md-4">
-                    <div class="panel-group" id="accordion">
-                        <div class="hp-panel-user-page-accordion panel panel-default">
-                            <div class="no-background panel-heading ">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="hp-user-accordion-title panel-title" id="div-badge3">
-                                    Cupões adquiridos
-                                    <span class="pull-right"><span class="glyphicon glyphicon-chevron-right" id="dp-badge3"></span></span>
-                                </a>
-                            </div>
-                            <div id="collapseThree" class="panel-collapse collapse">
-                                @{ var todayBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today) == 0);
-                                   var pastWeekBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == -1 && x.end_time.Date.CompareTo(DateTime.Today) != 0);
-                                   var moreBuyed = Model.cupons.Where(x => x.end_time.Date.CompareTo(DateTime.Today.AddDays(7)) == 1); }
-
-                                <div class="panel-body">
-                                    <div class="buyed-group">
-                                        <span class="date">HOJE (@todayBuyed.Count())</span>
-                                        @foreach (var cup in todayBuyed) {
-                                            <div class="buyed-ad" style="display: none">
-                                                @Html.DisplayFor(c => cup.name)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.end_time)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.price)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.institution_name)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.local)
-                                            </div>
-                                        }
-                                    </div>
-
-                                    <div class="buyed-group">
-                                        <span class="date">SEMANA PASSADA (@pastWeekBuyed.Count())</span>
-                                        @foreach (var cup in pastWeekBuyed) {
-                                            <div class="buyed-ad" style="display: none">
-                                                @Html.DisplayFor(c => cup.name)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.end_time)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.price)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.institution_name)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.local)
-                                            </div>
-                                        }
-                                    </div>
-
-                                    <div class="buyed-group">
-                                        <span class="date">MAIS (@moreBuyed.Count())</span>
-                                        @foreach (var cup in moreBuyed) {
-                                            <div class="buyed-ad" style="display: none">
-                                                @Html.DisplayFor(c => cup.name)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.end_time)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.price)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.institution_name)
-                                                <br />
-                                                @Html.DisplayFor(c => cup.local)
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-9 col-md-5">
-                    <hr class="user-separator item" />
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 @Scripts.Render("~/Scripts/local/user.js")

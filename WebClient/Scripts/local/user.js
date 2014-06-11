@@ -5,6 +5,7 @@ $(document).ready(function () {
             $(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
             badge2 = false;
             badge3 = false;
+            badge4 = false;
             $("#dp-badge1").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
             badge1 = true;
         } else {
@@ -19,6 +20,7 @@ $(document).ready(function () {
             $(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
             badge1 = false;
             badge3 = false;
+            badge4 = false;
             $("#dp-badge2").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
             badge2 = true;
         } else {
@@ -33,11 +35,27 @@ $(document).ready(function () {
             $(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
             badge1 = false;
             badge2 = false;
+            badge4 = false;
             $("#dp-badge3").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
             badge3 = true;
         } else {
             $("#dp-badge3").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
             badge3 = false;
+        }
+    });
+
+    var badge4 = false;
+    $("#div-badge4").click(function () {
+        if (!badge4) {
+            $(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
+            badge1 = false;
+            badge2 = false;
+            badge3 = false;
+            $("#dp-badge4").removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-down");
+            badge4 = true;
+        } else {
+            $("#dp-badge4").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-right");
+            badge4 = false;
         }
     });
 

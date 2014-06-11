@@ -99,16 +99,24 @@ namespace WebClient_.Controllers
                 cupon.institution_name = adResult.Value.name;
                 cupon.local = adResult.Value.city;
 
-                if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) > 0 || cupon.end_time.CompareTo(DateTime.Now) < 0))
-                {
+                if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) > 0 || cupon.end_time.CompareTo(DateTime.Now) < 0)) {
                     //cannot buy cupon
                     ViewBag.error = "The cupon you are trying to buy is not valid and may be expired, we are sorry for the inconvenience.";
                     return View("PaymentDetails", cart);
 
-                }
-                cart.addCupon(cupon,true);
-                
-            }
+                } 
+                   cart.addCupon(cupon,true);
+
+                   ViewBag.ad_name = cupon.name;
+                   ViewBag.ad_price = cupon.price;
+
+            } else cart.unsetFastCheckout();
+
+            UserSession us = (UserSession)Session["user"];
+            JObject userjson = JObject.Parse(mService.GetClientDetails(us.internal_id));
+            UserInfo ui = UserInfo.jsonToModel(userjson);
+
+            cart.user = ui;
             
             return View("PaymentDetails",cart);
         }

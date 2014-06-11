@@ -5,52 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ShoppingCart</h2>
+@Styles.Render("~/Content/cart.css")
 
-<div class="container">
-    <h4>ShoppingCart</h4>
-    <hr />
     <div class="row">
-    @if (Model == null)
-    {
-        @*User is requesting an empty cart*@
-        <h6>Your shopping cart is empty =(</h6>
-    }
-    else
-    {
-        foreach (var item in Model.getAds())
-        {
-            @Html.LabelFor(ad => item.id)
-            @Html.ValueFor(ad => item.id)
-            <br />
-            @Html.LabelFor(ad => item.institution_id)
-            @Html.ValueFor(ad => item.institution_id)
-            <br />
-            @Html.LabelFor(ad => item.name)
-            @Html.ValueFor(ad => item.name)
-            <br />
-            @Html.LabelFor(ad => item.price)
-            @Html.ValueFor(ad => item.price)
-            <br />
-            @Html.LabelFor(ad => item.discount)
-            @Html.ValueFor(ad => item.discount)
-            <br />
-            @Html.LabelFor(ad => item.service)
-            @Html.ValueFor(ad => item.service)
-            <br />
-            @Html.LabelFor(ad => item.specialty)
-            @Html.ValueFor(ad => item.specialty)
-            <br />
-            @Html.LabelFor(ad => item.end_time)
-            @Html.ValueFor(ad => item.end_time)
-        }
-        
-        <form method="post" action="/Order/ShowPaymentDetails">
-            <input class="btn btn-success" type="submit" value="Buy Ads" />
-        </form>
-    }
-        
-    </div>
+    <div class="col-md-12 pull-top">
+        <h3>Carrinho</h3>
+        <hr />
 
-    
+        @if (Model == null) {
+            @*User is requesting an empty cart*@
+            <span id="empty-cart">O seu carrinho está vazio</span>
+        } else {
+            foreach (var item in Model.getAds()) {
+                <div class="cart-ad col-md-4 col-xs-2">
+                    <span>@Html.DisplayFor(c => item.name)</span>
+                    <hr />
+                    <span><span class="title">Expira em</span> @Html.DisplayFor(c => item.end_time)</span>
+                    <span><span class="title">Instituição</span> @Html.DisplayFor(c => item.institution_name)</span>
+                    <span><span class="title">Local</span> @Html.DisplayFor(c => item.local)</span>
+                    <span><span class="title">Preço</span> @Html.DisplayFor(c => item.price) €</span>
+                </div>
+            }
+
+            <form method="post" action="/Order/ShowPaymentDetails" class="checkout col-md-12 clearfix">
+                <input class="btn btn-success" type="submit" value="Checkout" />
+            </form>
+        }
+
+    </div>
 </div>

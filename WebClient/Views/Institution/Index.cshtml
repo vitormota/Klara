@@ -6,9 +6,12 @@
 
 @Styles.Render("~/Content/ad.css")
 
-<div class="row col-xs-12 col-md-12 pull-top">
+<div id="@Model.id" class="row col-xs-12 col-md-12 pull-top">
     <div class="col-xs-2 col-md-4">
         <img id="cupn-img" class="img-responsive" src="~/Content/images/cupon.png" alt="Imagem cupao" />
+        @if (Session["user"] != null) { 
+            <a href="#"><img id="subscribe-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="Subscribe" /></a>
+        }
     </div>
     <div class="col-xs-8 col-md-6">
         <h4 id="cupn-title">@Html.ValueFor(inst => inst.name)</h4>
@@ -42,10 +45,7 @@
         <p>
            @Html.ValueFor(inst => inst.fax)
         </p>
-       
-        <a href="#"><img id="subscribe-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="Subscribe" /></a>
     </div>
 </div>
 
-<script type="text/javascript" src="/Scripts/local/cupon.js"></script>
-
+@Scripts.Render("~/Scripts/local/institution.js")

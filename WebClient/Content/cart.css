@@ -1,0 +1,52 @@
+﻿h3 {
+	color: #f5937d;
+	text-transform: uppercase;
+}
+
+hr {
+	border-color: #D86A62;
+	margin: 1em 0 1em 0;
+}
+
+.cart-ad span:not(.title){
+	display: block;
+}
+
+.cart-ad .title{
+	color: #f5937d;
+}
+
+.cart-ad hr {
+	border-color: #F2C3BF;
+	margin: 0.5em 0.2em 0.5em 0.2em;
+}
+
+.checkout {
+	margin-top: 1.5em;
+}
+
+.checkout input {
+	width: 8em;
+	float: right;
+    text-align: center;
+    background-color: #f79983;
+    border: 0;
+    color: white;
+    text-transform: uppercase;
+    padding: 0.5em;
+}
+
+.checkout input:hover {
+    background-color: #D86A62;
+}
+
+#empty-cart {
+	text-align: center;
+	color: #f79983;
+	font-size: 48px;
+	opacity: 0.5;
+}
+
+.pull-top {
+	margin-top: 1.7em;
+}

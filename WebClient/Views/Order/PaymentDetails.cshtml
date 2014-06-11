@@ -5,28 +5,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>PaymentDetails</h2>
+@Styles.Render("~/Content/order.css")
 
-@if (ViewBag.error != null)
-{
-    <h2>@ViewBag.error</h2>
-}
+<div class="order-wrapper pull-top">
+    <div class="row">
+        <div class="col-md-7">
+            @if (!Model.isFastCheckout()) {
+                <h3>CARRINHO</h3>
+            } else {
+                <h3>CUPÃO</h3>
+            }
+            <hr />
 
-<h4>Subtotal @Model.getSubTotal()</h4>
+            @if (ViewBag.error != null) {
+                <h4>@ViewBag.error</h4>
+            }
 
-@if (!Model.isFastCheckout())
-{
-    <h4>Quantity: @Model.getCount()</h4>
-}
+            <ul id="cart-list" class="clearfix">
+                @if (!Model.isFastCheckout()) {
+                    foreach (var ad in Model.getAds()) {
+                        <li class="clearfix">
+                            <span class="ad-name">@ad.name</span>
+                            <span class="ad-price">@ad.price €</span>
+                        </li>
+                    }
+                } else {
+                      <li class="clearfix">
+                            <span class="ad-name">@ViewBag.ad_name</span>
+                            <span class="ad-price">@ViewBag.ad_price €</span>
+                        </li>
+                }
+            </ul>
 
-<h3>Payment details </h3>
+            <span class="subtotal"><span class="title">Subtotal</span> <span class="price">@Model.getSubTotal() €</span></span>
 
-<h5>Entity: @ViewBag.entity</h5>
-<h5>Reference: @ViewBag.reference</h5>
+            @if (!Model.isFastCheckout()) {
+                <h4>Quantity: @Model.getCount()</h4>
+            }
+
+            <h3>DETALHES DO PAGAMENTO</h3>
+            <hr />
+
+            <h4>Entity: @ViewBag.entity</h4>
+            <h4>Reference: @ViewBag.reference</h4>
 
 
 
-<form method="post" action="/Order/FinalizePurchase">
+            <form method="post" action="/Order/FinalizePurchase">
+                <input class="btn btn-success"  id="pay" type="submit" value="Pay" />
+            </form>
+        </div>
+        <div class="col-md-5">
+            <h3>DADOS DO UTILIZADOR</h3>
+            <hr />
 
-    <input type="submit" value="Pay" />
-</form>
+            <div id="user-details">
+                @using (Html.BeginForm("EditDetails", "User", Model, FormMethod.Post, new { @id = "edit-details" })) {
+                    <div class="details-field">
+                        @Html.Label("Nome ")
+                        @Html.TextBoxFor(m => m.user.name, new { @readonly = "readonly" })
+                    </div>
+                    <div class="details-field">
+                        @Html.Label("Email ")
+                        @Html.TextBoxFor(m => m.user.email, new { @readonly = "readonly" })
+                    </div>
+                    <div class="details-field">
+                        @Html.Label("NIF ")
+                        @Html.TextBoxFor(m => m.user.nif, new { @readonly = "readonly", @class= "editable" })
+                    </div>
+                    <div class="details-field">
+                        @Html.Label("Telémovel ")
+                        @Html.TextBoxFor(m => m.user.phone_number, new { @readonly = "readonly", @class = "editable" })
+                    </div>
+                    <div class="details-field">
+                        @Html.Label("Endereço ")
+                        @Html.TextBoxFor(m => m.user.address, new { @readonly = "readonly", @class = "editable" })
+                    </div>
+                    <div class="details-field">
+                        @Html.Label("Cidade ")
+                        @Html.TextBoxFor(m => m.user.city, new { @readonly = "readonly", @class = "editable" })
+                    </div>
+                    <input class="btn btn-success"  type="submit" value="Submeter" />
+                }
+                <img class="profile-btn" src="~/Content/images/pictogramas-05.png" alt="Editar" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/local/order.js")

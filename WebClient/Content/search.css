@@ -77,7 +77,6 @@
 
 #search-filters-wrapper {
 	width: 18.75em;
-	height: 100%;
 	position: absolute;
 	top: 8.2em;
 	left: 0;
@@ -101,6 +100,7 @@
 
 .search-box #textbox {
 	width: 210px;
+	padding: 0.5em;
 }
 
 #search-filters-wrapper .filter {
@@ -297,3 +297,74 @@
 	margin: 1em 0 1em 0;
 }
 
+#show-nav, #hide-nav {
+	width: 40px;
+	height: 25px;
+	text-align: center;
+    background-color: #f79983;
+    border: 0;
+    color: white;
+    text-transform: uppercase;
+    outline: none;
+    font-weight: bold;
+    display: none;
+}
+
+#show-nav:hover, #hide-nav:hover {
+    background-color: #D86A62;
+}
+
+#show-nav {
+	position: absolute;
+	left: 0;
+	top: 9.5em;
+}
+
+#hide-nav {
+	position: absolute;
+	right: -40px;
+	top: 1.3em;
+}
+
+
+@media (max-width: 1066px) {
+  #search-filters-wrapper {
+    display: none;
+  }
+
+  #show-nav, #hide-nav {
+  	display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  #show-nav {
+  	top: 5em;
+  }
+
+  #search-filters-wrapper {
+    top: 4em;
+  }
+}
+
+@media (max-width: 334px) {
+  #hide-nav {
+	position: absolute;
+	right: 0px;
+	top: 4em;
+	}
+}
+
+@media (max-width: 300px) {
+  #search-filters-wrapper {
+    width: 100%;
+  }
+
+.search-box #textbox {
+  	width: 60%;
+  }
+
+  #search-filters-wrapper .options,  #slider-range-wrapper, #search-filters-wrapper .filter header{
+  	width: 67%;
+  }
+}

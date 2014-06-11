@@ -218,6 +218,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cart.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\home.css" />
@@ -230,10 +231,14 @@
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\pictogramas-01.png" />
     <Content Include="Content\Images\pictogramas-02.png" />
+    <Content Include="Content\Images\pictogramas-03.png" />
     <Content Include="Content\Images\pictogramas-05.png" />
     <Content Include="Content\Images\pictogramas-07.png" />
     <Content Include="Content\Images\pictogramas-08.png" />
     <Content Include="Content\Images\pictogramas-09.png" />
+    <Content Include="Content\Images\pictogramas-13.png" />
+    <Content Include="Content\Images\pictogramas-24.png" />
+    <Content Include="Content\order.css" />
     <Content Include="Content\search.css" />
     <Content Include="Content\social-buttons-3.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -331,6 +336,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\local\home.js" />
+    <Content Include="Scripts\local\institution.js" />
+    <Content Include="Scripts\local\order.js" />
     <Content Include="Scripts\local\search.js" />
     <Content Include="Scripts\local\user.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

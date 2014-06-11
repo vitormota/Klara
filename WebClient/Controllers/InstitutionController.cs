@@ -24,6 +24,16 @@ namespace WebClient_.Controllers
             return View(institution);
         }
 
+        [HttpGet]
+        public string Subscribe(int id) {
+            UserSession us = (UserSession)Session["user"];
+            int client_id = us.internal_id;
+
+            string result = mService.SubscribeInstitution(id, client_id);
+
+            return result;
+        }
+
         [HttpPost]
         public string SearchInstitution(string textSearch)
         {
@@ -43,15 +53,6 @@ namespace WebClient_.Controllers
             return result;
         }
 
-        [HttpPost]
-        public string SubscribeInstitution()
-        {
-            int institution_id = 2;
-            int client_id = 36; // Posteriormente, vai-se buscar o valor da sessao
-
-            string result = mService.SubscribeInstitution(institution_id, client_id);
-            return result;
-        }
 
         [HttpPost]
         public string UnsubscribeInstitution()
