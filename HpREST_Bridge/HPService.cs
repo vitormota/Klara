@@ -40,6 +40,7 @@ namespace HpREST_Bridge
         private const string action_get_purchases = "Purchases";
         private const string action_get_accounts_details = "OptionsFlags";
         private const string action_get_ad_subs = "Cupons";
+        private const string action_get_inst_subs = "Institutions";
         private const string action_buy_multiple = "MultipleCupons";
         private const string action_get_bref = "api/ReferenceBank/getReference";
 
@@ -190,6 +191,11 @@ namespace HpREST_Bridge
         public string GetAdSubscriptions(int client_id)
         {
             dynamic subscriptions = RestUtility.HttpGet(base_url + subscriptions_controller + "(" + client_id + ")/" + action_get_ad_subs);
+            return subscriptions;
+        }
+
+        public string GetInstitutionSubscriptions(int client_id) {
+            dynamic subscriptions = RestUtility.HttpGet(base_url + subscriptions_controller + "(" + client_id + ")/" + action_get_inst_subs);
             return subscriptions;
         }
 

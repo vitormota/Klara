@@ -1,10 +1,15 @@
+.body-content {
+	margin-bottom: 0em;
+}
+
 #login-wrapper {
 	background-color: #d98673;
 	padding: 5.625em 0 5.625em 0;
-	margin-bottom: 4.4em;
+	margin-bottom: 0;
 	position: relative;
 	height: 500px;
 	overflow: hidden;
+	height: 100%;
 }
 
 #upper-triangle {
@@ -46,7 +51,7 @@ form #username, form #password {
 	padding: 0.4em;
 	border: 1px solid #d98673;
 	border-left: 0;
-	color: white;
+	color: #E39994;
 	height: 2.1em;
 	font-size: 16px;
 }
@@ -134,16 +139,43 @@ form input[type="submit"]:hover {
 	background-color: #D86A62;
 }
 
-
 form span.field-validation-valid {
+	display: none;
+}
+
+form span.field-validation-error {
 	margin-left: 10%;
 	margin-top: 0.5em;
 	width: 80%;
-	background-color: #ABA9A4;
-	height: 2.1em;
-	display: block;
-	border: 1px solid #d98673;
-	border-right: 0;
-	height: 1.5em;
+	background-color: inherit;
+	border: 1px solid #f0e9ce;
+	border-right: 1px solid #f0e9ce;
+	padding: 0.2em;
 }
+
+form span.field-validation-error span {
+	height: 1.5em;
+	margin-left: 0;
+	margin-top: 0;
+	width: 100%;
+	background-color: inherit;
+	height: 100%;
+	display: block;
+	border: 0;
+	text-align: center;
+}
+
+
+#login-error {
+	margin-left: 10%;
+	width: 80%;
+	margin-top: 1em;
+	margin-bottom: -1em;
+	text-align: center;
+	background-color: #D86A62;
+	border: 1px solid #f0e9ce;
+	padding: 0.5em;
+	color: #f0e9ce;
+}
+
 

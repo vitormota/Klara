@@ -331,6 +331,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cart.
+        /// </summary>
+        public static string Cart {
+            get {
+                return ResourceManager.GetString("Cart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cellphone number.
         /// </summary>
         public static string Cellphone {
@@ -448,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your shopping cart is empty =(.
+        ///   Looks up a localized string similar to Your shopping cart is empty.
         /// </summary>
         public static string EmptyCartNotif {
             get {
@@ -462,6 +471,15 @@ namespace Resources {
         public static string Entity {
             get {
                 return ResourceManager.GetString("Entity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expires in.
+        /// </summary>
+        public static string ExpiresIn {
+            get {
+                return ResourceManager.GetString("ExpiresIn", resourceCulture);
             }
         }
         
@@ -853,6 +871,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password.
         /// </summary>
         public static string NewPassword {
@@ -880,7 +907,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ?Nif ingles?.
+        ///   Looks up a localized string similar to NIF.
         /// </summary>
         public static string NIF {
             get {
@@ -997,7 +1024,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cart.
+        ///   Looks up a localized string similar to Shopping Cart.
         /// </summary>
         public static string ShoppingCart {
             get {

@@ -132,6 +132,12 @@ namespace WebClient_.HealthPService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdSubscriptions", ReplyAction="http://tempuri.org/IHPService/GetAdSubscriptionsResponse")]
         System.Threading.Tasks.Task<string> GetAdSubscriptionsAsync(int client_id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInstitutionSubscriptions", ReplyAction="http://tempuri.org/IHPService/GetInstitutionSubscriptionsResponse")]
+        string GetInstitutionSubscriptions(int client_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetInstitutionSubscriptions", ReplyAction="http://tempuri.org/IHPService/GetInstitutionSubscriptionsResponse")]
+        System.Threading.Tasks.Task<string> GetInstitutionSubscriptionsAsync(int client_id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHPService/GetAdById", ReplyAction="http://tempuri.org/IHPService/GetAdByIdResponse")]
         string GetAdById(int id);
         
@@ -380,6 +386,14 @@ namespace WebClient_.HealthPService {
         
         public System.Threading.Tasks.Task<string> GetAdSubscriptionsAsync(int client_id) {
             return base.Channel.GetAdSubscriptionsAsync(client_id);
+        }
+        
+        public string GetInstitutionSubscriptions(int client_id) {
+            return base.Channel.GetInstitutionSubscriptions(client_id);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetInstitutionSubscriptionsAsync(int client_id) {
+            return base.Channel.GetInstitutionSubscriptionsAsync(client_id);
         }
         
         public string GetAdById(int id) {

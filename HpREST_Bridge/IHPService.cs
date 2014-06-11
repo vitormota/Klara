@@ -43,6 +43,9 @@ namespace HpREST_Bridge
         string GetAdSubscriptions(int client_id);
 
         [OperationContract]
+        string GetInstitutionSubscriptions(int client_id);
+
+        [OperationContract]
         string GetAdById(int id);
 
         [OperationContract]

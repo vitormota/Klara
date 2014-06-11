@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var session = (WebInstitution.Models.SessionModel)Session["manager"];
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,23 +15,45 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
-    
+
 </head>
 <body>
     <header class="top-header">
         <div class="container">
             <img src="~/Content/Images/header.png" />
+
+            <ul id="user-options">
+                <li>
+                    <select id="culture">
+                        <option value="en-US">EN-US</option>
+                        <option value="pt">PT</option>
+                    </select>
+                </li>
+
+                @if (session != null) {
+                    <li>
+                        @Html.DropDownList("institutions", session.getInstitutionsList())
+                    </li>
+
+                    <li>
+                        @Html.ActionLink("LOGOUT", "ManagerLogout", "Account")
+                    </li>
+                }
+            </ul>
         </div>
-    </header>
+        </header>
 
-    <div class="container body-content">
-        <div id="fb-root"></div>
-        @RenderBody()
-    </div>
-    <footer>
-        <p>Health+ © 2014</p>
-    </footer>
+        <div class="container body-content">
+            <div id="fb-root"></div>
+            @if (session != null) {
+                <input id="current-inst" hidden value="@session.currentInstitution.id" />
+            }
+            @RenderBody()
+        </div>
+        <footer>
+            <p>Health+ © 2014</p>
+        </footer>
 
-    @RenderSection("scripts", required: false)
-</body>
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

@@ -235,7 +235,7 @@
     <value>Edit</value>
   </data>
   <data name="EmptyCartNotif" xml:space="preserve">
-    <value>Your shopping cart is empty =(</value>
+    <value>Your shopping cart is empty</value>
   </data>
   <data name="Entity" xml:space="preserve">
     <value>Entity</value>
@@ -370,7 +370,7 @@
     <value>Next Week</value>
   </data>
   <data name="NIF" xml:space="preserve">
-    <value>?Nif ingles?</value>
+    <value>NIF</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -409,7 +409,7 @@
     <value>Search</value>
   </data>
   <data name="ShoppingCart" xml:space="preserve">
-    <value>Cart</value>
+    <value>Shopping Cart</value>
   </data>
   <data name="SignInFacebook" xml:space="preserve">
     <value>| Sign in with Facebook</value>
@@ -467,5 +467,14 @@
   </data>
   <data name="Website" xml:space="preserve">
     <value>Website</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="ExpiresIn" xml:space="preserve">
+    <value>Expires in</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
 </root>

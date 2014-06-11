@@ -24,4 +24,10 @@ $(document).ready(function () {
         $(".slider-nav__item--current").removeClass("slider-nav__item--current");
         $(this).addClass("slider-nav__item--current");
     });
+
+    $('.search-box form').submit(function (e) {
+        if($('.search-box #textbox').val() == "") {
+            e.preventDefault();
+        }
+    });
 });

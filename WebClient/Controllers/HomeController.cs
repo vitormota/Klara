@@ -5,11 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using WebClient_.HealthPService;
 using WebClient_.Models;
+using WebInstitution.Controllers;
 using WebInstitution.Helpers;
 
 namespace WebClient_.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private HealthPService.IHPService mService = new HPServiceClient();
 

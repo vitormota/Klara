@@ -13,6 +13,7 @@ namespace WebClient_.Models
     {
         private int fcheckout_ad = 0;
         private List<Ad> ads;
+        public UserInfo user;
 
         public ShoppingCart()
         {
@@ -31,7 +32,11 @@ namespace WebClient_.Models
 
         public void addCupon(Ad cupon, bool fast_checkout = false){
             if (fast_checkout) fcheckout_ad = cupon.id;
-            ads.Add(cupon);
+
+            List<Ad>  a = ads.Where(x => x.id == cupon.id).ToList();
+
+            if(a.Count() == 0)
+                ads.Add(cupon);
         }
 
         public void removeCupon(int cupon_id)

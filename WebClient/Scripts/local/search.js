@@ -99,4 +99,21 @@ $(document).ready(function () {
              $("#inst-search-wrapper").fadeIn(500);
          });
      });
+
+     $('.search-box form').submit(function (e) {
+         if ($('.search-box #textbox').val() == "") {
+             e.preventDefault();
+         }
+     });
+
+     $('#show-nav').click(function () {
+         $("#search-wrapper").fadeTo('slow', 0.5);
+         $("#search-filters-wrapper").show('slide', { direction: 'left' }, 300);   
+     });
+
+     $('#hide-nav').click(function () {       
+         $("#search-wrapper").fadeTo('slow', 1);
+         $("#search-filters-wrapper").hide('slide', { direction: 'left' }, 300);
+
+     });
 });

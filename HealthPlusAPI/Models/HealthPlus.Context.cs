@@ -36,5 +36,6 @@ namespace HealthPlusAPI.Models
         public virtual DbSet<Subscribable> Subscribable { get; set; }
         public virtual DbSet<Subscription> Subscription { get; set; }
         public virtual DbSet<searchable_ad> searchable_ad { get; set; }
+        public virtual DbSet<purchased_ad> purchased_ad { get; set; }
     }
 }

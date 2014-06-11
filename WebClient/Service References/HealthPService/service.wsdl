@@ -61,6 +61,12 @@
   <wsdl:message name="IHPService_GetAdSubscriptions_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAdSubscriptionsResponse" />
   </wsdl:message>
+  <wsdl:message name="IHPService_GetInstitutionSubscriptions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInstitutionSubscriptions" />
+  </wsdl:message>
+  <wsdl:message name="IHPService_GetInstitutionSubscriptions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInstitutionSubscriptionsResponse" />
+  </wsdl:message>
   <wsdl:message name="IHPService_GetAdById_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAdById" />
   </wsdl:message>
@@ -248,6 +254,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetAdSubscriptions" message="tns:IHPService_GetAdSubscriptions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetAdSubscriptionsResponse" message="tns:IHPService_GetAdSubscriptions_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetInstitutionSubscriptions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetInstitutionSubscriptions" message="tns:IHPService_GetInstitutionSubscriptions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetInstitutionSubscriptionsResponse" message="tns:IHPService_GetInstitutionSubscriptions_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAdById">
       <wsdl:input wsaw:Action="http://tempuri.org/IHPService/GetAdById" message="tns:IHPService_GetAdById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHPService/GetAdByIdResponse" message="tns:IHPService_GetAdById_OutputMessage" />
@@ -425,6 +435,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAdSubscriptions">
       <soap:operation soapAction="http://tempuri.org/IHPService/GetAdSubscriptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInstitutionSubscriptions">
+      <soap:operation soapAction="http://tempuri.org/IHPService/GetInstitutionSubscriptions" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
