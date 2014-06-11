@@ -25,17 +25,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">Início</a></li>
+                    <li><a href="/">@Resources.Home</a></li>
+                    @if (Session["shopping_cart"] == null) {
+                    <li><a href="/Order/ShoppingCart">@Resources.ShoppingCart 0</a></li>
+                    } else {
+                    <li><a href="/Order/ShoppingCart">@Resources.ShoppingCart @(((WebClient_.Models.ShoppingCart)Session["shopping_cart"]).getCount())</a></li>
+                    }
                     @if (Session["user"] != null) {
-                        if (Session["shopping_cart"] == null) {
-                            <li><a href="/Order/ShoppingCart">Carrinho 0</a></li>
-                        } else {
-                            <li><a href="/Order/ShoppingCart">Carrinho @(((WebClient_.Models.ShoppingCart)Session["shopping_cart"]).getCount())</a></li>
-                        }
+                        
 
                         <li><a href="/User/">@(((WebClient_.Models.UserSession)Session["user"]).name)</a></li>
                     } else {
-                        <li><a href="/Auth/">Login</a></li>
+                        <li><a href="/Auth/">@Resources.Login</a></li>
                     }
 
                 </ul>

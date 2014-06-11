@@ -129,8 +129,11 @@ namespace HealthPlusAPI.Controllers
                 {
                     int subscrible_id = list_subscription[i].subscribable_id;
                     // Ira servir para a obtencao da query e assim extrair um resultado de cada vez
-                    Ad list_ad_query = db.Ad.Where(Ad => Ad.id == subscrible_id).ToList().First();
-                    list_ad.Add(list_ad_query);
+                    if (db.Ad.Count(ad => ad.id == subscrible_id) > 0)
+                    {
+                        Ad list_ad_query = db.Ad.Where(ad => ad.id == subscrible_id).ToList().First();
+                        list_ad.Add(list_ad_query);
+                    }
                 }
 
                 if (list_ad.Count.Equals(0))

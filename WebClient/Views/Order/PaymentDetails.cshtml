@@ -1,9 +1,10 @@
 ﻿@model WebClient_.Models.ShoppingCart
 
 @{
-    ViewBag.Title = "PaymentDetails";
+    ViewBag.Title = @Resources.PaymentDetails;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 @Styles.Render("~/Content/order.css")
 
@@ -11,9 +12,9 @@
     <div class="row">
         <div class="col-md-7">
             @if (!Model.isFastCheckout()) {
-                <h3>CARRINHO</h3>
+                <h3>Carrinho</h3>
             } else {
-                <h3>CUPÃO</h3>
+                <h3>Cupão</h3>
             }
             <hr />
 
@@ -40,19 +41,17 @@
             <span class="subtotal"><span class="title">Subtotal</span> <span class="price">@Model.getSubTotal() €</span></span>
 
             @if (!Model.isFastCheckout()) {
-                <h4>Quantity: @Model.getCount()</h4>
+                <h4>@Resources.Quantity: @Model.getCount()</h4>
             }
 
-            <h3>DETALHES DO PAGAMENTO</h3>
+            <h3>@Resources.PaymentDetails</h3>
             <hr />
 
-            <h4>Entity: @ViewBag.entity</h4>
-            <h4>Reference: @ViewBag.reference</h4>
-
-
+            <h4>@Resources.Entity: @ViewBag.entity</h4>
+            <h4>@Resources.Reference: @ViewBag.reference</h4>
 
             <form method="post" action="/Order/FinalizePurchase">
-                <input class="btn btn-success"  id="pay" type="submit" value="Pay" />
+                <input class="btn btn-success" id="pay" type="submit" value="@Resources.Pay" />
             </form>
         </div>
         <div class="col-md-5">

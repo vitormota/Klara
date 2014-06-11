@@ -1,15 +1,17 @@
+// Incluir variavel que dá o ip
+Titanium.include("/url_ip.js");
+
 // Incluir ficheiro para a sessao do utilizador
 Titanium.include("/user/session_user.js"); 
 
-var url_ip = "192.168.1.67";
-var fb = require('facebook');
+var fb;
 
 function InitFacebook()
 {
-	/** Inicializar a ligacao com o facebook **/
-	fb.appid = 234060146782596;
-	fb.permissions = ['public_profile', 'email', 'user_location', 'user_about_me', 'user_photos']; // Permissions your app needs
-	fb.forceDialogAuth = true;
+    /** Inicializar a ligacao com o facebook **/
+    fb.appid = 234060146782596;
+    fb.permissions = ['public_profile', 'email', 'user_location', 'user_about_me', 'user_photos']; // Permissions your app needs
+    fb.forceDialogAuth = true;
 	fb.addEventListener('login', function(e) 
 	{
 	    if (e.success) 
@@ -26,7 +28,7 @@ function InitFacebook()
 			var locationJSON = JSON.stringify(location);
 			user_city = JSON.parse(locationJSON).name;
 			
-			//existUserInDatabase();
+			existUserInDatabase();
 	    } 
 	    else if (e.error) 
 	    {
@@ -108,7 +110,7 @@ function registerAccount()
 			{
 				string_verify = JSON.parse(this.responseText).id;
 			}
-			
+		
 			user_id = parseInt(string_verify);
 			registerClient();
 		},
@@ -188,7 +190,7 @@ function loginUser()
 			
 			if(parseInt(string_verify) == user_id || user_id == null)
 			{
-				user_id = parseInt(string_verify);
+                user_id = parseInt(string_verify);
 			}
 			else
 			{

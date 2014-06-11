@@ -265,7 +265,7 @@ function LateralBarWithoutSearch()
 			});
 			
 			var lateral_logout_image = Titanium.UI.createImageView({
-				image: "/healthplus/healthplus_qr_code.png",
+				image: "/healthplus/healthplus_logout.png",
 				width: '15.56%',
 				left: '10.38%',
 				height: '59.99%',
@@ -457,7 +457,7 @@ function LateralBarWithoutSearch()
 			});
 			
 			var lateral_logout_image = Titanium.UI.createImageView({
-				image: "/healthplus/healthplus_qr_code.png",
+				image: "/healthplus/healthplus_logout.png",
 				width: '15.56%',
 				left: '10.38%',
 				height: '59.99%',

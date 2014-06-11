@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Sobre Nós</value>
+  </data>
   <data name="AdDescriptionName" xml:space="preserve">
     <value>Descrição</value>
   </data>
@@ -125,6 +128,12 @@
   </data>
   <data name="AdDescriptionNameRequired" xml:space="preserve">
     <value>Descrição é obrigatória</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Endereço</value>
+  </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>Adicionar ao carrinho</value>
   </data>
   <data name="AdEndDateName" xml:space="preserve">
     <value>Data Limite</value>
@@ -182,5 +191,140 @@
   </data>
   <data name="AdTotalCuponsNameRequired" xml:space="preserve">
     <value>Número de Cupões é obrigatório</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="AquiredCupons" xml:space="preserve">
+    <value>Cupões Adquiridos</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Comprar</value>
+  </data>
+  <data name="BuyAds" xml:space="preserve">
+    <value>Comprar Cupões</value>
+  </data>
+  <data name="Cellphone" xml:space="preserve">
+    <value>Número telemóvel</value>
+  </data>
+  <data name="Cupon" xml:space="preserve">
+    <value>Cupão</value>
+  </data>
+  <data name="CuponImage" xml:space="preserve">
+    <value>Imagem cupao</value>
+  </data>
+  <data name="Cupons" xml:space="preserve">
+    <value>Cupões</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EmptyCartNotif" xml:space="preserve">
+    <value>O seu carrinho de compras está vazio =(</value>
+  </data>
+  <data name="Entity" xml:space="preserve">
+    <value>Entidade</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Homepage" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Institution" xml:space="preserve">
+    <value>Instituição</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Semana Passada</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Mais</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Próxima Semana</value>
+  </data>
+  <data name="NIF" xml:space="preserve">
+    <value>NIF</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pagar</value>
+  </data>
+  <data name="PaymentDetails" xml:space="preserve">
+    <value>Detalhes Pagemento</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Preço</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Qauntidade</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Referência</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Região</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Resultados</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pesquisa</value>
+  </data>
+  <data name="ShoppingCart" xml:space="preserve">
+    <value>Carrinho de compras</value>
+  </data>
+  <data name="SignInFacebook" xml:space="preserve">
+    <value>| Login com o Facebook</value>
+  </data>
+  <data name="Specialty" xml:space="preserve">
+    <value>Especialidade</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submeter</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Subscrever</value>
+  </data>
+  <data name="SubscribedCupons" xml:space="preserve">
+    <value>Cupões Subscritos</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hoje</value>
+  </data>
+  <data name="Town" xml:space="preserve">
+    <value>Cidade</value>
+  </data>
+  <data name="UserInformation" xml:space="preserve">
+    <value>Dados Pessoais</value>
+  </data>
+  <data name="UserPicture" xml:space="preserve">
+    <value>Foto do utilizador</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Desconto</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FastCheckout" xml:space="preserve">
+    <value>Compra Rápida</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Localização</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Página Web</value>
   </data>
 </root>

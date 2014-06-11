@@ -7,14 +7,14 @@
 
 @Styles.Render("~/Content/cart.css")
 
-    <div class="row">
+<div class="row">
     <div class="col-md-12 pull-top">
-        <h3>Carrinho</h3>
+        <h3>@Resources.ShoppingCart</h3>
         <hr />
 
         @if (Model == null) {
             @*User is requesting an empty cart*@
-            <span id="empty-cart">O seu carrinho está vazio</span>
+            <span id="empty-cart">@Resources.EmptyCartNotif</span>
         } else {
             foreach (var item in Model.getAds()) {
                 <div class="cart-ad col-md-4 col-xs-2">
@@ -28,9 +28,8 @@
             }
 
             <form method="post" action="/Order/ShowPaymentDetails" class="checkout col-md-12 clearfix">
-                <input class="btn btn-success" type="submit" value="Checkout" />
+                <input class="btn btn-success" type="submit" value="@Resources.BuyAds" />
             </form>
         }
-
     </div>
 </div>

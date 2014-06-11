@@ -4,6 +4,9 @@ Titanium.include("/components/lateral_bar.js");
 // Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
 Titanium.include("/components/header_bar.js");
 
+// Incluir ficheiro para fazer back
+Titanium.include("/components/back_window.js");
+
 // Incluir ficheiro com variaveis de sessao
 Titanium.include("/user/session_user.js");
 
@@ -96,7 +99,11 @@ function ProfileScreen(infoDatabase)
 	var button_save_dados_pessoais = null;
 	var button_not_save_dados_pessoais = null;
 	
-	this.constructorScreen = function()
+	var see_ads_subscribe = null;
+	var value_height_ads_subscribe = null;
+	var value_top_ads_subscribe = null;
+	
+	this.constructorScreen = function(type_back, array_ads)
 	{
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
@@ -117,6 +124,12 @@ function ProfileScreen(infoDatabase)
 		window_perfil = Titanium.UI.createWindow({
 			navBarHidden: true
 		}); 
+		
+		window_perfil.addEventListener('android:back', function(e)
+        {
+            Ti.API.info('Volta atrás!');
+            BackWindow(type_back, window_perfil);
+        });
 		
 		var background_view = Titanium.UI.createView({
 			backgroundColor: "#f6f2e2"
@@ -395,6 +408,70 @@ function ProfileScreen(infoDatabase)
 		view_cupoes_subscritos.add(text_view_cupoes_subscritos);
 		scroll_view.add(view_cupoes_subscritos);
 		
+		// Ver cupões subscritos
+		value_height_ads_subscribe = (array_ads.length - 1)*65.14 + 52.03;
+		value_top_ads_subscribe = value_top_cupoes_subscritos + value_height_cupoes_subscritos + 5;
+		
+		see_ads_subscribe = Titanium.UI.createView({
+            width: '85.4%',
+            height: value_height_ads_subscribe + 'dp', 
+            top: value_top_ads_subscribe + 'dp'
+        });
+        
+        var top_value = 0;
+        
+        for(var i = 0; i < array_ads.length; i++)
+        {
+            top_value = (i * 65.14);
+            
+            var see_ad = Titanium.UI.createView({
+               height: '52.03dp', 
+               top: top_value + 'dp',
+               backgroundColor: '#a39795',
+               borderRadius: 10,
+               ad_id: array_ads[i].id
+            });
+            
+            var see_text_ad = Titanium.UI.createLabel({
+               color: 'white',
+               text: (array_ads[i].name).toUpperCase() + "\n" + array_ads[i].name_institution + "\nPreço: " + array_ads[i].price + "€",
+               font:
+               {
+                   fontSize: '10dp'
+               },
+               verticalAlign: Titanium.UI.VERTICAL_ALIGNMENT_CENTER,
+               left: '10%',
+               ad_id: array_ads[i].id 
+            });
+            
+            var see_image_ad = Titanium.UI.createImageView({
+               image: "/healthplus/healthplus_buy.png",
+               height: '56.91%',
+               width: '11.46%',
+               right: '10%',
+               ad_buy_id: array_ads[i].id 
+            });
+            
+            see_ad.add(see_image_ad);
+            see_ad.add(see_text_ad);
+            see_ads_subscribe.add(see_ad);
+            
+            see_ad.addEventListener('click', function(e)
+            {
+               if(e.source.ad_buy_id != null)
+               {
+                   alert(e.source.ad_buy_id);
+               }
+               else
+               {
+                   SpecsCupon(e.source.ad_id);
+               } 
+            });
+        }
+        
+        see_ads_subscribe.setVisible(false);
+        scroll_view.add(see_ads_subscribe);
+		
 		// Fazer o separador numero 3
 		value_top_line3 = value_height_cupoes_subscritos + value_top_cupoes_subscritos;
 		
@@ -466,7 +543,7 @@ function ProfileScreen(infoDatabase)
 		
 		// Colocar events listeners barra lateral
 		var eventListernerLateralBar = new EventsLateralBar();
-		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "perfil", window_perfil);
 		
 		// Verificar se esta logado
 		changeLateralBar();
@@ -523,6 +600,9 @@ function ProfileScreen(infoDatabase)
 				value_top_cupoes_subscritos = value_top_cupoes_subscritos + 250;
 				view_cupoes_subscritos.top = value_top_cupoes_subscritos + 'dp';
 				
+				value_top_ads_subscribe = value_top_ads_subscribe + 250;
+				see_ads_subscribe.top = value_top_ads_subscribe + 'dp';
+				
 				value_top_line3 = value_top_line3 + 250;
 				line3.top = value_top_line3 + 'dp';
 				
@@ -561,6 +641,9 @@ function ProfileScreen(infoDatabase)
 				value_top_cupoes_subscritos = value_top_cupoes_subscritos - 250;
 				view_cupoes_subscritos.top = value_top_cupoes_subscritos + 'dp';
 				
+				value_top_ads_subscribe = value_top_ads_subscribe - 250;
+                see_ads_subscribe.top = value_top_ads_subscribe + 'dp';
+				
 				value_top_line3 = value_top_line3 - 250;
 				line3.top = value_top_line3 + 'dp';
 				
@@ -571,6 +654,36 @@ function ProfileScreen(infoDatabase)
 				line4.top = value_top_line4 + 'dp';
 			}
 		});
+		
+		view_cupoes_subscritos.addEventListener('click', function()
+        {   
+            if(see_ads_subscribe.getVisible() == false)
+            {
+                value_top_line3 = value_top_line3 + value_height_ads_subscribe + 15;
+                line3.top = value_top_line3 + 'dp';
+                
+                value_top_cupoes_adquiridos = value_top_cupoes_adquiridos + value_height_ads_subscribe + 15;
+                view_cupoes_adquiridos.top = value_top_cupoes_adquiridos + 'dp';
+                
+                value_top_line4 = value_top_line4 + value_height_ads_subscribe + 15;
+                line4.top = value_top_line4 + 'dp';
+                
+                see_ads_subscribe.setVisible(true);
+            }
+            else if(see_ads_subscribe.getVisible() == true)
+            {
+                see_ads_subscribe.setVisible(false);
+                
+                value_top_line3 = value_top_line3 - value_height_ads_subscribe - 15;
+                line3.top = value_top_line3 + 'dp';
+                
+                value_top_cupoes_adquiridos = value_top_cupoes_adquiridos - value_height_ads_subscribe - 15;
+                view_cupoes_adquiridos.top = value_top_cupoes_adquiridos + 'dp';
+                
+                value_top_line4 = value_top_line4 - value_height_ads_subscribe - 15;
+                line4.top = value_top_line4 + 'dp';
+            }
+        });
 		
 		button_edit_dados_pessoais.addEventListener('click', function()
 		{
@@ -741,20 +854,94 @@ function ProfileScreen(infoDatabase)
 		{
 			if(run_constructor_fb_bool != fb.loggedIn)
 			{
-				// Voltar à pag. principal
-				var main_screen = new MainScreen();
-				main_screen.constructorScreen();
-			
-				main_screen.putEventListenersMainScreen();
-				main_screen.showWindow();
-				
-				run_constructor_fb_bool = fb.loggedIn;				
+				var string_verify = "no_connection";
+                var method = 'POST';
+                var url = "http://" + url_ip + ":52144/odata/Ads/GetActiveAds";
+                
+                // Argumentos para irem no pedido
+                var args = {};
+                var int_institution_id = 0;
+                args.institution_id = int_institution_id.toString();
+                
+                // Buscar dados a API
+                var connection_api = Titanium.Network.createHTTPClient({
+                    onload: function()
+                    {
+                        while(string_verify == "no_connection")
+                        {
+                            string_verify = JSON.parse(this.responseText);
+                        }
+                        
+                        var array_ads = JSON.parse(string_verify.value);
+                        
+                        var main_screen = new MainScreen();
+                        type_back.push(str);
+                        main_screen.constructorScreen(array_ads, type_back);
+                        
+                        main_screen.putEventListenersMainScreen();
+                        main_screen.showWindow();
+                        
+                        window_perfil.close();
+                    },
+                    onerror: function()
+                    {
+                        alert("Erro na obtenção de anúncios!");
+                    },
+                    timeout: 10000 // Tempo para fazer pedido
+                });
+                
+                connection_api.open(method, url, false);
+                connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8"); // Adaptar o tipo de header para o que é pedido
+                
+                connection_api.send(JSON.stringify(args));			
 			}
-		}, 50);
+		}, 100);
 	};
 	
 	this.showWindow = function()
 	{
 		window_perfil.open();
 	};
+	
+	function SpecsCupon(cupon_id)
+    {
+        var string_verify = "no_connection";
+        var method = 'GET';
+        var url = "http://" + url_ip + ":52144/odata/Ads(" + cupon_id.toString() + ")";
+                
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+
+                
+                var ad = string_verify.Key;
+                var institution = string_verify.Value;
+                
+                // Redirecionar para a pagina da instituicao
+                var cupon = new CuponScreen();
+                type_back.push("perfil");
+                cupon.constructorScreen(ad, institution, type_back);
+                    
+                cupon.putEventListenersCuponScreen();
+                cupon.showWindow();
+                    
+                window_perfil.close();
+                
+            },
+            onerror: function()
+            {
+                alert("Erro na obtenção do cupão!!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.send();
+    }
 }
