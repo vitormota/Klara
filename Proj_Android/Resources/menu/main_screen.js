@@ -4,6 +4,9 @@ Titanium.include("/components/lateral_bar.js");
 // Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
 Titanium.include("/components/header_bar.js");
 
+// Incluir ficheiro para fazer back
+Titanium.include("/components/back_window.js");
+
 // Incluir o ficheiro que permite chamar os cupoes
 Titanium.include("/cupon/show_cupon.js");
 
@@ -25,7 +28,7 @@ function MainScreen()
 	
 	var run_constructor_fb_bool = null;
 	
-	this.constructorScreen = function(array_ads)
+	this.constructorScreen = function(array_ads, type_back)
 	{
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
@@ -48,6 +51,12 @@ function MainScreen()
 		});
 		pag_inicial_window.navBarHidden = true;
 		
+		pag_inicial_window.addEventListener('android:back', function(e)
+        {
+            Ti.API.info('Volta atrás!');
+            BackWindow(type_back, pag_inicial_window);
+        });
+		
 		var background_view = Titanium.UI.createView({
 			backgroundColor: "#f6f2e2"
 		});
@@ -69,12 +78,12 @@ function MainScreen()
 		
 		for(var i = 0; i < number_of_views; i++)
 		{
-			
 			var top_value = i * 199.99;
 		
 			var ad_view = Titanium.UI.createView({ // Criar views para anuncio
 				height: '180dp',
-				top: top_value + 'dp'
+				top: top_value + 'dp',
+				cupon_id: array_ads[i].ad.id
 			});
 				
 			// Colocar imagem do anuncio
@@ -82,20 +91,22 @@ function MainScreen()
 				top: '0%',
 				height: '100%',
 				width: '100%',
-				image: "/healthplus/healthplus_test.jpg",
-				borderRadius: 10
+				image: array_ads[i].ad.img_url,
+				borderRadius: 10,
+				cupon_id: array_ads[i].ad.id
 			});
 			
 			// Criar view para colocar texto
 			var ad_text_view = Titanium.UI.createView({
 				bottom: '0%',
 				height: '28.99%',
-				backgroundColor: "#a39795"
+				backgroundColor: "#a39795",
+				cupon_id: array_ads[i].ad.id
 			});
 			
 			// Label para texto
 			var consulta_text = Titanium.UI.createLabel({
-				text: "CONSULTA PEDIATRIA\nCUF - Porto\nPreço: 30,20€",
+				text: array_ads[i].ad.name.toUpperCase() + "\n" + array_ads[i].institution.name + "\nPreço: " + array_ads[i].ad.price + "€",
 				font:
 				{
 					fontSize: '7.5%'
@@ -119,15 +130,17 @@ function MainScreen()
 			{
 				if(e.source.id == "image_buy")
 				{
-					InitFacebook();
+				    if(run_constructor_fb_bool == false)
+				    {
+				        InitFacebook();
+				    }
+				    else
+				    {
+				    }
 				}
 				else
 				{
-					var cupon = new CuponScreen();
-					cupon.constructorScreen(i);
-					
-					cupon.putEventListenersCuponScreen();
-					cupon.showWindow();
+	                SpecsCupon(e.source.cupon_id);
 				}
 			});
 
@@ -155,9 +168,9 @@ function MainScreen()
 		
 		// Colocar events listeners barra lateral
 		var eventListernerLateralBar = new EventsLateralBar();
-		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "home", pag_inicial_window);
 		
-		changeLateralBar();
+		changeLateralBar(type_back);
 	};
 	
 	this.putEventListenersMainScreen = function ()
@@ -201,7 +214,7 @@ function MainScreen()
 		});
 	};
 	
-	function changeLateralBar()
+	function changeLateralBar(type_back)
 	{
 		setInterval(function()
 		{
@@ -219,17 +232,59 @@ function MainScreen()
 				pag_inicial_window.add(lateral_bar);
 		
 				eventListernerLateralBar = new EventsLateralBar();
-				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "home", pag_inicial_window);
 				
 				run_constructor_fb_bool = fb.loggedIn;				
 			}
-		}, 150);
+		}, 100);
 	};
 	
 	this.showWindow = function()
 	{
 		pag_inicial_window.open();
 	};
+	
+	function SpecsCupon(cupon_id)
+	{
+	    var string_verify = "no_connection";
+        var method = 'GET';
+        var url = "http://" + url_ip + ":52144/odata/Ads(" + cupon_id.toString() + ")";
+                
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+
+                
+                var ad = string_verify.Key;
+                var institution = string_verify.Value;
+                
+                // Redirecionar para a pagina da instituicao
+                var cupon = new CuponScreen();
+                type_back.push("home");
+                cupon.constructorScreen(ad, institution, type_back);
+                    
+                cupon.putEventListenersCuponScreen();
+                cupon.showWindow();
+                    
+                pag_inicial_window.close();
+                
+            },
+            onerror: function()
+            {
+                alert("Erro na obtenção do cupão!!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.send();
+	}
 }
 
 

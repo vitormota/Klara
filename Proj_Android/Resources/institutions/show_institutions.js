@@ -1,13 +1,23 @@
+// Incluir variavel que dá o ip
+Titanium.include("/url_ip.js");
+
 // Incluir o ficheiro da pagina onde a barra e feita
 Titanium.include("/components/lateral_bar.js");
 
 // Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
 Titanium.include("/components/header_bar.js");
 
+// Incluir ficheiro para fazer back
+Titanium.include("/components/back_window.js");
+
 // Include facebook
 Titanium.include("/facebook/init_facebook.js");
 
-var url_ip = "192.168.1.67";
+// Incluir ficheiro de sessao
+Titanium.include("/user/session_user.js");
+
+// Incluir ficheiro para a janela da instituição
+Titanium.include("/institutions/show_one_institution.js");
 
 function InstitutionsScreen()
 {
@@ -22,8 +32,9 @@ function InstitutionsScreen()
 	var search_bar_object = new SearchBar();
 	
 	var run_constructor_fb_bool = null;
+	var array_clicks = [];
 	
-	this.constructorScreen = function (array_institutions)
+	this.constructorScreen = function (array_institutions, type_back)
 	{
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
@@ -44,6 +55,12 @@ function InstitutionsScreen()
 			navBarHidden: true
 		});
 		
+		institution_window.addEventListener('android:back', function(e)
+        {
+            Ti.API.info('Volta atrás!');
+            BackWindow(type_back, institution_window);
+        });
+		
 		var background_view = Titanium.UI.createView({
 			backgroundColor: "#f6f2e2"
 		});
@@ -61,9 +78,10 @@ function InstitutionsScreen()
 			width: '100%'
 		});
 		
+		
+		
 		for(var i = 0; i < number_institutions; i++)
 		{
-			
 			var top_value = (i * 72.41) + 35.97;
 			
 			var institution_one_view = Titanium.UI.createView({
@@ -72,7 +90,8 @@ function InstitutionsScreen()
 				top: top_value + 'dp',
 				height: '52.34dp',
 				left: '7.04%',
-				width: '85.21%'
+				width: '85.21%',
+				institution_id: array_institutions[i].id.toString()
 			});
 			
 			var image_institution = Titanium.UI.createImageView({
@@ -80,7 +99,8 @@ function InstitutionsScreen()
 				left: '4.48%',
 				width: '11.11%',
 				height: '55.16%',
-				image: "/healthplus/healthplus_institution.png"
+				image: "/healthplus/healthplus_institution.png",
+				institution_id: array_institutions[i].id.toString()
 			});
 			
 			var text_institution = Titanium.UI.createLabel({
@@ -88,24 +108,50 @@ function InstitutionsScreen()
 				left: '19.03%',
 				top: '20.03%',
 				color: 'black',
+				institution_id: array_institutions[i].id.toString(),
 				font:
 				{
 					fontSize: '10%'
 				}
 			});
 			
-			var click_institution = Titanium.UI.createImageView({
-				image: '/healthplus/healthplus_positive.png',
-				top: '22.03%',
-				left: '82.93%',
-				width: '11.08%',
-				height: '55.66%'
-			});
-			
 			institution_one_view.add(image_institution);
-			institution_one_view.add(text_institution);
-			institution_one_view.add(click_institution);
-			institution_scroll_view.add(institution_one_view);
+            institution_one_view.add(text_institution);
+			
+			if(run_constructor_fb_bool == true)
+    		{
+                var args = {};
+                args.client_id = user_id.toString();
+                args.subscribable_id = array_institutions[i].id.toString();
+                
+                var requestInstitution = new PutInstitution();
+                requestInstitution.put(institution_one_view, institution_scroll_view, top_value, args, array_institutions[i].id);
+    		}
+    		else
+    		{
+    		    institution_scroll_view.add(institution_one_view);
+    		}
+    		
+    		institution_one_view.addEventListener('click', function(e)
+            {
+                // So funciona se o utilizador estiver logado
+                if (e.source.type_obj != null)
+                {
+                    if(e.source.type_obj == "button_subscribe")
+                    {
+                        SubscribeInstitution(true, e.source.institution_click_id, e.source);
+                    }
+                    else if(e.source.type_obj == "button_unsubscribe")
+                    {
+                        SubscribeInstitution(false, e.source.institution_click_id, e.source);
+                    }
+                }
+                else
+                {
+                    // Vai para a pagina da instituicao
+                    SpecsInstitution(e.source.institution_id);
+                } 
+            });
 		}
 		
 		
@@ -123,10 +169,10 @@ function InstitutionsScreen()
 		
 		// Colocar events listeners barra lateral
 		var eventListernerLateralBar = new EventsLateralBar();
-		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+		eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "instituicoes", institution_window);
 		
 		// Verificar se esta logado
-		changeLateralBar();
+		changeLateralBar(type_back);
 	};
 	
 	this.putEventListenersInstitutionsScreen = function ()
@@ -170,7 +216,7 @@ function InstitutionsScreen()
 		});
 	};
 	
-	function changeLateralBar()
+	function changeLateralBar(type_back)
 	{
 		setInterval(function()
 		{
@@ -188,15 +234,197 @@ function InstitutionsScreen()
 				institution_window.add(lateral_bar);
 		
 				eventListernerLateralBar = new EventsLateralBar();
-				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object);
+				eventListernerLateralBar.putListenersEventsLateralBar(lateral_bar_object, type_back, "instituicoes", institution_window);
+				
+				if(run_constructor_fb_bool == true)
+				{
+				    for(var i = 0; i < array_clicks.length; i++)
+				    {
+				        array_clicks[i].setVisible(false);
+				    }
+				}
+				else if(run_constructor_fb_bool == false)
+                {
+                    for(var i = 0; i < array_clicks.length; i++)
+                    {
+                        array_clicks[i].setVisible(true);
+                    }
+                }
 				
 				run_constructor_fb_bool = fb.loggedIn;				
 			}
-		}, 150);
+			
+		}, 100);
 	};
 	
 	this.showWindow = function()
 	{
 		institution_window.open();
 	};
+	
+	function SubscribeInstitution(case_subscribe, institution_id, source_click)
+	{
+	    var string_verify = "no_connection";
+        var method = 'POST';
+        var url;
+        
+        if(case_subscribe == true)
+        {
+            url = "http://" + url_ip + ":52144/odata/Subscriptions/";
+        }
+        else if(case_subscribe == false)
+        {
+            url = "http://" + url_ip + ":52144/odata/Subscriptions/DeleteSubscription";
+        }
+        
+        var args = {};
+        args.client_id = user_id.toString();
+        args.subscribable_id = institution_id;
+                        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                Ti.API.info('Ação efectuada com sucesso!');
+                
+                if(case_subscribe == true)
+                {
+                    source_click.image = '/healthplus/healthplus_negative.png';
+                    source_click.type_obj = "button_unsubscribe";
+                }
+                else if(case_subscribe == false)
+                {
+                    source_click.image = '/healthplus/healthplus_positive.png';
+                    source_click.type_obj = "button_subscribe";
+                }
+            },
+            onerror: function()
+            {
+                alert("Erro na verificação de subscrições!!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+	}
+	
+    function SpecsInstitution(institution_id)
+    {
+        var string_verify = "no_connection";
+        var method = 'GET';
+        var url = "http://" + url_ip + ":52144/odata/Institutions(" + institution_id.toString() + ")";
+                
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                // Redirecionar para a pagina da instituicao
+                var institution = new InstitutionOneScreen();
+                type_back.push("instituicoes");
+                institution.constructorScreen(string_verify, type_back);
+                
+                institution.putEventListenersInstitutionOneScreen();
+                institution.showWindow();
+                
+                institution_window.close();
+                
+            },
+            onerror: function()
+            {
+                alert("Erro na obtenção da instituição!!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.send();
+    }
+    
+    function PutInstitution()
+    {
+        this.put = function(institution_one_view, institution_scroll_view, top_value, args, institution_id)
+        {
+            var string_verify = "no_connection";
+            var method = 'POST';
+            var url = "http://" + url_ip + ":52144/odata/Subscriptions/IsSubscribeUser";
+                    
+            // Buscar dados a API
+            var connection_api= Titanium.Network.createHTTPClient(
+            {
+                onload: function()
+                {
+                    while(string_verify == "no_connection")
+                    {
+                        string_verify = JSON.parse(this.responseText);
+                    }
+                    
+                    if(string_verify.value == "false")
+                    {
+                        var click_institution = Titanium.UI.createImageView({
+                            image: '/healthplus/healthplus_positive.png',
+                            top: '22.03%',
+                            left: '82.93%',
+                            width: '11.08%',
+                            height: '55.66%',
+                            institution_click_id: institution_id.toString(),
+                            type_obj: 'button_subscribe'
+                        });
+                        
+                        array_clicks.push(click_institution);
+                        
+                        institution_one_view.top = top_value + 'dp';
+                        institution_one_view.add(click_institution);
+                        institution_scroll_view.add(institution_one_view);
+                    }
+                    else if(string_verify.value == "true")
+                    {
+                        var click_institution = Titanium.UI.createImageView({
+                            image: '/healthplus/healthplus_negative.png',
+                            top: '22.03%',
+                            left: '82.93%',
+                            width: '11.08%',
+                            height: '55.66%',
+                            institution_click_id: institution_id.toString(),
+                            type_obj: 'button_unsubscribe'
+                        });
+                        
+                        array_clicks.push(click_institution);
+                        
+                        institution_one_view.top = top_value + 'dp';
+                        institution_one_view.add(click_institution);
+                        institution_scroll_view.add(institution_one_view);
+                    }
+                    else
+                    {
+                        alert("Algo se passou!");
+                    }
+                },
+                onerror: function()
+                {
+                    alert("Erro na verificação de subscrições!!");
+                },
+                timeout: 10000 // Tempo para fazer pedido
+            });
+            
+            connection_api.open(method, url, false);
+            connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+      
+            connection_api.send(JSON.stringify(args));
+        };
+    }
 }
