@@ -320,7 +320,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52166</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52144/</IISUrl>
+          <IISUrl>http://172.30.11.62:52144/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
