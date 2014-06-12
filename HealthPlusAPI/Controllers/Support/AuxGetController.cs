@@ -31,15 +31,21 @@ namespace HealthPlusAPI.Controllers.Support
                                          join ad in db.Ad
                                          on cupon.ad_id equals ad.id
                                          where cupon.client_id == client_id
+                                         join inst in db.Institution
+                                         on new { instid = ad.institution_id } equals new { instid = inst.id }
                                          select new
                                          {
-                                             service = ad.service,
+                                             id = ad.id,
                                              name = ad.name,
-                                             speciality = ad.specialty,
-                                             state = cupon.state,
-                                             end_time = cupon.end_time,
-                                             purchase_time = cupon.purchase_time,
-                                             id = ad.id
+                                             institution_id = ad.institution_id,
+                                             price = ad.price,
+                                             description = ad.description,
+                                             end_time = ad.end_time,
+                                             service = ad.service,
+                                             specialty = ad.specialty,
+                                             remaining_cupons = ad.remaining_cupons,
+                                             city = inst.city,
+                                             inst_name = inst.name
 
                                          }).AsQueryable();
 
@@ -102,8 +108,8 @@ namespace HealthPlusAPI.Controllers.Support
                                              service = ad.service,
                                              specialty = ad.specialty,
                                              remaining_cupons = ad.remaining_cupons,
-                                             local = inst.city,
-                                             institution_name = inst.name
+                                             city = inst.city,
+                                             inst_name = inst.name
                                          }
                          ).AsQueryable();
             return query;
@@ -151,6 +157,35 @@ namespace HealthPlusAPI.Controllers.Support
             var res = db.Database.SqlQuery<searchable_ad>(command);
 
             return res;
+        }
+
+        /// <summary>
+        /// Retrieve client's institutions subscriptions
+        /// </summary>
+        /// <param name="client_id">The client id</param>
+        /// <returns></returns>
+        [Route("odata/Subscriptions({client_id})/Institutions")]
+        public dynamic getClientInstitutionSubs(int client_id) {
+            IQueryable<dynamic> query = (from sub in db.Subscription
+                                         where sub.client_id == client_id
+                                         join s in db.Subscribable
+                                         on new { subid = sub.subscribable_id } equals new { subid = s.id }
+                                         join inst in db.Institution
+                                         on new { instid = sub.subscribable_id } equals new { instid = inst.id }
+                                         select new {
+                                             id = inst.id,
+                                             name = inst.name,
+                                             address = inst.address,
+                                             city = inst.city,
+                                             latitude = inst.latitude,
+                                             longitude = inst.longitude,
+                                             email = inst.email,
+                                             website = inst.website,
+                                             phone_number = inst.phone_number,
+                                             fax = inst.fax
+                                         }
+                         ).AsQueryable();
+            return query;
         }
     }
 
