@@ -1,21 +1,3 @@
-// Incluir o ficheiro da pagina onde a barra e feita
-Titanium.include("/components/lateral_bar.js");
-
-// Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
-Titanium.include("/components/header_bar.js");
-
-// Incluir ficheiro para fazer back
-Titanium.include("/components/back_window.js");
-
-// Incluir ficheiro com variaveis de sessao
-Titanium.include("/user/session_user.js");
-
-// Incluir facebook
-Titanium.include("/facebook/init_facebook.js");
-
-// Incluir ficheiro para pag. principal
-Titanium.include("/menu/main_screen.js");
-
 function ProfileScreen(infoDatabase)
 {
 	var header_view_object = new HeaderViewText();
@@ -102,9 +84,18 @@ function ProfileScreen(infoDatabase)
 	var see_ads_subscribe = null;
 	var value_height_ads_subscribe = null;
 	var value_top_ads_subscribe = null;
+	var length_ads = 0;
 	
-	this.constructorScreen = function(type_back, array_ads)
+	var see_cupons_buyed = null;
+    var value_height_cupons_buyed = null;
+    var value_top_cupons_buyed = null;
+    var length_cupons = 0;
+	
+	this.constructorScreen = function(type_back, array_ads, array_cupons)
 	{
+	    length_ads = array_ads.length;
+	    length_cupons = array_cupons.length;
+	    
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
 		
@@ -408,69 +399,100 @@ function ProfileScreen(infoDatabase)
 		view_cupoes_subscritos.add(text_view_cupoes_subscritos);
 		scroll_view.add(view_cupoes_subscritos);
 		
-		// Ver cupões subscritos
-		value_height_ads_subscribe = (array_ads.length - 1)*65.14 + 52.03;
-		value_top_ads_subscribe = value_top_cupoes_subscritos + value_height_cupoes_subscritos + 5;
-		
-		see_ads_subscribe = Titanium.UI.createView({
-            width: '85.4%',
-            height: value_height_ads_subscribe + 'dp', 
-            top: value_top_ads_subscribe + 'dp'
-        });
-        
-        var top_value = 0;
-        
-        for(var i = 0; i < array_ads.length; i++)
-        {
-            top_value = (i * 65.14);
-            
-            var see_ad = Titanium.UI.createView({
-               height: '52.03dp', 
-               top: top_value + 'dp',
-               backgroundColor: '#a39795',
-               borderRadius: 10,
-               ad_id: array_ads[i].id
+		if(array_ads.length > 0)
+		{
+    		// Ver cupões subscritos
+    		value_height_ads_subscribe = (array_ads.length - 1)*65.14 + 52.03;
+    		value_top_ads_subscribe = value_top_cupoes_subscritos + value_height_cupoes_subscritos + 5;
+    		
+    		see_ads_subscribe = Titanium.UI.createView({
+                width: '85.4%',
+                height: value_height_ads_subscribe + 'dp', 
+                top: value_top_ads_subscribe + 'dp'
             });
             
-            var see_text_ad = Titanium.UI.createLabel({
-               color: 'white',
-               text: (array_ads[i].name).toUpperCase() + "\n" + array_ads[i].name_institution + "\nPreço: " + array_ads[i].price + "€",
-               font:
-               {
-                   fontSize: '10dp'
-               },
-               verticalAlign: Titanium.UI.VERTICAL_ALIGNMENT_CENTER,
-               left: '10%',
-               ad_id: array_ads[i].id 
-            });
+            var top_value = 0;
             
-            var see_image_ad = Titanium.UI.createImageView({
-               image: "/healthplus/healthplus_buy.png",
-               height: '56.91%',
-               width: '11.46%',
-               right: '10%',
-               ad_buy_id: array_ads[i].id 
-            });
-            
-            see_ad.add(see_image_ad);
-            see_ad.add(see_text_ad);
-            see_ads_subscribe.add(see_ad);
-            
-            see_ad.addEventListener('click', function(e)
+            for(var i = 0; i < array_ads.length; i++)
             {
-               if(e.source.ad_buy_id != null)
-               {
-                   alert(e.source.ad_buy_id);
-               }
-               else
-               {
-                   SpecsCupon(e.source.ad_id);
-               } 
-            });
-        }
-        
-        see_ads_subscribe.setVisible(false);
-        scroll_view.add(see_ads_subscribe);
+                top_value = (i * 65.14);
+                
+                var see_ad = Titanium.UI.createView({
+                   height: '52.03dp', 
+                   top: top_value + 'dp',
+                   backgroundColor: '#a39795',
+                   borderRadius: 10,
+                   ad_id: array_ads[i].id
+                });
+                
+                var geral_image_ad = Titanium.UI.createImageView({
+                    top: '22.03%',
+                    left: '4.48%',
+                    width: '11.11%',
+                    height: '55.16%',
+                    image: "/healthplus/healthplus_subscription.png",
+                    ad_id: array_ads[i].id
+                });
+                
+                var see_text_ad = Titanium.UI.createLabel({
+                   color: 'white',
+                   text: (array_ads[i].name).toUpperCase() + "\n" + array_ads[i].name_institution + "\nPreço: " + array_ads[i].price + "€",
+                   font:
+                   {
+                       fontSize: '9dp'
+                   },
+                   verticalAlign: Titanium.UI.VERTICAL_ALIGNMENT_CENTER,
+                   left: '19.03%',
+                   ad_id: array_ads[i].id 
+                });
+                
+                var see_image_ad = Titanium.UI.createImageView({
+                   image: "/healthplus/healthplus_buy.png",
+                   height: '56.91%',
+                   width: '11.46%',
+                   right: '10%',
+                   ad_buy_id: array_ads[i].id,
+                   ad_obj: array_ads[i] 
+                });
+                
+                see_ad.add(geral_image_ad);
+                see_ad.add(see_image_ad);
+                see_ad.add(see_text_ad);
+                see_ads_subscribe.add(see_ad);
+                
+                see_ad.addEventListener('click', function(e)
+                {
+                   if(e.source.ad_buy_id != null)
+                   {
+                       var confirmation = Titanium.UI.createAlertDialog({
+                            message: "Tem a certeza que pretende comprar este cupão?",
+                            buttonNames: ['Sim', 'Não']
+                        });
+                        
+                        confirmation.addEventListener('click', function(ev)
+                        {
+                            if(ev.index == 0)
+                            {
+                                BuyCupon(e.source.ad_obj);
+                            }
+                            else if(ev.index == 1)
+                            {
+                                alert('Cancelou a compra do cupão!');
+                            }
+                        });
+                        
+                        confirmation.show();
+                   }
+                   else
+                   {
+                       SpecsCupon(e.source.ad_id);
+                   } 
+                });
+            }
+            
+            see_ads_subscribe.setVisible(false);
+            scroll_view.add(see_ads_subscribe);
+		}
 		
 		// Fazer o separador numero 3
 		value_top_line3 = value_height_cupoes_subscritos + value_top_cupoes_subscritos;
@@ -516,6 +538,71 @@ function ProfileScreen(infoDatabase)
 		
 		view_cupoes_adquiridos.add(text_view_cupoes_adquiridos);
 		scroll_view.add(view_cupoes_adquiridos);
+		
+		
+		if(array_cupons.length > 0)
+        {
+            // Ver cupões adquiridos
+            value_height_cupons_buyed = (array_cupons.length - 1)*65.14 + 52.03;
+            value_top_cupons_buyed = value_top_cupoes_adquiridos + value_height_cupoes_adquiridos + 5;
+            
+            see_cupons_buyed = Titanium.UI.createView({
+                width: '85.4%',
+                height: value_height_cupons_buyed + 'dp', 
+                top: value_top_cupons_buyed + 'dp'
+            });
+            
+            var top_value_cupon_for = 0;
+            
+            for(var j = 0; j < array_cupons.length; j++)
+            {
+                top_value_cupon_for = (j * 65.14);
+                
+                var see_cupon = Titanium.UI.createView({
+                   height: '52.03dp', 
+                   top: top_value_cupon_for + 'dp',
+                   backgroundColor: '#a39795',
+                   borderRadius: 10,
+                   cupon_id: array_cupons[i].id
+                });
+                
+                var geral_image_cupon = Titanium.UI.createImageView({
+                    top: '22.03%',
+                    left: '4.48%',
+                    width: '11.11%',
+                    height: '55.16%',
+                    image: "/healthplus/healthplus_positive.png",
+                    cupon_id: array_cupons[i].id
+                });
+                
+                var purchase_time = array_cupons[i].purchase_time.replace("T", "   ");
+                var end_time = array_cupons[i].end_time.replace("T", "   ");
+                
+                var see_text_cupon = Titanium.UI.createLabel({
+                   color: 'white',
+                   text: (array_cupons[i].name).toUpperCase() + "\nData de compra: " + purchase_time + "\nData de validade: " + end_time,
+                   font:
+                   {
+                       fontSize: '9dp'
+                   },
+                   verticalAlign: Titanium.UI.VERTICAL_ALIGNMENT_CENTER,
+                   left: '19.06%',
+                   cupon_id: array_cupons[i].id 
+                });
+                
+                see_cupon.add(geral_image_cupon);
+                see_cupon.add(see_text_cupon);
+                see_cupons_buyed.add(see_cupon);
+                
+                see_cupon.addEventListener('click', function(e)
+                {
+                    SpecsCupon(e.source.cupon_id);
+                });
+            }
+            
+            see_cupons_buyed.setVisible(false);
+            scroll_view.add(see_cupons_buyed);
+        }
 		
 		// Fazer o ultimo separador
 		value_top_line4 = value_height_cupoes_adquiridos + value_top_cupoes_adquiridos;
@@ -600,14 +687,23 @@ function ProfileScreen(infoDatabase)
 				value_top_cupoes_subscritos = value_top_cupoes_subscritos + 250;
 				view_cupoes_subscritos.top = value_top_cupoes_subscritos + 'dp';
 				
-				value_top_ads_subscribe = value_top_ads_subscribe + 250;
-				see_ads_subscribe.top = value_top_ads_subscribe + 'dp';
+				if(length_ads > 0)
+				{
+    				value_top_ads_subscribe = value_top_ads_subscribe + 250;
+    				see_ads_subscribe.top = value_top_ads_subscribe + 'dp';
+    			}
 				
 				value_top_line3 = value_top_line3 + 250;
 				line3.top = value_top_line3 + 'dp';
 				
 				value_top_cupoes_adquiridos = value_top_cupoes_adquiridos + 250;
 				view_cupoes_adquiridos.top = value_top_cupoes_adquiridos + 'dp';
+				
+				if(length_cupons > 0)
+				{
+    				value_top_cupons_buyed = value_top_cupons_buyed + 250;
+                    see_cupons_buyed.top = value_top_cupons_buyed + 'dp';
+                }
 				
 				value_top_line4 = value_top_line4 + 250;
 				line4.top = value_top_line4 + 'dp';
@@ -641,14 +737,23 @@ function ProfileScreen(infoDatabase)
 				value_top_cupoes_subscritos = value_top_cupoes_subscritos - 250;
 				view_cupoes_subscritos.top = value_top_cupoes_subscritos + 'dp';
 				
-				value_top_ads_subscribe = value_top_ads_subscribe - 250;
-                see_ads_subscribe.top = value_top_ads_subscribe + 'dp';
+				if(length_ads > 0)
+				{
+				    value_top_ads_subscribe = value_top_ads_subscribe - 250;
+                    see_ads_subscribe.top = value_top_ads_subscribe + 'dp';
+                }
 				
 				value_top_line3 = value_top_line3 - 250;
 				line3.top = value_top_line3 + 'dp';
 				
 				value_top_cupoes_adquiridos = value_top_cupoes_adquiridos - 250;
 				view_cupoes_adquiridos.top = value_top_cupoes_adquiridos + 'dp';
+				
+				if(length_cupons > 0)
+				{
+    				value_top_cupons_buyed = value_top_cupons_buyed - 250;
+                    see_cupons_buyed.top = value_top_cupons_buyed + 'dp';
+                }
 				
 				value_top_line4 = value_top_line4 - 250;
 				line4.top = value_top_line4 + 'dp';
@@ -657,31 +762,67 @@ function ProfileScreen(infoDatabase)
 		
 		view_cupoes_subscritos.addEventListener('click', function()
         {   
-            if(see_ads_subscribe.getVisible() == false)
+            if(length_ads > 0)
             {
-                value_top_line3 = value_top_line3 + value_height_ads_subscribe + 15;
-                line3.top = value_top_line3 + 'dp';
-                
-                value_top_cupoes_adquiridos = value_top_cupoes_adquiridos + value_height_ads_subscribe + 15;
-                view_cupoes_adquiridos.top = value_top_cupoes_adquiridos + 'dp';
-                
-                value_top_line4 = value_top_line4 + value_height_ads_subscribe + 15;
-                line4.top = value_top_line4 + 'dp';
-                
-                see_ads_subscribe.setVisible(true);
+                if(see_ads_subscribe.getVisible() == false)
+                {
+                    value_top_line3 = value_top_line3 + value_height_ads_subscribe + 15;
+                    line3.top = value_top_line3 + 'dp';
+                    
+                    value_top_cupoes_adquiridos = value_top_cupoes_adquiridos + value_height_ads_subscribe + 15;
+                    view_cupoes_adquiridos.top = value_top_cupoes_adquiridos + 'dp';
+                    
+                    if(length_cupons > 0)
+                    {
+                        value_top_cupons_buyed = value_top_cupons_buyed + value_height_ads_subscribe + 15;
+                        see_cupons_buyed.top = value_top_cupons_buyed + 'dp';
+                    }
+                    
+                    value_top_line4 = value_top_line4 + value_height_ads_subscribe + 15;
+                    line4.top = value_top_line4 + 'dp';
+                    
+                    see_ads_subscribe.setVisible(true);
+                }
+                else if(see_ads_subscribe.getVisible() == true)
+                {
+                    see_ads_subscribe.setVisible(false);
+                    
+                    value_top_line3 = value_top_line3 - value_height_ads_subscribe - 15;
+                    line3.top = value_top_line3 + 'dp';
+                    
+                    value_top_cupoes_adquiridos = value_top_cupoes_adquiridos - value_height_ads_subscribe - 15;
+                    view_cupoes_adquiridos.top = value_top_cupoes_adquiridos + 'dp';
+                    
+                    if(length_cupons > 0)
+                    {
+                        value_top_cupons_buyed = value_top_cupons_buyed - value_height_ads_subscribe - 15;
+                        see_cupons_buyed.top = value_top_cupons_buyed + 'dp';
+                    }
+                    
+                    value_top_line4 = value_top_line4 - value_height_ads_subscribe - 15;
+                    line4.top = value_top_line4 + 'dp';
+                }
             }
-            else if(see_ads_subscribe.getVisible() == true)
+        });
+        
+        view_cupoes_adquiridos.addEventListener('click', function()
+        {
+            if(length_cupons > 0)
             {
-                see_ads_subscribe.setVisible(false);
-                
-                value_top_line3 = value_top_line3 - value_height_ads_subscribe - 15;
-                line3.top = value_top_line3 + 'dp';
-                
-                value_top_cupoes_adquiridos = value_top_cupoes_adquiridos - value_height_ads_subscribe - 15;
-                view_cupoes_adquiridos.top = value_top_cupoes_adquiridos + 'dp';
-                
-                value_top_line4 = value_top_line4 - value_height_ads_subscribe - 15;
-                line4.top = value_top_line4 + 'dp';
+                if(see_cupons_buyed.getVisible() == false)
+                {
+                    value_top_line4 = value_top_line4 + value_height_cupons_buyed + 15;
+                    line4.top = value_top_line4 + 'dp';
+                    
+                    see_cupons_buyed.setVisible(true);
+                }
+                else if(see_cupons_buyed.getVisible() == true)
+                {
+                    see_cupons_buyed.setVisible(false);
+                    
+                    value_top_line4 = value_top_line4 - value_height_cupons_buyed - 15;
+                    line4.top = value_top_line4 + 'dp';
+                }
             }
         });
 		
@@ -846,7 +987,102 @@ function ProfileScreen(infoDatabase)
 				edit = false;
 			});
 		});
-	};
+	
+	    search_bar_object.search_bar_icon.addEventListener('click', function()
+        {
+            if(search_bar_object.search_bar_textbox.value == "")
+            {
+                // Não faz nada
+            }
+            else
+            {
+                SearchAd(type_back, search_bar_object.search_bar_textbox.value, window_perfil);
+            }
+        });
+    };
+    
+    function SearchAd (type_back, textSearch, current_window)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Ads/SearchAd";
+        
+        var args = {};
+        var last_id = -1;
+        args.last_id = last_id.toString();
+        args.textSearch = textSearch.toString();
+        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                var array_ads = JSON.parse(string_verify.value);
+                SearchInstitution(type_back, textSearch, array_ads, current_window);
+           
+            },
+            onerror: function()
+            {
+                alert("Houve um problema com a pesquisa!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
+    
+    function SearchInstitution(type_back, textSearch, array_ads, current_window)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Institutions/SearchInstitution";
+        
+        var args = {};
+        var last_id = -1;
+        args.last_id = last_id.toString();
+        args.textSearch = textSearch.toString();
+        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                var array_institutions = JSON.parse(string_verify.value);
+                type_back.push("perfil");
+                
+                var result_screen = new ResultSearchScreen();
+                result_screen.constructorScreen(type_back, array_ads, array_institutions, textSearch);
+                
+                result_screen.showWindow();
+                result_screen.putEventListenersProfileScreen();
+                
+                current_window.close();
+            },
+            onerror: function()
+            {
+                alert("Houve um problema com a pesquisa!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
 	
 	function changeLateralBar()
 	{
@@ -875,7 +1111,7 @@ function ProfileScreen(infoDatabase)
                         var array_ads = JSON.parse(string_verify.value);
                         
                         var main_screen = new MainScreen();
-                        type_back.push(str);
+                        type_back.pop();
                         main_screen.constructorScreen(array_ads, type_back);
                         
                         main_screen.putEventListenersMainScreen();
@@ -943,5 +1179,47 @@ function ProfileScreen(infoDatabase)
         
         connection_api.open(method, url, false);
         connection_api.send();
+    }
+    
+    function BuyCupon(ad_buy)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Cupon/";
+        
+        var args = {};
+        var state = 0;
+        args.state = state.toString();
+        args.ad_id = ad_buy.id.toString();
+        args.start_time = ad_buy.start_time.toString();
+        args.end_time = ad_buy.end_time.toString();
+        args.client_id = user_id.toString();
+                        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                Ti.API.info('Ação efectuada com sucesso!');
+                alert('A compra foi efectuada com sucesso!');
+           
+            },
+            onerror: function()
+            {
+                alert("Houve um problema a registar a sua compra. Tente novamente.");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+           
     }
 }

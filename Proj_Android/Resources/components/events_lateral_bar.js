@@ -191,8 +191,7 @@ function EventsLateralBar()
 					},
 					onerror: function()
 					{
-						var current_activity = Titanium.Android.currentActivity;
-			     		current_activity.finish(); 
+						alert('Erro na obtenção dos dados do utilizador!');
 					},
 					timeout: 10000 // Tempo para fazer pedido
 				});
@@ -259,8 +258,40 @@ function GetSubscribeAds(type_back, last_window, string_verify_init_profile)
                 array_ads = JSON.parse(string_verify.value);
             }
                
+            GetPurchaseCupons(type_back, string_verify_init_profile, last_window, array_ads);
+        },
+        onerror: function()
+        {
+            alert("Erro na obtenção das subscrições!");
+        },
+        timeout: 10000 // Tempo para fazer pedido
+    });
+    
+    connection_api.open(method, url, false);
+    connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+    connection_api.send(JSON.stringify(args));
+}
+
+function GetPurchaseCupons(type_back, string_verify_init_profile, last_window, array_ads)
+{
+    var string_verify = "no_connection";
+    var method = 'GET';
+    var url = "http://" + url_ip + ":52144/odata/Cupon(" + user_id.toString() + ")/Purchases";
+    
+    // Buscar dados a API
+    var connection_api= Titanium.Network.createHTTPClient({
+        onload: function()
+        {
+            while(string_verify == "no_connection")
+            {
+                string_verify = JSON.parse(this.responseText);
+            }
+            
+            var array_cupons = string_verify;
+               
             var profile_screen = new ProfileScreen(string_verify_init_profile);
-            profile_screen.constructorScreen(type_back, array_ads);
+            profile_screen.constructorScreen(type_back, array_ads, array_cupons);
             
             profile_screen.showWindow();
             profile_screen.putEventListenersProfileScreen();
@@ -275,7 +306,5 @@ function GetSubscribeAds(type_back, last_window, string_verify_init_profile)
     });
     
     connection_api.open(method, url, false);
-    connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-  
-    connection_api.send(JSON.stringify(args));
+    connection_api.send();
 }

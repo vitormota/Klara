@@ -6,16 +6,48 @@ Titanium.include("menu/main_screen.js");
 Titanium.include("facebook/init_facebook.js");
 Titanium.include("user/session_user.js");
 Titanium.include("components/lateral_bar.js");
+Titanium.include("components/header_bar.js");
 Titanium.include("components/events_lateral_bar.js");
-
-fb = require('facebook');
+Titanium.include("components/back_window.js");
+Titanium.include("search/result_search.js");
 
 var main_screen = new MainScreen();
 var type_back = [];
 
-if(Titanium.Network.networkType == Titanium.Network.NETWORK_NONE)
+if(!Titanium.Network.online)
 {
-    alert('Não há Internet!');
+    var intent = Ti.Android.createIntent({
+        action : Ti.Android.ACTION_MAIN,
+        className : 'com.stellio.healthplus.HealthActivity',
+        url : 'app.js',
+        flags : Ti.Android.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Ti.Android.FLAG_ACTIVITY_SINGLE_TOP
+    });
+   
+    intent.addCategory(Titanium.Android.CATEGORY_LAUNCHER);
+    
+    var pending = Ti.Android.createPendingIntent({
+        activity : activity,
+        intent : intent,
+        type : Ti.Android.PENDING_INTENT_FOR_ACTIVITY,
+        flags : Ti.Android.FLAG_ACTIVITY_NO_HISTORY
+    });
+    
+    
+    var notification = Ti.Android.createNotification({
+        contentIntent : pending,
+        contentTitle : 'Falta de conexão à Internet',
+        contentText : 'Por favor verifique se o seu dispositivo tem acesso à Internet.',
+        when : new Date().getTime(),
+        icon : Ti.App.Android.R.drawable.appicon,
+        flags : Titanium.Android.ACTION_DEFAULT | Titanium.Android.FLAG_AUTO_CANCEL | Titanium.Android.FLAG_SHOW_LIGHTS,
+        audioStreamType: Titanium.Android.STREAM_VOICE_CALL
+    });
+    
+    // Send the notification.
+    Titanium.Android.NotificationManager.notify(1, notification);
+    
+    var activity = Titanium.Android.currentActivity;
+    activity.finish();
 }
 else
 {

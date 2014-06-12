@@ -370,7 +370,7 @@
     <value>Next Week</value>
   </data>
   <data name="NIF" xml:space="preserve">
-    <value>NIF</value>
+    <value>TIN (Tax Identification Number)</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>

@@ -1,15 +1,3 @@
-// Incluir o ficheiro da pagina onde a barra e feita
-Titanium.include("/components/lateral_bar.js");
-
-// Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
-Titanium.include("/components/header_bar.js");
-
-// Incluir ficheiro para fazer back
-Titanium.include("/components/back_window.js");
-
-// Incluir facebook
-Titanium.include("/facebook/init_facebook.js");
-
 function SearchScreen()
 {
 	var header_view_object = new HeaderViewImage();

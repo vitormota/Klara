@@ -1,15 +1,3 @@
-// Incluir o ficheiro da pagina onde a barra e feita
-Titanium.include("/components/lateral_bar.js");
-
-// Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
-Titanium.include("/components/header_bar.js");
-
-// Incluir ficheiro para fazer back
-Titanium.include("/components/back_window.js");
-
-// Include facebook
-Titanium.include("/facebook/init_facebook.js");
-
 var MapModule = require('ti.map');
 
 function CuponScreen()
@@ -27,9 +15,12 @@ function CuponScreen()
 	var run_constructor_fb_bool = null;
 	
 	var cupon_image_subscribe = null;
+	var ad_global_id = null;
 	
 	this.constructorScreen = function(ad, institution, type_back)
 	{
+	    ad_global_id = ad.id;
+	    
 		// Verificar se existe login
 		run_constructor_fb_bool = fb.loggedIn;
 		
@@ -117,7 +108,7 @@ function CuponScreen()
 		
 		var cupon_description_title = Titanium.UI.createLabel({
 			text: "Descrição",
-			top: '8.87%',
+			top: '7.87%',
 			color: '#d96b63',
 			left: '0%',
 			font:
@@ -130,7 +121,7 @@ function CuponScreen()
 		
 		var cupon_description_text = Titanium.UI.createLabel({
 			text: ad.description,
-			top: '10.71%',
+			top: '9.71%',
 			color: '#d96b63',
 			left: '0%',
 			font:
@@ -144,7 +135,7 @@ function CuponScreen()
 		
 		var cupon_service_title = Titanium.UI.createLabel({
             text: "Serviço",
-            top: '19.87%',
+            top: '18.87%',
             color: '#d96b63',
             left: '0%',
             font:
@@ -157,7 +148,7 @@ function CuponScreen()
         
         var cupon_service_text = Titanium.UI.createLabel({
             text: ad.service,
-            top: '21.71%',
+            top: '20.71%',
             color: '#d96b63',
             left: '0%',
             font:
@@ -171,7 +162,7 @@ function CuponScreen()
         
         var cupon_specialty_title = Titanium.UI.createLabel({
             text: "Especialidade",
-            top: '25.34%',
+            top: '24.34%',
             color: '#d96b63',
             left: '0%',
             font:
@@ -184,7 +175,7 @@ function CuponScreen()
         
         var cupon_specialty_text = Titanium.UI.createLabel({
             text: ad.specialty,
-            top: '27.18%',
+            top: '26.18%',
             color: '#d96b63',
             left: '0%',
             font:
@@ -197,7 +188,7 @@ function CuponScreen()
 		
 		var cupon_data_init_title = Titanium.UI.createLabel({
 			text: "Data Inicio",
-			top: "30.81%",
+			top: "29.81%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -212,7 +203,7 @@ function CuponScreen()
 		
 		var cupon_data_init_text = Titanium.UI.createLabel({
 			text: aux_start_time,
-			top: "32.65%",
+			top: "31.65%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -225,7 +216,7 @@ function CuponScreen()
 		
 		var cupon_data_end_title = Titanium.UI.createLabel({
 			text: "Data Fim",
-			top: "36.28%",
+			top: "35.28%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -240,7 +231,7 @@ function CuponScreen()
 		
 		var cupon_data_end_text = Titanium.UI.createLabel({
 			text: aux_end_time,
-			top: "38.12%",
+			top: "37.12%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -253,7 +244,7 @@ function CuponScreen()
 		
 		var cupon_buyed_cupons_title = Titanium.UI.createLabel({
             text: "Número de Cupões Comprados",
-            top: "41.75%",
+            top: "40.75%",
             left: '0%',
             color: '#d96b63',
             font: 
@@ -266,7 +257,7 @@ function CuponScreen()
         
         var cupon_buyed_cupons_text = Titanium.UI.createLabel({
             text: ad.buyed_cupons,
-            top: "43.59%",
+            top: "42.59%",
             left: '0%',
             color: '#d96b63',
             font: 
@@ -279,7 +270,7 @@ function CuponScreen()
 		
 		var cupon_remaining_cupons_title = Titanium.UI.createLabel({
             text: "Número de Cupões que Faltam Vender",
-            top: "47.22%",
+            top: "46.22%",
             left: '0%',
             color: '#d96b63',
             font: 
@@ -292,7 +283,7 @@ function CuponScreen()
         
         var cupon_remaining_cupons_text = Titanium.UI.createLabel({
             text: ad.remaining_cupons,
-            top: "49.06%",
+            top: "48.06%",
             left: '0%',
             color: '#d96b63',
             font: 
@@ -305,7 +296,7 @@ function CuponScreen()
 		
 		var cupon_institutions_title = Titanium.UI.createLabel({
 			text: "Instituição",
-			top: "52.69%",
+			top: "51.69%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -318,7 +309,7 @@ function CuponScreen()
 		
 		var cupon_institutions_text = Titanium.UI.createLabel({
 			text: institution.name,
-			top: "54.53%",
+			top: "53.53%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -331,7 +322,7 @@ function CuponScreen()
 		
 		var cupon_discount_title = Titanium.UI.createLabel({
 			text: "Desconto",
-			top: "58.16%",
+			top: "57.16%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -348,7 +339,7 @@ function CuponScreen()
 		{
     		cupon_discount_text = Titanium.UI.createLabel({
     			text: "n/d",
-    			top: "60%",
+    			top: "59%",
     			left: '0%',
     			color: '#d96b63',
     			font: 
@@ -361,7 +352,7 @@ function CuponScreen()
     	{
     	    cupon_discount_text = Titanium.UI.createLabel({
                 text: ad.discount + "%",
-                top: "60%",
+                top: "59%",
                 left: '0%',
                 color: '#d96b63',
                 font: 
@@ -375,7 +366,7 @@ function CuponScreen()
 		
 		var cupon_localization_title = Titanium.UI.createLabel({
 			text: "Localização",
-			top: "63.63%",
+			top: "62.63%",
 			left: '0%',
 			color: '#d96b63',
 			font: 
@@ -419,16 +410,38 @@ function CuponScreen()
 		
 		var cupon_image_buy = Titanium.UI.createImageView({
 			image: "/healthplus/healthplus_buy.png",
-			bottom: '2.05%',
+			bottom: '1.15%',
 			height: '6.66%',
-			width: '19.44%'
+			width: '19.44%',
+			ad_obj: ad
 		});
 		
-		cupon_image_buy.addEventListener('click', function()
+		cupon_image_buy.addEventListener('click', function(e)
 		{
 		    if(run_constructor_fb_bool == false)
 		    {
 		        InitFacebook();
+		    }
+		    else
+		    {
+		        var confirmation = Titanium.UI.createAlertDialog({
+                    message: "Tem a certeza que pretende comprar este cupão?",
+                    buttonNames: ['Sim', 'Não']
+                });
+                
+                confirmation.addEventListener('click', function(ev)
+                {
+                    if(ev.index == 0)
+                    {
+                        BuyCupon(e.source.ad_obj);
+                    }
+                    else if(ev.index == 1)
+                    {
+                        alert('Cancelou a compra do cupão!');
+                    }
+                });
+                
+                confirmation.show();
 		    }
 		});
 		
@@ -443,9 +456,9 @@ function CuponScreen()
 		cupon_scroll_view.add(cupon_information);
 		
 		cupon_window.add(cupon_scroll_view);
+		cupon_window.add(lateral_bar);
 		cupon_window.add(header_view);
 		cupon_window.add(search_bar);
-		cupon_window.add(lateral_bar);
 		
 		// Fazer com que no inicio a searchBar não fique visivel
 		search_bar.setVisible(false);
@@ -502,7 +515,102 @@ function CuponScreen()
 				lateral_bar.setVisible(true);
 			}
 		});
+		
+		search_bar_object.search_bar_icon.addEventListener('click', function()
+        {
+            if(search_bar_object.search_bar_textbox.value == "")
+            {
+                // Não faz nada
+            }
+            else
+            {
+                SearchAd(type_back, search_bar_object.search_bar_textbox.value, cupon_window);
+            }
+        });
 	};
+	
+	function SearchAd (type_back, textSearch, current_window)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Ads/SearchAd";
+        
+        var args = {};
+        var last_id = -1;
+        args.last_id = last_id.toString();
+        args.textSearch = textSearch.toString();
+        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                var array_ads = JSON.parse(string_verify.value);
+                SearchInstitution(type_back, textSearch, array_ads, current_window);
+           
+            },
+            onerror: function()
+            {
+                alert("Houve um problema com a pesquisa!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
+    
+    function SearchInstitution(type_back, textSearch, array_ads, current_window)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Institutions/SearchInstitution";
+        
+        var args = {};
+        var last_id = -1;
+        args.last_id = last_id.toString();
+        args.textSearch = textSearch.toString();
+        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                var array_institutions = JSON.parse(string_verify.value);
+                type_back.push("cupao_" + ad_global_id);
+                
+                var result_screen = new ResultSearchScreen();
+                result_screen.constructorScreen(type_back, array_ads, array_institutions, textSearch);
+                
+                result_screen.showWindow();
+                result_screen.putEventListenersProfileScreen();
+                
+                current_window.close();
+            },
+            onerror: function()
+            {
+                alert("Houve um problema com a pesquisa!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
 	
 	function changeLateralBar(type_back, cupon_info_text, cupon_image_buy, cupon_id)
 	{
@@ -510,9 +618,6 @@ function CuponScreen()
 		{
 			if(run_constructor_fb_bool != fb.loggedIn)
 			{
-			    alert('Diferente!!');
-			    
-			    
 				lateral_bar.setVisible(false);
 				cupon_window.remove(lateral_bar);
 				cupon_scroll_view.left = '0%';
@@ -572,7 +677,7 @@ function CuponScreen()
                 {
                     cupon_image_subscribe = Titanium.UI.createImageView({
                         image: "/healthplus/healthplus_positive.png",
-                        bottom: '2.05%',
+                        bottom: '1.15%',
                         height: '6.66%',
                         width: '19.44%',
                         left: '27.56%',
@@ -586,7 +691,7 @@ function CuponScreen()
                 {
                     cupon_image_subscribe = Titanium.UI.createImageView({
                         image: "/healthplus/healthplus_negative.png",
-                        bottom: '2.05%',
+                        bottom: '1.15%',
                         height: '6.66%',
                         width: '19.44%',
                         left: '27.56%',
@@ -679,5 +784,47 @@ function CuponScreen()
         connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
   
         connection_api.send(JSON.stringify(args));
+    }
+    
+    function BuyCupon(ad_buy)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Cupon/";
+        
+        var args = {};
+        var state = 0;
+        args.state = state.toString();
+        args.ad_id = ad_buy.id.toString();
+        args.start_time = ad_buy.start_time.toString();
+        args.end_time = ad_buy.end_time.toString();
+        args.client_id = user_id.toString();
+                        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                Ti.API.info('Ação efectuada com sucesso!');
+                alert('A compra foi efectuada com sucesso!');
+           
+            },
+            onerror: function()
+            {
+                alert("Houve um problema a registar a sua compra. Tente novamente.");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+           
     }
 }

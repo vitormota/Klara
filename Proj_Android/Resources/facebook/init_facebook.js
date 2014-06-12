@@ -4,11 +4,12 @@ Titanium.include("/url_ip.js");
 // Incluir ficheiro para a sessao do utilizador
 Titanium.include("/user/session_user.js"); 
 
-var fb;
+var fb = require('facebook');
 
 function InitFacebook()
 {
     /** Inicializar a ligacao com o facebook **/
+    fb = require('facebook');
     fb.appid = 234060146782596;
     fb.permissions = ['public_profile', 'email', 'user_location', 'user_about_me', 'user_photos']; // Permissions your app needs
     fb.forceDialogAuth = true;

@@ -108,7 +108,13 @@ namespace HealthPlusAPI.Controllers
         [HttpPost]
         public string SearchAd(ODataActionParameters parameters)
         {
+            int last_id = Convert.ToInt32(parameters["last_id"]);
             int rowN = 4;
+
+            if (last_id == -1)
+            {
+                rowN = 10;
+            }
             string result = null;
 
             if (!ModelState.IsValid)
@@ -117,7 +123,6 @@ namespace HealthPlusAPI.Controllers
             }
             else
             {
-                int last_id = Convert.ToInt32(parameters["last_id"]);
                 // Substituir muitos espacos introduzidos por apenas um espaco
                 string textSearch = (string)parameters["textSearch"];
                 textSearch.Replace("(,|?|!|&|=|\\(|\\))*\\s+(,|?|!|&|=|\\(|\\))*", " ");
