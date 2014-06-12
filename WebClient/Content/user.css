@@ -47,9 +47,14 @@ a.panel-title:hover {
 }
 
 .subscribed-ad, .buyed-ad, .subscribed-inst {
-    margin-bottom: 1em;
     padding: 1em;
     border: 1px solid #D86A62;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+
+.subscribed-ad:hover, .buyed-ad:hover, .subscribed-inst:hover{
+    background-color: #F1E9CE;
 }
 
 .subscribed-ad label, .buyed-ad label, .subscribed-inst label {
@@ -135,3 +140,11 @@ a.panel-title:hover {
         margin-top: 1em;
     }
 }
+
+label {
+    text-transform: uppercase;
+}
+
+
+
+

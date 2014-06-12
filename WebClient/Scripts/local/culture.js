@@ -1,4 +1,4 @@
-﻿$(document).on("click", "#changeLang", function (e) {
+﻿$(document).on("change", "#culture", function (e) {
     e.preventDefault();
 
     var cult = $("#culture :selected").val();

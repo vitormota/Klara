@@ -39,6 +39,7 @@ header.top-header {
 }
 
 header.top-header img {
+	float: left;
 	height: 1.65em;
 	width: auto;
 }
@@ -77,4 +78,24 @@ footer p {
 	text-align: center;
 	padding: 0.5em 0 0.5em 0;
 	color: #f5937d;
+}
+
+@media (max-width: 620px) {
+  header #user-options {
+  	float: left;
+  	width: 100%;
+  	margin-top: 0.5em;
+  }
+
+  header #user-options li {
+  	margin-left: 0;
+  	display: block;
+  	clear: both;
+  	margin-top: 0.5em;
+  }
+}
+
+
+label {
+	text-transform: uppercase;
 }

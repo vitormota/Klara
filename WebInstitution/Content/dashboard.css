@@ -152,10 +152,17 @@
 }
 
 #last-cupons li .img {
-	background-color: #D86A62;
-	width: 100%;
+	float: left;
+	max-width: 25%;
 	height: auto;
+
 }
+
+#last-cupons li .details {
+	margin-left: 0.5em;
+	float: left;
+}
+
 
 #last-cupons li span {
 	display: block;
@@ -217,6 +224,12 @@
 	background-color: #D86A62;
 }
 
+.form-group textarea {
+	width: 100%;
+	resize: none;
+	min-height: 5em;
+}
+
 /*******************/
 
 
@@ -235,7 +248,8 @@
 #cupons-list-wrapper .img {
 	background-color: #f79983;
 	width: 100%;
-	height: auto;
+	height: 4em;
+	overflow: hidden;
 }
 
 #cupons-list-wrapper .row:not(:first-child) {
@@ -266,7 +280,7 @@
 }
 
 #cupons-list-wrapper .cupon-wrapper #ad-photo {
-	width: 100%;
+	height: 100%;
 }
 
 
@@ -316,4 +330,10 @@
 
 #importAd:hover {
     background-color: #D86A62;
+}
+
+@media (max-width: 540px) {
+  #content-wrapper {
+    padding: 1em 0.2em 1em 0.2em;
+    }
 }

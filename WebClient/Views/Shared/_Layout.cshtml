@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    HttpCookie cookie = Request.Cookies["_culture"];
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -50,14 +54,18 @@
     </div>
     <footer>
         <p>Health+ © 2014</p>
-        <div>
-            <select id="culture">
+        <select id="culture">
+            @if (cookie.Value != "pt") {
+                <option selected value="en-US">EN-US</option>
+            } else {
                 <option value="en-US">EN-US</option>
+            }
+            @if (cookie.Value == "pt") {
+                <option selected value="pt">PT</option>
+            } else {
                 <option value="pt">PT</option>
-            </select>
-
-            <button id="changeLang">change</button>
-        </div>
+            }
+        </select>
     </footer>
     @Scripts.Render("~/Scripts/local/culture.js")
     @Scripts.Render("~/bundles/bootstrap")

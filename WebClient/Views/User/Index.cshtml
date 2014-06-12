@@ -19,7 +19,7 @@
             <hr class="user-separator desc" />
         </div>
     </div>
- </div>
+</div>
 <div id="accordion">
     <div class="row clearfix">
         <div class="col-xs-12 col-md-12">
@@ -118,6 +118,10 @@
                                                 @Html.Label(Resources.Location)
                                                 @Html.DisplayFor(a => ad.city)
                                             </div>
+                                            @{
+                                        var ad_link = "../Ad?id=" + ad.id;
+                                            }
+                                            <a class="ad-link clearfix" href="@ad_link" hidden></a>
                                         </div>
                                     }
                                 </div>
@@ -149,6 +153,10 @@
                                                 @Html.Label(Resources.Location)
                                                 @Html.DisplayFor(a => ad.city)
                                             </div>
+                                            @{
+                                        var ad_link = "../Ad?id=" + ad.id;
+                                            }
+                                            <a class="ad-link clearfix" href="@ad_link" hidden></a>
                                         </div>
                                     }
                                 </div>
@@ -180,6 +188,10 @@
                                                 @Html.Label(Resources.Location)
                                                 @Html.DisplayFor(a => ad.city)
                                             </div>
+                                            @{
+                                        var ad_link = "../Ad?id=" + ad.id;
+                                            }
+                                            <a class="ad-link clearfix" href="@ad_link" hidden></a>
                                         </div>
                                     }
                                 </div>
@@ -240,6 +252,10 @@
                                                 @Html.Label(Resources.Location)
                                                 @Html.DisplayFor(c => cup.city)
                                             </div>
+                                            @{
+                                        var ad_link = "../Ad?id=" + cup.id;
+                                            }
+                                            <a class="ad-link clearfix" href="@ad_link" hidden></a>
                                         </div>
                                     }
                                 </div>
@@ -272,6 +288,10 @@
                                                 @Html.Label(Resources.Location)
                                                 @Html.DisplayFor(c => cup.city)
                                             </div>
+                                            @{
+                                        var ad_link = "../Ad?id=" + cup.id;
+                                            }
+                                            <a class="ad-link clearfix" href="@ad_link" hidden></a>
                                         </div>
                                     }
                                 </div>
@@ -303,6 +323,10 @@
                                                 @Html.Label(Resources.Location)
                                                 @Html.DisplayFor(c => cup.city)
                                             </div>
+                                            @{
+                                        var ad_link = "../Ad?id=" + cup.id;
+                                            }
+                                            <a class="ad-link clearfix" href="@ad_link" hidden></a>
                                         </div>
                                     }
                                 </div>
@@ -352,8 +376,11 @@
                                             @Html.Label(Resources.Website)
                                             @Html.DisplayFor(i => inst.website)
                                         </div>
+                                        @{
+                                            var inst_link = "../Institution?id=" + inst.id;
+                                        }
+                                        <a class="inst-link clearfix" href="@inst_link"></a>
                                     </div>
-
                                 }
                             </div>
                         </div>
