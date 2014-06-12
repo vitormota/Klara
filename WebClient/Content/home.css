@@ -77,17 +77,15 @@
 
 .slides li .service-image {
   width: 205px;
-  height: 230px;
+  height: 120px;
   background-color: #d96b64;
   border-radius: 4px;
   overflow: hidden;
 }
 
-.slides li .service-image {
-  width: 205px;
-  height: 120px;
-  background-color: #d96b64;
-  border-radius: 4px;
+.slides li .service-image img {
+  height: 100%;
+  display: block;
 }
 
 .slides li .service-image:hover img{

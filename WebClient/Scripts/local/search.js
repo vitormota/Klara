@@ -107,6 +107,7 @@ $(document).ready(function () {
      });
 
      $('#show-nav').click(function () {
+         $(this).hide();
          $("#search-wrapper").fadeTo('slow', 0.5);
          $("#search-filters-wrapper").show('slide', { direction: 'left' }, 300);   
      });
@@ -114,6 +115,7 @@ $(document).ready(function () {
      $('#hide-nav').click(function () {       
          $("#search-wrapper").fadeTo('slow', 1);
          $("#search-filters-wrapper").hide('slide', { direction: 'left' }, 300);
+         $("#show-nav").show();
 
      });
 });

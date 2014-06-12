@@ -220,7 +220,7 @@
     <value>Editar</value>
   </data>
   <data name="EmptyCartNotif" xml:space="preserve">
-    <value>O seu carrinho de compras está vazio =(</value>
+    <value>O seu carrinho de compras está vazio</value>
   </data>
   <data name="Entity" xml:space="preserve">
     <value>Entidade</value>

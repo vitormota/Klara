@@ -100,4 +100,8 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(document).on("click", ".subscribed-inst, .buyed-ad, .subscribed-ad", function (e) {
+        document.location = $(this).children("a").attr('href');
+    });
 });

@@ -99,6 +99,8 @@ footer p {
 	text-align: center;
 	padding: 0.5em 0 0.5em 0;
 	color: #f5937d;
+	float: left;
+	margin-left: 1em;
 }
 
 
@@ -152,4 +154,14 @@ footer p {
 
 .section-title hr {
 	border-color: #FF8B8A;
+}
+
+#culture {
+	float: right;
+	margin: 0.5em 1em 0.5em 0;
+}
+
+
+#culture:focus {
+	outline-color: #D86A62;;
 }

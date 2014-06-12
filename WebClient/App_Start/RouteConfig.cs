@@ -15,12 +15,6 @@ namespace WebClient_ {
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
-            routes.MapRoute(
-                "InstitutionRoute",
-                "Institution/{id}/{action}", new { controller = "Institution", action = "Index" }
-            );
-            
         }
     }
 }

@@ -36,8 +36,10 @@
         <hr class="separator-details" />
         <h5>@Resources.Institution</h5>
         <p>
-            @Html.ActionLink(Model.institution_name, "../Institution", new { id = Model.institution_id }, new { @class = "inst-link" })
-
+            @{
+                var inst_link = "../Institution?id=" + Model.institution_id;
+            }
+            <a class = "inst-link" href="@inst_link">@Model.inst_name</a>
         </p>
         <hr class="separator-details" />
         <h5>@Resources.Discount</h5>
@@ -47,7 +49,7 @@
         <hr class="separator-details" />
         <h5>@Resources.Location</h5>
         <p>
-            @Html.ValueFor(ad => ad.local)
+            @Html.ValueFor(ad => ad.city)
         </p>
         <hr class="separator-details" />
         <h5>@Resources.Price</h5>

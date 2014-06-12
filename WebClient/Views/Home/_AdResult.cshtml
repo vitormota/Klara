@@ -9,9 +9,7 @@
         <div class="col-md-3 home-cupon">
             <a href="/Ad?id=@ad.value.id">
                 <div class="img-details">
-                    <div class="img">
                         <img class="cupon-thumb" src="@ad.value.img_url" />
-                    </div>
                     <div class="hidden-details">
                         <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="Comprar" />
                         <hr />
@@ -20,7 +18,8 @@
                 </div>
             </a>
             <div class="ad-details">
-                <span class="cupn-service">@ad.value.service</span>
+                <span class="cupn-service">@ad.value.name</span>
+                <hr />
                 <span>@ad.value.inst_name</span>
                 <span>@ad.value.city</span>
                 <span class="add-price">@ad.value.price €</span>

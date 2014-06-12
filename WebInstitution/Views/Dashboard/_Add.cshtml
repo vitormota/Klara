@@ -13,14 +13,10 @@
             <ul id="last-cupons">
                 @foreach (var ad in prevAds)
                 {
-                <li>
-                    <div class="row">
-                        <div class="col-md-2">
+                <li class="clearfix">
                             <div class="img">
                                 <img id="ad-photo" src="@ad.img_url" width="60" />
                             </div>
-                        </div>
-                        <div class="col-md-7">
                             <div class="details">
                                 @Html.HiddenFor(model => ad.name)
                                 @Html.HiddenFor(model => ad.service)
@@ -33,14 +29,10 @@
                                 <span>@ad.service</span>
                                 <span>@ad.buyed_cupons</span>
                             </div>
-                        </div>
-                        <div class="col-md-3">
                             <div class="price">
                                 <span>@ad.price €</span>
                             </div>
-                            <button id="importAd">Import</button>
-                        </div>
-                    </div>                 
+                             <button class="btn btn-success" id="importAd">Import</button>              
                 </li>
                 }
                 
@@ -123,7 +115,7 @@
                     </div>
                 </div>
 
-                <input id="createAd" type="submit" value="Create" />
+    <input class="btn btn-success" id="createAd" type="submit" value="Create" />
             }
         </div>
     </div>
