@@ -5,9 +5,7 @@
         <span class="specialty-ad" style="display:none">@ViewBag.ListAds[i]["specialty"]</span>
         <a href="/Ad?id=@ViewBag.ListAds[i]["id"]">
             <div class="img-details">
-                <div class="img">
                     <img class="cupon-thumb" src="@ViewBag.ListAds[i]["img_link"]" />
-                </div>
                 <div class="hidden-details">
                     <img id="buy-btn" class="left" src="~/Content/images/carrinho.png" alt="@Resources.Buy" />
                     <hr />
@@ -15,8 +13,11 @@
                 </div>
             </div>
         </a>
-        <span class="cupn-service">@ViewBag.ListAds[i]["name"]</span>
-        <span>@ViewBag.ListAds[i]["name_institution"]</span>
-        <span class="add-price">@ViewBag.ListAds[i]["price"] €</span>
+        <div class="ad-details">
+            <span class="cupn-service">@ViewBag.ListAds[i]["name"]</span>
+            <hr />
+            <span>@ViewBag.ListAds[i]["name_institution"]</span>
+            <span class="add-price">@ViewBag.ListAds[i]["price"] €</span>
+        </div>
     </div>
 }

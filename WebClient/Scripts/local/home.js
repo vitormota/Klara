@@ -15,7 +15,7 @@ $(window).scroll(function () {
 
 $(document).ready(function () {
     $('.slider').glide({
-        autoplay: 0,
+        autoplay: 4500,
         arrows: 'true',
         navigation: '.slider-navigation-controls'
     });

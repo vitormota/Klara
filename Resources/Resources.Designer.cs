@@ -304,7 +304,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aquired Cupons.
+        ///   Looks up a localized string similar to Acquired Cupons.
         /// </summary>
         public static string AquiredCupons {
             get {
@@ -1069,7 +1069,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subscibed Cupons.
+        ///   Looks up a localized string similar to Subscribed Cupons.
         /// </summary>
         public static string SubscribedCupons {
             get {

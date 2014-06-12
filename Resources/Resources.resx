@@ -199,7 +199,7 @@
     <value>All</value>
   </data>
   <data name="AquiredCupons" xml:space="preserve">
-    <value>Aquired Cupons</value>
+    <value>Acquired Cupons</value>
   </data>
   <data name="Buy" xml:space="preserve">
     <value>Buy</value>
@@ -424,7 +424,7 @@
     <value>Subscribe</value>
   </data>
   <data name="SubscribedCupons" xml:space="preserve">
-    <value>Subscibed Cupons</value>
+    <value>Subscribed Cupons</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>Today</value>
