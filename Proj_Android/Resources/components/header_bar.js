@@ -101,6 +101,8 @@ function HeaderViewText()
 function SearchBar()
 {
 	this.search_bar = null;
+	this.search_bar_icon = null;
+	this.search_bar_textbox = null;
 	
 	this.constructorSearchBar = function()
 	{
@@ -110,7 +112,7 @@ function SearchBar()
 			top: '12.01%'
 		});
 		
-		var search_bar_icon = Titanium.UI.createImageView({
+		this.search_bar_icon = Titanium.UI.createImageView({
 			image: "/healthplus/healthplus_search.png",
 			height: '53.27%',
 			width: '8.55%',
@@ -120,7 +122,7 @@ function SearchBar()
 			zIndex: 1
 		});
 		
-		var search_bar_textbox = Titanium.UI.createTextField({
+		this.search_bar_textbox = Titanium.UI.createTextField({
 			width: '81.49%',
 			height: '74.51%',
 			left: '14.96%',
@@ -129,7 +131,7 @@ function SearchBar()
 			backgroundColor: "white",
 			color: "black",
 			hintText: "PESQUISA",
-			softKeyboardOnFocus: Titanium.UI.Android.SOFT_KEYBOARD_SHOW_ON_FOCUS,
+			softKeyboardOnFocus: Titanium.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS,
 			opacity: 1,
 			zIndex: 1
 		});
@@ -142,12 +144,12 @@ function SearchBar()
 			zIndex: 0
 		});
 		
-		search_bar_textbox.font = {
+		this.search_bar_textbox.font = {
 			fontSize: '11dp'
 		};
 		
-		this.search_bar.add(search_bar_icon);
-		this.search_bar.add(search_bar_textbox);
+		this.search_bar.add(this.search_bar_icon);
+		this.search_bar.add(this.search_bar_textbox);
 		this.search_bar.add(search_bar_opacity_view);
 	};
 	

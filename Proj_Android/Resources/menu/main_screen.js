@@ -1,17 +1,5 @@
-// Incluir o ficheiro da pagina onde a barra e feita
-Titanium.include("/components/lateral_bar.js");
-
-// Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
-Titanium.include("/components/header_bar.js");
-
-// Incluir ficheiro para fazer back
-Titanium.include("/components/back_window.js");
-
 // Incluir o ficheiro que permite chamar os cupoes
 Titanium.include("/cupon/show_cupon.js");
-
-// Incluir facebook
-Titanium.include("/facebook/init_facebook.js");
 
 function MainScreen()
 {
@@ -109,7 +97,7 @@ function MainScreen()
 				text: array_ads[i].ad.name.toUpperCase() + "\n" + array_ads[i].institution.name + "\nPreço: " + array_ads[i].ad.price + "€",
 				font:
 				{
-					fontSize: '7.5%'
+					fontSize: '9dp'
 				},
 				verticalAlign: Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
 				left: '14.03%',
@@ -123,8 +111,11 @@ function MainScreen()
 				height: '57.5%',
 				width: '11.4%',
 				top: '22.57%',
-				left: '78.51%'
+				left: '78.51%',
+				ad_obj: array_ads[i].ad
 			});
+			
+			ad_buy = array_ads[i];
 			
 			ad_view.addEventListener('click', function(e)
 			{
@@ -136,6 +127,24 @@ function MainScreen()
 				    }
 				    else
 				    {
+				        var confirmation = Titanium.UI.createAlertDialog({
+				            message: "Tem a certeza que pretende comprar este cupão?",
+				            buttonNames: ['Sim', 'Não']
+				        });
+				        
+				        confirmation.addEventListener('click', function(ev)
+				        {
+				            if(ev.index == 0)
+				            {
+				                BuyCupon(e.source.ad_obj);
+				            }
+				            else if(ev.index == 1)
+				            {
+				                alert('Cancelou a compra do cupão!');
+				            }
+				        });
+				        
+				        confirmation.show();
 				    }
 				}
 				else
@@ -212,6 +221,18 @@ function MainScreen()
 				lateral_bar.setVisible(true);
 			}
 		});
+		
+		search_bar_object.search_bar_icon.addEventListener('click', function()
+		{
+		    if(search_bar_object.search_bar_textbox.value == "")
+		    {
+		        // Não faz nada
+		    }
+		    else
+		    {
+		        SearchAd(type_back, search_bar_object.search_bar_textbox.value, pag_inicial_window);
+		    }
+		});
 	};
 	
 	function changeLateralBar(type_back)
@@ -244,9 +265,51 @@ function MainScreen()
 		pag_inicial_window.open();
 	};
 	
-	function SpecsCupon(cupon_id)
+	function BuyCupon(ad_buy)
 	{
-	    var string_verify = "no_connection";
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Cupon/";
+        
+        var args = {};
+        var state = 0;
+        args.state = state.toString();
+        args.ad_id = ad_buy.id.toString();
+        args.start_time = ad_buy.start_time.toString();
+        args.end_time = ad_buy.end_time.toString();
+        args.client_id = user_id.toString();
+                        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                Ti.API.info('Ação efectuada com sucesso!');
+                alert('A compra foi efectuada com sucesso!');
+           
+            },
+            onerror: function()
+            {
+                alert("Houve um problema a registar a sua compra. Tente novamente.");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+           
+	}
+	
+	function SpecsCupon(cupon_id)
+    {
+        var string_verify = "no_connection";
         var method = 'GET';
         var url = "http://" + url_ip + ":52144/odata/Ads(" + cupon_id.toString() + ")";
                 
@@ -284,7 +347,92 @@ function MainScreen()
         
         connection_api.open(method, url, false);
         connection_api.send();
-	}
+    }
+    
+    function SearchAd (type_back, textSearch, current_window)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Ads/SearchAd";
+        
+        var args = {};
+        var last_id = -1;
+        args.last_id = last_id.toString();
+        args.textSearch = textSearch.toString();
+        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                Ti.API.info(string_verify);
+                Ti.API.info(string_verify.value);
+                var array_ads = JSON.parse(string_verify.value);
+                SearchInstitution(type_back, textSearch, array_ads, current_window);
+           
+            },
+            onerror: function()
+            {
+                alert("Houve um problema com a pesquisa!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
+    
+    function SearchInstitution(type_back, textSearch, array_ads, current_window)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Institutions/SearchInstitution";
+        
+        var args = {};
+        var last_id = -1;
+        args.last_id = last_id.toString();
+        args.textSearch = textSearch.toString();
+        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                var array_institutions = JSON.parse(string_verify.value);
+                type_back.push("home");
+                
+                var result_screen = new ResultSearchScreen();
+                result_screen.constructorScreen(type_back, array_ads, array_institutions, textSearch);
+                
+                result_screen.showWindow();
+                result_screen.putEventListenersProfileScreen();
+                
+                current_window.close();
+            },
+            onerror: function()
+            {
+                alert("Houve um problema com a pesquisa!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
 }
 
 

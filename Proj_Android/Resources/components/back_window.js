@@ -202,19 +202,12 @@ function BackWindow(type_back, current_window)
                         string_verify = JSON.parse(this.responseText);
                     }
                     
-                    var profile_screen = new ProfileScreen(string_verify);
                     type_back.pop();
-                    profile_screen.constructorScreen(type_back);
-            
-                    profile_screen.showWindow();
-                    profile_screen.putEventListenersProfileScreen();
-                    
-                    current_window.close();
+                    GetSubscribeAds(type_back, current_window, string_verify);
                 },
                 onerror: function()
                 {
-                    var current_activity = Titanium.Android.currentActivity;
-                    current_activity.finish(); 
+                    alert('Erro na obtenção dos dados do utilizador!');
                 },
                 timeout: 10000 // Tempo para fazer pedido
             });
@@ -225,7 +218,8 @@ function BackWindow(type_back, current_window)
         else if(type_back[last_id] == "qr-code")
         {
             var qrcode = new SeeQrCode();
-            qrcode.initializeScanner(type_back.pop());
+            type_back.pop();
+            qrcode.initializeScanner(type_back);
             
             current_window.close();
         }
@@ -234,7 +228,12 @@ function BackWindow(type_back, current_window)
             var result_split = [];
             result_split = type_back[last_id].split('_');
             
-            if(result_split[0] == "cupao")
+            if(result_split[0] == "result")
+            {
+                type_back.pop();
+                SearchAd(type_back, result_split[1], current_window);
+            }
+            else if(result_split[0] == "cupao")
             {
                 var cupon = new CuponScreen();
                 type_back.pop();
@@ -289,3 +288,166 @@ function BackWindow(type_back, current_window)
        current_window.close();    
     }
 }
+
+function GetSubscribeAds(type_back, last_window, string_verify_init_profile)
+{
+    var string_verify = "no_connection";
+    var method = 'POST';
+    var url = "http://" + url_ip + ":52144/odata/Subscriptions/AdsSubscribe";
+    
+    var args = {};
+    args.client_id = user_id.toString(); 
+    
+    // Buscar dados a API
+    var connection_api= Titanium.Network.createHTTPClient({
+        onload: function()
+        {
+            while(string_verify == "no_connection")
+            {
+                string_verify = JSON.parse(this.responseText);
+            }
+            
+            var array_ads;
+            
+            if(string_verify.value == "no subscriptions")
+            {
+                array_ads = null;
+            }
+            else
+            {
+                array_ads = JSON.parse(string_verify.value);
+            }
+               
+            GetPurchaseCupons(type_back, string_verify_init_profile, last_window, array_ads);
+        },
+        onerror: function()
+        {
+            alert("Erro na obtenção das subscrições!");
+        },
+        timeout: 10000 // Tempo para fazer pedido
+    });
+    
+    connection_api.open(method, url, false);
+    connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+    connection_api.send(JSON.stringify(args));
+}
+
+function GetPurchaseCupons(type_back, string_verify_init_profile, last_window, array_ads)
+{
+    var string_verify = "no_connection";
+    var method = 'GET';
+    var url = "http://" + url_ip + ":52144/odata/Cupon(" + user_id.toString() + ")/Purchases";
+    
+    // Buscar dados a API
+    var connection_api= Titanium.Network.createHTTPClient({
+        onload: function()
+        {
+            while(string_verify == "no_connection")
+            {
+                string_verify = JSON.parse(this.responseText);
+            }
+            
+            var array_cupons = string_verify;
+               
+            var profile_screen = new ProfileScreen(string_verify_init_profile);
+            profile_screen.constructorScreen(type_back, array_ads, array_cupons);
+            
+            profile_screen.showWindow();
+            profile_screen.putEventListenersProfileScreen();
+            
+            last_window.close();
+        },
+        onerror: function()
+        {
+            alert("Erro na obtenção das subscrições!");
+        },
+        timeout: 10000 // Tempo para fazer pedido
+    });
+    
+    connection_api.open(method, url, false);
+    connection_api.send();
+}
+
+function SearchAd (type_back, textSearch, current_window)
+{
+    var string_verify = "no_connection";
+    var method = 'POST';
+    var url = "http://" + url_ip + ":52144/odata/Ads/SearchAd";
+    
+    var args = {};
+    var last_id = 0;
+    args.last_id = last_id.toString();
+    args.textSearch = textSearch.toString();
+    
+    // Buscar dados a API
+    var connection_api= Titanium.Network.createHTTPClient(
+    {
+        onload: function()
+        {
+            while(string_verify == "no_connection")
+            {
+                string_verify = JSON.parse(this.responseText);
+            }
+            
+            var array_ads = JSON.parse(string_verify.value);
+            SearchInstitution(type_back, textSearch, array_ads, current_window);
+       
+        },
+        onerror: function()
+        {
+            alert("Houve um problema com a pesquisa!");
+        },
+        timeout: 10000 // Tempo para fazer pedido
+    });
+    
+    connection_api.open(method, url, false);
+    connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+    connection_api.send(JSON.stringify(args));
+}
+    
+function SearchInstitution(type_back, textSearch, array_ads, current_window)
+{
+    var string_verify = "no_connection";
+    var method = 'POST';
+    var url = "http://" + url_ip + ":52144/odata/Institutions/SearchInstitution";
+    
+    var args = {};
+    var last_id = 0;
+    args.last_id = last_id.toString();
+    args.textSearch = textSearch.toString();
+    
+    // Buscar dados a API
+    var connection_api= Titanium.Network.createHTTPClient(
+    {
+        onload: function()
+        {
+            while(string_verify == "no_connection")
+            {
+                string_verify = JSON.parse(this.responseText);
+            }
+            
+            var array_institutions = JSON.parse(string_verify.value);
+            
+            var result_screen = new ResultSearchScreen();
+            result_screen.constructorScreen(type_back, array_ads, array_institutions, textSearch);
+            
+            result_screen.showWindow();
+            result_screen.putEventListenersProfileScreen();
+            
+            current_window.close();
+        },
+        onerror: function()
+        {
+            alert("Houve um problema com a pesquisa!");
+        },
+        timeout: 10000 // Tempo para fazer pedido
+    });
+    
+    connection_api.open(method, url, false);
+    connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+    connection_api.send(JSON.stringify(args));
+}
+

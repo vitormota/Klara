@@ -1,15 +1,3 @@
-// Incluir o ficheiro da pagina onde a barra e feita
-Titanium.include("/components/lateral_bar.js");
-
-// Incluir o ficheiro onde o header e a barra de pesquisa sao feitas
-Titanium.include("/components/header_bar.js");
-
-// Incluir ficheiro para fazer back
-Titanium.include("/components/back_window.js");
-
-// Include facebook
-Titanium.include("/facebook/init_facebook.js");
-
 var MapModule = require('ti.map');
 
 function InstitutionOneScreen()
@@ -28,9 +16,12 @@ function InstitutionOneScreen()
     
     // Por causa de colocar o botao a aparecer ou a não aparecer
     var institution_image_subscribe;
+    var institution_global_id = null;
     
     this.constructorScreen = function(institution, type_back)
     {
+        institution_global_id = institution.id;
+        
          // Verificar se existe login
         run_constructor_fb_bool = fb.loggedIn;
         
@@ -398,10 +389,10 @@ function InstitutionOneScreen()
         institution_information.add(institution_info_text);
         institution_scroll_view.add(institution_information);
         
+        one_institution_window.add(lateral_bar);
         one_institution_window.add(institution_scroll_view);
         one_institution_window.add(header_view);
         one_institution_window.add(search_bar);
-        one_institution_window.add(lateral_bar);
         
         // Fazer com que no inicio a searchBar não fique visivel
         search_bar.setVisible(false);
@@ -458,7 +449,102 @@ function InstitutionOneScreen()
                 lateral_bar.setVisible(true);
             }
         });
+    
+        search_bar_object.search_bar_icon.addEventListener('click', function()
+        {
+            if(search_bar_object.search_bar_textbox.value == "")
+            {
+                // Não faz nada
+            }
+            else
+            {
+                SearchAd(type_back, search_bar_object.search_bar_textbox.value, one_institution_window);
+            }
+        });
     };
+    
+    function SearchAd (type_back, textSearch, current_window)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Ads/SearchAd";
+        
+        var args = {};
+        var last_id = -1;
+        args.last_id = last_id.toString();
+        args.textSearch = textSearch.toString();
+        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                var array_ads = JSON.parse(string_verify.value);
+                SearchInstitution(type_back, textSearch, array_ads, current_window);
+           
+            },
+            onerror: function()
+            {
+                alert("Houve um problema com a pesquisa!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
+    
+    function SearchInstitution(type_back, textSearch, array_ads, current_window)
+    {
+        var string_verify = "no_connection";
+        var method = 'POST';
+        var url = "http://" + url_ip + ":52144/odata/Institutions/SearchInstitution";
+        
+        var args = {};
+        var last_id = -1;
+        args.last_id = last_id.toString();
+        args.textSearch = textSearch.toString();
+        
+        // Buscar dados a API
+        var connection_api= Titanium.Network.createHTTPClient(
+        {
+            onload: function()
+            {
+                while(string_verify == "no_connection")
+                {
+                    string_verify = JSON.parse(this.responseText);
+                }
+                
+                var array_institutions = JSON.parse(string_verify.value);
+                type_back.push("instituicao_" + institution_global_id);
+                
+                var result_screen = new ResultSearchScreen();
+                result_screen.constructorScreen(type_back, array_ads, array_institutions, textSearch);
+                
+                result_screen.showWindow();
+                result_screen.putEventListenersProfileScreen();
+                
+                current_window.close();
+            },
+            onerror: function()
+            {
+                alert("Houve um problema com a pesquisa!");
+            },
+            timeout: 10000 // Tempo para fazer pedido
+        });
+        
+        connection_api.open(method, url, false);
+        connection_api.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  
+        connection_api.send(JSON.stringify(args));
+    }
     
     function changeLateralBar(type_back, institution)
     {

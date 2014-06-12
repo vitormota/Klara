@@ -39,8 +39,26 @@ function SeeQrCode()
             
             // Set callback functions for when scanning succeedes and for when the 
             // scanning is canceled.
-            picker.setSuccessCallback(function(e) {
-                alert("Text of QrCode:" + e.barcode);
+            picker.setSuccessCallback(function(e) 
+            {
+                if(e.barcode.indexOf("cupon") > -1)
+                {
+                    var result_split = [];
+                    result_split = e.barcode.split('_');
+                    
+                    SpecsCupon(result_split[1], type_back);
+                }
+                else if(e.barcode.indexOf("institution") > -1)
+                {
+                    var result_split = [];
+                    result_split = e.barcode.split('_');
+                    
+                    SpecsInstitution(result_split[1], type_back);
+                }
+                else
+                {
+                    alert("QR-CODE inválido!");
+                }
             });
             
             picker.setCancelCallback(function(e) {
@@ -93,4 +111,84 @@ function SeeQrCode()
         // Mal dê o clique para logo para a visualizacao
         openScanner();
     };
+}
+
+function SpecsInstitution(institution_id, type_back)
+{
+    var string_verify = "no_connection";
+    var method = 'GET';
+    var url = "http://" + url_ip + ":52144/odata/Institutions(" + institution_id.toString() + ")";
+            
+    // Buscar dados a API
+    var connection_api= Titanium.Network.createHTTPClient(
+    {
+        onload: function()
+        {
+            while(string_verify == "no_connection")
+            {
+                string_verify = JSON.parse(this.responseText);
+            }
+            
+            // Redirecionar para a pagina da instituicao
+            var institution = new InstitutionOneScreen();
+            type_back.push("qr-code");
+            institution.constructorScreen(string_verify, type_back);
+            
+            institution.putEventListenersInstitutionOneScreen();
+            institution.showWindow();
+            
+            institution_window.close();
+            
+        },
+        onerror: function()
+        {
+            alert("Erro na obtenção da instituição!!");
+        },
+        timeout: 10000 // Tempo para fazer pedido
+    });
+    
+    connection_api.open(method, url, false);
+    connection_api.send();
+}
+
+function SpecsCupon(cupon_id, type_back)
+{
+    var string_verify = "no_connection";
+    var method = 'GET';
+    var url = "http://" + url_ip + ":52144/odata/Ads(" + cupon_id.toString() + ")";
+            
+    // Buscar dados a API
+    var connection_api= Titanium.Network.createHTTPClient(
+    {
+        onload: function()
+        {
+            while(string_verify == "no_connection")
+            {
+                string_verify = JSON.parse(this.responseText);
+            }
+
+            
+            var ad = string_verify.Key;
+            var institution = string_verify.Value;
+            
+            // Redirecionar para a pagina da instituicao
+            var cupon = new CuponScreen();
+            type_back.push("qr-code");
+            cupon.constructorScreen(ad, institution, type_back);
+                
+            cupon.putEventListenersCuponScreen();
+            cupon.showWindow();
+                
+            pag_inicial_window.close();
+            
+        },
+        onerror: function()
+        {
+            alert("Erro na obtenção do cupão!!");
+        },
+        timeout: 10000 // Tempo para fazer pedido
+    });
+    
+    connection_api.open(method, url, false);
+    connection_api.send();
 }
