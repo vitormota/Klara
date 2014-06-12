@@ -63,8 +63,11 @@ namespace HealthPlusAPI.Controllers
                 {
                     int subscrible_id = list_subscription[i].subscribable_id;
                     // Ira servir para a obtencao da query e assim extrair um resultado de cada vez
-                    Institution list_institution_query = db.Institution.Where(Institution => Institution.id == subscrible_id).ToList().First();
-                    list_institution.Add(list_institution_query);
+                    if (db.Institution.Count(institution => institution.id == subscrible_id) > 0)
+                    {
+                        Institution list_institution_query = db.Institution.Where(Institution => Institution.id == subscrible_id).ToList().First();
+                        list_institution.Add(list_institution_query);
+                    }
                 }
 
                 if (list_institution.Count.Equals(0))
