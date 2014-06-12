@@ -102,8 +102,8 @@ $(document).on("click", "#importAd", function (e) {
     var adForm = $("#newAdForm");
     var template = $(this).closest("li").find(".details");
 
-    var price = template.find("#ad_price").val();
-    var discount = template.find("#ad_discount").val();
+    var price = parseFloat( template.find("#ad_price").val() );
+    var discount = parseFloat( template.find("#ad_discount").val() );
 
     var prevPrice = -1 * (100 * price / (discount - 100));
 
