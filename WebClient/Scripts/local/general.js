@@ -68,7 +68,8 @@ function updatePriceFilter() {
     var ads = $('.searched-ad');
 
     ads.each(function () {
-        var ad_price = parseInt($(this).children('.add-price').html());
+        console.log($(this).children('.ad-details').children('.ad-price'));
+        var ad_price = parseInt($(this).children('.ad-details').children('.add-price').html());
         console.log("min_price: "+min_price+"; max_price: "+max_price+"; ad_price: "+ad_price);
         if (ad_price >= min_price && ad_price <= max_price) {
             $(this).show();

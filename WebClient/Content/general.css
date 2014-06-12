@@ -163,5 +163,17 @@ footer p {
 
 
 #culture:focus {
-	outline-color: #D86A62;;
+	outline-color: #D86A62;
+}
+
+.btn-success:active {
+	color: inherit;
+}
+
+.btn-success:focus {
+	outline-color: #D86A62;
+}
+
+.btn-facebook {
+	margin-top: 1.5em;
 }

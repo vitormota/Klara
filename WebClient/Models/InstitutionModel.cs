@@ -26,5 +26,7 @@ namespace WebClient_.Models {
         public string phone_number;
 
         public string fax;
+
+        public string img_url;
     }
 }

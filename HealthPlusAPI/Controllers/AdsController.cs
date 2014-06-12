@@ -108,7 +108,7 @@ namespace HealthPlusAPI.Controllers
         [HttpPost]
         public string SearchAd(ODataActionParameters parameters)
         {
-            int rowN = 1;
+            int rowN = 4;
             string result = null;
 
             if (!ModelState.IsValid)

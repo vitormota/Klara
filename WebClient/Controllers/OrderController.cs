@@ -76,6 +76,15 @@ namespace WebClient_.Controllers
 
         public ActionResult ShowPaymentDetails(int? id)
         {
+            UserSession us = (UserSession)Session["user"];
+
+            if (us == null) {
+                return View("~/Views/Auth/Index.cshtml");
+            }
+
+            JObject userjson = JObject.Parse(mService.GetClientDetails(us.internal_id));
+            UserInfo ui = UserInfo.jsonToModel(userjson);
+
             //Workaround
             //TODO: API should return proper json
             string pay_details = mService.GetBankReference().TrimStart('[').TrimEnd(']');
@@ -114,21 +123,17 @@ namespace WebClient_.Controllers
 
             } else cart.unsetFastCheckout();
 
-            UserSession us = (UserSession)Session["user"];
-            JObject userjson = JObject.Parse(mService.GetClientDetails(us.internal_id));
-            UserInfo ui = UserInfo.jsonToModel(userjson);
-
             cart.user = ui;
             
             return View("PaymentDetails",cart);
         }
 
-        public bool addToCart(Ad cupon)
+        public string addToCart(Ad cupon)
         {
             if (cupon.state != "active" || (cupon.start_time.CompareTo(DateTime.Now) > 0 || cupon.end_time.CompareTo(DateTime.Now) < 0))
             {
                 //cannot buy cupon
-                return false;
+                return null;
 
             }
             ShoppingCart cart = (ShoppingCart)Session["shopping_cart"];
@@ -138,7 +143,9 @@ namespace WebClient_.Controllers
                 Session["shopping_cart"] = cart;
             }
             cart.addCupon(cupon);
-            return true;
+
+            string res = Resources.Resources.Cart + " " + (((WebClient_.Models.ShoppingCart)Session["shopping_cart"]).getCount());
+            return res;
         }
 
 

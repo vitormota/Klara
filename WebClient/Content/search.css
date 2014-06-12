@@ -6,8 +6,9 @@
 	overflow: hidden;
 }
 
-.img-details img{
+.img-details img:not(#buy-btn){
     height: 100%;
+    min-width: 100%;
 }
 
 .img-details .cupon-thumb {

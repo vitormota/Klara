@@ -103,7 +103,7 @@ namespace HealthPlusAPI.Controllers.Support
                                              specialty = ad.specialty,
                                              remaining_cupons = ad.remaining_cupons,
                                              local = inst.city,
-                                             institution_name = inst.name    
+                                             institution_name = inst.name
                                          }
                          ).AsQueryable();
             return query;

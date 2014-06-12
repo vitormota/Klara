@@ -44,7 +44,7 @@ namespace HealthPlusAPI.Controllers {
 
         [HttpPost]
         public string SearchInstitution(ODataActionParameters parameters) {
-            int rowN = 1;
+            int rowN = 4;
             string result = null;
 
             if (!ModelState.IsValid) {
@@ -185,7 +185,8 @@ namespace HealthPlusAPI.Controllers {
                         new JProperty("email", listFinalSearch[i].email),
                         new JProperty("fax", listFinalSearch[i].fax),
                         new JProperty("latitude", listFinalSearch[i].latitude),
-                        new JProperty("longitude", listFinalSearch[i].longitude));
+                        new JProperty("longitude", listFinalSearch[i].longitude),
+                        new JProperty("img_link", listFinalSearch[i].img_url));
 
                     listFinalWithGroups.Add(instWithGroup);
 
