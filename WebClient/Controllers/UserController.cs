@@ -30,9 +30,21 @@ namespace WebClient_.Controllers
 
             UserInfo ui = UserInfo.jsonToModel(userjson);
 
-            ui.ads_subscriptions = JsonConvert.DeserializeObject<List<Ad>>(mService.GetAdSubscriptions(id));
-            ui.insts_subscriptions = JsonConvert.DeserializeObject<List<InstitutionModel>>(mService.GetInstitutionSubscriptions(id));
-            ui.cupons = JsonConvert.DeserializeObject<List<Ad>>(mService.GetClientPurchases(id));
+            string ads_subs = mService.GetAdSubscriptions(id);
+            string inst_subs = mService.GetInstitutionSubscriptions(id);
+            string ads_buys = mService.GetClientPurchases(id);
+
+            if (ads_subs != null)
+                ui.ads_subscriptions = JsonConvert.DeserializeObject<List<Ad>>(ads_subs);
+            else ui.ads_subscriptions = new List<Ad>();
+
+            if(inst_subs != null)
+                ui.insts_subscriptions = JsonConvert.DeserializeObject<List<InstitutionModel>>(inst_subs);
+            else ui.insts_subscriptions = new List<InstitutionModel>();
+
+            if(ads_buys != null)
+                ui.cupons = JsonConvert.DeserializeObject<List<Ad>>(ads_buys);
+            else ui.cupons = new List<Ad>();
 
             return View(ui);
         }

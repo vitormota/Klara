@@ -65,8 +65,8 @@ $(document).ready(function () {
     $("#slider-range").slider({
       range: true,
       min: 0,
-      max: 500,
-      values: [ 0, 500 ],
+      max: 1000,
+      values: [ 0, 1000 ],
       slide: function( event, ui ) {
         $( "#min-price" ).html(ui.values[ 0 ]);
         $( "#max-price" ).html(ui.values[ 1 ]);

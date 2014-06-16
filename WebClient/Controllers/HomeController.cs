@@ -19,7 +19,7 @@ namespace WebClient_.Controllers
             string json_top_ads = mService.GetAdsByRule(0, 20, "buyed_cupons-DESC");
             List<SearchAdModel> ads = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_top_ads);
 
-            string json_ad = mService.GetAdsByRule(0, 10, "id-DESC");
+            string json_ad = mService.GetAdsByRule(0, 8, "id-DESC");
             List<SearchAdModel> ad = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_ad);
 
             List<List<SearchAdModel>> total_ads = new List<List<SearchAdModel>>();
@@ -30,7 +30,7 @@ namespace WebClient_.Controllers
         }
 
         public ActionResult Ad(int lowerLimit) {
-            string json_ad = mService.GetAdsByRule(lowerLimit, 10, "id-DESC");
+            string json_ad = mService.GetAdsByRule(lowerLimit, 8, "id-DESC");
             List<SearchAdModel> ad = JsonConvert.DeserializeObject<List<SearchAdModel>>(json_ad);
 
             return PartialView("_AdResult", ad);

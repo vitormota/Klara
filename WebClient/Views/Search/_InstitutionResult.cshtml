@@ -4,17 +4,17 @@
 
         <span class="latitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["latitude"] </span>
         <span class="longitude-ad" style="display:none"> @ViewBag.ListInstitution[i]["longitude"] </span>
-        <a href="#">
-            <div class="img-details">
-                <div class="img"></div>
-                <div class="hidden-details">
-                    <img id="buy-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="@Resources.Subscribe" />
-                    <hr />
-                    <span>@Resources.Subscribe</span>
-                </div>
-            </div>
-        </a>
-        <div class="ad-details">
+        <a href="/Institution?id=@ViewBag.ListInstitution[i]["id"]">
+    <div class="img-details">
+        <img class="cupon-thumb" src="@ViewBag.ListInstitution[i]["img_link"]" />
+        <div class="hidden-details">
+            <img id="buy-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="@Resources.Subscribe" />
+            <hr />
+            <span>@Resources.Subscribe</span>
+        </div>
+    </div>
+    </a>
+        <div class="inst-details">
             <span class="cupn-service">@ViewBag.ListInstitution[i]["name"]</span>
             <hr />
             <span>@ViewBag.ListInstitution[i]["address"]</span>

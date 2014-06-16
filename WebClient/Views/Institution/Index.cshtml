@@ -8,7 +8,7 @@
 
 <div id="@Model.id" class="row col-xs-12 col-md-12 pull-top">
     <div class="col-xs-2 col-md-4">
-        <img id="cupn-img" class="img-responsive" src="~/Content/images/cupon.png" alt="@Resources.CuponImage" />
+        <img id="cupn-img" class="img-responsive" src="@Model.img_url" alt="@Resources.CuponImage" />
         @if (Session["user"] != null) {
             <a href="#"><img id="subscribe-btn" class="left" src="~/Content/images/cupoes_subscritos.png" alt="@Resources.Subscribe" /></a>
         }

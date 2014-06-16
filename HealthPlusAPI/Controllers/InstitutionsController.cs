@@ -43,10 +43,9 @@ namespace HealthPlusAPI.Controllers {
         }
 
         [HttpPost]
-        public string SearchInstitution(ODataActionParameters parameters) {
-            
+        public string SearchInstitution(ODataActionParameters parameters) {   
             int last_id = Convert.ToInt32(parameters["last_id"]);
-            int rowN = 1;
+            int rowN = 4;
 
             if (last_id == -1)
             {
@@ -191,7 +190,8 @@ namespace HealthPlusAPI.Controllers {
                         new JProperty("email", listFinalSearch[i].email),
                         new JProperty("fax", listFinalSearch[i].fax),
                         new JProperty("latitude", listFinalSearch[i].latitude),
-                        new JProperty("longitude", listFinalSearch[i].longitude));
+                        new JProperty("longitude", listFinalSearch[i].longitude),
+                        new JProperty("img_link", listFinalSearch[i].img_url));
 
                     listFinalWithGroups.Add(instWithGroup);
 

@@ -109,13 +109,12 @@ namespace HealthPlusAPI.Controllers
         public string SearchAd(ODataActionParameters parameters)
         {
             int last_id = Convert.ToInt32(parameters["last_id"]);
-            int rowN = 1;
+            int rowN = 4;
 
             if (last_id == -1)
             {
                 rowN = 10;
             }
-            
             string result = null;
 
             if (!ModelState.IsValid)
